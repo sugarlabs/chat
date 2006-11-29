@@ -1,0 +1,8 @@
+[Activity]
+name = GroupChat
+activity_version = 1
+host_version = 1
+icon = activity-chat
+service_name = org.laptop.ChatActivity
+exec = sugar-activity-factory org.laptop.ChatActivity chatactivity.ChatActivity
+show_launcher = 1
