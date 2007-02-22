@@ -16,13 +16,13 @@
 
 from gettext import gettext as _
 
-from sugar.activity.Activity import Activity
+from sugar.activity import activity
 from sugar.chat.Chat import Chat
 from sugar.p2p.Stream import Stream
 
-class ChatActivity(Activity):
-    def __init__(self):
-        Activity.__init__(self)
+class ChatActivity(activity.Activity):
+    def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
 
         self._group_stream = None
 
