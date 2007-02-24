@@ -1,6 +1,6 @@
 [Activity]
 name = GroupChat
-activity_version = 1
+activity_version = 3
 icon = activity-chat
 service_name = org.laptop.ChatActivity
 class = chatactivity.ChatActivity
