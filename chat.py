@@ -175,6 +175,7 @@ class Chat(Activity):
         print 'page_size = %r' % adj.page_size
         #adj.set_value(adj.upper - adj.page_size)
         #adj.set_value(rh)
+        adj.set_value(adj.upper - adj.page_size - 804)
 
     def entry_activated_cb(self, entry):
         text = entry.props.text
