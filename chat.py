@@ -76,6 +76,7 @@ class Chat(Activity):
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
             aliasing_iface = dbus.Interface(self.conn, tp_conn_aliasing)
+            # XXX: cache this
             alias = aliasing_iface.RequestAliases([sender])[0]
             print '%s: %s' % (alias, text)
             icon = CanvasIcon(
