@@ -1,5 +1,5 @@
 [Activity]
-name = chat
+name = Chat
 activity_version = 7
 host_version = 1
 icon = activity-chat
