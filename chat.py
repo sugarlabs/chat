@@ -27,6 +27,7 @@ from sugar.graphics.entry import Entry
 from sugar.graphics.roundbox import RoundBox
 from sugar.graphics.button import Button
 from sugar.graphics.xocolor import XoColor
+from sugar.graphics.units import points_to_pixels as px
 
 tp_name = 'org.freedesktop.Telepathy'
 tp_path = '/org/freedesktop/Telepathy'
@@ -124,7 +125,7 @@ class Chat(Activity):
             font_desc=pango.FontDescription('Sans 64'),
             color=0xffffffff)
 
-        conversation = hippo.CanvasBox(spacing=4)
+        conversation = hippo.CanvasBox(spacing=px(4))
         self.conversation = conversation
 
         entry = Entry(padding=5)
@@ -161,19 +162,19 @@ class Chat(Activity):
             xalign=hippo.ALIGNMENT_START)
         name = hippo.CanvasText(text=name)
 
-        vbox = hippo.CanvasBox(padding=5)
+        vbox = hippo.CanvasBox(padding=px(5))
 
         if icon:
             vbox.append(icon)
 
         vbox.append(name)
 
-        rb = RoundBox(background_color=0xffffffff, padding=10)
+        rb = RoundBox(background_color=0xffffffff, padding=px(3))
         rb.append(text)
 
         box = hippo.CanvasBox(
             orientation=hippo.ORIENTATION_HORIZONTAL,
-            spacing=10)
+            spacing=px(5))
         box.append(vbox)
         box.append(rb)
 
