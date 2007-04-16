@@ -41,6 +41,9 @@ tp_conn_iface = tp_name + '.Connection'
 tp_chan_iface = tp_name + '.Channel'
 tp_chan_type_text = tp_chan_iface + '.Type.Text'
 tp_conn_aliasing = tp_conn_iface + '.Interface.Aliasing'
+tp_conn_buddy_info = "org.laptop.Telepathy.BuddyInfo"
+tp_chan_group_iface = tp_chan_iface + ".Interface.Group"
+tp_properties_iface = tp_name + '.Properties'
 
 room = 'chat@conference.olpc.collabora.co.uk'
 
@@ -93,12 +96,21 @@ class Chat(Activity):
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
             aliasing_iface = dbus.Interface(self.conn, tp_conn_aliasing)
-            # XXX: cache this
+            # XXX: Shoule use PS instead of directly use TP
             alias = aliasing_iface.RequestAliases([sender])[0]
             print '%s: %s' % (alias, text)
+            olpc_iface = dbus.Interface(self.conn, tp_conn_buddy_info)
+            try:
+                group_iface = dbus.Interface(self.chan, tp_chan_group_iface)
+                handle = group_iface.GetHandleOwners([sender])[0]
+                infos = olpc_iface.GetProperties(handle)
+                color = infos['color']
+            except dbus.DBusException, e:
+                print "failed to query buddy infos:", e
+                color = "#000000,#ffffff"
             icon = CanvasIcon(
                 icon_name='theme:stock-buddy',
-                xo_color=XoColor('#000000,#ffffff'))
+                xo_color=XoColor(color))
             self.add_text(alias, icon, text)
         except Exception, e:
             print e
@@ -113,7 +125,12 @@ class Chat(Activity):
             text_iface = dbus.Interface(chan, tp_chan_type_text)
             text_iface.connect_to_signal('Received', self.received_cb)
             self.text_iface = text_iface
-            print "room joined"
+            self.chan = chan
+
+            # XXX Muc shouldn't be semianonymous by default
+            group_iface = dbus.Interface(chan, tp_properties_iface)
+            group_iface.SetProperties([(0, False)])
+
         except Exception, e:
             print e
 
@@ -186,14 +203,14 @@ class Chat(Activity):
         self.conversation.append(box)
 
         aw, ah = self.conversation.get_allocation()
-        print 'allocation = %r' % ((aw, ah),)
+        #print 'allocation = %r' % ((aw, ah),)
         rw, rh = self.conversation.get_height_request(aw)
-        print 'request = %r' % ((rw, rh),)
+        #print 'request = %r' % ((rw, rh),)
 
         adj = self.scrolled_window.get_vadjustment()
-        print 'value = %r' % adj.value
-        print 'upper = %r' % adj.upper
-        print 'page_size = %r' % adj.page_size
+        #print 'value = %r' % adj.value
+        #print 'upper = %r' % adj.upper
+        #print 'page_size = %r' % adj.page_size
         #adj.set_value(adj.upper - adj.page_size)
         #adj.set_value(rh)
         adj.set_value(adj.upper - adj.page_size - 804)
