@@ -29,21 +29,20 @@ from sugar.graphics.button import Button
 from sugar.graphics.xocolor import XoColor
 from sugar.presence import presenceservice
 
-tp_name = 'org.freedesktop.Telepathy'
-tp_path = '/org/freedesktop/Telepathy'
-cm_name = tp_name + '.ConnectionManager'
+from telepathy.client import Connection, Channel
 
-tp_name = 'org.freedesktop.Telepathy'
-tp_path = '/org/freedesktop/Telepathy'
-tp_cm_iface = tp_name + '.ConnectionManager'
-tp_cm_path = tp_path + '/ConnectionManager'
-tp_conn_iface = tp_name + '.Connection'
-tp_chan_iface = tp_name + '.Channel'
-tp_chan_type_text = tp_chan_iface + '.Type.Text'
-tp_conn_aliasing = tp_conn_iface + '.Interface.Aliasing'
-tp_conn_buddy_info = "org.laptop.Telepathy.BuddyInfo"
-tp_chan_group_iface = tp_chan_iface + ".Interface.Group"
-tp_properties_iface = tp_name + '.Properties'
+from telepathy.interfaces import (
+    CONN_INTERFACE, PROPERTIES_INTERFACE,
+    CHANNEL_INTERFACE_GROUP, CONN_INTERFACE_ALIASING,
+    CHANNEL_TYPE_TEXT)
+
+CONN_INTERFACE_BUDDY_INFO = 'org.laptop.Telepathy.BuddyInfo'
+
+from telepathy.constants import (
+    CONNECTION_HANDLE_TYPE_NONE, CONNECTION_HANDLE_TYPE_CONTACT,
+    CONNECTION_HANDLE_TYPE_ROOM, CHANNEL_TEXT_MESSAGE_TYPE_NORMAL,
+    CONNECTION_STATUS_CONNECTED, CONNECTION_STATUS_DISCONNECTED,
+    CONNECTION_STATUS_CONNECTING)
 
 room = 'chat@conference.olpc.collabora.co.uk'
 
@@ -69,41 +68,36 @@ class Chat(Activity):
         #    'one two three four five six seven eight nine ten ' +
         #    'one two three four five six seven eight nine ten')
 
-        bus = dbus.Bus()
         pservice = presenceservice.get_instance()
+
+        bus = dbus.Bus()
         name, path = pservice.get_preferred_connection()
-        conn = bus.get_object(name, path)
-        conn_iface = dbus.Interface(conn, tp_conn_iface)
-        #conn_iface.connect_to_signal('StatusChanged', self.status_changed_cb)
+        conn = Connection(name, path)
+        #conn[CONN_INTERFACE].('StatusChanged', self.status_changed_cb)
 
         self.conn = conn
-        self.conn_iface = conn_iface
         self.conn_name = name
-        self.text_iface = None
+        self.chan = None
 
         self.connect('destroy', self.destroy_cb)
 
-        status = conn_iface.GetStatus()
-        if status == 0:
+        status = conn[CONN_INTERFACE].GetStatus()
+        if status == CONNECTION_STATUS_CONNECTED:
             print "connected"
             self.join_room ()
 
 
     def destroy_cb(self, _):
         print 'destroy'
-        #self.conn_iface.Disconnect()
 
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
-            aliasing_iface = dbus.Interface(self.conn, tp_conn_aliasing)
             # XXX: Shoule use PS instead of directly use TP
-            alias = aliasing_iface.RequestAliases([sender])[0]
+            alias = self.conn[CONN_INTERFACE_ALIASING].RequestAliases([sender])[0]
             print '%s: %s' % (alias, text)
-            olpc_iface = dbus.Interface(self.conn, tp_conn_buddy_info)
             try:
-                group_iface = dbus.Interface(self.chan, tp_chan_group_iface)
-                handle = group_iface.GetHandleOwners([sender])[0]
-                infos = olpc_iface.GetProperties(handle)
+                handle = self.chan[CHANNEL_INTERFACE_GROUP].GetHandleOwners([sender])[0]
+                infos = self.conn[CONN_INTERFACE_BUDDY_INFO].GetProperties(handle)
                 color = infos['color']
             except dbus.DBusException, e:
                 print "failed to query buddy infos:", e
@@ -118,27 +112,23 @@ class Chat(Activity):
     def join_room(self):
         try:
             bus = dbus.Bus()
-            chan_handle = self.conn_iface.RequestHandles(2, [room])[0]
-            chan_path = self.conn_iface.RequestChannel(tp_chan_type_text,
+            chan_handle = self.conn[CONN_INTERFACE].RequestHandles(2, [room])[0]
+            chan_path = self.conn[CONN_INTERFACE].RequestChannel(CHANNEL_TYPE_TEXT,
                 2, chan_handle, True)
-            chan = bus.get_object(self.conn_name, chan_path)
-            text_iface = dbus.Interface(chan, tp_chan_type_text)
-            text_iface.connect_to_signal('Received', self.received_cb)
-            self.text_iface = text_iface
-            self.chan = chan
+            self.chan = Channel(self.conn_name, chan_path)
+            self.chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received', self.received_cb)
 
             # XXX Muc shouldn't be semianonymous by default
-            group_iface = dbus.Interface(chan, tp_properties_iface)
-            group_iface.SetProperties([(0, False)])
+            self.chan[PROPERTIES_INTERFACE].SetProperties([(0, False)])
 
         except Exception, e:
             print e
 
 
     def status_changed_cb(self, status, reason):
-        if status == 0:
+        if status == CONNECTION_STATUS_CONNECTED:
             self.join_room()
-        elif status == 2:
+        elif status == CONNECTION_STATUS_DISCONNECTED:
             print 'disconnected'
 
     def make_root(self):
@@ -223,24 +213,5 @@ class Chat(Activity):
             self.add_text(self.owner_nickname, self.make_owner_icon(), text)
             entry.props.text = ''
 
-            if self.text_iface:
-                self.text_iface.Send(0, text)
-
-if __name__ == '__main__':
-    # hack for running outside sugar
-
-    class _Handle:
-        activity_id = 'chat'
-
-        @staticmethod
-        def get_presence_service():
-            return None
-
-    activity = Chat(_Handle)
-    activity.show_all()
-
-    try:
-        gtk.main()
-    except KeyboardInterrupt:
-        pass
-
+            if self.chan:
+                self.chan[CHANNEL_TYPE_TEXT].Send(CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
