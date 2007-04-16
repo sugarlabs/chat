@@ -73,22 +73,16 @@ class Chat(Activity):
         bus = dbus.Bus()
         name, path = pservice.get_preferred_connection()
         conn = Connection(name, path)
-        #conn[CONN_INTERFACE].('StatusChanged', self.status_changed_cb)
+        conn[CONN_INTERFACE].connect_to_signal('StatusChanged', self.status_changed_cb)
 
         self.conn = conn
         self.conn_name = name
         self.chan = None
 
-        self.connect('destroy', self.destroy_cb)
-
         status = conn[CONN_INTERFACE].GetStatus()
         if status == CONNECTION_STATUS_CONNECTED:
             print "connected"
             self.join_room ()
-
-
-    def destroy_cb(self, _):
-        print 'destroy'
 
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
@@ -126,10 +120,12 @@ class Chat(Activity):
 
 
     def status_changed_cb(self, status, reason):
-        if status == CONNECTION_STATUS_CONNECTED:
+        if status == CONNECTION_STATUS_CONNECTED and not self.chan:
             self.join_room()
         elif status == CONNECTION_STATUS_DISCONNECTED:
             print 'disconnected'
+            self.chan.Close()
+            self.chan = None
 
     def make_root(self):
         text = hippo.CanvasText(
@@ -141,6 +137,8 @@ class Chat(Activity):
         self.conversation = conversation
 
         entry = Entry(padding=5)
+        # XXX make this entry unsensitive while we're not
+        # connected.
         entry.connect('activated', self.entry_activated_cb)
 
         hbox = hippo.CanvasBox(orientation=hippo.ORIENTATION_HORIZONTAL)
