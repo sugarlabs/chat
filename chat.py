@@ -27,6 +27,7 @@ from sugar.graphics.entry import Entry
 from sugar.graphics.roundbox import RoundBox
 from sugar.graphics.button import Button
 from sugar.graphics.xocolor import XoColor
+from sugar.presence import presenceservice
 
 tp_name = 'org.freedesktop.Telepathy'
 tp_path = '/org/freedesktop/Telepathy'
@@ -57,25 +58,20 @@ class Chat(Activity):
         self.owner_color = profile.get_color()
         self.owner_nickname = profile.get_nick_name()
 
-        self.add_text(self.owner_nickname, self.make_owner_icon(), 'Hello')
+        #self.add_text(self.owner_nickname, self.make_owner_icon(), 'Hello')
         # test long line
-        self.add_text(self.owner_nickname, self.make_owner_icon(),
-            'one two three four five six seven eight nine ten ' +
-            'one two three four five six seven eight nine ten ' +
-            'one two three four five six seven eight nine ten ' +
-            'one two three four five six seven eight nine ten')
+        #self.add_text(self.owner_nickname, self.make_owner_icon(),
+        #    'one two three four five six seven eight nine ten ' +
+        #    'one two three four five six seven eight nine ten ' +
+        #    'one two three four five six seven eight nine ten ' +
+        #    'one two three four five six seven eight nine ten')
 
         bus = dbus.Bus()
-        cm = bus.get_object(tp_cm_iface + '.gabble', tp_cm_path + '/gabble')
-        cm_iface = dbus.Interface(cm, tp_cm_iface)
-        name, path = cm_iface.RequestConnection('jabber', {
-            'account': 'test@olpc.collabora.co.uk',
-            'password': 'test'
-            })
+        pservice = presenceservice.get_instance()
+        name, path = pservice.get_preferred_connection()
         conn = bus.get_object(name, path)
         conn_iface = dbus.Interface(conn, tp_conn_iface)
-        conn_iface.connect_to_signal('StatusChanged', self.status_changed_cb)
-        conn_iface.Connect()
+        #conn_iface.connect_to_signal('StatusChanged', self.status_changed_cb)
 
         self.conn = conn
         self.conn_iface = conn_iface
@@ -84,9 +80,15 @@ class Chat(Activity):
 
         self.connect('destroy', self.destroy_cb)
 
+        status = conn_iface.GetStatus()
+        if status == 0:
+            print "connected"
+            self.join_room ()
+
+
     def destroy_cb(self, _):
         print 'destroy'
-        self.conn_iface.Disconnect()
+        #self.conn_iface.Disconnect()
 
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
@@ -101,20 +103,24 @@ class Chat(Activity):
         except Exception, e:
             print e
 
+    def join_room(self):
+        try:
+            bus = dbus.Bus()
+            chan_handle = self.conn_iface.RequestHandles(2, [room])[0]
+            chan_path = self.conn_iface.RequestChannel(tp_chan_type_text,
+                2, chan_handle, True)
+            chan = bus.get_object(self.conn_name, chan_path)
+            text_iface = dbus.Interface(chan, tp_chan_type_text)
+            text_iface.connect_to_signal('Received', self.received_cb)
+            self.text_iface = text_iface
+            print "room joined"
+        except Exception, e:
+            print e
+
+
     def status_changed_cb(self, status, reason):
         if status == 0:
-            try:
-                print 'connected'
-                bus = dbus.Bus()
-                chan_handle = self.conn_iface.RequestHandles(2, [room])[0]
-                chan_path = self.conn_iface.RequestChannel(tp_chan_type_text,
-                    2, chan_handle, True)
-                chan = bus.get_object(self.conn_name, chan_path)
-                text_iface = dbus.Interface(chan, tp_chan_type_text)
-                text_iface.connect_to_signal('Received', self.received_cb)
-                self.text_iface = text_iface
-            except Exception, e:
-                print e
+            self.join_room()
         elif status == 2:
             print 'disconnected'
 
