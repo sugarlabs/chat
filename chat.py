@@ -23,9 +23,7 @@ from sugar import profile
 from sugar.activity.activity import Activity
 from sugar.graphics import font
 from sugar.graphics.canvasicon import CanvasIcon
-from sugar.graphics.entry import Entry
 from sugar.graphics.roundbox import RoundBox
-from sugar.graphics.button import Button
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.units import points_to_pixels as px
 from sugar.presence import presenceservice
@@ -54,9 +52,8 @@ class Chat(Activity):
         self.set_title('Chat')
 
         root = self.make_root()
-        self._canvas.set_root(root)
-        self._canvas.show()
-        self._canvas.show_all()
+        self.set_canvas(root)
+        root.show_all()
 
         self.owner_color = profile.get_color()
         self.owner_nickname = profile.get_nick_name()
@@ -137,13 +134,13 @@ class Chat(Activity):
         conversation = hippo.CanvasBox(spacing=px(4))
         self.conversation = conversation
 
-        entry = Entry(padding=5)
+        entry = gtk.Entry()
         # XXX make this entry unsensitive while we're not
         # connected.
-        entry.connect('activated', self.entry_activated_cb)
+        entry.connect('activate', self.entry_activate_cb)
 
-        hbox = hippo.CanvasBox(orientation=hippo.ORIENTATION_HORIZONTAL)
-        hbox.append(entry, hippo.PACK_EXPAND)
+        hbox = gtk.HBox()
+        hbox.add(entry)
 
         canvas = hippo.Canvas()
         canvas.set_root(conversation)
@@ -155,9 +152,9 @@ class Chat(Activity):
 
         widget = hippo.CanvasWidget(widget=sw)
 
-        box = hippo.CanvasBox()
-        box.append(widget, hippo.PACK_EXPAND)
-        box.append(hbox)
+        box = gtk.VBox(homogeneous=False)
+        box.pack_start(sw)
+        box.pack_start(hbox, expand=False)
 
         return box
 
@@ -204,7 +201,7 @@ class Chat(Activity):
         #adj.set_value(rh)
         adj.set_value(adj.upper - adj.page_size - 804)
 
-    def entry_activated_cb(self, entry):
+    def entry_activate_cb(self, entry):
         text = entry.props.text
         print `text`
 
