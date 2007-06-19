@@ -18,6 +18,7 @@ import dbus
 import hippo
 import gtk
 import pango
+from datetime import datetime
 
 from sugar import profile
 from sugar.activity.activity import Activity
@@ -57,6 +58,15 @@ class Chat(Activity):
 
         self.owner_color = profile.get_color()
         self.owner_nickname = profile.get_nick_name()
+
+        # for chat logging, we want to save the log as text/plain
+        # in the Journal so it will resume with the appropriate
+        # activity to view the chat log.
+        # XXX MorganCollett 2007/06/19: change to text/html once the
+        #     browser is verified to handle that mime type
+        self._chat_log = ''
+        self.metadata['activity'] = ''
+        self.metadata['mime_type'] = 'text/plain'
 
         #self.add_text(self.owner_nickname, self.make_owner_icon(), 'Hello')
         # test long line
@@ -164,6 +174,7 @@ class Chat(Activity):
             xo_color=self.owner_color)
 
     def add_text(self, name, icon, text):
+        self._add_log(name, text)
         text = hippo.CanvasText(
             text=text,
             size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
@@ -211,3 +222,24 @@ class Chat(Activity):
 
             if self.chan:
                 self.chan[CHANNEL_TYPE_TEXT].Send(CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
+
+    def _add_log(self, name, text):
+        """Add the text to the chat log."""
+        self._chat_log += '%s<%s>\t%s\n' % (
+            datetime.strftime(datetime.now(), '%b %d %H:%M:%S '),
+            name, text)
+
+    def _get_log(self):
+        return self._chat_log
+
+    def write_file(self, file_path):
+        """Store chat log in Journal.
+
+        Handling the Journal is provided by Activity - we only need
+        to define this method.
+        """
+        f = open(file_path, 'w')
+        try:
+            f.write(self._get_log())
+        finally:
+            f.close()
