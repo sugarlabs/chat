@@ -22,7 +22,7 @@ import logging
 from datetime import datetime
 
 from sugar import profile
-from sugar.activity.activity import Activity
+from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.graphics import font
 from sugar.graphics.canvasicon import CanvasIcon
 from sugar.graphics.roundbox import RoundBox
@@ -58,6 +58,10 @@ class Chat(Activity):
         root = self.make_root()
         self.set_canvas(root)
         root.show_all()
+
+        toolbox = ActivityToolbox(self)
+        self.set_toolbox(toolbox)
+        toolbox.show()
 
         self.owner_color = profile.get_color()
         self.owner_nickname = profile.get_nick_name()
