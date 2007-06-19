@@ -18,6 +18,7 @@ import dbus
 import hippo
 import gtk
 import pango
+import logging
 from datetime import datetime
 
 from sugar import profile
@@ -45,6 +46,8 @@ from telepathy.constants import (
     CONNECTION_STATUS_CONNECTING)
 
 room = 'chat@conference.olpc.collabora.co.uk'
+
+logger = logging.getLogger('chat-activity')
 
 class Chat(Activity):
     def __init__(self, handle):
@@ -89,27 +92,27 @@ class Chat(Activity):
 
         status = conn[CONN_INTERFACE].GetStatus()
         if status == CONNECTION_STATUS_CONNECTED:
-            print "connected"
+            logger.debug("connected")
             self.join_room ()
 
     def received_cb(self, id, timestamp, sender, type, flags, text):
         try:
             # XXX: Shoule use PS instead of directly use TP
             alias = self.conn[CONN_INTERFACE_ALIASING].RequestAliases([sender])[0]
-            print '%s: %s' % (alias, text)
+            logger.debug('%s: %s' % (alias, text))
             try:
                 handle = self.chan[CHANNEL_INTERFACE_GROUP].GetHandleOwners([sender])[0]
                 infos = self.conn[CONN_INTERFACE_BUDDY_INFO].GetProperties(handle)
                 color = infos['color']
             except dbus.DBusException, e:
-                print "failed to query buddy infos:", e
+                logger.debug("failed to query buddy infos: %r" % e)
                 color = "#000000,#ffffff"
             icon = CanvasIcon(
                 icon_name='theme:stock-buddy',
                 xo_color=XoColor(color))
             self.add_text(alias, icon, text)
         except Exception, e:
-            print e
+            logger.debug('failure in received_cb: %s' % e)
 
     def join_room(self):
         try:
@@ -124,14 +127,14 @@ class Chat(Activity):
             self.chan[PROPERTIES_INTERFACE].SetProperties([(0, False)])
 
         except Exception, e:
-            print e
+            logger.debug('failure in join_room: %s' % e)
 
 
     def status_changed_cb(self, status, reason):
         if status == CONNECTION_STATUS_CONNECTED and not self.chan:
             self.join_room()
         elif status == CONNECTION_STATUS_DISCONNECTED:
-            print 'disconnected'
+            logger.debug('disconnected')
             self.chan.Close()
             self.chan = None
 
@@ -200,21 +203,14 @@ class Chat(Activity):
         self.conversation.append(box)
 
         aw, ah = self.conversation.get_allocation()
-        #print 'allocation = %r' % ((aw, ah),)
         rw, rh = self.conversation.get_height_request(aw)
-        #print 'request = %r' % ((rw, rh),)
 
         adj = self.scrolled_window.get_vadjustment()
-        #print 'value = %r' % adj.value
-        #print 'upper = %r' % adj.upper
-        #print 'page_size = %r' % adj.page_size
-        #adj.set_value(adj.upper - adj.page_size)
-        #adj.set_value(rh)
         adj.set_value(adj.upper - adj.page_size - 804)
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
-        print `text`
+        logger.debug('Entry: %s' % text)
 
         if text:
             self.add_text(self.owner_nickname, self.make_owner_icon(), text)
