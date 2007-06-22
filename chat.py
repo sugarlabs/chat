@@ -37,8 +37,6 @@ from telepathy.interfaces import (
     CHANNEL_INTERFACE_GROUP, CONN_INTERFACE_ALIASING,
     CHANNEL_TYPE_TEXT)
 
-CONN_INTERFACE_BUDDY_INFO = 'org.laptop.Telepathy.BuddyInfo'
-
 from telepathy.constants import (
     CONNECTION_HANDLE_TYPE_NONE, CONNECTION_HANDLE_TYPE_CONTACT,
     CONNECTION_HANDLE_TYPE_ROOM, CHANNEL_TEXT_MESSAGE_TYPE_NORMAL,
@@ -62,8 +60,6 @@ class Chat(Activity):
         toolbox.show()
 
         self.owner = self._pservice.get_owner()
-        self.owner_color = profile.get_color()
-        self.owner_nickname = profile.get_nick_name()
 
         # for chat logging, we want to save the log as text/plain
         # in the Journal so it will resume with the appropriate
@@ -75,6 +71,7 @@ class Chat(Activity):
         self.metadata['mime_type'] = 'text/plain'
 
         self.connect('shared', self._shared_cb)
+        self.text_channel = None
         
         if self._shared_activity:
             # we are joining the activity
@@ -84,64 +81,36 @@ class Chat(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
-            self.share()  # XXX Should we share immediately?
-
-        self.tp_name, self.tp_path = self._pservice.get_preferred_connection()
-        conn = Connection(self.tp_name, self.tp_path)
-        # XXX Do we still need this:
-        conn[CONN_INTERFACE].connect_to_signal('StatusChanged', self.status_changed_cb)
-
-        self.conn = conn
-        self.text_chan = None
+            self.share()  # Share immediately since there are no invites yet
 
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        #self._shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._setup()
 
     def _setup(self):
-        bus_name, conn_path, channel_paths = self._shared_activity.get_channels()
-        for channel_path in channel_paths:
-            channel = Channel(bus_name, channel_path)
-            htype, handle = channel.GetHandle()
-            if htype == CONNECTION_HANDLE_TYPE_ROOM:
-                logger.debug('Found our room: it has handle#%d "%s"',
-                    handle, self.conn.InspectHandles(htype, [handle])[0])
-                room = handle
-                ctype = channel.GetChannelType()
-                if ctype == CHANNEL_TYPE_TEXT:
-                    logger.debug('Found our Text channel at %s', channel_path)
-                    text_chan = channel
-
-        self.text_chan = text_chan
-        self.text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received', self._received_cb)
+        self.text_channel = TextChannel(self)
+        self.text_channel.received_callback(self._received_cb)
+        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
     def _joined_cb(self, activity):
         """Joined a shared activity."""
         if not self._shared_activity:
             return
-
         logger.debug('Joined a shared chat')
         for buddy in self._shared_activity.get_joined_buddies():
             self._buddy_already_exists(buddy)
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._setup()
 
-    def _received_cb(self, id, timestamp, sender, type, flags, text):
+    #def _received_cb(self, id, timestamp, sender, type, flags, text):
+    def _received_cb(self, buddy, text):
         """Show message that was received."""
-        buddy = self._get_buddy(sender)
+    #    buddy = self._get_buddy(sender)
         if buddy:
             nick = buddy.props.nick
-            buddy_color = buddy.props.color
         else:
             nick = ''
-            buddy_color = ''
-        if not buddy_color:
-            buddy_color = "#000000,#ffffff"
-        icon = CanvasIcon(
-            icon_name='theme:stock-buddy',
-            xo_color=XoColor(buddy_color))
+        icon = self._buddy_icon(buddy)
         self.add_text(nick, icon, text)
 
     def _buddy_joined_cb (self, activity, buddy):
@@ -150,16 +119,21 @@ class Chat(Activity):
             return
         if buddy:
             nick = buddy.props.nick
-            buddy_color = buddy.props.color
         else:
-            nick = 'someone'
-            buddy_color = ''
-        if not buddy_color:
-            buddy_color = "#000000,#ffffff"
-        icon = CanvasIcon(
-            icon_name='theme:stock-buddy',
-            xo_color=XoColor(buddy_color))
-        self.add_text(nick, icon, 'joined')
+            nick = '???'
+        icon = self._buddy_icon(buddy)
+        self.add_text(nick, icon, 'joined the chat')
+
+    def _buddy_left_cb (self, activity, buddy):
+        """Show a buddy who joined"""
+        if buddy == self.owner:
+            return
+        if buddy:
+            nick = buddy.props.nick
+        else:
+            nick = '???'
+        icon = self._buddy_icon(buddy)
+        self.add_text(nick, icon, 'left the chat')
 
     def _buddy_already_exists(self, buddy):
         """Show a buddy already in the chat."""
@@ -167,42 +141,24 @@ class Chat(Activity):
             return
         if buddy:
             nick = buddy.props.nick
+        else:
+            nick = '???'
+        icon = self._buddy_icon(buddy)
+        self.add_text(nick, icon, 'is here')
+
+    def _buddy_icon(self, buddy):
+        """Make a CanvasIcon for this Buddy"""
+        if buddy:
             buddy_color = buddy.props.color
         else:
-            nick = 'someone'
             buddy_color = ''
         if not buddy_color:
             buddy_color = "#000000,#ffffff"
         icon = CanvasIcon(
             icon_name='theme:stock-buddy',
             xo_color=XoColor(buddy_color))
-        self.add_text(nick, icon, 'is here')
+        return icon
 
-    def _get_buddy(self, cs_handle):
-        """Get a Buddy from a handle."""
-        group = self.text_chan[CHANNEL_INTERFACE_GROUP]
-        my_csh = group.GetSelfHandle()
-        if my_csh == cs_handle:
-            handle = self.conn.GetSelfHandle()
-        else:
-            handle = group.GetHandleOwners([cs_handle])[0]
-
-            # XXX: deal with failure to get the handle owner
-            assert handle != 0
-
-        # XXX: we're assuming that we have Buddy objects for all contacts -
-        # this might break when the server becomes scalable.
-        return self._pservice.get_buddy_by_telepathy_handle(self.tp_name,
-                self.tp_path, handle)
-
-    def status_changed_cb(self, status, reason):
-        # XXX Do we still need this? Will it work?
-        if status == CONNECTION_STATUS_CONNECTED and not self.text_chan:
-            self._joined_cb()
-        elif status == CONNECTION_STATUS_DISCONNECTED:
-            logger.debug('disconnected')
-            self.text_chan.Close()
-            self.text_chan = None
 
     def make_root(self):
         text = hippo.CanvasText(
@@ -236,11 +192,6 @@ class Chat(Activity):
         box.pack_start(hbox, expand=False)
 
         return box
-
-    def make_owner_icon(self):
-        return CanvasIcon(
-            icon_name='theme:stock-buddy',
-            xo_color=self.owner_color)
 
     def add_text(self, name, icon, text):
         self._add_log(name, text)
@@ -277,13 +228,11 @@ class Chat(Activity):
     def entry_activate_cb(self, entry):
         text = entry.props.text
         logger.debug('Entry: %s' % text)
-
         if text:
-            self.add_text(self.owner_nickname, self.make_owner_icon(), text)
+            self.add_text(self.owner.props.nick,
+                self._buddy_icon(self.owner), text)
             entry.props.text = ''
-
-            if self.text_chan:
-                self.text_chan[CHANNEL_TYPE_TEXT].Send(CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
+            self.text_channel.send(text)
 
     def _add_log(self, name, text):
         """Add the text to the chat log."""
@@ -305,3 +254,81 @@ class Chat(Activity):
             f.write(self._get_log())
         finally:
             f.close()
+
+
+class TextChannel():
+    """Wrap a telepathy text Channel to make usage simpler."""
+    def __init__(self, activity):
+        """Connect to the text channel if possible."""
+        self._text_chan = None
+        self._activity = activity
+        self._logger = logging.getLogger('chat-activity.TextChannel')
+        self._connect()
+
+    def _connect(self):
+        bus_name, conn_path, channel_paths = self._activity._shared_activity.get_channels()
+        for channel_path in channel_paths:
+            channel = Channel(bus_name, channel_path)
+            htype, handle = channel.GetHandle()
+            if htype == CONNECTION_HANDLE_TYPE_ROOM:
+                self._logger.debug('Found our room: it has handle#%d', handle)
+                room = handle
+                ctype = channel.GetChannelType()
+                if ctype == CHANNEL_TYPE_TEXT:
+                    self._logger.debug('Found our Text channel at %s', channel_path)
+                    self._text_chan = channel
+
+    def connected(self):
+        return (self._text_chan is not None)
+
+    def send(self, text):
+        if self._text_chan:
+            self._text_chan[CHANNEL_TYPE_TEXT].Send(
+                CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
+
+    def close(self):
+        if self._text_chan:
+            self._text_chan.Close()
+            self._text_chan = None
+
+    def signal_connect(self, signal, callback):
+        """Connect the function callback to the signal.
+
+        signal -- string, for example 'Received'
+        callback -- callback function
+        """
+        if self._text_chan:
+            self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal(signal, callback)
+
+    def received_callback(self, callback):
+        """Connect the function callback to the signal.
+
+        callback -- callback function taking buddy and text args
+        """
+        if not self._text_chan:
+            return
+        self._activity_cb = callback
+        self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received', self._received_cb)
+
+    def _received_cb(self, id, timestamp, sender, type, flags, text):
+        buddy = self._get_buddy(sender)
+        self._activity_cb(buddy, text)
+
+    def _get_buddy(self, cs_handle):
+        """Get a Buddy from a handle."""
+        tp_name, tp_path = self._activity._pservice.get_preferred_connection()
+        conn = Connection(tp_name, tp_path)
+        group = self._text_chan[CHANNEL_INTERFACE_GROUP]
+        my_csh = group.GetSelfHandle()
+        if my_csh == cs_handle:
+            handle = conn.GetSelfHandle()
+        else:
+            handle = group.GetHandleOwners([cs_handle])[0]
+
+            # XXX: deal with failure to get the handle owner
+            assert handle != 0
+
+        # XXX: we're assuming that we have Buddy objects for all contacts -
+        # this might break when the server becomes scalable.
+        return self._activity._pservice.get_buddy_by_telepathy_handle(tp_name,
+                tp_path, handle)
