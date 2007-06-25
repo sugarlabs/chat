@@ -102,10 +102,8 @@ class Chat(Activity):
             self._buddy_already_exists(buddy)
         self._setup()
 
-    #def _received_cb(self, id, timestamp, sender, type, flags, text):
     def _received_cb(self, buddy, text):
         """Show message that was received."""
-    #    buddy = self._get_buddy(sender)
         if buddy:
             nick = buddy.props.nick
         else:
