@@ -20,6 +20,7 @@ import gtk
 import pango
 import logging
 from datetime import datetime
+from types import FunctionType
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
@@ -89,7 +90,7 @@ class Chat(Activity):
 
     def _setup(self):
         self.text_channel = TextChannel(self)
-        self.text_channel.received_callback(self._received_cb)
+        self.text_channel.set_received_callback(self._received_cb)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
@@ -259,21 +260,25 @@ class TextChannel():
     def __init__(self, activity):
         """Connect to the text channel if possible."""
         self._text_chan = None
+        self._activity_cb = None
         self._activity = activity
         self._logger = logging.getLogger('chat-activity.TextChannel')
         self._connect()
 
     def _connect(self):
-        bus_name, conn_path, channel_paths = self._activity._shared_activity.get_channels()
+        bus_name, conn_path, channel_paths =\
+            self._activity._shared_activity.get_channels()
         for channel_path in channel_paths:
             channel = Channel(bus_name, channel_path)
             htype, handle = channel.GetHandle()
             if htype == CONNECTION_HANDLE_TYPE_ROOM:
-                self._logger.debug('Found our room: it has handle#%d', handle)
+                self._logger.debug(
+                    'Found our room: it has handle#%d' % handle)
                 room = handle
                 ctype = channel.GetChannelType()
                 if ctype == CHANNEL_TYPE_TEXT:
-                    self._logger.debug('Found our Text channel at %s', channel_path)
+                    self._logger.debug(
+                        'Found our Text channel at %s' % channel_path)
                     self._text_chan = channel
 
     def connected(self):
@@ -289,23 +294,40 @@ class TextChannel():
             self._text_chan.Close()
             self._text_chan = None
 
-    def received_callback(self, callback):
+    def set_received_callback(self, callback):
         """Connect the function callback to the signal.
 
         callback -- callback function taking buddy and text args
         """
         if not self._text_chan:
+            self._logger.debug(
+                'Failed to connect callback - text channel not connected.')
+            return
+        if type(callback) != FunctionType:
+            self._logger.debug('Invalid callback - failed to connect')
             return
         self._activity_cb = callback
-        self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received', self._received_cb)
+        self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
+            self._received_cb)
 
     def _received_cb(self, id, timestamp, sender, type, flags, text):
-        buddy = self._get_buddy(sender)
-        self._activity_cb(buddy, text)
+        """Handle received text from the text channel.
+
+        Converts sender to a Buddy.
+        Calls self._activity_cb which is a callback to the activity.
+        """
+        if self._activity_cb:
+            buddy = self._get_buddy(sender)
+            self._activity_cb(buddy, text)
+        else:
+            self._logger.debug('Throwing received message on the floor'
+                ' since there is no callback connected. See '
+                'set_received_callback')
 
     def _get_buddy(self, cs_handle):
         """Get a Buddy from a handle."""
-        tp_name, tp_path = self._activity._pservice.get_preferred_connection()
+        tp_name, tp_path =\
+            self._activity._pservice.get_preferred_connection()
         conn = Connection(tp_name, tp_path)
         group = self._text_chan[CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
@@ -319,5 +341,5 @@ class TextChannel():
 
         # XXX: we're assuming that we have Buddy objects for all contacts -
         # this might break when the server becomes scalable.
-        return self._activity._pservice.get_buddy_by_telepathy_handle(tp_name,
-                tp_path, handle)
+        return self._activity._pservice.get_buddy_by_telepathy_handle(
+            tp_name, tp_path, handle)
