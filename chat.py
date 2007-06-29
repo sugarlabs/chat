@@ -289,15 +289,6 @@ class TextChannel():
             self._text_chan.Close()
             self._text_chan = None
 
-    def signal_connect(self, signal, callback):
-        """Connect the function callback to the signal.
-
-        signal -- string, for example 'Received'
-        callback -- callback function
-        """
-        if self._text_chan:
-            self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal(signal, callback)
-
     def received_callback(self, callback):
         """Connect the function callback to the signal.
 
