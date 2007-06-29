@@ -333,8 +333,11 @@ class TextChannel():
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
-        else:
+        elif group.GetGroupFlags() & \
+            telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
             handle = group.GetHandleOwners([cs_handle])[0]
+        else:
+            handle = cs_handle
 
             # XXX: deal with failure to get the handle owner
             assert handle != 0
