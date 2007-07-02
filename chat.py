@@ -1,4 +1,4 @@
- Copyright 2007 Collabora Ltd.
+# Copyright 2007 Collabora Ltd.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@ import gtk
 import pango
 import logging
 from datetime import datetime
-from types import FunctionType
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
@@ -39,6 +38,7 @@ from telepathy.interfaces import (
     CHANNEL_TYPE_TEXT)
 
 from telepathy.constants import (
+    CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES,
     CONNECTION_HANDLE_TYPE_NONE, CONNECTION_HANDLE_TYPE_CONTACT,
     CONNECTION_HANDLE_TYPE_ROOM, CHANNEL_TEXT_MESSAGE_TYPE_NORMAL,
     CONNECTION_STATUS_CONNECTED, CONNECTION_STATUS_DISCONNECTED,
@@ -82,6 +82,8 @@ class Chat(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
+            self.add_status(self.owner.props.nick,
+                self._buddy_icon(self.owner), 'Connecting')
             self.share()  # Share immediately since there are no invites yet
 
     def _shared_cb(self, activity):
@@ -91,6 +93,8 @@ class Chat(Activity):
     def _setup(self):
         self.text_channel = TextChannelWrapper(self)
         self.text_channel.set_received_callback(self._received_cb)
+        self.add_status(self.owner.props.nick, self._buddy_icon(self.owner),
+            'Connected')
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
@@ -121,7 +125,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'joined the chat')
+        self.add_status(nick, icon, 'joined the chat')
 
     def _buddy_left_cb (self, activity, buddy):
         """Show a buddy who joined"""
@@ -132,7 +136,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'left the chat')
+        self.add_status(nick, icon, 'left the chat')
 
     def _buddy_already_exists(self, buddy):
         """Show a buddy already in the chat."""
@@ -143,7 +147,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'is here')
+        self.add_status(nick, icon, 'is here')
 
     def _buddy_icon(self, buddy):
         """Make a CanvasIcon for this Buddy"""
@@ -193,6 +197,12 @@ class Chat(Activity):
         return box
 
     def add_text(self, name, icon, text):
+        """Display text on screen, with name and icon.
+
+        name -- string, buddy nick
+        icon -- buddy icon - see self._buddy_icon
+        text -- string, what the buddy said
+        """
         self._add_log(name, text)
         text = hippo.CanvasText(
             text=text,
@@ -208,6 +218,43 @@ class Chat(Activity):
         vbox.append(name)
 
         rb = RoundBox(background_color=0xffffffff, padding=px(3))
+        rb.append(text)
+
+        box = hippo.CanvasBox(
+            orientation=hippo.ORIENTATION_HORIZONTAL,
+            spacing=px(5))
+        box.append(vbox)
+        box.append(rb)
+
+        self.conversation.append(box)
+
+        aw, ah = self.conversation.get_allocation()
+        rw, rh = self.conversation.get_height_request(aw)
+
+        adj = self.scrolled_window.get_vadjustment()
+        adj.set_value(adj.upper - adj.page_size - 804)
+
+    def add_status(self, name, icon, text):
+        """Display text on screen, with name and icon.
+
+        name -- string, buddy nick
+        text -- string, what the buddy said
+        """
+        self._add_log('*', '%s %s' % (name, text))
+        text = hippo.CanvasText(
+            text=text,
+            size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
+            xalign=hippo.ALIGNMENT_START)
+        name = hippo.CanvasText(text=name)
+
+        vbox = hippo.CanvasBox(padding=px(5))
+
+        if icon:
+            vbox.append(icon)
+
+        vbox.append(name)
+
+        rb = RoundBox(padding=px(3))
         rb.append(text)
 
         box = hippo.CanvasBox(
@@ -304,9 +351,6 @@ class TextChannelWrapper(object):
             self._logger.debug(
                 'Failed to connect callback - text channel not connected.')
             return
-        if type(callback) != FunctionType:
-            self._logger.debug('Invalid callback - failed to connect')
-            return
         self._activity_cb = callback
         self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
             self._received_cb)
@@ -335,7 +379,7 @@ class TextChannelWrapper(object):
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
         elif group.GetGroupFlags() & \
-            telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+            CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
             handle = group.GetHandleOwners([cs_handle])[0]
         else:
             handle = cs_handle
