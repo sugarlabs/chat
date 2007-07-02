@@ -1,4 +1,4 @@
-# Copyright 2007 Collabora Ltd.
+ Copyright 2007 Collabora Ltd.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -89,7 +89,7 @@ class Chat(Activity):
         self._setup()
 
     def _setup(self):
-        self.text_channel = TextChannel(self)
+        self.text_channel = TextChannelWrapper(self)
         self.text_channel.set_received_callback(self._received_cb)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
@@ -255,14 +255,15 @@ class Chat(Activity):
             f.close()
 
 
-class TextChannel():
+class TextChannelWrapper(object):
     """Wrap a telepathy text Channel to make usage simpler."""
     def __init__(self, activity):
         """Connect to the text channel if possible."""
         self._text_chan = None
         self._activity_cb = None
         self._activity = activity
-        self._logger = logging.getLogger('chat-activity.TextChannel')
+        self._logger = logging.getLogger(
+            'chat-activity.TextChannelWrapper')
         self._connect()
 
     def _connect(self):
@@ -342,7 +343,5 @@ class TextChannel():
             # XXX: deal with failure to get the handle owner
             assert handle != 0
 
-        # XXX: we're assuming that we have Buddy objects for all contacts -
-        # this might break when the server becomes scalable.
         return self._activity._pservice.get_buddy_by_telepathy_handle(
             tp_name, tp_path, handle)
