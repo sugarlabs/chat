@@ -82,8 +82,9 @@ class Chat(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
-            self.add_status(self.owner.props.nick,
-                self._buddy_icon(self.owner), 'Connecting')
+            self.add_text(self.owner.props.nick,
+                self._buddy_icon(self.owner), 'Connecting',
+                status_message=True)
             self.share()  # Share immediately since there are no invites yet
 
     def _shared_cb(self, activity):
@@ -93,8 +94,8 @@ class Chat(Activity):
     def _setup(self):
         self.text_channel = TextChannelWrapper(self)
         self.text_channel.set_received_callback(self._received_cb)
-        self.add_status(self.owner.props.nick, self._buddy_icon(self.owner),
-            'Connected')
+        self.add_text(self.owner.props.nick, self._buddy_icon(self.owner),
+            'Connected', status_message=True)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
@@ -125,7 +126,8 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_status(nick, icon, 'joined the chat')
+        self.add_text(nick, icon, 'joined the chat',
+            status_message=True)
 
     def _buddy_left_cb (self, activity, buddy):
         """Show a buddy who joined"""
@@ -136,7 +138,8 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_status(nick, icon, 'left the chat')
+        self.add_text(nick, icon, 'left the chat',
+            status_message=True)
 
     def _buddy_already_exists(self, buddy):
         """Show a buddy already in the chat."""
@@ -147,7 +150,8 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_status(nick, icon, 'is here')
+        self.add_text(nick, icon, 'is here',
+            status_message=True)
 
     def _buddy_icon(self, buddy):
         """Make a CanvasIcon for this Buddy"""
@@ -202,14 +206,20 @@ class Chat(Activity):
         """Scroll the chat window to the bottom"""
         adj.set_value(adj.upper-adj.page_size)
         
-    def add_text(self, name, icon, text):
+    def add_text(self, name, icon, text, status_message=False):
         """Display text on screen, with name and icon.
 
         name -- string, buddy nick
         icon -- buddy icon - see self._buddy_icon
         text -- string, what the buddy said
+        status_message -- boolean
+            False: show what buddy said
+            True: show what buddy did
         """
-        self._add_log(name, text)
+        if status_message:
+            self._add_log('*', '%s %s' % (name, text))
+        else:
+            self._add_log(name, text)
         text = hippo.CanvasText(
             text=text,
             size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
@@ -223,7 +233,10 @@ class Chat(Activity):
 
         vbox.append(name)
 
-        rb = RoundBox(background_color=0xffffffff, padding=px(3))
+        if status_message:
+            rb = RoundBox(padding=px(3))
+        else:
+            rb = RoundBox(background_color=0xffffffff, padding=px(3))
         rb.append(text)
 
         box = hippo.CanvasBox(
@@ -233,50 +246,6 @@ class Chat(Activity):
         box.append(rb)
 
         self.conversation.append(box)
-
-        aw, ah = self.conversation.get_allocation()
-        rw, rh = self.conversation.get_height_request(aw)
-
-        #adj = self.scrolled_window.get_vadjustment()
-        #adj.set_value(adj.upper - adj.page_size)# - 804)
-
-    def add_status(self, name, icon, text):
-        """Display text on screen, with name and icon.
-
-        name -- string, buddy nick
-        text -- string, what the buddy said
-        """
-        self._add_log('*', '%s %s' % (name, text))
-        text = hippo.CanvasText(
-            text=text,
-            size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
-            xalign=hippo.ALIGNMENT_START)
-        name = hippo.CanvasText(text=name)
-
-        vbox = hippo.CanvasBox(padding=px(5))
-
-        if icon:
-            vbox.append(icon)
-
-        vbox.append(name)
-
-        rb = RoundBox(padding=px(3))
-        rb.append(text)
-
-        box = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_HORIZONTAL,
-            spacing=px(5))
-        box.append(vbox)
-        box.append(rb)
-
-        self.conversation.append(box)
-
-        aw, ah = self.conversation.get_allocation()
-        rw, rh = self.conversation.get_height_request(aw)
-
-        #adj = self.scrolled_window.get_vadjustment()
-        #adj.set_value(adj.upper - adj.page_size)# - 804)
-
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
