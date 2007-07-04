@@ -162,7 +162,6 @@ class Chat(Activity):
             xo_color=XoColor(buddy_color))
         return icon
 
-
     def make_root(self):
         text = hippo.CanvasText(
             text='Hello',
@@ -187,6 +186,9 @@ class Chat(Activity):
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add_with_viewport(canvas)
         self.scrolled_window = sw
+        
+        vadj = self.scrolled_window.get_vadjustment()
+        vadj.connect('changed', self.rescroll)        
 
         widget = hippo.CanvasWidget(widget=sw)
 
@@ -196,6 +198,10 @@ class Chat(Activity):
 
         return box
 
+    def rescroll(self, adj, scroll=None):
+        """Scroll the chat window to the bottom"""
+        adj.set_value(adj.upper-adj.page_size)
+        
     def add_text(self, name, icon, text):
         """Display text on screen, with name and icon.
 
@@ -231,8 +237,8 @@ class Chat(Activity):
         aw, ah = self.conversation.get_allocation()
         rw, rh = self.conversation.get_height_request(aw)
 
-        adj = self.scrolled_window.get_vadjustment()
-        adj.set_value(adj.upper - adj.page_size - 804)
+        #adj = self.scrolled_window.get_vadjustment()
+        #adj.set_value(adj.upper - adj.page_size)# - 804)
 
     def add_status(self, name, icon, text):
         """Display text on screen, with name and icon.
@@ -268,8 +274,9 @@ class Chat(Activity):
         aw, ah = self.conversation.get_allocation()
         rw, rh = self.conversation.get_height_request(aw)
 
-        adj = self.scrolled_window.get_vadjustment()
-        adj.set_value(adj.upper - adj.page_size - 804)
+        #adj = self.scrolled_window.get_vadjustment()
+        #adj.set_value(adj.upper - adj.page_size)# - 804)
+
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
