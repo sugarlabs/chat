@@ -235,7 +235,7 @@ class Chat(Activity):
         vbox.append(name)
 
         if status_message:
-            rb = RoundBox(padding=px(3))
+            rb = RoundBox(background_color=0x808080ff, padding=px(3))
         else:
             rb = RoundBox(background_color=0xffffffff, padding=px(3))
         rb.append(text)
