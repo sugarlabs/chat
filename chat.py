@@ -98,6 +98,7 @@ class Chat(Activity):
             'Connected', status_message=True)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        self.entry.set_editable(True)
 
     def _joined_cb(self, activity):
         """Joined a shared activity."""
@@ -176,9 +177,9 @@ class Chat(Activity):
         self.conversation = conversation
 
         entry = gtk.Entry()
-        # XXX make this entry unsensitive while we're not
-        # connected.
+        entry.set_editable(False)
         entry.connect('activate', self.entry_activate_cb)
+        self.entry = entry
 
         hbox = gtk.HBox()
         hbox.add(entry)
@@ -254,7 +255,11 @@ class Chat(Activity):
             self.add_text(self.owner.props.nick,
                 self._buddy_icon(self.owner), text)
             entry.props.text = ''
-            self.text_channel.send(text)
+            if self.text_channel:
+                self.text_channel.send(text)
+            else:
+                logger.debug('Tried to send message but text channel '
+                    'not connected.')
 
     def _add_log(self, name, text):
         """Add the text to the chat log."""
