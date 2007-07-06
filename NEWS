@@ -1,0 +1,8 @@
+9
+
+* Fix buddy handles for Salut (Link Local) channels (morgs)
+* Show status messages in different colour to text messages (morgs)
+
+8
+
+* Use room provided by PS instead of hardcoded global room (morgs)
