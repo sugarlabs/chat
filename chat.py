@@ -23,7 +23,6 @@ from datetime import datetime
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
-from sugar.graphics import font
 from sugar.graphics.canvasicon import CanvasIcon
 from sugar.graphics.roundbox import RoundBox
 from sugar.graphics.xocolor import XoColor
