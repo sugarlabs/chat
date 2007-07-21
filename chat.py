@@ -23,6 +23,7 @@ from datetime import datetime
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
+from sugar.activity import activityfactory
 from sugar.graphics.canvasicon import CanvasIcon
 from sugar.graphics.roundbox import RoundBox
 from sugar.graphics.xocolor import XoColor
@@ -205,6 +206,10 @@ class Chat(Activity):
     def rescroll(self, adj, scroll=None):
         """Scroll the chat window to the bottom"""
         adj.set_value(adj.upper-adj.page_size)
+
+    def _link_activated_cb(self, link):
+        activityfactory.create_with_uri(
+                    'org.laptop.WebActivity', link.props.text)
         
     def add_text(self, name, icon, text, status_message=False):
         """Display text on screen, with name and icon.
@@ -220,10 +225,16 @@ class Chat(Activity):
             self._add_log('*', '%s %s' % (name, text))
         else:
             self._add_log(name, text)
-        text = hippo.CanvasText(
-            text=text,
-            size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
-            xalign=hippo.ALIGNMENT_START)
+
+        if text.startswith('http://'):
+            text = hippo.CanvasLink(text=text)
+            text.connect('activated', self._link_activated_cb)
+        else:
+            text = hippo.CanvasText(
+                text=text,
+                size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
+                xalign=hippo.ALIGNMENT_START)
+
         name = hippo.CanvasText(text=name)
 
         vbox = hippo.CanvasBox(padding=px(5))
