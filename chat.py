@@ -55,6 +55,7 @@ class Chat(Activity):
         root = self.make_root()
         self.set_canvas(root)
         root.show_all()
+        self.entry.grab_focus()
 
         toolbox = ActivityToolbox(self)
         self.set_toolbox(toolbox)
