@@ -354,6 +354,7 @@ class TextChannelWrapper(object):
         Calls self._activity_cb which is a callback to the activity.
         """
         if self._activity_cb:
+            # XXX: cache these
             buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
         else:
