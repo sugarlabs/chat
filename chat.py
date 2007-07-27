@@ -14,6 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from gettext import gettext as _
 import dbus
 import hippo
 import gtk
@@ -84,7 +85,7 @@ class Chat(Activity):
         else:
             # we are creating the activity
             self.add_text(self.owner.props.nick,
-                self._buddy_icon(self.owner), 'Connecting',
+                self._buddy_icon(self.owner), _('Connecting'),
                 status_message=True)
             self.share()  # Share immediately since there are no invites yet
 
@@ -96,7 +97,7 @@ class Chat(Activity):
         self.text_channel = TextChannelWrapper(self)
         self.text_channel.set_received_callback(self._received_cb)
         self.add_text(self.owner.props.nick, self._buddy_icon(self.owner),
-            'Connected', status_message=True)
+            _('Connected'), status_message=True)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
         self.entry.set_editable(True)
@@ -115,7 +116,7 @@ class Chat(Activity):
         if buddy:
             nick = buddy.props.nick
         else:
-            nick = ''
+            nick = '???'
         icon = self._buddy_icon(buddy)
         self.add_text(nick, icon, text)
 
@@ -128,7 +129,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'joined the chat',
+        self.add_text(nick, icon, _('joined the chat'),
             status_message=True)
 
     def _buddy_left_cb (self, activity, buddy):
@@ -140,7 +141,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'left the chat',
+        self.add_text(nick, icon, _('left the chat'),
             status_message=True)
 
     def _buddy_already_exists(self, buddy):
@@ -152,7 +153,7 @@ class Chat(Activity):
         else:
             nick = '???'
         icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, 'is here',
+        self.add_text(nick, icon, _('is here'),
             status_message=True)
 
     def _buddy_icon(self, buddy):
