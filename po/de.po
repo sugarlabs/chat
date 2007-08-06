@@ -1,0 +1,37 @@
+# This file is distributed under the same license as the PACKAGE package.
+# Fabian Affolter <fab@fedoraproject.org>, 2007.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chat\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-07-27 17:00+0100\n"
+"PO-Revision-Date: 2007-07-30 10:12+0100\n"
+"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
+"Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+
+#: chat.py:88
+msgid "Connecting"
+msgstr "Verbinden"
+
+#: chat.py:100
+msgid "Connected"
+msgstr "Verbunden"
+
+#: chat.py:132
+msgid "joined the chat"
+msgstr "Betreten des Chats"
+
+#: chat.py:144
+msgid "left the chat"
+msgstr "Verlassen des Chats"
+
+#: chat.py:156
+msgid "is here"
+msgstr "ist hier"
+
