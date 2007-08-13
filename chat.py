@@ -26,9 +26,8 @@ from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.activity import activityfactory
 from sugar.graphics.canvasicon import CanvasIcon
-from sugar.graphics.roundbox import RoundBox
+from sugar.graphics.canvasroundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
-from sugar.graphics.units import points_to_pixels as px
 from sugar.presence import presenceservice
 
 from telepathy.client import Connection, Channel
@@ -175,7 +174,7 @@ class Chat(Activity):
             font_desc=pango.FontDescription('Sans 64'),
             color=0xffffffff)
 
-        conversation = hippo.CanvasBox(spacing=px(4))
+        conversation = hippo.CanvasBox(spacing=4)
         self.conversation = conversation
 
         entry = gtk.Entry()
@@ -239,7 +238,7 @@ class Chat(Activity):
 
         name = hippo.CanvasText(text=name)
 
-        vbox = hippo.CanvasBox(padding=px(5))
+        vbox = hippo.CanvasBox(padding=5)
 
         if icon:
             vbox.append(icon)
@@ -247,14 +246,14 @@ class Chat(Activity):
         vbox.append(name)
 
         if status_message:
-            rb = RoundBox(background_color=0x808080ff, padding=px(3))
+            rb = CanvasRoundBox(background_color=0x808080ff, padding=3)
         else:
-            rb = RoundBox(background_color=0xffffffff, padding=px(3))
+            rb = CanvasRoundBox(background_color=0xffffffff, padding=3)
         rb.append(text)
 
         box = hippo.CanvasBox(
             orientation=hippo.ORIENTATION_HORIZONTAL,
-            spacing=px(5))
+            spacing=5)
         box.append(vbox)
         box.append(rb)
 
