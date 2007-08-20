@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-27 17:00+0100\n"
+"POT-Creation-Date: 2007-08-20 10:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,26 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chat.py:88
+#: activity/activity.info:2
+msgid "Chat"
+msgstr ""
+
+#: chat.py:87
 msgid "Connecting"
 msgstr ""
 
-#: chat.py:100
+#: chat.py:99
 msgid "Connected"
 msgstr ""
 
-#: chat.py:132
+#: chat.py:131
 msgid "joined the chat"
 msgstr ""
 
-#: chat.py:144
+#: chat.py:143
 msgid "left the chat"
 msgstr ""
 
-#: chat.py:156
+#: chat.py:155
 msgid "is here"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-27 17:00+0100\n"
+"POT-Creation-Date: 2007-08-20 10:44-0400\n"
 "PO-Revision-Date: 2007-07-30 10:12+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
@@ -15,23 +15,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: German\n"
 
-#: chat.py:88
+#: activity/activity.info:2
+msgid "Chat"
+msgstr ""
+
+#: chat.py:87
 msgid "Connecting"
 msgstr "Verbinden"
 
-#: chat.py:100
+#: chat.py:99
 msgid "Connected"
 msgstr "Verbunden"
 
-#: chat.py:132
+#: chat.py:131
 msgid "joined the chat"
 msgstr "Betreten des Chats"
 
-#: chat.py:144
+#: chat.py:143
 msgid "left the chat"
 msgstr "Verlassen des Chats"
 
-#: chat.py:156
+#: chat.py:155
 msgid "is here"
 msgstr "ist hier"
-
