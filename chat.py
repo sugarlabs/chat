@@ -164,7 +164,7 @@ class Chat(Activity):
         if not buddy_color:
             buddy_color = "#000000,#ffffff"
         icon = CanvasIcon(
-            icon_name='theme:stock-buddy',
+            icon_name='theme:computer-xo',
             xo_color=XoColor(buddy_color))
         return icon
 
