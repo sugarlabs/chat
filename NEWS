@@ -1,5 +1,13 @@
+16
+
+<<<<<<< HEAD/NEWS
 * Fix icon and roundbox changes in sugar (morgs)
 
+=======
+* Add greek translation (simosx)
+* Add arabic translation (khaled)
+
+>>>>>>> 2595c9996dfb42180c68bd75a27118f1693e561c/NEWS
 15
 
 * Rename buddy icon (morgs)
