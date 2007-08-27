@@ -25,8 +25,8 @@ from datetime import datetime
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.activity import activityfactory
-from sugar.graphics.canvasicon import CanvasIcon
-from sugar.graphics.canvasroundbox import CanvasRoundBox
+from sugar.graphics.icon import CanvasIcon
+from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.presence import presenceservice
 
@@ -164,7 +164,7 @@ class Chat(Activity):
         if not buddy_color:
             buddy_color = "#000000,#ffffff"
         icon = CanvasIcon(
-            icon_name='theme:computer-xo',
+            icon_name='computer-xo',
             xo_color=XoColor(buddy_color))
         return icon
 
