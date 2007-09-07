@@ -84,9 +84,8 @@ class Chat(Activity):
         else:
             # we are creating the activity
             self.add_text(self.owner.props.nick,
-                self._buddy_icon(self.owner), _('Connecting'),
+                self._buddy_icon(self.owner), _('Share, or invite someone.'),
                 status_message=True)
-            self.share()  # Share immediately since there are no invites yet
 
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
