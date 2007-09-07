@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chat.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-27 17:00+0100\n"
+"POT-Creation-Date: 2007-09-07 12:12+0100\n"
 "PO-Revision-Date: 2007-08-16 01:01+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -15,25 +15,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\nnplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? "
+"3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: chat.py:88
-msgid "Connecting"
-msgstr "يتّصل"
+#: activity/activity.info:2
+msgid "Chat"
+msgstr ""
 
-#: chat.py:100
+#: chat.py:87
+msgid "Share, or invite someone."
+msgstr ""
+
+#: chat.py:98
 msgid "Connected"
 msgstr "اتّصل"
 
-#: chat.py:132
+#: chat.py:130
 msgid "joined the chat"
 msgstr "انضم للدرشة"
 
-#: chat.py:144
+#: chat.py:142
 msgid "left the chat"
 msgstr "غادر الدردشة"
 
-#: chat.py:156
+#: chat.py:154
 msgid "is here"
 msgstr "هنا"
 
+#~ msgid "Connecting"
+#~ msgstr "يتّصل"

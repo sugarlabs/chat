@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-20 10:44-0400\n"
+"POT-Creation-Date: 2007-09-07 12:12+0100\n"
 "PO-Revision-Date: 2007-07-39 14:34-0800\n"
 "Last-Translator: Luya Tshimbalanga <luya_tfz@thefinalzone.com>\n"
 "Language-Team: French <mrtom@fedoraproject.org>\n"
@@ -21,21 +21,24 @@ msgid "Chat"
 msgstr ""
 
 #: chat.py:87
-msgid "Connecting"
-msgstr "En cours de connexion"
+msgid "Share, or invite someone."
+msgstr ""
 
-#: chat.py:99
+#: chat.py:98
 msgid "Connected"
 msgstr "Connecté"
 
-#: chat.py:131
+#: chat.py:130
 msgid "joined the chat"
 msgstr "a rejoint la discussion"
 
-#: chat.py:143
+#: chat.py:142
 msgid "left the chat"
 msgstr "a quitté la discussion"
 
-#: chat.py:155
+#: chat.py:154
 msgid "is here"
 msgstr "est ici"
+
+#~ msgid "Connecting"
+#~ msgstr "En cours de connexion"
