@@ -95,9 +95,6 @@ class Chat(Activity):
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
         self._setup()
-        dialog = gtk.MessageDialog(message_format='Hello')
-        dialog.set_transient_for(self)
-        dialog.show()
 
     def _setup(self):
         self.text_channel = TextChannelWrapper(self)
