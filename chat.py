@@ -52,8 +52,6 @@ class Chat(Activity):
 
         self.set_title('Chat')
 
-        self.connect('notify::active', self._a)
-
         root = self.make_root()
         self.set_canvas(root)
         root.show_all()
@@ -88,9 +86,6 @@ class Chat(Activity):
             self.add_text(self.owner.props.nick,
                 self._buddy_icon(self.owner), _('Share, or invite someone.'),
                 status_message=True)
-
-    def _a(self, activity, pspec):
-        print self.props.active
 
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
