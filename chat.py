@@ -25,7 +25,8 @@ from datetime import datetime
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.activity import activityfactory
-from sugar.graphics.icon import CanvasIcon
+from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
+    FONT_BOLD, FONT_NORMAL)
 from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.presence import presenceservice
@@ -83,9 +84,8 @@ class Chat(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
-            self.add_text(self.owner.props.nick,
-                self._buddy_icon(self.owner), _('Share, or invite someone.'),
-                status_message=True)
+            self.add_text(None, _('Share, or invite someone.'),
+                          status_message=True)
 
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
@@ -94,8 +94,7 @@ class Chat(Activity):
     def _setup(self):
         self.text_channel = TextChannelWrapper(self)
         self.text_channel.set_received_callback(self._received_cb)
-        self.add_text(self.owner.props.nick, self._buddy_icon(self.owner),
-            _('Connected'), status_message=True)
+        self.add_text(None, _('Connected'), status_message=True)
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
         self.entry.set_editable(True)
@@ -115,8 +114,7 @@ class Chat(Activity):
             nick = buddy.props.nick
         else:
             nick = '???'
-        icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, text)
+        self.add_text(buddy, text)
 
     def _buddy_joined_cb (self, activity, buddy):
         """Show a buddy who joined"""
@@ -126,8 +124,7 @@ class Chat(Activity):
             nick = buddy.props.nick
         else:
             nick = '???'
-        icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, _('joined the chat'),
+        self.add_text(buddy, buddy.props.nick+' '+_('joined the chat'),
             status_message=True)
 
     def _buddy_left_cb (self, activity, buddy):
@@ -138,8 +135,7 @@ class Chat(Activity):
             nick = buddy.props.nick
         else:
             nick = '???'
-        icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, _('left the chat'),
+        self.add_text(buddy, buddy.props.nick+' '+_('left the chat'),
             status_message=True)
 
     def _buddy_already_exists(self, buddy):
@@ -150,30 +146,13 @@ class Chat(Activity):
             nick = buddy.props.nick
         else:
             nick = '???'
-        icon = self._buddy_icon(buddy)
-        self.add_text(nick, icon, _('is here'),
+        self.add_text(buddy, buddy.props.nick+' '+_('is here'),
             status_message=True)
 
-    def _buddy_icon(self, buddy):
-        """Make a CanvasIcon for this Buddy"""
-        if buddy:
-            buddy_color = buddy.props.color
-        else:
-            buddy_color = ''
-        if not buddy_color:
-            buddy_color = "#000000,#ffffff"
-        icon = CanvasIcon(
-            icon_name='computer-xo',
-            xo_color=XoColor(buddy_color))
-        return icon
-
     def make_root(self):
-        text = hippo.CanvasText(
-            text='Hello',
-            font_desc=pango.FontDescription('Sans 64'),
-            color=0xffffffff)
-
-        conversation = hippo.CanvasBox(spacing=4)
+        conversation = hippo.CanvasBox(
+            spacing=4,
+            background_color=COLOR_WHITE.get_int())
         self.conversation = conversation
 
         entry = gtk.Entry()
@@ -211,59 +190,62 @@ class Chat(Activity):
         activityfactory.create_with_uri(
                     'org.laptop.WebActivity', link.props.text)
         
-    def add_text(self, name, icon, text, status_message=False):
-        """Display text on screen, with name and icon.
+    def add_text(self, buddy, text, status_message=False):
+        """Display text on screen, with name and colors.
 
-        name -- string, buddy nick
-        icon -- buddy icon - see self._buddy_icon
+        buddy -- buddy object
         text -- string, what the buddy said
         status_message -- boolean
             False: show what buddy said
             True: show what buddy did
         """
-        if status_message:
-            self._add_log('*', '%s %s' % (name, text))
+        if buddy:
+            nick = buddy.props.nick
+            color = buddy.props.color
+            color_stroke, color_fill = color.split(',')
+            color_stroke = Color(color_stroke).get_int()
+            color_fill = Color(color_fill).get_int()
+            text_color = COLOR_WHITE.get_int()
+            if status_message:
+                self._add_log('*', '%s %s' % (nick, text))
+            else:
+                self._add_log(nick, text)
         else:
-            self._add_log(name, text)
+            nick = '???'  # XXX: should be '' but leave for debugging
+            color_stroke = COLOR_BLACK.get_int()
+            color_fill = COLOR_WHITE.get_int()
+            text_color = COLOR_BLACK.get_int()
 
         if text.startswith('http://'):
-            text = hippo.CanvasLink(text=text)
-            text.connect('activated', self._link_activated_cb)
+            message = hippo.CanvasLink(text=text)
+            message.connect('activated', self._link_activated_cb)
         else:
-            text = hippo.CanvasText(
+            message = hippo.CanvasText(
                 text=text,
                 size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
+                color=text_color,
+                font_desc=FONT_NORMAL.get_pango_desc(),
                 xalign=hippo.ALIGNMENT_START)
 
-        name = hippo.CanvasText(text=name)
+        rb = CanvasRoundBox(background_color=color_fill,
+                            border_color=color_stroke,
+                            padding=3)
+        rb.props.border_color = color_stroke  # Bug #3742
 
-        vbox = hippo.CanvasBox(padding=5)
+        if not status_message:
+            name = hippo.CanvasText(text=nick+':   ',
+                color=text_color,
+                font_desc=FONT_BOLD.get_pango_desc())
+            rb.append(name)
+        rb.append(message)
 
-        if icon:
-            vbox.append(icon)
-
-        vbox.append(name)
-
-        if status_message:
-            rb = CanvasRoundBox(background_color=0x808080ff, padding=3)
-        else:
-            rb = CanvasRoundBox(background_color=0xffffffff, padding=3)
-        rb.append(text)
-
-        box = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_HORIZONTAL,
-            spacing=5)
-        box.append(vbox)
-        box.append(rb)
-
-        self.conversation.append(box)
+        self.conversation.append(rb)
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
         logger.debug('Entry: %s' % text)
         if text:
-            self.add_text(self.owner.props.nick,
-                self._buddy_icon(self.owner), text)
+            self.add_text(self.owner, text)
             entry.props.text = ''
             if self.text_channel:
                 self.text_channel.send(text)
