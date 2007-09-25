@@ -220,7 +220,7 @@ class Chat(Activity):
 
         rb = CanvasRoundBox(background_color=color_fill,
                             border_color=color_stroke,
-                            padding=3)
+                            padding=4)
         rb.props.border_color = color_stroke  # Bug #3742
 
         if not status_message:
@@ -230,7 +230,9 @@ class Chat(Activity):
             rb.append(name)
         rb.append(message)
 
-        self.conversation.append(rb)
+        box = hippo.CanvasBox(padding=4)
+        box.append(rb)
+        self.conversation.append(box)
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
