@@ -61,15 +61,7 @@ class Chat(Activity):
         toolbox.show()
 
         self.owner = self._pservice.get_owner()
-
-        # for chat logging, we want to save the log as text/plain
-        # in the Journal so it will resume with the appropriate
-        # activity to view the chat log.
-        # XXX MorganCollett 2007/06/19: change to text/html once the
-        #     browser is verified to handle that mime type
         self._chat_log = ''
-        self.metadata['activity'] = ''
-        self.metadata['mime_type'] = 'text/plain'
 
         self.connect('shared', self._shared_cb)
         self.text_channel = None
@@ -191,23 +183,24 @@ class Chat(Activity):
     def add_text(self, buddy, text, status_message=False):
         """Display text on screen, with name and colors.
 
-        buddy -- buddy object
+        buddy -- buddy object or dict {nick: string, color: string}
         text -- string, what the buddy said
         status_message -- boolean
             False: show what buddy said
             True: show what buddy did
         """
         if buddy:
-            nick = buddy.props.nick
-            color = buddy.props.color
+            if type(buddy) is dict:
+                nick = buddy['nick']
+                color = buddy['color']
+            else:
+                nick = buddy.props.nick
+                color = buddy.props.color
             color_stroke, color_fill = color.split(',')
             color_stroke = Color(color_stroke).get_int()
             color_fill = Color(color_fill).get_int()
             text_color = COLOR_WHITE.get_int()
-            if status_message:
-                self._add_log('*', '%s %s' % (nick, text))
-            else:
-                self._add_log(nick, text)
+            self._add_log(nick, color, text, status_message)
         else:
             nick = '???'  # XXX: should be '' but leave for debugging
             color_stroke = COLOR_BLACK.get_int()
@@ -251,11 +244,17 @@ class Chat(Activity):
                 logger.debug('Tried to send message but text channel '
                     'not connected.')
 
-    def _add_log(self, name, text):
-        """Add the text to the chat log."""
-        self._chat_log += '%s<%s>\t%s\n' % (
-            datetime.strftime(datetime.now(), '%b %d %H:%M:%S '),
-            name, text)
+    def _add_log(self, nick, color, text, status_message):
+        """Add the text to the chat log.
+        
+        nick -- string, buddy nickname
+        color -- string, buddy.props.color
+        text -- string, body of message
+        status_message -- boolean
+        """
+        self._chat_log += '%s\t%s\t%s\t%d\t%s\n' % (
+            datetime.strftime(datetime.now(), '%b %d %H:%M:%S'),
+            nick, color, status_message, text)
 
     def _get_log(self):
         return self._chat_log
@@ -266,11 +265,26 @@ class Chat(Activity):
         Handling the Journal is provided by Activity - we only need
         to define this method.
         """
+        logger.debug('write_file: writing %s' % file_path)
         f = open(file_path, 'w')
         try:
             f.write(self._get_log())
         finally:
             f.close()
+
+    def read_file(self, file_path):
+        """Load a chat log from the Journal.
+
+        Handling the Journal is provided by Activity - we only need
+        to define this method.
+        """
+        logger.debug('read_file: reading %s' % file_path)
+        log = open(file_path).readlines()
+        for line in log:
+            timestamp, nick, color, status, text = line.strip().split('\t')
+            status_message = bool(int(status))
+            self.add_text({'nick': nick, 'color': color},
+                          text, status_message)
 
 
 class TextChannelWrapper(object):
