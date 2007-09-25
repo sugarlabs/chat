@@ -51,8 +51,6 @@ class Chat(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
-        self.set_title('Chat')
-
         root = self.make_root()
         self.set_canvas(root)
         root.show_all()
