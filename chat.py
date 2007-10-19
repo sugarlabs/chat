@@ -207,17 +207,6 @@ class Chat(Activity):
             color_fill = COLOR_WHITE.get_int()
             text_color = COLOR_BLACK.get_int()
 
-        if text.startswith('http://'):
-            message = hippo.CanvasLink(text=text)
-            message.connect('activated', self._link_activated_cb)
-        else:
-            message = hippo.CanvasText(
-                text=text,
-                size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
-                color=text_color,
-                font_desc=FONT_NORMAL.get_pango_desc(),
-                xalign=hippo.ALIGNMENT_START)
-
         rb = CanvasRoundBox(background_color=color_fill,
                             border_color=color_stroke,
                             padding=4)
@@ -228,7 +217,36 @@ class Chat(Activity):
                 color=text_color,
                 font_desc=FONT_BOLD.get_pango_desc())
             rb.append(name)
-        rb.append(message)
+
+        urlstart = text.find('http')
+        while urlstart >= 0:
+            # there is a URL in the text
+            starttext = text[:urlstart]
+            if starttext:
+                message = hippo.CanvasText(
+                    text=starttext,
+                    size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
+                    color=text_color,
+                    font_desc=FONT_NORMAL.get_pango_desc(),
+                    xalign=hippo.ALIGNMENT_START)
+                rb.append(message)
+            urlend = text.find(' ', urlstart)
+            if urlend == -1:
+                urlend = len(text)
+            url = text[urlstart:urlend]
+            message = hippo.CanvasLink(text=url)
+            message.connect('activated', self._link_activated_cb)
+            rb.append(message)
+            text = text[urlend:]
+            urlstart = text.find('http')
+        if text:
+            message = hippo.CanvasText(
+                text=text,
+                size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
+                color=text_color,
+                font_desc=FONT_NORMAL.get_pango_desc(),
+                xalign=hippo.ALIGNMENT_START)
+            rb.append(message)
 
         box = hippo.CanvasBox(padding=4)
         box.append(rb)
