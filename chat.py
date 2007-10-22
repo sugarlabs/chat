@@ -196,7 +196,10 @@ class Chat(Activity):
             else:
                 nick = buddy.props.nick
                 color = buddy.props.color
-            color_stroke, color_fill = color.split(',')
+            try:
+                color_stroke, color_fill = color.split(',')
+            except ValueError:
+                color_stroke, color_fill = ('#000000', '#FFFFFF')
             color_stroke = Color(color_stroke).get_int()
             color_fill = Color(color_fill).get_int()
             text_color = COLOR_WHITE.get_int()
