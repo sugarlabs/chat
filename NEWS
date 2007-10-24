@@ -1,3 +1,6 @@
+* #4320: Regexp for better URL handling
+* #4331: Don't crash/ignore non-Sugar buddies (morgs)
+
 26
 
 * #4320 Better URL support (morgs)
