@@ -20,6 +20,7 @@ import hippo
 import gtk
 import pango
 import logging
+import re
 from datetime import datetime
 
 from sugar import profile
@@ -221,10 +222,13 @@ class Chat(Activity):
                 font_desc=FONT_BOLD.get_pango_desc())
             rb.append(name)
 
-        urlstart = text.find('http')
-        while urlstart >= 0:
+        regexp = re.compile('((http|ftp)s?://)?'
+        '(([-a-zA-Z0-9]+[.])+[-a-zA-Z0-9]{2,}|([0-9]{1,3}[.]){3}[0-9]{1,3})'
+        '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
+        match = regexp.search(text)
+        while match:
             # there is a URL in the text
-            starttext = text[:urlstart]
+            starttext = text[:match.start()]
             if starttext:
                 message = hippo.CanvasText(
                     text=starttext,
@@ -233,15 +237,12 @@ class Chat(Activity):
                     font_desc=FONT_NORMAL.get_pango_desc(),
                     xalign=hippo.ALIGNMENT_START)
                 rb.append(message)
-            urlend = text.find(' ', urlstart)
-            if urlend == -1:
-                urlend = len(text)
-            url = text[urlstart:urlend]
+            url = text[match.start():match.end()]
             message = hippo.CanvasLink(text=url)
             message.connect('activated', self._link_activated_cb)
             rb.append(message)
-            text = text[urlend:]
-            urlstart = text.find('http')
+            text = text[match.end():]
+            match = regexp.search(text)
         if text:
             message = hippo.CanvasText(
                 text=text,
