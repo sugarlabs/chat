@@ -238,7 +238,14 @@ class Chat(Activity):
                     xalign=hippo.ALIGNMENT_START)
                 rb.append(message)
             url = text[match.start():match.end()]
-            message = hippo.CanvasLink(text=url)
+            message = hippo.CanvasLink(
+                text=url,
+                color=text_color,
+                font_desc=FONT_BOLD.get_pango_desc(),
+                )
+            attrs = pango.AttrList()
+            attrs.insert(pango.AttrUnderline(pango.UNDERLINE_SINGLE, 0, 32767))
+            message.set_property("attributes", attrs)
             message.connect('activated', self._link_activated_cb)
             rb.append(message)
             text = text[match.end():]
