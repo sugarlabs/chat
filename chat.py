@@ -26,6 +26,7 @@ from datetime import datetime
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.activity import activityfactory
+from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
     FONT_BOLD, FONT_NORMAL)
 from sugar.graphics.roundbox import CanvasRoundBox
@@ -45,8 +46,6 @@ from telepathy.constants import (
     CONNECTION_HANDLE_TYPE_ROOM, CHANNEL_TEXT_MESSAGE_TYPE_NORMAL,
     CONNECTION_STATUS_CONNECTED, CONNECTION_STATUS_DISCONNECTED,
     CONNECTION_STATUS_CONNECTING)
-
-from notify import NotifyAlert
 
 logger = logging.getLogger('chat-activity')
 
