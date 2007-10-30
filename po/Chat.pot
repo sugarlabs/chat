@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-07 12:12+0100\n"
+"POT-Creation-Date: 2007-10-30 12:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,22 +20,30 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: chat.py:87
+#: chat.py:79
+msgid "Off-line"
+msgstr ""
+
+#: chat.py:79
 msgid "Share, or invite someone."
 msgstr ""
 
-#: chat.py:98
+#: chat.py:88
+msgid "On-line"
+msgstr ""
+
+#: chat.py:88
 msgid "Connected"
 msgstr ""
 
-#: chat.py:130
+#: chat.py:129
 msgid "joined the chat"
 msgstr ""
 
-#: chat.py:142
+#: chat.py:140
 msgid "left the chat"
 msgstr ""
 
-#: chat.py:154
+#: chat.py:151
 msgid "is here"
 msgstr ""
