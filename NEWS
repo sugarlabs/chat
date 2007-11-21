@@ -1,3 +1,5 @@
+* Updated translations: fr, es, el, de, ar (pootle)
+
 28
 
 * use NotifyAlert from sugar.graphics.alert instead of local
