@@ -5,30 +5,30 @@ msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-07-30 10:12+0100\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
+"PO-Revision-Date: 2007-11-21 07:51+0000\n"
+"Last-Translator: Gerhard Steiner <gerhard.steiner@duichwir.at>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"X-Generator: Pootle 1.0.2\n"
 "X-Poedit-Language: German\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: chat.py:79
 msgid "Off-line"
-msgstr ""
+msgstr "Offline"
 
 #: chat.py:79
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Freigeben oder jemand einladen."
 
 #: chat.py:88
 msgid "On-line"
-msgstr ""
+msgstr "Online"
 
 #: chat.py:88
 msgid "Connected"

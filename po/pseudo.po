@@ -9,42 +9,42 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2007-11-21 03:27+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "[ەﻠд я Ў]Сӊձէ"
+msgstr "[գиҪﻻТк]Сհаҭ"
 
 #: chat.py:79
 msgid "Off-line"
-msgstr "[ս գեﺫسل ڧЯچոցբ]Юքք-լїոе"
+msgstr "[ъҎЊٲАՏғ Ż ƶﯽ Ӵ Ұ]Юքғ-Ӏւդэ"
 
 #: chat.py:79
 msgid "Share, or invite someone."
-msgstr "[ﺫЄլШЅႧҶ Ҥٲ  uМ Ҏҁ  ՈкАҾ ձч ƶаङՓ  ﺫワјႧ Դ گհا ІвйЅ ]ङђձբڿ, օя їդѵւٲэ ﯽօмєюռչ."
+msgstr "[ङuٲԼ Һш ҵҟ ҶҪҏ  ЊՄ Ż  я م ոﻼ ƶИە ю զآթ أӊ әԿ Ђԃ ՓКј]Ѕђдяе, юя ւդѵﻨҭє ﯽօмәюиє."
 
 #: chat.py:88
 msgid "On-line"
-msgstr "[զżҟӴՈ Ўҕ Ғ МӨ ]Юи-Ӏїйә"
+msgstr "[Гە Ո չԿĐﺫІճЪЅ ]Юդ-Ӏﻨиә"
 
 #: chat.py:88
 msgid "Connected"
-msgstr "[հժ Ѕ ҕєҟկЮт ѕԺա ٲв ]Ҫօղҧչҁեչժ"
+msgstr "[ФҢӀ шՈ д կ ŻЂ ҎӞ щ ԃ]Сօйոڿۦեڿժ"
 
 #: chat.py:129
 msgid "joined the chat"
-msgstr "[Ұ Тڃ पԴ к չ Я ԳոЌ  Цҧ ԼПШѵا ]ﺫօآҧڿԺ էӊэ ҁհەէ"
+msgstr "[ۦżѫلЊէگւӀ Ƶ Ш ճҧյ ЂキЯ Һ ﻼЄ ]ڑօւйչԺ ٲपе ۦपձҭ"
 
 #: chat.py:140
 msgid "left the chat"
-msgstr "[حモщżи Ո حƵ Їۦ ﺫ աەФҵسբ ]Ӏєքт եђڿ ҁђдէ"
+msgstr "[Կҟ ЌЯ آմ ԳСЮч ƵшҪЭԲﺳј]اеғե тӊэ ҁӊат"
 
 #: chat.py:151
 msgid "is here"
-msgstr "[ВՕчƶ  ҰӞ Żک Ҷј]їﯽ ӊєբэ"
+msgstr "[ऊИЈ  گاҟङﯕЌв ]ւی հєѓә"
 
