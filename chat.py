@@ -31,6 +31,8 @@ from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE,
     FONT_BOLD, FONT_NORMAL)
 from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
+from sugar.graphics.palette import Palette, CanvasInvoker
+from sugar.graphics.menuitem import MenuItem
 from sugar.presence import presenceservice
 
 from telepathy.client import Connection, Channel
@@ -258,6 +260,10 @@ class Chat(Activity):
             attrs.insert(pango.AttrUnderline(pango.UNDERLINE_SINGLE, 0, 32767))
             message.set_property("attributes", attrs)
             message.connect('activated', self._link_activated_cb)
+
+            palette = URLMenu(url)
+            palette.props.invoker = CanvasInvoker(message)
+
             rb.append(message)
             text = text[match.end():]
             match = regexp.search(text)
@@ -417,3 +423,19 @@ class TextChannelWrapper(object):
 
         return self._activity._pservice.get_buddy_by_telepathy_handle(
             tp_name, tp_path, handle)
+
+class URLMenu(Palette):
+    def __init__(self, url):
+        Palette.__init__(self, url)
+
+        self.url = url
+
+        menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
+        menu_item.connect('activate', self._copy_to_clipboard_cb)
+        self.menu.append(menu_item)
+        menu_item.show()
+
+    def _copy_to_clipboard_cb(self, menuitem):
+        logger.debug('Copy %s to clipboard', self.url)
+        clipboard = gtk.clipboard_get()
+        clipboard.set_text(self.url)
