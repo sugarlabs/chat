@@ -66,6 +66,9 @@ class Chat(Activity):
 
         self.owner = self._pservice.get_owner()
         self._chat_log = ''
+        # Auto vs manual scrolling:
+        self._scroll_auto = True
+        self._scroll_value = 0.0
 
         self.connect('shared', self._shared_cb)
         self.text_channel = None
@@ -176,7 +179,8 @@ class Chat(Activity):
         self.scrolled_window = sw
         
         vadj = self.scrolled_window.get_vadjustment()
-        vadj.connect('changed', self.rescroll)        
+        vadj.connect('changed', self.rescroll)
+        vadj.connect('value-changed', self.scroll_value_changed_cb)
 
         widget = hippo.CanvasWidget(widget=sw)
 
@@ -188,7 +192,20 @@ class Chat(Activity):
 
     def rescroll(self, adj, scroll=None):
         """Scroll the chat window to the bottom"""
-        adj.set_value(adj.upper-adj.page_size)
+        if self._scroll_auto:
+            adj.set_value(adj.upper-adj.page_size)
+            self._scroll_value = adj.get_value()
+
+    def scroll_value_changed_cb(self, adj, scroll=None):
+        """Turn auto scrolling on or off.
+        
+        If the user scrolled up, turn it off.
+        If the user scrolled to the bottom, turn it back on.
+        """
+        if adj.get_value() < self._scroll_value:
+            self._scroll_auto = False
+        elif adj.get_value() == adj.upper-adj.page_size:
+            self._scroll_auto = True
 
     def _link_activated_cb(self, link):
         activityfactory.create_with_uri(
