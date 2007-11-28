@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-19 20:37+0000\n"
+"PO-Revision-Date: 2007-11-25 15:12+0000\n"
 "Last-Translator: Xavier Alvarez <xavi.alvarez@gmail.com>\n"
 "Language-Team: ES <fedora-trans-es@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -39,11 +39,11 @@ msgstr "Conectado"
 
 #: chat.py:129
 msgid "joined the chat"
-msgstr "unido a la charla"
+msgstr "se unió a la charla"
 
 #: chat.py:140
 msgid "left the chat"
-msgstr "dejar la charla"
+msgstr "abandonó la charla"
 
 #: chat.py:151
 msgid "is here"
