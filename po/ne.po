@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-25 17:20+0000\n"
+"PO-Revision-Date: 2007-11-30 18:32+0000\n"
 "Last-Translator: Shankar Pokharel <memshankar@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "वार्तालाप"
 
 #: chat.py:79
 msgid "Off-line"
-msgstr ""
+msgstr "अफलाईन"
 
 #: chat.py:79
 msgid "Share, or invite someone."
@@ -29,7 +29,7 @@ msgstr "साझा गर, अथवा कसैलाई आमन्त्�
 
 #: chat.py:88
 msgid "On-line"
-msgstr ""
+msgstr "अनलाईन"
 
 #: chat.py:88
 msgid "Connected"
