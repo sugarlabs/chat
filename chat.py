@@ -445,6 +445,13 @@ class URLMenu(Palette):
     def __init__(self, url):
         Palette.__init__(self, url)
 
+        protocols = ['http://', 'https://', 'ftp://', 'ftps://']
+        no_protocol = True
+        for protocol in protocols:
+            if url.startswith(protocol):
+                no_protocol = False
+        if no_protocol:
+            url = 'http://' + url
         self.url = url
 
         menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
@@ -455,4 +462,28 @@ class URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logger.debug('Copy %s to clipboard', self.url)
         clipboard = gtk.clipboard_get()
-        clipboard.set_text(self.url)
+        targets = [ ("text/uri-list", 0, 0),
+                  ("text/x-moz-url", 0, 1),
+                  ("COMPOUND_TEXT", 0, 2),
+                  ("UTF8_STRING", 0, 3) ]
+
+        if not clipboard.set_with_data(targets,
+                                       self._clipboard_data_get_cb,
+                                       self._clipboard_clear_cb,
+                                       (self.url)):
+            logger.error('GtkClipboard.set_with_data failed!')
+        else:
+            self.owns_clipboard = True
+
+    def _clipboard_data_get_cb(self, clipboard, selection, info, data):
+        logger.debug('clipboard_data_get_cb data=%s target=%s', data, selection.target)        
+        if selection.target in ['text/uri-list', 'text/x-moz-url']:
+            if not selection.set_uris([data]):
+                logger.debug('failed to set_uris')
+        else:
+            if not selection.set_text(data):
+                logger.debug('failed to set_text')
+
+    def _clipboard_clear_cb(self, clipboard, data):
+        logger.debug('clipboard_clear_cb')
+        self.owns_clipboard = False
