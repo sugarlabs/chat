@@ -25,7 +25,6 @@ from datetime import datetime
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
-from sugar.activity import activityfactory
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
     FONT_BOLD, FONT_NORMAL)
@@ -207,10 +206,6 @@ class Chat(Activity):
         elif adj.get_value() == adj.upper-adj.page_size:
             self._scroll_auto = True
 
-    def _link_activated_cb(self, link):
-        activityfactory.create_with_uri(
-                    'org.laptop.WebActivity', link.props.text)
-        
     def add_text(self, buddy, text, status_message=False):
         """Display text on screen, with name and colors.
 
@@ -276,7 +271,6 @@ class Chat(Activity):
             attrs = pango.AttrList()
             attrs.insert(pango.AttrUnderline(pango.UNDERLINE_SINGLE, 0, 32767))
             message.set_property("attributes", attrs)
-            message.connect('activated', self._link_activated_cb)
 
             palette = URLMenu(url)
             palette.props.invoker = CanvasInvoker(message)
@@ -445,6 +439,13 @@ class URLMenu(Palette):
     def __init__(self, url):
         Palette.__init__(self, url)
 
+        protocols = ['http://', 'https://', 'ftp://', 'ftps://']
+        no_protocol = True
+        for protocol in protocols:
+            if url.startswith(protocol):
+                no_protocol = False
+        if no_protocol:
+            url = 'http://' + url
         self.url = url
 
         menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
@@ -455,4 +456,27 @@ class URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logger.debug('Copy %s to clipboard', self.url)
         clipboard = gtk.clipboard_get()
-        clipboard.set_text(self.url)
+        targets = [("text/uri-list", 0, 0)]
+
+        if not clipboard.set_with_data(targets,
+                                       self._clipboard_data_get_cb,
+                                       self._clipboard_clear_cb,
+                                       (self.url)):
+            logger.error('GtkClipboard.set_with_data failed!')
+        else:
+            self.owns_clipboard = True
+
+    def _clipboard_data_get_cb(self, clipboard, selection, info, data):
+        logger.debug('_clipboard_data_get_cb data=%s target=%s', data,
+                     selection.target)        
+        if selection.target in ['text/uri-list']:
+            if not selection.set_uris([data]):
+                logger.debug('failed to set_uris')
+        else:
+            logger.debug('not uri')
+            if not selection.set_text(data):
+                logger.debug('failed to set_text')
+
+    def _clipboard_clear_cb(self, clipboard, data):
+        logger.debug('clipboard_clear_cb')
+        self.owns_clipboard = False
