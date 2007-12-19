@@ -2,7 +2,7 @@
 name = Chat
 activity_version = 31
 host_version = 1
-icon = activity-chat
+icon = activity-icon
 service_name = org.laptop.Chat
-class = chat.Chat
+class = pippy_app.Chat
 show_launcher = 1
