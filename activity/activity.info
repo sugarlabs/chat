@@ -1,8 +1,11 @@
+
 [Activity]
 name = Chat
-activity_version = 32
-host_version = 1
-icon = activity-icon
+bundle_id = org.laptop.Chat
 service_name = org.laptop.Chat
 class = pippy_app.Chat
-show_launcher = 1
+icon = activity-icon
+activity_version = 32
+mime_types = 
+show_launcher = yes
+host_version = 1
