@@ -22,6 +22,7 @@ import pango
 import logging
 import re
 from datetime import datetime
+from activity import ViewSourceActivity
 
 from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
@@ -50,9 +51,9 @@ from telepathy.constants import (
 
 logger = logging.getLogger('chat-activity')
 
-class Chat(Activity):
+class Chat(ViewSourceActivity):
     def __init__(self, handle):
-        Activity.__init__(self, handle)
+        super(Chat, self).__init__(handle)
 
         root = self.make_root()
         self.set_canvas(root)
@@ -480,3 +481,141 @@ class URLMenu(Palette):
     def _clipboard_clear_cb(self, clipboard, data):
         logger.debug('clipboard_clear_cb')
         self.owns_clipboard = False
+
+############# ACTIVITY META-INFORMATION ###############
+# this is used by Pippy to generate the Chat bundle.
+
+CHAT_ICON=\
+"""<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="activity-chat">
+	<path d="M9.263,48.396c0.682,1.152,6.027,0.059,8.246-1.463   c2.102-1.432,3.207-2.596,4.336-2.596c1.133,0,12.54,0.92,20.935-5.715c7.225-5.707,9.773-13.788,4.52-21.437   c-5.252-7.644-13.832-9.08-20.878-8.56C16.806,9.342,4.224,16.91,4.677,28.313c0.264,6.711,3.357,9.143,4.922,10.703   c1.562,1.566,4.545,1.566,2.992,5.588C11.981,46.183,8.753,47.522,9.263,48.396z" display="inline" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/>
+</g></svg><!-- " -->
+"""
+
+CHAT_NEWS="""
+32
+
+* #5542: Repackaged as a Pippy application. (cscott)
+
+31
+
+* Updated translations: fa, is (pootle)
+* #5080: Copy to clipboard with targets (morgs)
+
+30
+
+* Updated translations: es, fr, ne, pt, ro, ru, ur (pootle)
+* #5160: Chat should not autoscroll while you scroll up (morgs)
+
+29
+
+* #5080: add a "copy to clipboard" palette for URL's (cassidy)
+* Updated translations: fr, es, el, de, ar, zh_TW, it, nl, pt_BR (pootle)
+
+28
+
+* use NotifyAlert from sugar.graphics.alert instead of local
+  copy (thanks erikos!) (morgs)
+
+27
+
+* Use sugar.graphics.alert to show status info (morgs)
+* #4320: better URL handling and display (morgs)
+* #4331: Don't crash/ignore non-Sugar buddies (morgs)
+
+26
+
+* #4320 Better URL support (morgs)
+
+25
+
+* #3417 Resuming shows chat history (morgs)
+* self.set_title() considered harmful (morgs)
+* New UI look per Eben's mockups (morgs)
+
+24
+
+* #3556: Updated spanish translation (morgs)
+
+23
+
+* Updated spanish translation (morgs)
+
+22
+
+* Revert message dialog added by mistake. (marco)
+
+21
+
+* Add spanish translation (xavi)
+
+20
+
+* Update translation strings - genpot (morgs)
+* #3248 Make chat not shared by default (morgs)
+
+19
+
+* Added missing fill_color in icon (erikos)
+
+18
+
+* New activity icon, Fix for #2829 (erikos)
+
+16
+
+* Fix icon and roundbox changes in sugar (morgs)
+* Add greek translation (simosx)
+* Add arabic translation (khaled)
+
+15
+
+* Rename buddy icon (morgs)
+* Regen Chat.pot (danw)
+* French translation (marcopg)
+
+14
+
+* #2714 sugar.graphics cleanup (morgs)
+* #2578 German translation (morgs)
+
+13
+
+* Added gettext for i18n (morgs)
+
+12
+
+* #2347 Set initial focus on text entry (cassidy)
+
+11
+
+* #2356 Basic link support. (marco)
+
+10
+
+* Adapt to sugar API change (marco)
+
+9
+
+* Fix buddy handles for Salut (Link Local) channels (morgs)
+* Show status messages in different colour to text messages (morgs)
+
+8
+
+* Use room provided by PS instead of hardcoded global room (morgs)
+
+"""
+
+def pippy_activity_version(): return 32
+def pippy_activity_news(): return CHAT_NEWS
+def pippy_activity_icon(): return CHAT_ICON
+def pippy_activity_class(): return 'pippy_app.Chat'
+def pippy_activity_extra_info():
+    return "host_version = 1" # what does this do?
+if False: # only the official Chat should have this bundle_id.
+    def pippy_activity_bundle_id(): return 'org.laptop.Chat'
+
+if __name__ == '__main__':
+    print "Use 'Keep As Activity' to create a new version of Chat."
