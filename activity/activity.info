@@ -1,6 +1,6 @@
 [Activity]
 name = Chat
-activity_version = 31
+activity_version = 32
 host_version = 1
 icon = activity-icon
 service_name = org.laptop.Chat
