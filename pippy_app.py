@@ -170,22 +170,20 @@ class Chat(ViewSourceActivity):
         hbox = gtk.HBox()
         hbox.add(entry)
 
-        canvas = hippo.Canvas()
-        canvas.set_root(conversation)
-
-        sw = gtk.ScrolledWindow()
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        sw.add_with_viewport(canvas)
+        sw = hippo.CanvasScrollbars()
+        sw.set_policy(hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
+        sw.set_root(conversation)
         self.scrolled_window = sw
         
-        vadj = self.scrolled_window.get_vadjustment()
+        vadj = self.scrolled_window.props.widget.get_vadjustment()
         vadj.connect('changed', self.rescroll)
         vadj.connect('value-changed', self.scroll_value_changed_cb)
 
-        widget = hippo.CanvasWidget(widget=sw)
+        canvas = hippo.Canvas()
+        canvas.set_root(sw)
 
         box = gtk.VBox(homogeneous=False)
-        box.pack_start(sw)
+        box.pack_start(canvas)
         box.pack_start(hbox, expand=False)
 
         return box
