@@ -18,41 +18,48 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Разговор"
 
 #: activity.py:26
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s източник"
 
 #: pippy_app.py:84
+#: chat.py:79
 msgid "Off-line"
-msgstr ""
+msgstr "Не активен"
 
 #: pippy_app.py:84
+#: chat.py:79
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Сподели или покани някой."
 
 #: pippy_app.py:93
+#: chat.py:88
 msgid "On-line"
-msgstr ""
+msgstr "Активен"
 
 #: pippy_app.py:93
+#: chat.py:88
 msgid "Connected"
-msgstr ""
+msgstr "Свързан"
 
 #: pippy_app.py:134
+#: chat.py:129
 msgid "joined the chat"
-msgstr ""
+msgstr "се включи в разговора"
 
 #: pippy_app.py:145
+#: chat.py:140
 msgid "left the chat"
-msgstr ""
+msgstr "напусна разговора"
 
 #: pippy_app.py:156
+#: chat.py:151
 msgid "is here"
-msgstr ""
+msgstr "е тук"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Копиране в паметта"
