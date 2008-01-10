@@ -1,4 +1,4 @@
-# Copyright 2007 Collabora Ltd.
+# Copyright 2007-2008 One Laptop Per Child
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
