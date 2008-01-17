@@ -493,6 +493,15 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* Updated translations: ps, ca, bg (pootle)
+
+34
+
+* Updated translations: ur, bn (pootle)
+* #2351: Scrolling fixed (marcopg)
+
+33
+
 32
 
 * #5542: Repackaged as a Pippy application. (cscott)
