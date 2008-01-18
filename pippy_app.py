@@ -455,7 +455,8 @@ class URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logger.debug('Copy %s to clipboard', self.url)
         clipboard = gtk.clipboard_get()
-        targets = [("text/uri-list", 0, 0)]
+        targets = [("text/uri-list", 0, 0),
+                   ("UTF8_STRING", 0, 1)]
 
         if not clipboard.set_with_data(targets,
                                        self._clipboard_data_get_cb,
@@ -493,6 +494,9 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #6066: Make web links copied to clipboard, pasteable in Write, Browse,
+  Terminal (morgs)
+* Added AUTHORS (morgs)
 * Updated translations: ps, ca, bg (pootle)
 
 34
