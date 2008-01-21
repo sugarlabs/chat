@@ -26,37 +26,30 @@ msgid "%s Source"
 msgstr "%s източник"
 
 #: pippy_app.py:84
-#: chat.py:79
 msgid "Off-line"
 msgstr "Не активен"
 
 #: pippy_app.py:84
-#: chat.py:79
 msgid "Share, or invite someone."
 msgstr "Сподели или покани някой."
 
 #: pippy_app.py:93
-#: chat.py:88
 msgid "On-line"
 msgstr "Активен"
 
 #: pippy_app.py:93
-#: chat.py:88
 msgid "Connected"
 msgstr "Свързан"
 
 #: pippy_app.py:134
-#: chat.py:129
 msgid "joined the chat"
 msgstr "се включи в разговора"
 
 #: pippy_app.py:145
-#: chat.py:140
 msgid "left the chat"
 msgstr "напусна разговора"
 
 #: pippy_app.py:156
-#: chat.py:151
 msgid "is here"
 msgstr "е тук"
 
