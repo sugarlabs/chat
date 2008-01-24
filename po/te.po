@@ -18,41 +18,41 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "పిచ్చాపాటి"
 
 #: activity.py:26
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s మూలం"
 
 #: pippy_app.py:84
 msgid "Off-line"
-msgstr ""
+msgstr "ఆఫ్ లైన్"
 
 #: pippy_app.py:84
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "పంచు, లేక ఎవరినైనా పిలువు"
 
 #: pippy_app.py:93
 msgid "On-line"
-msgstr ""
+msgstr "ఆన్ లైన్"
 
 #: pippy_app.py:93
 msgid "Connected"
-msgstr ""
+msgstr "జతకుదిరింది"
 
 #: pippy_app.py:134
 msgid "joined the chat"
-msgstr ""
+msgstr "పిచ్చాపాటికి కలిసారు"
 
 #: pippy_app.py:145
 msgid "left the chat"
-msgstr ""
+msgstr "పిచ్చాపాటి వదిలేసారు"
 
 #: pippy_app.py:156
 msgid "is here"
-msgstr ""
+msgstr "ఇక్కడ ఉన్నారు"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "క్లిప్ బోర్డుకు నకలు చేయి"
