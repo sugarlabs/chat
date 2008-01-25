@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-22 11:50+0000\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2008-01-25 14:37-0500\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: French <mrtom@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,33 +20,42 @@ msgstr ""
 msgid "Chat"
 msgstr "Discuter"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Hors ligne"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Partager ou inviter quelqu'un."
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "En ligne"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Connecté"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "a rejoint la discussion"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "a quitté la discussion"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "est ici"
 
 #~ msgid "Connecting"
 #~ msgstr "En cours de connexion"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "Source %s"
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "Copier dans le presse-papier"
