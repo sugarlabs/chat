@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2007-11-20 12:21+0000\n"
 "Last-Translator: Simos Xenitellis <simos.lists@googlemail.com>\n"
 "Language-Team: Greek <olpc-l10n-el@googlegroups.com>\n"
@@ -21,33 +21,42 @@ msgstr ""
 msgid "Chat"
 msgstr "Συνομιλία"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Εκτός Σύνδεσης"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Διαμοίρασε, ή προσκάλεσε κάποιον."
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Συνδεδεμένος"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Συνδέθηκε"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "συμμετέχει στη συνομιλία"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "άφησε την συνομιλία"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "είναι εδώ"
 
 #~ msgid "Connecting"
 #~ msgstr "Σε διαδικασία σύνδεσης"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr ""
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr ""

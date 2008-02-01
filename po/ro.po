@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2007-11-22 22:35+0000\n"
 "Last-Translator: Adi Roiban <adiroiban@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,30 +19,39 @@ msgstr ""
 msgid "Chat"
 msgstr "Discuţii"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Deconectat"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Colaborează sau invită pe cineva."
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Conectat"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Conectat"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "s-a alătura discuției"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "a părăsit discuția"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "este prezent"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr ""
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr ""

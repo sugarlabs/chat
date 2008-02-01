@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-20 08:14+0000\n"
-"Last-Translator: Pascal Scheffers <pascal@scheffers.net>\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2007-12-26 23:57+0000\n"
+"Last-Translator: Axel Roest <wordforge@roeroe.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,30 +20,39 @@ msgstr ""
 msgid "Chat"
 msgstr "Chat"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Offline"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Delen, of iemand uitnodigen"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Online"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Verbonden"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "is aan het gesprek toegevoegd"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "heeft het gesprek verlaten"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "is hier"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "%s bron"
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "Kopieer naar klembord"

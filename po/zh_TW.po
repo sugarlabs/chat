@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-11-20 21:55+0000\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2008-01-03 10:59+0000\n"
 "Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -15,30 +15,39 @@ msgstr ""
 msgid "Chat"
 msgstr "聊天"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "離線"
 
-#: chat.py:87
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "分享，或是邀請朋友"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "上線"
 
-#: chat.py:98
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "已連線"
 
-#: chat.py:130
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "進入聊天室"
 
-#: chat.py:142
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "離開聊天室"
 
-#: chat.py:154
+#: pippy_app.py:156
 msgid "is here"
 msgstr "在聊天室"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "%s原始碼"
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "複製到剪貼簿"
