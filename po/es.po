@@ -55,6 +55,5 @@ msgid "%s Source"
 msgstr "%s Fuente"
 
 #: pippy_app.py:452
-#, fuzzy
 msgid "Copy to Clipboard"
 msgstr "Copiar al Portapapeles"
