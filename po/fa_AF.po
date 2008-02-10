@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-01-28 06:22-0500\n"
+"PO-Revision-Date: 2008-02-06 05:54-0500\n"
 "Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "اینجاست"
 #: activity.py:26
 #, python-format
 msgid "%s Source"
-msgstr "% منبع"
+msgstr "%s منبع"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
