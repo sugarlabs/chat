@@ -496,8 +496,8 @@ CHAT_ICON=\
 CHAT_NEWS="""
 * #6066: Make web links copied to clipboard, pasteable in Write, Browse,
   Terminal (morgs)
-* Added AUTHORS (morgs)
-* Updated translations: ps, ca, bg (pootle)
+* Added AUTHORS, COPYING (morgs)
+* Updated translations (pootle)
 
 34
 
