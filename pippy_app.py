@@ -494,6 +494,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+35
+
 * #6066: Make web links copied to clipboard, pasteable in Write, Browse,
   Terminal (morgs)
 * Added AUTHORS, COPYING (morgs)
@@ -619,14 +621,28 @@ CHAT_NEWS="""
 
 """
 
-def pippy_activity_version(): return 32
-def pippy_activity_news(): return CHAT_NEWS
-def pippy_activity_icon(): return CHAT_ICON
-def pippy_activity_class(): return 'pippy_app.Chat'
+def pippy_activity_version():
+    """Returns the version number of the generated activity bundle."""
+    return 35
+
+def pippy_activity_news():
+    """Return the NEWS file for this activity."""
+    return CHAT_NEWS
+
+def pippy_activity_icon():
+    """Return an SVG document specifying the icon for this activity."""
+    return CHAT_ICON
+
+def pippy_activity_class():
+    """Return the class which should be started to run this activity."""
+    return 'pippy_app.Chat'
+
 def pippy_activity_extra_info():
-    return "host_version = 1" # what does this do?
+    return "host_version = 1"
 if False: # only the official Chat should have this bundle_id.
-    def pippy_activity_bundle_id(): return 'org.laptop.Chat'
+    def pippy_activity_bundle_id():
+        """Return the bundle_id for the generated activity."""
+        return 'org.laptop.Chat'
 
 if __name__ == '__main__':
     print "Use 'Keep As Activity' to create a new version of Chat."
