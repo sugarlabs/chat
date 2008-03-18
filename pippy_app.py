@@ -205,6 +205,10 @@ class Chat(ViewSourceActivity):
         elif adj.get_value() == adj.upper-adj.page_size:
             self._scroll_auto = True
 
+    def _link_activated_cb(self, link):
+        url = url_check_protocol(link.props.text)
+        self._show_via_journal(url)
+
     def add_text(self, buddy, text, status_message=False):
         """Display text on screen, with name and colors.
 
@@ -270,6 +274,7 @@ class Chat(ViewSourceActivity):
             attrs = pango.AttrList()
             attrs.insert(pango.AttrUnderline(pango.UNDERLINE_SINGLE, 0, 32767))
             message.set_property("attributes", attrs)
+            message.connect('activated', self._link_activated_cb)
 
             palette = URLMenu(url)
             palette.props.invoker = CanvasInvoker(message)
@@ -343,6 +348,33 @@ class Chat(ViewSourceActivity):
             status_message = bool(int(status))
             self.add_text({'nick': nick, 'color': color},
                           text, status_message)
+
+    def _show_via_journal(self, url):
+        """Ask the journal to display a URL"""
+        import os
+        import time
+        from sugar import profile
+        from sugar.activity.activity import show_object_in_journal
+        from sugar.datastore import datastore
+        logger.debug('Create journal entry for URL: %s', url)
+        jobject = datastore.create()
+        metadata = {
+            'title': "%s: %s" % (_('URL from Chat'), url),
+            'title_set_by_user': '1',
+            'icon-color': profile.get_color().to_string(),
+            'mime_type': 'text/uri-list',
+            }
+        for k,v in metadata.items():
+            jobject.metadata[k] = v
+        file_path = os.path.join(self.get_activity_root(), 'tmp',
+                                 '%i_' % time.time())
+        open(file_path, 'w').write(url + '\r\n')
+        os.chmod(file_path, 0755)
+        jobject.file_path = file_path
+        datastore.write(jobject)
+        show_object_in_journal(jobject.object_id)
+        jobject.destroy()
+        os.unlink(file_path)
 
 
 class TextChannelWrapper(object):
@@ -438,14 +470,7 @@ class URLMenu(Palette):
     def __init__(self, url):
         Palette.__init__(self, url)
 
-        protocols = ['http://', 'https://', 'ftp://', 'ftps://']
-        no_protocol = True
-        for protocol in protocols:
-            if url.startswith(protocol):
-                no_protocol = False
-        if no_protocol:
-            url = 'http://' + url
-        self.url = url
+        self.url = url_check_protocol(url)
 
         menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
         menu_item.connect('activate', self._copy_to_clipboard_cb)
@@ -480,6 +505,23 @@ class URLMenu(Palette):
     def _clipboard_clear_cb(self, clipboard, data):
         logger.debug('clipboard_clear_cb')
         self.owns_clipboard = False
+
+
+def url_check_protocol(url):
+    """Check that the url has a protocol, otherwise prepend https://
+    
+    url -- string
+    
+    Returns url -- string
+    """
+    protocols = ['http://', 'https://', 'ftp://', 'ftps://']
+    no_protocol = True
+    for protocol in protocols:
+        if url.startswith(protocol):
+            no_protocol = False
+    if no_protocol:
+        url = 'http://' + url
+    return url
 
 ############# ACTIVITY META-INFORMATION ###############
 # this is used by Pippy to generate the Chat bundle.
