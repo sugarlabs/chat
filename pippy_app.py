@@ -15,7 +15,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from gettext import gettext as _
-import dbus
 import hippo
 import gtk
 import pango
@@ -24,7 +23,6 @@ import re
 from datetime import datetime
 from activity import ViewSourceActivity
 
-from sugar import profile
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
@@ -33,21 +31,13 @@ from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
-from sugar.presence import presenceservice
 
-from telepathy.client import Connection, Channel
-
+from telepathy.client import Connection
 from telepathy.interfaces import (
-    CONN_INTERFACE, PROPERTIES_INTERFACE,
-    CHANNEL_INTERFACE_GROUP, CONN_INTERFACE_ALIASING,
-    CHANNEL_TYPE_TEXT)
-
+    CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT)
 from telepathy.constants import (
     CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES,
-    CONNECTION_HANDLE_TYPE_NONE, CONNECTION_HANDLE_TYPE_CONTACT,
-    CONNECTION_HANDLE_TYPE_ROOM, CHANNEL_TEXT_MESSAGE_TYPE_NORMAL,
-    CONNECTION_STATUS_CONNECTED, CONNECTION_STATUS_DISCONNECTED,
-    CONNECTION_STATUS_CONNECTING)
+    CHANNEL_TEXT_MESSAGE_TYPE_NORMAL)
 
 logger = logging.getLogger('chat-activity')
 
@@ -88,7 +78,8 @@ class Chat(ViewSourceActivity):
         self._setup()
 
     def _setup(self):
-        self.text_channel = TextChannelWrapper(self)
+        self.text_channel = TextChannelWrapper(
+            self._shared_activity.telepathy_text_chan)
         self.text_channel.set_received_callback(self._received_cb)
         self._alert(_('On-line'), _('Connected'))
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
@@ -378,54 +369,24 @@ class Chat(ViewSourceActivity):
 
 
 class TextChannelWrapper(object):
-    """Wrap a telepathy text Channel to make usage simpler."""
-    def __init__(self, activity):
-        """Connect to the text channel if possible."""
-        self._text_chan = None
+    """Wrap a telepathy Text Channel to make usage simpler."""
+    def __init__(self, text_chan):
+        """Connect to the text channel"""
         self._activity_cb = None
-        self._activity = activity
+        self._text_chan = text_chan
         self._logger = logging.getLogger(
             'chat-activity.TextChannelWrapper')
-        self._connect()
-
-    def _connect(self):
-        bus_name, conn_path, channel_paths =\
-            self._activity._shared_activity.get_channels()
-        for channel_path in channel_paths:
-            channel = Channel(bus_name, channel_path)
-            htype, handle = channel.GetHandle()
-            if htype == CONNECTION_HANDLE_TYPE_ROOM:
-                self._logger.debug(
-                    'Found our room: it has handle#%d' % handle)
-                room = handle
-                ctype = channel.GetChannelType()
-                if ctype == CHANNEL_TYPE_TEXT:
-                    self._logger.debug(
-                        'Found our Text channel at %s' % channel_path)
-                    self._text_chan = channel
-
-    def connected(self):
-        return (self._text_chan is not None)
 
     def send(self, text):
-        if self._text_chan:
-            self._text_chan[CHANNEL_TYPE_TEXT].Send(
-                CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
-
-    def close(self):
-        if self._text_chan:
-            self._text_chan.Close()
-            self._text_chan = None
+        # XXX Implement CHANNEL_TEXT_MESSAGE_TYPE_ACTION
+        self._text_chan[CHANNEL_TYPE_TEXT].Send(
+            CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
 
     def set_received_callback(self, callback):
         """Connect the function callback to the signal.
 
         callback -- callback function taking buddy and text args
         """
-        if not self._text_chan:
-            self._logger.debug(
-                'Failed to connect callback - text channel not connected.')
-            return
         self._activity_cb = callback
         self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
             self._received_cb)
@@ -446,9 +407,14 @@ class TextChannelWrapper(object):
                 'set_received_callback')
 
     def _get_buddy(self, cs_handle):
-        """Get a Buddy from a handle."""
-        tp_name, tp_path =\
-            self._activity._pservice.get_preferred_connection()
+        """Get a Buddy from a (possibly channel-specific) handle."""
+        # XXX This will be made redundant once Presence Service 
+        # provides buddy resolution
+        from sugar.presence import presenceservice
+        # Get the Presence Service
+        pservice = presenceservice.get_instance()
+        # Get the Telepathy Connection
+        tp_name, tp_path = pservice.get_preferred_connection()
         conn = Connection(tp_name, tp_path)
         group = self._text_chan[CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
@@ -463,7 +429,7 @@ class TextChannelWrapper(object):
             # XXX: deal with failure to get the handle owner
             assert handle != 0
 
-        return self._activity._pservice.get_buddy_by_telepathy_handle(
+        return pservice.get_buddy_by_telepathy_handle(
             tp_name, tp_path, handle)
 
 class URLMenu(Palette):
