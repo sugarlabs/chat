@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-20 15:14+0000\n"
-"Last-Translator: Ricardo Staudt <ricardost@gmail.com>\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2008-01-21 15:03+0000\n"
+"Last-Translator: Eduardo H. Silva <HoboPrimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,32 +21,45 @@ msgstr ""
 msgid "Chat"
 msgstr "Bate-papo"
 
-# Não é exata, mas parece ser a melhor
-#: chat.py:79
+# Não é exata, mas parece ser a melhor.
+#  E assim? --HP
+#: pippy_app.py:84
 msgid "Off-line"
-msgstr "Desligado"
+msgstr "Desligado da rede"
 
-#: chat.py:79
+# Está a falar directamente com a criança. E deixei em tom pessoal, em vez de "Compartilhe, ou convide alguem" .
+#: pippy_app.py:84
 msgid "Share, or invite someone."
-msgstr "Compartilhar, ou convidar alguem."
+msgstr "Compartilhe, ou convide alguem."
 
-# Melhor para chat, mais amigavel que 'on-line' ou 'disponivel'.
-#: chat.py:88
+# No chat, online e offline é para dizer se o utilizador está ligado a uma rede (network) ou não.
+#: pippy_app.py:93
 msgid "On-line"
-msgstr "Ligado"
+msgstr "Ligado em rede"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
-msgstr "Connectado"
+msgstr "Conectado"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
-msgstr "entrou no bate-papo"
+msgstr "juntou-se no bate-papo"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "saiu do bate-papo"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
-msgstr "esta aqui"
+msgstr "está aqui"
+
+# isto é pq. se pode ver o codigo-fonte do chat no pippy, pq ele foi feito pelo pippy. Acho que deverá ficar "Fonte de Bate-Papo"
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "Fonte de %s"
+
+# como está no diário
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "Copiar para a prancheta"

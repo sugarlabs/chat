@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chat.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-19 20:31+0000\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2007-12-27 19:03+0000\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,33 +23,42 @@ msgstr ""
 msgid "Chat"
 msgstr "دردشة"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "غير مٌتّصل"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "شارك أو ادعُ شخصا"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "مُتّصل"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "اتّصل"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "انضم للدرشة"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "غادر الدردشة"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "هنا"
 
 #~ msgid "Connecting"
 #~ msgstr "يتّصل"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "مصدر %s"
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "انسخ إلى الحافظة"

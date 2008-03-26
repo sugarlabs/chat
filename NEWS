@@ -1,3 +1,10 @@
+35
+
+* #6066: Make web links copied to clipboard, pasteable in Write, Browse,
+  Terminal (morgs)
+* Added AUTHORS, COPYING (morgs)
+* Updated translations (pootle)
+
 34
 
 * Updated translations: ur, bn (pootle)

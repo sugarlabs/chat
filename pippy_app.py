@@ -1,4 +1,4 @@
-# Copyright 2007 Collabora Ltd.
+# Copyright 2007-2008 One Laptop Per Child
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -455,7 +455,8 @@ class URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logger.debug('Copy %s to clipboard', self.url)
         clipboard = gtk.clipboard_get()
-        targets = [("text/uri-list", 0, 0)]
+        targets = [("text/uri-list", 0, 0),
+                   ("UTF8_STRING", 0, 1)]
 
         if not clipboard.set_with_data(targets,
                                        self._clipboard_data_get_cb,
@@ -493,6 +494,20 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+35
+
+* #6066: Make web links copied to clipboard, pasteable in Write, Browse,
+  Terminal (morgs)
+* Added AUTHORS, COPYING (morgs)
+* Updated translations (pootle)
+
+34
+
+* Updated translations: ur, bn (pootle)
+* #2351: Scrolling fixed (marcopg)
+
+33
+
 32
 
 * #5542: Repackaged as a Pippy application. (cscott)

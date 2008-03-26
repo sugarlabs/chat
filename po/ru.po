@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-30 12:49+0200\n"
-"PO-Revision-Date: 2007-11-24 10:21+0000\n"
-"Last-Translator: Maxim Osipov <maxim.osipov@gmail.com>\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2007-12-25 17:12+0000\n"
+"Last-Translator: ZZ <parazitto@graffiti.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,30 +19,39 @@ msgstr ""
 msgid "Chat"
 msgstr "Чат"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Не активен"
 
-#: chat.py:79
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Разделить или пригласить кого-нибудь"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Активен"
 
-#: chat.py:88
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Подключен"
 
-#: chat.py:129
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "Вошел в чат"
 
-#: chat.py:140
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "Покинул чат"
 
-#: chat.py:151
+#: pippy_app.py:156
 msgid "is here"
 msgstr "тут"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr ""
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "Скопировать в буфер обмена"
