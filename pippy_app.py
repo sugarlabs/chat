@@ -85,6 +85,7 @@ class Chat(ViewSourceActivity):
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
         self.entry.set_editable(True)
+        self.entry.grab_focus()
 
     def _joined_cb(self, activity):
         """Joined a shared activity."""
@@ -154,6 +155,10 @@ class Chat(ViewSourceActivity):
         self.conversation = conversation
 
         entry = gtk.Entry()
+        entry.modify_bg(gtk.STATE_INSENSITIVE,
+                        COLOR_WHITE.get_gdk_color())
+        entry.modify_base(gtk.STATE_INSENSITIVE,
+                          COLOR_WHITE.get_gdk_color())
         entry.set_editable(False)
         entry.connect('activate', self.entry_activate_cb)
         self.entry = entry
