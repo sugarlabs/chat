@@ -507,6 +507,14 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #6621: set entry sensitive not editable (morgs)
+* Add license to activity.py (morgs)
+* #6743: border around gtk.entry (morgs)
+* Reduce telepathy code based on improved PS channel creation API (morgs)
+* Open URLs via show_object_in_journal (morgs)
+* Update pippy metadata based on Pippy (morgs)
+* Updated translations (pootle)
+
 35
 
 * #6066: Make web links copied to clipboard, pasteable in Write, Browse,
