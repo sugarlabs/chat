@@ -507,6 +507,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+36
+
 * #5053: Reduce white space around boxes (morgs)
 * #6621: set entry sensitive not editable (morgs)
 * Add license to activity.py (morgs)
