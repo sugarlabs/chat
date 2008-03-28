@@ -150,7 +150,7 @@ class Chat(ViewSourceActivity):
 
     def make_root(self):
         conversation = hippo.CanvasBox(
-            spacing=4,
+            spacing=0,
             background_color=COLOR_WHITE.get_int())
         self.conversation = conversation
 
@@ -287,7 +287,7 @@ class Chat(ViewSourceActivity):
                 xalign=hippo.ALIGNMENT_START)
             rb.append(message)
 
-        box = hippo.CanvasBox(padding=4)
+        box = hippo.CanvasBox(padding=2)
         box.append(rb)
         self.conversation.append(box)
 
@@ -507,6 +507,7 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #5053: Reduce white space around boxes (morgs)
 * #6621: set entry sensitive not editable (morgs)
 * Add license to activity.py (morgs)
 * #6743: border around gtk.entry (morgs)
