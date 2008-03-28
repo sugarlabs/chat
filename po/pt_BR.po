@@ -21,6 +21,12 @@ msgstr ""
 msgid "Chat"
 msgstr "Bate-papo"
 
+# isto é pq. se pode ver o codigo-fonte do chat no pippy, pq ele foi feito pelo pippy. Acho que deverá ficar "Fonte de Bate-Papo"
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "Fonte de %s"
+
 # Não é exata, mas parece ser a melhor.
 #  E assim? --HP
 #: pippy_app.py:84
@@ -52,12 +58,6 @@ msgstr "saiu do bate-papo"
 #: pippy_app.py:156
 msgid "is here"
 msgstr "está aqui"
-
-# isto é pq. se pode ver o codigo-fonte do chat no pippy, pq ele foi feito pelo pippy. Acho que deverá ficar "Fonte de Bate-Papo"
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "Fonte de %s"
 
 # como está no diário
 #: pippy_app.py:452
