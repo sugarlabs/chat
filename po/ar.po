@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chat.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2007-12-27 19:03+0000\n"
+"POT-Creation-Date: 2008-03-27 00:30-0400\n"
+"PO-Revision-Date: 2008-04-01 10:11-0400\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,50 +15,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 && "
 "n<=10 ? 3 : n>=11 && n<=99 ? 4 : 5;\n"
-"X-Generator: Pootle 1.0.2\n"
-"nplurals=6; plural=n==0 ? 0: n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 "
+"X-Generator: Pootle 1.1.0rc2\n"
+"Nplurals=6; Plural=N==0 ? 0: n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 "
 ": n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "دردشة"
 
-#: pippy_app.py:84
-msgid "Off-line"
-msgstr "غير مٌتّصل"
-
-#: pippy_app.py:84
-msgid "Share, or invite someone."
-msgstr "شارك أو ادعُ شخصا"
-
-#: pippy_app.py:93
-msgid "On-line"
-msgstr "مُتّصل"
-
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "اتّصل"
-
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "انضم للدرشة"
-
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr "غادر الدردشة"
-
-#: pippy_app.py:156
-msgid "is here"
-msgstr "هنا"
-
-#~ msgid "Connecting"
-#~ msgstr "يتّصل"
-
-#: activity.py:26
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr "مصدر %s"
 
-#: pippy_app.py:452
+#: pippy_app.py:74
+msgid "Off-line"
+msgstr "غير مٌتّصل"
+
+#: pippy_app.py:74
+msgid "Share, or invite someone."
+msgstr "شارك أو ادعُ شخصا."
+
+#: pippy_app.py:84
+msgid "On-line"
+msgstr "مُتّصل"
+
+#: pippy_app.py:84
+msgid "Connected"
+msgstr "اتّصل"
+
+#: pippy_app.py:126
+msgid "joined the chat"
+msgstr "انضم للدرشة"
+
+#: pippy_app.py:137
+msgid "left the chat"
+msgstr "غادر الدردشة"
+
+#: pippy_app.py:148
+msgid "is here"
+msgstr "هنا"
+
+#: pippy_app.py:358
+msgid "URL from Chat"
+msgstr "مسار من الدردشة"
+
+#: pippy_app.py:446
 msgid "Copy to Clipboard"
 msgstr "انسخ إلى الحافظة"
+
+#~ msgid "Connecting"
+#~ msgstr "يتّصل"
