@@ -287,6 +287,9 @@ class Chat(ViewSourceActivity):
                 xalign=hippo.ALIGNMENT_START)
             rb.append(message)
 
+        if pango.find_base_dir(nick, -1) == pango.DIRECTION_RTL:
+	    rb.reverse()
+
         box = hippo.CanvasBox(padding=2)
         box.append(rb)
         self.conversation.append(box)
