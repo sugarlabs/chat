@@ -565,6 +565,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+37
+
 * UI Change: Merge multiple sequential messages from same author (morgs)
 * Updated translation: ar (pootle)
 * #6561: Fix RTL message alignment (Arabic) (khaled)
