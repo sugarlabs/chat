@@ -41,6 +41,10 @@ from telepathy.constants import (
 
 logger = logging.getLogger('chat-activity')
 
+URL_REGEXP = re.compile('((http|ftp)s?://)?'
+    '(([-a-zA-Z0-9]+[.])+[-a-zA-Z0-9]{2,}|([0-9]{1,3}[.]){3}[0-9]{1,3})'
+    '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
+
 class Chat(ViewSourceActivity):
     def __init__(self, handle):
         super(Chat, self).__init__(handle)
@@ -59,6 +63,9 @@ class Chat(ViewSourceActivity):
         # Auto vs manual scrolling:
         self._scroll_auto = True
         self._scroll_value = 0.0
+        # Track last message, to combine several messages:
+        self._last_msg = None
+        self._last_msg_sender = None
 
         self.connect('shared', self._shared_cb)
         self.text_channel = None
@@ -98,10 +105,6 @@ class Chat(ViewSourceActivity):
 
     def _received_cb(self, buddy, text):
         """Show message that was received."""
-        if buddy:
-            nick = buddy.props.nick
-        else:
-            nick = '???'
         self.add_text(buddy, text)
 
     def _alert(self, title, text=None):
@@ -209,13 +212,30 @@ class Chat(ViewSourceActivity):
         """Display text on screen, with name and colors.
 
         buddy -- buddy object or dict {nick: string, color: string}
+                 (The dict is for loading the chat log from the journal,
+                 when we don't have the buddy object any more.)
         text -- string, what the buddy said
         status_message -- boolean
             False: show what buddy said
             True: show what buddy did
+
+        hippo layout:
+        .------------- rb ---------------.
+        | +name_vbox+ +----msg_vbox----+ |
+        | |         | |                | |
+        | | nick:   | | +--msg_hbox--+ | |
+        | |         | | | text       | | |
+        | +---------+ | +------------+ | |
+        |             |                | |
+        |             | +--msg_hbox--+ | |
+        |             | | text | url | | |
+        |             | +------------+ | |
+        |             +----------------+ |
+        `--------------------------------'
         """
         if buddy:
             if type(buddy) is dict:
+                # dict required for loading chat log from journal
                 nick = buddy['nick']
                 color = buddy['color']
             else:
@@ -228,28 +248,59 @@ class Chat(ViewSourceActivity):
             color_stroke = Color(color_stroke).get_int()
             color_fill = Color(color_fill).get_int()
             text_color = COLOR_WHITE.get_int()
-            self._add_log(nick, color, text, status_message)
         else:
             nick = '???'  # XXX: should be '' but leave for debugging
             color_stroke = COLOR_BLACK.get_int()
             color_fill = COLOR_WHITE.get_int()
             text_color = COLOR_BLACK.get_int()
+        self._add_log(nick, color, text, status_message)
 
-        rb = CanvasRoundBox(background_color=color_fill,
-                            border_color=color_stroke,
-                            padding=4)
-        rb.props.border_color = color_stroke  # Bug #3742
+        # Check for Right-To-Left languages:
+        if pango.find_base_dir(nick, -1) == pango.DIRECTION_RTL:
+            lang_rtl = True
+        else:
+            lang_rtl = False
 
-        if not status_message:
-            name = hippo.CanvasText(text=nick+':   ',
-                color=text_color,
-                font_desc=FONT_BOLD.get_pango_desc())
-            rb.append(name)
+        # Check if new message box or add text to previous:
+        new_msg = True
+        if self._last_msg_sender:
+            if not status_message:
+                if buddy == self._last_msg_sender:
+                    # Add text to previous message
+                    new_msg = False
 
-        regexp = re.compile('((http|ftp)s?://)?'
-        '(([-a-zA-Z0-9]+[.])+[-a-zA-Z0-9]{2,}|([0-9]{1,3}[.]){3}[0-9]{1,3})'
-        '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
-        match = regexp.search(text)
+        if not new_msg:
+            rb = self._last_msg
+            msg_vbox = rb.get_children()[1]
+            msg_hbox = hippo.CanvasBox(
+                orientation=hippo.ORIENTATION_HORIZONTAL)
+            msg_vbox.append(msg_hbox)
+        else:
+            rb = CanvasRoundBox(background_color=color_fill,
+                                border_color=color_stroke,
+                                padding=4)
+            rb.props.border_color = color_stroke  # Bug #3742
+            self._last_msg = rb
+            self._last_msg_sender = buddy
+            if not status_message:
+                name = hippo.CanvasText(text=nick+':   ',
+                    color=text_color,
+                    font_desc=FONT_BOLD.get_pango_desc())
+                name_vbox = hippo.CanvasBox(
+                    orientation=hippo.ORIENTATION_VERTICAL)
+                name_vbox.append(name)
+                rb.append(name_vbox)
+            msg_vbox = hippo.CanvasBox(
+                orientation=hippo.ORIENTATION_VERTICAL)
+            rb.append(msg_vbox)
+            msg_hbox = hippo.CanvasBox(
+                orientation=hippo.ORIENTATION_HORIZONTAL)
+            msg_vbox.append(msg_hbox)
+
+        if status_message:
+            self._last_msg_sender = None
+
+        match = URL_REGEXP.search(text)
         while match:
             # there is a URL in the text
             starttext = text[:match.start()]
@@ -260,7 +311,7 @@ class Chat(ViewSourceActivity):
                     color=text_color,
                     font_desc=FONT_NORMAL.get_pango_desc(),
                     xalign=hippo.ALIGNMENT_START)
-                rb.append(message)
+                msg_hbox.append(message)
             url = text[match.start():match.end()]
             message = hippo.CanvasLink(
                 text=url,
@@ -275,9 +326,9 @@ class Chat(ViewSourceActivity):
             palette = URLMenu(url)
             palette.props.invoker = CanvasInvoker(message)
 
-            rb.append(message)
+            msg_hbox.append(message)
             text = text[match.end():]
-            match = regexp.search(text)
+            match = URL_REGEXP.search(text)
         if text:
             message = hippo.CanvasText(
                 text=text,
@@ -285,14 +336,18 @@ class Chat(ViewSourceActivity):
                 color=text_color,
                 font_desc=FONT_NORMAL.get_pango_desc(),
                 xalign=hippo.ALIGNMENT_START)
-            rb.append(message)
+            msg_hbox.append(message)
 
-        if pango.find_base_dir(nick, -1) == pango.DIRECTION_RTL:
-	    rb.reverse()
+        # Order of boxes for RTL languages:
+        if lang_rtl:
+            msg_hbox.reverse()
+            if new_msg:
+                rb.reverse()
 
-        box = hippo.CanvasBox(padding=2)
-        box.append(rb)
-        self.conversation.append(box)
+        if new_msg:
+            box = hippo.CanvasBox(padding=2)
+            box.append(rb)
+            self.conversation.append(box)
 
     def entry_activate_cb(self, entry):
         text = entry.props.text
