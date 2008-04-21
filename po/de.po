@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-03-25 09:33-0400\n"
+"POT-Creation-Date: 2008-03-27 00:30-0400\n"
+"PO-Revision-Date: 2008-04-15 05:25-0400\n"
 "Last-Translator: Gerhard Steiner <gerhard.steiner@duichwir.at>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,42 +16,46 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "Chat"
+msgstr "Unterhalten"
 
-#: activity.py:26
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr "%s Quelle"
 
-#: pippy_app.py:84
+#: pippy_app.py:74
 msgid "Off-line"
 msgstr "Offline"
 
-#: pippy_app.py:84
+#: pippy_app.py:74
 msgid "Share, or invite someone."
 msgstr "Freigeben oder jemand einladen."
 
-#: pippy_app.py:93
+#: pippy_app.py:84
 msgid "On-line"
 msgstr "Online"
 
-#: pippy_app.py:93
+#: pippy_app.py:84
 msgid "Connected"
 msgstr "Verbunden"
 
-#: pippy_app.py:134
+#: pippy_app.py:126
 msgid "joined the chat"
 msgstr "nimmt am Chat teil"
 
-#: pippy_app.py:145
+#: pippy_app.py:137
 msgid "left the chat"
 msgstr "beendet den Chat"
 
-#: pippy_app.py:156
+#: pippy_app.py:148
 msgid "is here"
 msgstr "ist hier"
 
-#: pippy_app.py:452
+#: pippy_app.py:358
+msgid "URL from Chat"
+msgstr "URL des Chat"
+
+#: pippy_app.py:446
 msgid "Copy to Clipboard"
 msgstr "In Zwischenablage kopieren"
 
