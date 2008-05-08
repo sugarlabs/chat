@@ -1,3 +1,4 @@
 Chat-*.xo
 *.pyc
 .*.sw[op]
+locale
