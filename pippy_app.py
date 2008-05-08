@@ -456,7 +456,7 @@ class TextChannelWrapper(object):
 
         # handle pending messages
         for id, timestamp, sender, type, flags, text in \
-                self._text_chan[CHANNEL_TYPE_TEXT].ListPendingMessages(True):
+                self._text_chan[CHANNEL_TYPE_TEXT].ListPendingMessages(False):
                     self._received_cb(id, timestamp, sender, type, flags, text)
 
     def _received_cb(self, id, timestamp, sender, type, flags, text):
@@ -469,6 +469,7 @@ class TextChannelWrapper(object):
             # XXX: cache these
             buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
+            self._text_chan[CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([id])
         else:
             self._logger.debug('Throwing received message on the floor'
                 ' since there is no callback connected. See '
