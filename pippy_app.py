@@ -20,6 +20,7 @@ import gtk
 import pango
 import logging
 import re
+import json
 from datetime import datetime
 from activity import ViewSourceActivity
 
@@ -34,7 +35,8 @@ from sugar.graphics.menuitem import MenuItem
 
 from telepathy.client import Connection
 from telepathy.interfaces import (
-    CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT)
+    CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
+    CONN_INTERFACE_ALIASING)
 from telepathy.constants import (
     CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES,
     CHANNEL_TEXT_MESSAGE_TYPE_NORMAL)
@@ -66,8 +68,8 @@ class Chat(ViewSourceActivity):
         # Track last message, to combine several messages:
         self._last_msg = None
         self._last_msg_sender = None
-
-        self.connect('shared', self._shared_cb)
+        # Chat is room or one to one:
+        self._chat_is_room = False
         self.text_channel = None
         
         if self._shared_activity:
@@ -76,21 +78,49 @@ class Chat(ViewSourceActivity):
             if self.get_shared():
                 # we have already joined
                 self._joined_cb()
+        elif handle.uri:
+            # XMPP non-Sugar incoming chat, not sharable
+            self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
             self._alert(_('Off-line'), _('Share, or invite someone.'))
+            self.connect('shared', self._shared_cb)
 
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
         self._setup()
 
+    def _one_to_one_connection(self, tp_channel):
+        """Handle a private invite from a non-Sugar XMPP client."""
+        from telepathy.client import Channel
+        if self._shared_activity or self.text_channel:
+            return
+        bus_name, connection, channel = json.read(tp_channel)
+        logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
+                     channel)  # XXX
+        conn = Connection(bus_name, connection)
+        text_channel = Channel(bus_name, channel)
+        self.text_channel = TextChannelWrapper(text_channel, conn)
+        self.text_channel.set_received_callback(self._received_cb)
+        self._chat_is_room = False
+        self._alert(_('On-line'), _('Private Chat'))
+        logger.debug('self.text_channel connected')  # XXX
+        # XXX show buddy
+
+        # XXX How do we cope with the sender leaving? Text channel closes -
+        # handle that.
+        self.entry.set_sensitive(True)
+        self.entry.grab_focus()
+
     def _setup(self):
         self.text_channel = TextChannelWrapper(
-            self._shared_activity.telepathy_text_chan)
+            self._shared_activity.telepathy_text_chan,
+            self._shared_activity.telepathy_conn)
         self.text_channel.set_received_callback(self._received_cb)
         self._alert(_('On-line'), _('Connected'))
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        self._chat_is_room = True
         self.entry.set_sensitive(True)
         self.entry.grab_focus()
 
@@ -440,10 +470,11 @@ class Chat(ViewSourceActivity):
 
 class TextChannelWrapper(object):
     """Wrap a telepathy Text Channel to make usage simpler."""
-    def __init__(self, text_chan):
+    def __init__(self, text_chan, conn):
         """Connect to the text channel"""
         self._activity_cb = None
         self._text_chan = text_chan
+        self._conn = conn
         self._logger = logging.getLogger(
             'chat-activity.TextChannelWrapper')
 
@@ -473,8 +504,17 @@ class TextChannelWrapper(object):
         Calls self._activity_cb which is a callback to the activity.
         """
         if self._activity_cb:
-            # XXX: cache these
-            buddy = self._get_buddy(sender)
+            try:
+                self._text_chan[CHANNEL_INTERFACE_GROUP]
+            except:
+                # One to one XMPP chat
+                nick = self._conn[CONN_INTERFACE_ALIASING].RequestAliases(
+                    [sender])[0]
+                buddy = {'nick': nick, 'color': '#000000,#808080'}
+            else:
+                # Normal sugar MUC chat
+                # XXX: cache these
+                buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
             self._text_chan[CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([id])
         else:
