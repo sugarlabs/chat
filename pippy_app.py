@@ -454,6 +454,11 @@ class TextChannelWrapper(object):
         self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
             self._received_cb)
 
+        # handle pending messages
+        for id, timestamp, sender, type, flags, text in \
+                self._text_chan[CHANNEL_TYPE_TEXT].ListPendingMessages(True):
+                    self._received_cb(id, timestamp, sender, type, flags, text)
+
     def _received_cb(self, id, timestamp, sender, type, flags, text):
         """Handle received text from the text channel.
 
