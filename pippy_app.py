@@ -33,7 +33,7 @@ from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
 
-from telepathy.client import Connection
+from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
     CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
     CONN_INTERFACE_ALIASING)
@@ -92,13 +92,15 @@ class Chat(ViewSourceActivity):
 
     def _one_to_one_connection(self, tp_channel):
         """Handle a private invite from a non-Sugar XMPP client."""
-        from telepathy.client import Channel
         if self._shared_activity or self.text_channel:
             return
         bus_name, connection, channel = json.read(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
                      channel)  # XXX
-        conn = Connection(bus_name, connection)
+        conn = Connection(bus_name, connection, ready_handler=lambda conn: \
+            self._connection_ready_cb(bus_name, channel, conn))
+
+    def _connection_ready_cb(self, bus_name, channel, conn):
         text_channel = Channel(bus_name, channel)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
