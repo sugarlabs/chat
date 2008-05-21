@@ -1,3 +1,8 @@
+39
+
+* ACK received messages (cassidy)
+* Handle pending messages when setting the message handler (cassidy)
+
 38
 
 * Updated translations: zh_TW, de, it

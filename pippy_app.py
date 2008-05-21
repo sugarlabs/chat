@@ -571,6 +571,15 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+39
+
+* ACK received messages (cassidy)
+* Handle pending messages when setting the message handler (cassidy)
+
+38
+
+* Updated translations: zh_TW, de, it
+
 37
 
 * UI Change: Merge multiple sequential messages from same author (morgs)
