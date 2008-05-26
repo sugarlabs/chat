@@ -242,12 +242,19 @@ class Chat(ViewSourceActivity):
                 nick = buddy.props.nick
                 color = buddy.props.color
             try:
-                color_stroke, color_fill = color.split(',')
+                color_stroke_html, color_fill_html = color.split(',')
             except ValueError:
-                color_stroke, color_fill = ('#000000', '#888888')
-            color_stroke = Color(color_stroke).get_int()
-            color_fill = Color(color_fill).get_int()
-            text_color = COLOR_WHITE.get_int()
+                color_stroke_html, color_fill_html = ('#000000', '#888888')
+            # Select text color based on fill color:
+            color_fill_rgba = Color(color_fill_html).get_rgba()
+            color_fill_gray = (color_fill_rgba[0] + color_fill_rgba[1] +
+                               color_fill_rgba[2])/3
+            color_stroke = Color(color_stroke_html).get_int()
+            color_fill = Color(color_fill_html).get_int()
+            if color_fill_gray < 0.5:
+                text_color = COLOR_WHITE.get_int()
+            else:
+                text_color = COLOR_BLACK.get_int()
         else:
             nick = '???'  # XXX: should be '' but leave for debugging
             color_stroke = COLOR_BLACK.get_int()
@@ -571,6 +578,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+#5767: Use black text on light fill colors (matthias)
+
 39
 
 * ACK received messages (cassidy)
