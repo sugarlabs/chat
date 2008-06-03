@@ -20,7 +20,7 @@ import gtk
 import pango
 import logging
 import re
-import json
+import simplejson
 from datetime import datetime
 from activity import ViewSourceActivity
 
@@ -80,6 +80,8 @@ class Chat(ViewSourceActivity):
                 self._joined_cb()
         elif handle.uri:
             # XMPP non-Sugar incoming chat, not sharable
+            activity_toolbar = toolbox.get_activity_toolbar()
+            activity_toolbar.share.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
@@ -94,23 +96,23 @@ class Chat(ViewSourceActivity):
         """Handle a private invite from a non-Sugar XMPP client."""
         if self._shared_activity or self.text_channel:
             return
-        bus_name, connection, channel = json.read(tp_channel)
+        bus_name, connection, channel = simplejson.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
                      channel)  # XXX
-        conn = Connection(bus_name, connection, ready_handler=lambda conn: \
-            self._connection_ready_cb(bus_name, channel, conn))
+        conn = Connection(
+            bus_name, connection, ready_handler=lambda conn: \
+            self._one_to_one_connection_ready_cb(bus_name, channel, conn))
 
-    def _connection_ready_cb(self, bus_name, channel, conn):
+    def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
+        """Callback for Connection for one to one connection"""
         text_channel = Channel(bus_name, channel)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self._chat_is_room = False
         self._alert(_('On-line'), _('Private Chat'))
-        logger.debug('self.text_channel connected')  # XXX
-        # XXX show buddy
 
-        # XXX How do we cope with the sender leaving? Text channel closes -
-        # handle that.
+        # XXX How do we cope with the sender leaving?
+        # Text channel closes? handle that - show person left.
         self.entry.set_sensitive(True)
         self.entry.grab_focus()
 
@@ -496,8 +498,9 @@ class TextChannelWrapper(object):
 
         # handle pending messages
         for id, timestamp, sender, type, flags, text in \
-                self._text_chan[CHANNEL_TYPE_TEXT].ListPendingMessages(False):
-                    self._received_cb(id, timestamp, sender, type, flags, text)
+            self._text_chan[
+                CHANNEL_TYPE_TEXT].ListPendingMessages(False):
+            self._received_cb(id, timestamp, sender, type, flags, text)
 
     def _received_cb(self, id, timestamp, sender, type, flags, text):
         """Handle received text from the text channel.
@@ -510,15 +513,16 @@ class TextChannelWrapper(object):
                 self._text_chan[CHANNEL_INTERFACE_GROUP]
             except:
                 # One to one XMPP chat
-                nick = self._conn[CONN_INTERFACE_ALIASING].RequestAliases(
-                    [sender])[0]
+                nick = self._conn[
+                    CONN_INTERFACE_ALIASING].RequestAliases([sender])[0]
                 buddy = {'nick': nick, 'color': '#000000,#808080'}
             else:
                 # Normal sugar MUC chat
                 # XXX: cache these
                 buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
-            self._text_chan[CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([id])
+            self._text_chan[
+                CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([id])
         else:
             self._logger.debug('Throwing received message on the floor'
                 ' since there is no callback connected. See '
