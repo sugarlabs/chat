@@ -578,6 +578,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+40
+
 #5767: Use black text on light fill colors (matthias)
 
 39
