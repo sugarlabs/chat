@@ -624,6 +624,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #6298: Implement 1-1 private chat with non Sugar Jabber clients (morgs)
+
 40
 
 #5767: Use black text on light fill colors (matthias)
