@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-27 00:30-0400\n"
-"PO-Revision-Date: 2008-04-15 05:25-0400\n"
+"PO-Revision-Date: 2008-05-02 13:22-0400\n"
 "Last-Translator: Gerhard Steiner <gerhard.steiner@duichwir.at>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "Unterhalten"
+msgstr "Chat"
 
 #: activity.py:42
 #, python-format
