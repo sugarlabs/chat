@@ -650,6 +650,9 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+41
+
+* Updated translations: mr, de, ht, km, es, it
 * #6036: Add separator after old chat history (morgs)
 * #6298: Implement 1-1 private chat with non Sugar Jabber clients (morgs)
 
