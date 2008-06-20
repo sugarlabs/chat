@@ -27,7 +27,7 @@ from activity import ViewSourceActivity
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
-    FONT_BOLD, FONT_NORMAL)
+    COLOR_BUTTON_GREY, FONT_BOLD, FONT_NORMAL)
 from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
@@ -390,6 +390,19 @@ class Chat(ViewSourceActivity):
             box.append(rb)
             self.conversation.append(box)
 
+    def add_separator(self, timestamp):
+        """Add whitespace and timestamp between chat sessions."""
+        box = hippo.CanvasBox(padding=2)
+        message = hippo.CanvasText(
+            text=timestamp,
+            color=COLOR_BUTTON_GREY.get_int(),
+            font_desc=FONT_NORMAL.get_pango_desc(),
+            xalign=hippo.ALIGNMENT_CENTER)
+        box.append(message)
+        self.conversation.append(box)
+        self._last_msg_sender = None
+        self._add_log_timestamp(timestamp)
+
     def entry_activate_cb(self, entry):
         text = entry.props.text
         logger.debug('Entry: %s' % text)
@@ -414,6 +427,14 @@ class Chat(ViewSourceActivity):
             datetime.strftime(datetime.now(), '%b %d %H:%M:%S'),
             nick, color, status_message, text)
 
+    def _add_log_timestamp(self, existing_timestamp=None):
+        """Add a timestamp entry to the chat log."""
+        if existing_timestamp is not None:
+            self._chat_log += '%s\t\t\n' % existing_timestamp
+        else:
+            self._chat_log += '%s\t\t\n' % (
+                datetime.strftime(datetime.now(), '%b %d %H:%M:%S'))
+
     def _get_log(self):
         return self._chat_log
 
@@ -424,6 +445,7 @@ class Chat(ViewSourceActivity):
         to define this method.
         """
         logger.debug('write_file: writing %s' % file_path)
+        self._add_log_timestamp()
         f = open(file_path, 'w')
         try:
             f.write(self._get_log())
@@ -439,10 +461,14 @@ class Chat(ViewSourceActivity):
         logger.debug('read_file: reading %s' % file_path)
         log = open(file_path).readlines()
         for line in log:
-            timestamp, nick, color, status, text = line.strip().split('\t')
-            status_message = bool(int(status))
-            self.add_text({'nick': nick, 'color': color},
-                          text, status_message)
+            if line.endswith('\t\t\n'):
+                timestamp = line.strip().split('\t')[0]
+                self.add_separator(timestamp)
+            else:
+                timestamp, nick, color, status, text = line.strip().split('\t')
+                status_message = bool(int(status))
+                self.add_text({'nick': nick, 'color': color},
+                              text, status_message)
 
     def _show_via_journal(self, url):
         """Ask the journal to display a URL"""
@@ -624,6 +650,7 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #6036: Add separator after old chat history (morgs)
 * #6298: Implement 1-1 private chat with non Sugar Jabber clients (morgs)
 
 40
