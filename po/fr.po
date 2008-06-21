@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-06-21 01:41-0400\n"
+"PO-Revision-Date: 2008-06-21 01:42-0400\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: French <mrtom@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,6 @@ msgid "is here"
 msgstr "est ici"
 
 #: pippy_app.py:457
-#, fuzzy
 msgid "URL from Chat"
 msgstr "URL depuis la Discussion"
 
