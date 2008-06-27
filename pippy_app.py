@@ -469,15 +469,19 @@ class Chat(ViewSourceActivity):
         """
         logger.debug('read_file: reading %s' % file_path)
         log = open(file_path).readlines()
+        last_line_was_timestamp = False
         for line in log:
             if line.endswith('\t\t\n'):
-                timestamp = line.strip().split('\t')[0]
-                self.add_separator(timestamp)
+                if last_line_was_timestamp is False:
+                    timestamp = line.strip().split('\t')[0]
+                    self.add_separator(timestamp)
+                    last_line_was_timestamp = True
             else:
                 timestamp, nick, color, status, text = line.strip().split('\t')
                 status_message = bool(int(status))
                 self.add_text({'nick': nick, 'color': color},
                               text, status_message)
+                last_line_was_timestamp = False
 
     def _show_via_journal(self, url):
         """Ask the journal to display a URL"""
