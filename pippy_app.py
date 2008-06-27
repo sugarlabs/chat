@@ -21,6 +21,7 @@ import pango
 import logging
 import re
 import simplejson
+import time
 from datetime import datetime
 from activity import ViewSourceActivity
 
@@ -32,6 +33,7 @@ from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
+from sugar.util import timestamp_to_elapsed_string
 
 from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
@@ -393,8 +395,15 @@ class Chat(ViewSourceActivity):
     def add_separator(self, timestamp):
         """Add whitespace and timestamp between chat sessions."""
         box = hippo.CanvasBox(padding=2)
+        time_with_current_year = (time.localtime(time.time())[0],) +\
+                time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
+        timestamp_seconds = time.mktime(time_with_current_year)
+        if timestamp_seconds > time.time():
+            time_with_previous_year = (time.localtime(time.time())[0]-1,) +\
+                    time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
+            timestamp_seconds = time.mktime(time_with_previous_year)
         message = hippo.CanvasText(
-            text=timestamp,
+            text=timestamp_to_elapsed_string(timestamp_seconds),
             color=COLOR_BUTTON_GREY.get_int(),
             font_desc=FONT_NORMAL.get_pango_desc(),
             xalign=hippo.ALIGNMENT_CENTER)
