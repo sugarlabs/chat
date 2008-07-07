@@ -663,6 +663,11 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+42
+
+* #6036: Show timestamp as elapsed time instead of date (morgs)
+* Updated translations: fr, mvo, pis, af, sd, pap, tpi, ar, de
+
 41
 
 * Updated translations: mr, de, ht, km, es, it
