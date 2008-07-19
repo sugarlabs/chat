@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 00:30-0400\n"
-"PO-Revision-Date: 2008-04-06 16:48-0400\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2008-07-18 19:05-0400\n"
 "Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,38 +20,42 @@ msgstr "聊天"
 msgid "%s Source"
 msgstr "%s原始碼"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Off-line"
 msgstr "離線"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Share, or invite someone."
 msgstr "分享，或是邀請朋友"
 
-#: pippy_app.py:84
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "上線"
 
-#: pippy_app.py:84
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "悄悄話"
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "已連線"
 
-#: pippy_app.py:126
+#: pippy_app.py:163
 msgid "joined the chat"
 msgstr "進入聊天室"
 
-#: pippy_app.py:137
+#: pippy_app.py:174
 msgid "left the chat"
 msgstr "離開聊天室"
 
-#: pippy_app.py:148
+#: pippy_app.py:185
 msgid "is here"
 msgstr "在聊天室"
 
-#: pippy_app.py:358
+#: pippy_app.py:457
 msgid "URL from Chat"
 msgstr "聊天中的網址"
 
-#: pippy_app.py:446
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
 msgstr "複製到剪貼簿"
