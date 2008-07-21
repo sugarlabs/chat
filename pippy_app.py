@@ -663,6 +663,10 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+43
+
+* Updated translations: zh_TW, ja
+
 42
 
 * #6036: Show timestamp as elapsed time instead of date (morgs)
