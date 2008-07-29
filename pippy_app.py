@@ -110,6 +110,7 @@ class Chat(ViewSourceActivity):
         text_channel = Channel(bus_name, channel)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
+        self.text_channel.handle_pending_messages()
         self._chat_is_room = False
         self._alert(_('On-line'), _('Private Chat'))
 
@@ -535,7 +536,8 @@ class TextChannelWrapper(object):
         self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
             self._received_cb)
 
-        # handle pending messages
+    def handle_pending_messages(self):
+        """Get pending messages and show them as received."""
         for id, timestamp, sender, type, flags, text in \
             self._text_chan[
                 CHANNEL_TYPE_TEXT].ListPendingMessages(False):
@@ -663,6 +665,9 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #7692: Don't show pending messages when joining a chat (morgs)
+* Updated translations: nl, te, es
+
 43
 
 * Updated translations: zh_TW, ja
