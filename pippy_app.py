@@ -675,7 +675,7 @@ CHAT_ICON=\
 CHAT_NEWS="""
 * #7717: Log incoming messages (morgs)
 * #7692: Don't show pending messages when joining a chat (morgs)
-* Updated translations: nl, te, es
+* Updated translations: nl, te, es, mn
 
 43
 
