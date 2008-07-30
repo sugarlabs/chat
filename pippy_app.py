@@ -100,7 +100,7 @@ class Chat(ViewSourceActivity):
             return
         bus_name, connection, channel = simplejson.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
-                     channel)  # XXX
+                     channel)
         conn = Connection(
             bus_name, connection, ready_handler=lambda conn: \
             self._one_to_one_connection_ready_cb(bus_name, channel, conn))
@@ -142,6 +142,14 @@ class Chat(ViewSourceActivity):
 
     def _received_cb(self, buddy, text):
         """Show message that was received."""
+        if buddy:
+            if type(buddy) is dict:
+                nick = buddy['nick']
+            else:
+                nick = buddy.props.nick
+        else:
+            nick = '???'
+        logger.debug('Received message from %s: %s', nick, text)
         self.add_text(buddy, text)
 
     def _alert(self, title, text=None):
@@ -665,6 +673,7 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #7717: Log incoming messages (morgs)
 * #7692: Don't show pending messages when joining a chat (morgs)
 * Updated translations: nl, te, es
 
