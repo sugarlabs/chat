@@ -1,3 +1,4 @@
+* #7633: Close the text channel when stopping a 1-1 chat (morgs)
 * #7717: Log incoming messages (morgs)
 * #7692: Don't show pending messages when joining a chat (morgs)
 * Updated translations: nl, te, es, mn

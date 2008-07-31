@@ -37,7 +37,7 @@ from sugar.util import timestamp_to_elapsed_string
 
 from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
-    CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
+    CHANNEL_INTERFACE, CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
     CONN_INTERFACE_ALIASING)
 from telepathy.constants import (
     CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES,
@@ -111,13 +111,18 @@ class Chat(ViewSourceActivity):
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self.text_channel.handle_pending_messages()
+        self.text_channel.set_closed_callback(
+            self._one_to_one_connection_closed_cb)
         self._chat_is_room = False
         self._alert(_('On-line'), _('Private Chat'))
 
-        # XXX How do we cope with the sender leaving?
-        # Text channel closes? handle that - show person left.
+        # XXX How do we detect the sender going offline?
         self.entry.set_sensitive(True)
         self.entry.grab_focus()
+
+    def _one_to_one_connection_closed_cb(self):
+        """Callback for when the text channel closes."""
+        self._alert(_('Off-line'), _('left the chat'))
 
     def _setup(self):
         self.text_channel = TextChannelWrapper(
@@ -195,6 +200,17 @@ class Chat(ViewSourceActivity):
             nick = '???'
         self.add_text(buddy, buddy.props.nick+' '+_('is here'),
             status_message=True)
+
+    def can_close(self):
+        """Perform cleanup before closing.
+        
+        Close text channel of a one to one XMPP chat.
+        
+        """
+        if self._chat_is_room is False:
+            if self.text_channel is not None:
+                self.text_channel.close()
+        return True
 
     def make_root(self):
         conversation = hippo.CanvasBox(
@@ -525,24 +541,53 @@ class TextChannelWrapper(object):
     def __init__(self, text_chan, conn):
         """Connect to the text channel"""
         self._activity_cb = None
+        self._activity_close_cb = None
         self._text_chan = text_chan
         self._conn = conn
         self._logger = logging.getLogger(
             'chat-activity.TextChannelWrapper')
+        self._signal_matches = []
+        m = self._text_chan[CHANNEL_INTERFACE].connect_to_signal(
+            'Closed', self._closed_cb)
+        self._signal_matches.append(m)
 
     def send(self, text):
+        """Send text over the Telepathy text channel."""
         # XXX Implement CHANNEL_TEXT_MESSAGE_TYPE_ACTION
-        self._text_chan[CHANNEL_TYPE_TEXT].Send(
-            CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
+        if self._text_chan is not None:
+            self._text_chan[CHANNEL_TYPE_TEXT].Send(
+                CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
+
+    def close(self):
+        """Close the text channel."""
+        self._logger.debug('Closing text channel')
+        try:
+            self._text_chan[CHANNEL_INTERFACE].Close()
+        except:
+            self._logger.debug('Channel disappeared!')
+            self._closed_cb()
+
+    def _closed_cb(self):
+        """Clean up text channel."""
+        self._logger.debug('Text channel closed.')
+        for match in self._signal_matches:
+            match.remove()
+        self._signal_matches = []
+        self._text_chan = None
+        if self._activity_close_cb is not None:
+            self._activity_close_cb()
 
     def set_received_callback(self, callback):
         """Connect the function callback to the signal.
 
         callback -- callback function taking buddy and text args
         """
+        if self._text_chan is None:
+            return
         self._activity_cb = callback
-        self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
+        m = self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
             self._received_cb)
+        self._signal_matches.append(m)
 
     def handle_pending_messages(self):
         """Get pending messages and show them as received."""
@@ -576,6 +621,14 @@ class TextChannelWrapper(object):
             self._logger.debug('Throwing received message on the floor'
                 ' since there is no callback connected. See '
                 'set_received_callback')
+
+    def set_closed_callback(self, callback):
+        """Connect a callback for when the text channel is closed.
+
+        callback -- callback function taking no args
+
+        """
+        self._activity_close_cb = callback
 
     def _get_buddy(self, cs_handle):
         """Get a Buddy from a (possibly channel-specific) handle."""
@@ -673,6 +726,7 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #7633: Close the text channel when stopping a 1-1 chat (morgs)
 * #7717: Log incoming messages (morgs)
 * #7692: Don't show pending messages when joining a chat (morgs)
 * Updated translations: nl, te, es, mn
@@ -851,7 +905,7 @@ CHAT_NEWS="""
 
 def pippy_activity_version():
     """Returns the version number of the generated activity bundle."""
-    return 35
+    return 43
 
 def pippy_activity_news():
     """Return the NEWS file for this activity."""
