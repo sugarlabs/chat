@@ -726,6 +726,8 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+44
+
 * #7633: Close the text channel when stopping a 1-1 chat (morgs)
 * #7717: Log incoming messages (morgs)
 * #7692: Don't show pending messages when joining a chat (morgs)
@@ -905,7 +907,7 @@ CHAT_NEWS="""
 
 def pippy_activity_version():
     """Returns the version number of the generated activity bundle."""
-    return 43
+    return 44
 
 def pippy_activity_news():
     """Return the NEWS file for this activity."""
