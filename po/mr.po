@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 00:30-0400\n"
-"PO-Revision-Date: 2008-04-28 02:27-0400\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2008-06-20 07:38-0400\n"
 "Last-Translator: Rupali Sarode <rups23in@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,38 +24,42 @@ msgstr "गप्पागोष्टी"
 msgid "%s Source"
 msgstr "%s स्त्रोत्र"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Off-line"
 msgstr "औफलाइन"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Share, or invite someone."
 msgstr "विभागून किवा आमंत्रण करणे"
 
-#: pippy_app.py:84
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "ऑन-लाईन"
 
-#: pippy_app.py:84
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "व्यक्‍तिगत गप्पा गोष्टी "
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "जुळले"
 
-#: pippy_app.py:126
+#: pippy_app.py:163
 msgid "joined the chat"
 msgstr "गप्पा गोष्टीमध्ये दाखल होणे"
 
-#: pippy_app.py:137
+#: pippy_app.py:174
 msgid "left the chat"
 msgstr "गप्पा गोष्टी सोडून जाणे"
 
-#: pippy_app.py:148
+#: pippy_app.py:185
 msgid "is here"
 msgstr "येथे आहे"
 
-#: pippy_app.py:358
+#: pippy_app.py:457
 msgid "URL from Chat"
 msgstr "युआरल वरुन गप्पा गोष्टी"
 
-#: pippy_app.py:446
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
 msgstr "क्लीपबोर्ड वरती छापा"
