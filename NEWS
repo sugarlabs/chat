@@ -1,3 +1,8 @@
+45
+
+* Updated translations: sl, nb, el, mr, rw, ur, ne
+* Fixed MANIFEST to include all translations (morgs)
+
 44
 
 * #7633: Close the text channel when stopping a 1-1 chat (morgs)

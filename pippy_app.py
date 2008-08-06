@@ -726,6 +726,11 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+45
+
+* Updated translations: sl, nb, el, mr, rw, ur, ne
+* Fixed MANIFEST to include all translations (morgs)
+
 44
 
 * #7633: Close the text channel when stopping a 1-1 chat (morgs)
@@ -907,7 +912,7 @@ CHAT_NEWS="""
 
 def pippy_activity_version():
     """Returns the version number of the generated activity bundle."""
-    return 44
+    return 45
 
 def pippy_activity_news():
     """Return the NEWS file for this activity."""
