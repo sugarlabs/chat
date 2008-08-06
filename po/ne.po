@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-03-21 01:00-0400\n"
-"Last-Translator: Nirmal Adhikari <nirmal@olpcnepal.org>\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2008-07-25 02:24-0400\n"
+"Last-Translator: Pradosh Kharel <pradosh@olenepal.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,39 +19,47 @@ msgstr ""
 msgid "Chat"
 msgstr "कुराकानी"
 
-#: activity.py:26
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr "%s श्रोत"
 
-#: pippy_app.py:84
+#: pippy_app.py:88
 msgid "Off-line"
 msgstr "अफ-लाईन"
 
-#: pippy_app.py:84
+#: pippy_app.py:88
 msgid "Share, or invite someone."
 msgstr "साझा गर, अथवा कसैलाई आमन्त्रण गर"
 
-#: pippy_app.py:93
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "अन-लाईन"
 
-#: pippy_app.py:93
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "निजी कुराकानी"
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "जडान भयो"
 
-#: pippy_app.py:134
+#: pippy_app.py:163
 msgid "joined the chat"
 msgstr "कुराकानीमा सहभागी भयो"
 
-#: pippy_app.py:145
+#: pippy_app.py:174
 msgid "left the chat"
 msgstr "कुराकानी छोड्यो"
 
-#: pippy_app.py:156
+#: pippy_app.py:185
 msgid "is here"
 msgstr "यहिं छ"
 
-#: pippy_app.py:452
+#: pippy_app.py:457
+msgid "URL from Chat"
+msgstr "कुराकानीवाट URL"
+
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
-msgstr "क्लिपबोर््डमा सार"
+msgstr "क्लिपबोर्डमा सार"
