@@ -1,7 +1,6 @@
 [Activity]
 name = Chat
 bundle_id = org.laptop.Chat
-service_name = org.laptop.Chat
 class = pippy_app.Chat
 icon = activity-icon
 activity_version = 45
