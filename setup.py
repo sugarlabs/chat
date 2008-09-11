@@ -18,4 +18,4 @@
 
 from sugar.activity import bundlebuilder
 
-bundlebuilder.start('Chat')
+bundlebuilder.start()
