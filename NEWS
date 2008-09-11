@@ -1,3 +1,7 @@
+* #8411: Add license to activity.info
+* Remove parameter from bundlebuilder.start
+* Add update_url for software updater
+
 45
 
 * Updated translations: sl, nb, el, mr, rw, ur, ne
