@@ -1,3 +1,6 @@
+* #8411: Add license to activity.info
+* Remove parameter from bundlebuilder.start
+
 46
 
 * Add update_url for software updater
