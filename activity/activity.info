@@ -7,5 +7,5 @@ activity_version = 45
 mime_types = 
 show_launcher = yes
 host_version = 1
-update_url = http://dev.laptop.org/~morgan/bundles/chat.html
+update_url = http://dev.laptop.org/~morgan/bundles/chat
 license = GPLv2+
