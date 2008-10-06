@@ -726,6 +726,19 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+* #8772: Fix journal entry creation in Chat for uri-list (kevix)
+* Updated translations: tr, si
+
+47
+
+* #8411: Add license to activity.info
+* Remove parameter from bundlebuilder.start
+
+46
+
+* Add update_url for software updater
+* Updated translations: ar, pt
+
 45
 
 * Updated translations: sl, nb, el, mr, rw, ur, ne
@@ -912,7 +925,7 @@ CHAT_NEWS="""
 
 def pippy_activity_version():
     """Returns the version number of the generated activity bundle."""
-    return 45
+    return 48
 
 def pippy_activity_news():
     """Return the NEWS file for this activity."""
