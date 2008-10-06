@@ -1,7 +1,8 @@
-* #8471: Allow resuming Chat log in Write
-* #8411: Add license to activity.info
-* Remove parameter from bundlebuilder.start
-* Add update_url for software updater
+* #8772: Fix journal entry creation in Chat for uri-list (kevix)
+* #8471: Allow resuming Chat log in Write (morgs)
+* #8411: Add license to activity.info (morgs)
+* Remove parameter from bundlebuilder.start (morgs)
+* Add update_url for software updater (morgs)
 
 45
 
