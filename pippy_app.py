@@ -526,11 +526,11 @@ class Chat(ViewSourceActivity):
             }
         for k,v in metadata.items():
             jobject.metadata[k] = v
-        file_path = os.path.join(self.get_activity_root(), 'tmp',
+        file_path = os.path.join(self.get_activity_root(), 'instance',
                                  '%i_' % time.time())
         open(file_path, 'w').write(url + '\r\n')
         os.chmod(file_path, 0755)
-        jobject.file_path = file_path
+        jobject.set_file_path(file_path)
         datastore.write(jobject)
         show_object_in_journal(jobject.object_id)
         jobject.destroy()
