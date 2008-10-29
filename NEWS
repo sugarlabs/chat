@@ -1,3 +1,4 @@
+* Version bump to allow for stable releases after v48
 * #8772: Fix journal entry creation in Chat for uri-list (kevix)
 * #8471: Allow resuming Chat log in Write (morgs)
 * #8411: Add license to activity.info (morgs)

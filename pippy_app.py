@@ -727,6 +727,15 @@ CHAT_ICON=\
 """
 
 CHAT_NEWS="""
+60
+
+* Version bump to allow for stable releases after v48
+* #8772: Fix journal entry creation in Chat for uri-list (kevix)
+* #8471: Allow resuming Chat log in Write (morgs)
+* #8411: Add license to activity.info (morgs)
+* Remove parameter from bundlebuilder.start (morgs)
+* Add update_url for software updater (morgs)
+
 45
 
 * Updated translations: sl, nb, el, mr, rw, ur, ne
@@ -913,7 +922,7 @@ CHAT_NEWS="""
 
 def pippy_activity_version():
     """Returns the version number of the generated activity bundle."""
-    return 45
+    return 60
 
 def pippy_activity_news():
     """Return the NEWS file for this activity."""
