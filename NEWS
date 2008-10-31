@@ -1,3 +1,5 @@
+* #8471: Allow resuming Chat log in Write
+
 48
 
 * #8772: Fix journal entry creation in Chat for uri-list (kevix)

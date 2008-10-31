@@ -485,6 +485,7 @@ class Chat(ViewSourceActivity):
             f.write(self._get_log())
         finally:
             f.close()
+        self.metadata['mime_type'] = 'text/plain'
 
     def read_file(self, file_path):
         """Load a chat log from the Journal.
