@@ -74,7 +74,7 @@ class Chat(ViewSourceActivity):
         self._chat_is_room = False
         self.text_channel = None
         
-        if self._shared_activity:
+        if self.shared_activity:
             # we are joining the activity
             self.connect('joined', self._joined_cb)
             if self.get_shared():
@@ -96,7 +96,7 @@ class Chat(ViewSourceActivity):
 
     def _one_to_one_connection(self, tp_channel):
         """Handle a private invite from a non-Sugar XMPP client."""
-        if self._shared_activity or self.text_channel:
+        if self.shared_activity or self.text_channel:
             return
         bus_name, connection, channel = simplejson.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
@@ -126,22 +126,22 @@ class Chat(ViewSourceActivity):
 
     def _setup(self):
         self.text_channel = TextChannelWrapper(
-            self._shared_activity.telepathy_text_chan,
-            self._shared_activity.telepathy_conn)
+            self.shared_activity.telepathy_text_chan,
+            self.shared_activity.telepathy_conn)
         self.text_channel.set_received_callback(self._received_cb)
         self._alert(_('On-line'), _('Connected'))
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        self.shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
         self.entry.set_sensitive(True)
         self.entry.grab_focus()
 
     def _joined_cb(self, activity):
         """Joined a shared activity."""
-        if not self._shared_activity:
+        if not self.shared_activity:
             return
         logger.debug('Joined a shared chat')
-        for buddy in self._shared_activity.get_joined_buddies():
+        for buddy in self.shared_activity.get_joined_buddies():
             self._buddy_already_exists(buddy)
         self._setup()
 
