@@ -321,6 +321,7 @@ class Chat(ViewSourceActivity):
             color_stroke = COLOR_BLACK.get_int()
             color_fill = COLOR_WHITE.get_int()
             text_color = COLOR_BLACK.get_int()
+            color = '#000000,#FFFFFF'
         self._add_log(nick, color, text, status_message)
 
         # Check for Right-To-Left languages:
@@ -457,6 +458,14 @@ class Chat(ViewSourceActivity):
         text -- string, body of message
         status_message -- boolean
         """
+        if not nick:
+            nick = '???'
+        if not color:
+            color = '#000000,#FFFFFF'
+        if not text:
+            text = '-'
+        if not status_message:
+            status_message = False
         self._chat_log += '%s\t%s\t%s\t%d\t%s\n' % (
             datetime.strftime(datetime.now(), '%b %d %H:%M:%S'),
             nick, color, status_message, text)
