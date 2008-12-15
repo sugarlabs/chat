@@ -1,58 +1,95 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+#  [es] ""
+#  [es] "Project-Id-Version: Chat\n"
+#  [es] "Report-Msgid-Bugs-To: \n"
+#  [es] "POT-Creation-Date: 2008-06-14 00:30-0400\n"
+#  [es] "PO-Revision-Date: 2008-07-15 13:05-0400\n"
+#  [es] "Last-Translator: Cristian Andrés Rodríguez Ferreira "
+#  [es] "<djtoxicsoftware@gmail.com>\n"
+#  [es] "Language-Team: ES <fedora-trans-es@redhat.com>\n"
+#  [es] "MIME-Version: 1.0\n"
+#  [es] "Content-Type: text/plain; charset=UTF-8\n"
+#  [es] "Content-Transfer-Encoding: 8bit\n"
+#  [es] "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#  [es] "X-Generator: Pootle 1.1.0rc2\n"
+#  [es] "X-Poedit-Language: Spanish\n"
+#  SOME DESCRIPTIVE TITLE.
+#  Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: OLPC 0.82 Sept08\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2008-09-13 17:11-0400\n"
+"Last-Translator: OLPC-Bolivia\n"
+"Language-Team: OLE Bolivia <amosbatto@yahoo.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.0.1\n"
+"X-Poedit-Language: Aymara\n"
+"X-Poedit-Country: Bolivia\n"
 
+#  [es] "Charlar"
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Aruskipaña"
 
-#: pippy_app.py:84
-msgid "Off-line"
-msgstr ""
-
-#: pippy_app.py:84
-msgid "Share, or invite someone."
-msgstr ""
-
-#: pippy_app.py:93
-msgid "On-line"
-msgstr ""
-
-#: pippy_app.py:93
-msgid "Connected"
-msgstr ""
-
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr ""
-
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr ""
-
-#: pippy_app.py:156
-msgid "is here"
-msgstr ""
-
-#: activity.py:26
+#  [es] "%s Fuente"
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr ""
 
-#: pippy_app.py:452
+#  [es] "Sin línea"
+#: pippy_app.py:88
+msgid "Off-line"
+msgstr "Janiw khitis khayankkiti"
+
+#  [es] "Compartir, o invitar a alguien."
+#: pippy_app.py:88
+msgid "Share, or invite someone."
+msgstr "Jawsayañawa"
+
+#  [es] "En línea"
+#: pippy_app.py:112
+#: pippy_app.py:124
+msgid "On-line"
+msgstr "Aruskipt'asmawa"
+
+#  [es] "Charla Privada"
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "Jisk'a tantachawi aruskipañataki"
+
+#  [es] "Conectado"
+#: pippy_app.py:124
+msgid "Connected"
+msgstr "Aruskipt'asmawa"
+
+#  [es] "se unió a la charla"
+#: pippy_app.py:163
+msgid "joined the chat"
+msgstr "Yaqhipaw aruskapt'ir juti"
+
+#  [es] "abandonó la charla"
+#: pippy_app.py:174
+msgid "left the chat"
+msgstr "aruskipawit sarawayxiwa"
+
+#  [es] "está aquí"
+#: pippy_app.py:185
+msgid "is here"
+msgstr "akankkanwa"
+
+#  [es] "URL proveniente de Charla"
+#: pippy_app.py:457
+msgid "URL from Chat"
+msgstr "URL aruskipawita"
+
+#  [es] "Copiar al Portapapeles"
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Wayaqar qillqaqaña"
+
