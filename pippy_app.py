@@ -20,7 +20,7 @@ import gtk
 import pango
 import logging
 import re
-import simplejson
+import cjson
 import time
 from datetime import datetime
 from activity import ViewSourceActivity
@@ -98,7 +98,7 @@ class Chat(ViewSourceActivity):
         """Handle a private invite from a non-Sugar XMPP client."""
         if self.shared_activity or self.text_channel:
             return
-        bus_name, connection, channel = simplejson.loads(tp_channel)
+        bus_name, connection, channel = cjson.decode(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
                      channel)
         conn = Connection(
