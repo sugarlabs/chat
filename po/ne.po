@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-07-25 02:24-0400\n"
-"Last-Translator: Pradosh Kharel <pradosh@olenepal.org>\n"
+"PO-Revision-Date: 2009-02-25 23:17-0500\n"
+"Last-Translator: Shaksham Thapa <shaksham@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "अफ-लाईन"
 
 #: pippy_app.py:88
 msgid "Share, or invite someone."
-msgstr "साझा गर, अथवा कसैलाई आमन्त्रण गर"
+msgstr "साझा गर, अथवा कसैलाई आमन्त्रण गर।"
 
 #: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
