@@ -1,3 +1,10 @@
+65
+
+* Support new activity.info exec parameter (alsroot)
+* #402: "share or invite" hint even on resume of shared instance (alsroot)
+
+46
+
 * Version bump to allow for stable releases after v48
 * #8772: Fix journal entry creation in Chat for uri-list (kevix)
 * #8471: Allow resuming Chat log in Write (morgs)

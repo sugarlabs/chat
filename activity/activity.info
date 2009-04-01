@@ -2,8 +2,9 @@
 name = Chat
 bundle_id = org.laptop.Chat
 class = pippy_app.Chat
+exec = sugar-activity pippy_app.Chat
 icon = activity-icon
-activity_version = 64
+activity_version = 65
 mime_types = 
 show_launcher = yes
 host_version = 1
