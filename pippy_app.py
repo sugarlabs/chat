@@ -25,7 +25,7 @@ import time
 from datetime import datetime
 from activity import ViewSourceActivity
 
-from sugar.activity.activity import Activity, ActivityToolbox
+from sugar.activity.activity import Activity, ActivityToolbox, SCOPE_PRIVATE
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
     COLOR_BUTTON_GREY, FONT_BOLD, FONT_NORMAL)
@@ -87,7 +87,10 @@ class Chat(ViewSourceActivity):
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
-            self._alert(_('Off-line'), _('Share, or invite someone.'))
+            if not self.metadata or self.metadata.get('share-scope',
+                    SCOPE_PRIVATE) == SCOPE_PRIVATE:
+                # if we are in private session
+                self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
 
     def _shared_cb(self, activity):
