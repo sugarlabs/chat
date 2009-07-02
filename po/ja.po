@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2008-07-21 07:46-0400\n"
 "Last-Translator: korakurider <korakurider@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,47 +19,45 @@ msgstr ""
 msgid "Chat"
 msgstr "チャット"
 
-#: activity.py:42
+#: activity.py:26
 #, python-format
 msgid "%s Source"
 msgstr "%s ソース"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "オフライン"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "共有したり、誰かを招待する"
 
-#: pippy_app.py:112 pippy_app.py:124
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "オンライン"
 
-#: pippy_app.py:112
-msgid "Private Chat"
-msgstr "内緒のチャット"
-
-#: pippy_app.py:124
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "接続しました"
 
-#: pippy_app.py:163
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "さんが入室しました"
 
-#: pippy_app.py:174
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "さんが退室しました"
 
-#: pippy_app.py:185
+#: pippy_app.py:156
 msgid "is here"
 msgstr "がいます"
 
-#: pippy_app.py:457
-msgid "URL from Chat"
-msgstr "チャットからのURL"
-
-#: pippy_app.py:563
+#: pippy_app.py:452
 msgid "Copy to Clipboard"
 msgstr "クリップボードへコピー"
+
+#~ msgid "Private Chat"
+#~ msgstr "内緒のチャット"
+
+#~ msgid "URL from Chat"
+#~ msgstr "チャットからのURL"
