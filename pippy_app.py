@@ -25,7 +25,8 @@ import time
 from datetime import datetime
 from activity import ViewSourceActivity
 
-from sugar.activity.activity import Activity, ActivityToolbox, SCOPE_PRIVATE
+from sugar.activity.activity import Activity, SCOPE_PRIVATE
+from sugar.activity import widgets
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
     COLOR_BUTTON_GREY, FONT_BOLD, FONT_NORMAL)
@@ -33,6 +34,7 @@ from sugar.graphics.roundbox import CanvasRoundBox
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
+from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.util import timestamp_to_elapsed_string
 
 from telepathy.client import Connection, Channel
@@ -58,9 +60,32 @@ class Chat(ViewSourceActivity):
         root.show_all()
         self.entry.grab_focus()
 
-        toolbox = ActivityToolbox(self)
-        self.set_toolbox(toolbox)
-        toolbox.show()
+        # toolbar
+
+        toolbar_box = ToolbarBox()
+        self.set_toolbar_box(toolbar_box)
+
+        toolbar_box.toolbar.insert(widgets.ActivityButton(self), -1)
+
+        separator = gtk.SeparatorToolItem()
+        separator.props.draw = False
+        toolbar_box.toolbar.insert(separator, -1)
+
+        toolbar_box.toolbar.insert(widgets.TitleEntry(self), -1)
+
+        separator = gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+
+        share_button = widgets.ShareButton(self)
+        toolbar_box.toolbar.insert(share_button, -1)
+        toolbar_box.toolbar.insert(widgets.KeepButton(self), -1)
+        toolbar_box.toolbar.insert(widgets.StopButton(self), -1)
+
+        toolbar_box.show_all()
+
+        # canvas
 
         self.owner = self._pservice.get_owner()
         self._chat_log = ''
@@ -82,8 +107,7 @@ class Chat(ViewSourceActivity):
                 self._joined_cb()
         elif handle.uri:
             # XMPP non-Sugar incoming chat, not sharable
-            activity_toolbar = toolbox.get_activity_toolbar()
-            activity_toolbar.share.props.visible = False
+            share_button.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
