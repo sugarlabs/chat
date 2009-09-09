@@ -34,6 +34,8 @@ from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
 from sugar.util import timestamp_to_elapsed_string
+from sugar.graphics.toolbarbox import ToolbarBox
+from sugar.activity.widgets import *
 
 from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
@@ -58,9 +60,22 @@ class Chat(ViewSourceActivity):
         root.show_all()
         self.entry.grab_focus()
 
-        toolbox = ActivityToolbox(self)
-        self.set_toolbox(toolbox)
-        toolbox.show()
+        toolbar_box = ToolbarBox()
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.toolbar.insert(ActivityButton(self), -1)
+        toolbar_box.toolbar.insert(TitleEntry(self), -1)
+
+        share_button = ShareButton(self)
+        toolbar_box.toolbar.insert(share_button, -1)
+        toolbar_box.toolbar.insert(KeepButton(self), -1)
+
+        separator = gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+
+        toolbar_box.toolbar.insert(StopButton(self), -1)
+        toolbar_box.show_all()
 
         self.owner = self._pservice.get_owner()
         self._chat_log = ''
@@ -73,7 +88,7 @@ class Chat(ViewSourceActivity):
         # Chat is room or one to one:
         self._chat_is_room = False
         self.text_channel = None
-        
+
         if self.shared_activity:
             # we are joining the activity
             self.connect('joined', self._joined_cb)
@@ -82,8 +97,7 @@ class Chat(ViewSourceActivity):
                 self._joined_cb()
         elif handle.uri:
             # XMPP non-Sugar incoming chat, not sharable
-            activity_toolbar = toolbox.get_activity_toolbar()
-            activity_toolbar.share.props.visible = False
+            share_button.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
