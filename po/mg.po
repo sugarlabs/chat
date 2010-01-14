@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2009-09-03 01:24-0400\n"
+"Last-Translator: Chris Leonard <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: mg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.2.1\n"
+
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "Resadresaka"
+
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "%s loharano"
+
+#: pippy_app.py:84
+msgid "Off-line"
+msgstr "ivelan'ny fifandraisana"
+
+#: pippy_app.py:84
+msgid "Share, or invite someone."
+msgstr "zarao, na manasa olona"
+
+#: pippy_app.py:93
+msgid "On-line"
+msgstr "Anaty fifandraisana"
+
+#: pippy_app.py:93
+msgid "Connected"
+msgstr "Mifandray"
+
+#: pippy_app.py:134
+msgid "joined the chat"
+msgstr "miditra amin'ny resadresaka"
+
+#: pippy_app.py:145
+msgid "left the chat"
+msgstr "miala amin'ny resadresaka"
+
+#: pippy_app.py:156
+msgid "is here"
+msgstr "dia eto"
+
+#: pippy_app.py:452
+msgid "Copy to Clipboard"
+msgstr "adikao amin'ny solaitra fitehirizana"
