@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2008-09-25 12:48-0400\n"
 "Last-Translator: Alexander Dupuy <alex.dupuy@mac.com>\n"
 "Language-Team: ES <fedora-trans-es@redhat.com>\n"
@@ -22,47 +22,45 @@ msgstr ""
 msgid "Chat"
 msgstr "Charlar"
 
-#: activity.py:42
+#: activity.py:26
 #, python-format
 msgid "%s Source"
 msgstr "%s Fuente"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Fuera de línea"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Compartir, o invitar a alguien."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "En línea"
 
-#: pippy_app.py:112
-msgid "Private Chat"
-msgstr "Charla Privada"
-
-#: pippy_app.py:124
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Conectado"
 
-#: pippy_app.py:163
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "se unió a la charla"
 
-#: pippy_app.py:174
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "abandonó la charla"
 
-#: pippy_app.py:185
+#: pippy_app.py:156
 msgid "is here"
 msgstr "está aquí"
 
-#: pippy_app.py:457
-msgid "URL from Chat"
-msgstr "URL proveniente de Charla"
-
-#: pippy_app.py:563
+#: pippy_app.py:452
 msgid "Copy to Clipboard"
 msgstr "Copiar al Portapapeles"
+
+#~ msgid "Private Chat"
+#~ msgstr "Charla Privada"
+
+#~ msgid "URL from Chat"
+#~ msgstr "URL proveniente de Charla"
