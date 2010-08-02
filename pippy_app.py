@@ -36,6 +36,7 @@ from sugar.graphics.menuitem import MenuItem
 from sugar.util import timestamp_to_elapsed_string
 from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.activity.widgets import *
+from sugar.presence import presenceservice
 
 from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
@@ -77,7 +78,8 @@ class Chat(ViewSourceActivity):
         toolbar_box.toolbar.insert(StopButton(self), -1)
         toolbar_box.show_all()
 
-        self.owner = self._pservice.get_owner()
+        pservice = presenceservice.get_instance()
+        self.owner = pservice.get_owner()
         self._chat_log = ''
         # Auto vs manual scrolling:
         self._scroll_auto = True
@@ -661,7 +663,6 @@ class TextChannelWrapper(object):
         """Get a Buddy from a (possibly channel-specific) handle."""
         # XXX This will be made redundant once Presence Service 
         # provides buddy resolution
-        from sugar.presence import presenceservice
         # Get the Presence Service
         pservice = presenceservice.get_instance()
         # Get the Telepathy Connection
