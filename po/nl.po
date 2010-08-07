@@ -2,11 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
 "PO-Revision-Date: 2010-07-20 07:39+0200\n"
 "Last-Translator: whe <heppew@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,45 +25,47 @@ msgstr ""
 msgid "Chat"
 msgstr "Chat"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s Bron"
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "Offline"
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr "Delen, of iemand uitnodigen."
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "Online"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "Verbonden"
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "Privé chat"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "is aan het gesprek toegevoegd"
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr "heeft het gesprek verlaten"
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "Verbonden"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "is aan het gesprek toegevoegd"
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr "is hier"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "URL van chat"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
 msgstr "Kopieer naar klembord"
 
-#~ msgid "Private Chat"
-#~ msgstr "Privé chat"
-
-#~ msgid "URL from Chat"
-#~ msgstr "URL van chat"
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s Bron"
