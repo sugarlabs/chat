@@ -1,4 +1,6 @@
-Chat-*.xo
+*.xo
 *.pyc
 .*.sw[op]
 locale
+.sweets
+dist

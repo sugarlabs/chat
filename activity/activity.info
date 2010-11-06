@@ -1,12 +1,15 @@
 [Activity]
-name = Chat
+sweet     = chat
+name      = Chat
+summary   = Text chat
+homepage  = http://wiki.sugarlabs.org/go/Activities/Chat
+license   = GPLv2+
+
+icon      = activity-icon
+exec      = sugar-activity pippy_app.Chat
+version   = 68
+stability = testing
+
+# deprecated
+activity_version = %(version)s
 bundle_id = org.laptop.Chat
-class = pippy_app.Chat
-exec = sugar-activity pippy_app.Chat
-icon = activity-icon
-activity_version = 68
-mime_types = 
-show_launcher = yes
-host_version = 1
-update_url = http://dev.laptop.org/~morgan/bundles/chat
-license = GPLv2+
