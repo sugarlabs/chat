@@ -3,7 +3,7 @@ sweet     = chat
 name      = Chat
 summary   = Text chat
 homepage  = http://wiki.sugarlabs.org/go/Activities/Chat
-license   = GPLv2+
+license   = GPLv2+,Creative Commons Attribution-ShareAlike 3.0 license(svg icons)
 
 icon      = activity-icon
 exec      = sugar-activity pippy_app.Chat

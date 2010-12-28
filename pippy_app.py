@@ -16,20 +16,30 @@
 
 from gettext import gettext as _
 import hippo
+import cairo
 import gtk
 import pango
 import logging
 import re
 import cjson
 import time
+import os
+import sugar
+import glob
+import rsvg
+
+
+
 from datetime import datetime
 from activity import ViewSourceActivity
-
 from sugar.activity.activity import Activity, ActivityToolbox, SCOPE_PRIVATE
+from sugar.graphics import style
+from sugar.activity.activity import get_activity_root
 from sugar.graphics.alert import NotifyAlert
 from sugar.graphics.style import (Color, COLOR_BLACK, COLOR_WHITE, 
     COLOR_BUTTON_GREY, FONT_BOLD, FONT_NORMAL)
 from sugar.graphics.roundbox import CanvasRoundBox
+from sugar.graphics import style
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics.palette import Palette, CanvasInvoker
 from sugar.graphics.menuitem import MenuItem
@@ -37,7 +47,6 @@ from sugar.util import timestamp_to_elapsed_string
 from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.activity.widgets import *
 from sugar.presence import presenceservice
-
 from telepathy.client import Connection, Channel
 from telepathy.interfaces import (
     CHANNEL_INTERFACE, CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
@@ -52,6 +61,149 @@ URL_REGEXP = re.compile('((http|ftp)s?://)?'
     '(([-a-zA-Z0-9]+[.])+[-a-zA-Z0-9]{2,}|([0-9]{1,3}[.]){3}[0-9]{1,3})'
     '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
 
+TEMP_SVG_PATH="icons/smilies"
+ICON_SVG_PATH=os.path.join(get_activity_root(),'data', 'icons','smilies')
+
+## For adding a new smiley add an entry in this dictionary and place the corresponding smiley file in data/icons
+FILE_NAMES={
+		"O)"	: 		"angel.png" , 
+		"O-)"	: 		"angel.png" , 
+		"x(" 	:		"angry.png", 
+		"x-(" 	:		"angry.png", 
+		"B)" 	: 		"cool.png",
+		"B-)" 	: 		"cool.png",
+		">:>"	: 		"devil.png",
+		":D" 	:		"grin.png",
+		":-D" 	:		"grin.png",
+		":|" 	: 		"neutral.png",
+		":-|" 	: 		"neutral.png",
+		":-("	:		"sad.png",
+		":(" 	: 		"sad.png" , 
+		":O"	:		"shock.png",
+		":-O"	:		"shock.png",
+		":$" 	: 		"blush.png",
+		":-$" 	: 		"blush.png",
+		":)" 	: 		"smile.png",
+		":-)"	:		"smile.png",
+		":P" 	: 		"tongue.png",		
+		":-P" 	: 		"tongue.png",		
+		";)" 	: 		"wink.png",
+		";-)" 	: 		"wink.png",	
+			
+		
+				}
+
+def find_key(dic, val):
+		return [k for k, v in dic.iteritems() if v == val][0]
+		
+### Checks if a text is smiley by looking into FILE_NAMES keys
+def is_smiley(text):
+	MYKEYS=FILE_NAMES.keys()
+	for smiley in MYKEYS:
+		if smiley==text:
+			return True
+	return False	
+	
+def  process_text_for_continuous_smileys(text):
+	keys=FILE_NAMES.keys()
+	for key in keys:
+		text=text.replace(key," "+key+" ")
+	return text
+###Converts svg into png 
+def from_svg_at_size(filename=None, width=None, height=None, handle=None,
+        keep_ratio=True):
+    """Scale and load SVG into pixbuf"""
+
+    if not handle:
+        handle = rsvg.Handle(filename)
+
+    dimensions = handle.get_dimension_data()
+    icon_width = dimensions[0]
+    icon_height = dimensions[1]
+    if icon_width != width or icon_height != height:
+        ratio_width = float(width) / icon_width
+        ratio_height = float(height) / icon_height
+
+        if keep_ratio:
+            ratio = min(ratio_width, ratio_height)
+            if ratio_width != ratio:
+                ratio_width = ratio
+                width = int(icon_width * ratio)
+            elif ratio_height != ratio:
+                ratio_height = ratio
+                height = int(icon_height * ratio)
+    else:
+        ratio_width = 1
+        ratio_height = 1
+
+    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+    context = cairo.Context(surface)
+    context.scale(ratio_width, ratio_height)
+    handle.render_cairo(context)
+
+    loader = gtk.gdk.pixbuf_loader_new_with_mime_type('image/png')
+    surface.write_to_png(loader)
+    loader.close()
+
+    return loader.get_pixbuf()
+    
+### Invoked on first run to create pngs from svgs and store in ICON_SVG_PATH   
+def create_pngs():
+	os.makedirs(ICON_SVG_PATH)
+	for infile in glob.glob( os.path.join(TEMP_SVG_PATH, '*.svg') ):
+		pixbuf=from_svg_at_size(infile,style.MEDIUM_ICON_SIZE,style.MEDIUM_ICON_SIZE,None,True)
+		pixbuf.save(os.path.join(ICON_SVG_PATH,os.path.basename(os.path.splitext(infile)[0])+".png"),'png')
+	
+##returns an Image for a given smily	
+def get_smiley(text):
+		
+		if text not in FILE_NAMES:
+			raise KeyError
+		else:
+			file_name=os.path.join(ICON_SVG_PATH , FILE_NAMES[text])
+			surface = cairo.ImageSurface.create_from_png(file_name)
+			image = hippo.CanvasImage(image=surface,
+                    border=0,
+                    border_color=style.COLOR_BUTTON_GREY.get_int(),
+                    xalign=hippo.ALIGNMENT_CENTER,
+                    yalign=hippo.ALIGNMENT_CENTER,
+                    scale_width=35,
+                    scale_height=35)
+			return image
+		
+##returns table of icons for the Smiley palette
+def get_pallete_smiley_table(self):
+	MYVALUES=list(set(FILE_NAMES.values()))
+	smiley_count= len(MYVALUES)
+	row_count=smiley_count/4;
+	last_row_smiley_count=smiley_count%4
+	table=gtk.Table(rows=row_count,columns=4)
+	count=0
+        for i in range(4):
+			for j in range(row_count):
+				count=count+1
+				image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,MYVALUES[count-1]))
+				but=ToolButton(icon_widget=image)
+				but.connect('clicked',self._add_smiley_to_entry,MYVALUES[count-1])
+				#but.set_icon()
+				table.attach(but,i,i+1,j,j+1)
+				but.show()
+	
+   ### add the remaining ICONS to the the last row
+	print last_row_smiley_count	
+	for i in range(last_row_smiley_count):
+		count=count+1
+		image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,MYVALUES[count-1]))
+		but=ToolButton(icon_widget=image)
+		but.connect('clicked',self._add_smiley_to_entry,MYVALUES[count-1])
+		table.attach(but,i,i+1,row_count,row_count+1)
+		but.show()
+		
+			
+	return table
+	
+	
+					
 class Chat(ViewSourceActivity):
     def __init__(self, handle):
         super(Chat, self).__init__(handle)
@@ -65,7 +217,35 @@ class Chat(ViewSourceActivity):
         self.set_toolbar_box(toolbar_box)
         toolbar_box.toolbar.insert(ActivityButton(self), -1)
         toolbar_box.toolbar.insert(TitleEntry(self), -1)
+        
+        ###check for existence of icons directory
+        if(not os.path.isdir(ICON_SVG_PATH)):
+			create_pngs()
+        
+		
+        smiley_icon_image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,'smiley-icon')+".png")
+        self.smiley = RadioMenuButton(icon_widget=smiley_icon_image)
+        
+        
+        self.smiley.set_tooltip(_('Insert Smiley'))
+        
+        
+        
+        
+        
+        toolbar_box.toolbar.insert(self.smiley, -1)
+        self.smiley.show()
+        self.smiley_palette=Palette("Choose Smiley")
+        self.smiley.palette=self.smiley_palette
+		
+        
+        table=get_pallete_smiley_table(self)
+							
+        table.show_all()
+        self.smiley_palette.set_content(table)
+        self.smiley.set_palette(self.smiley_palette)
 
+	
         share_button = ShareButton(self)
         toolbar_box.toolbar.insert(share_button, -1)
         toolbar_box.toolbar.insert(KeepButton(self), -1)
@@ -109,6 +289,15 @@ class Chat(ViewSourceActivity):
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
 
+    
+	
+    def _add_smiley_to_entry(self,activity,text):
+		
+		self.entry.set_text(self.entry.get_text()+ find_key(FILE_NAMES,text))
+		self.smiley_palette.popdown(True)
+    
+    
+		
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
         self._setup()
@@ -287,6 +476,8 @@ class Chat(ViewSourceActivity):
     def _link_activated_cb(self, link):
         url = url_check_protocol(link.props.text)
         self._show_via_journal(url)
+    
+	
 
     def add_text(self, buddy, text, status_message=False):
         """Display text on screen, with name and colors.
@@ -418,14 +609,24 @@ class Chat(ViewSourceActivity):
             text = text[match.end():]
             match = URL_REGEXP.search(text)
         if text:
-            message = hippo.CanvasText(
-                text=text,
+			text=process_text_for_continuous_smileys(text)
+			line=text
+			
+			words=line.split(' ')
+			for word in words:
+				if is_smiley(word):
+					
+						image=get_smiley(word)					
+						msg_hbox.append(image)
+						
+				else:
+					message = hippo.CanvasText(text=word+" ", #change here for changing the typed text
                 size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
                 color=text_color,
                 font_desc=FONT_NORMAL.get_pango_desc(),
                 xalign=hippo.ALIGNMENT_START)
-            msg_hbox.append(message)
-
+					msg_hbox.append(message)
+	
         # Order of boxes for RTL languages:
         if lang_rtl:
             msg_hbox.reverse()
@@ -436,7 +637,7 @@ class Chat(ViewSourceActivity):
             box = hippo.CanvasBox(padding=2)
             box.append(rb)
             self.conversation.append(box)
-
+    
     def add_separator(self, timestamp):
         """Add whitespace and timestamp between chat sessions."""
         box = hippo.CanvasBox(padding=2)
