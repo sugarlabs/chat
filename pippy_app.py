@@ -27,6 +27,8 @@ import os
 import sugar
 import glob
 import rsvg
+import math
+from os.path import join, basename, exists
 
 
 
@@ -65,50 +67,49 @@ TEMP_SVG_PATH="icons/smilies"
 ICON_SVG_PATH=os.path.join(get_activity_root(),'data', 'icons','smilies')
 
 ## For adding a new smiley add an entry in this dictionary and place the corresponding smiley file in data/icons
-FILE_NAMES={
-		"O)"	: 		"angel.png" , 
-		"O-)"	: 		"angel.png" , 
-		"x(" 	:		"angry.png", 
-		"x-(" 	:		"angry.png", 
-		"B)" 	: 		"cool.png",
-		"B-)" 	: 		"cool.png",
-		">:>"	: 		"devil.png",
-		":D" 	:		"grin.png",
-		":-D" 	:		"grin.png",
-		":|" 	: 		"neutral.png",
-		":-|" 	: 		"neutral.png",
-		":-("	:		"sad.png",
-		":(" 	: 		"sad.png" , 
-		":O"	:		"shock.png",
-		":-O"	:		"shock.png",
-		":$" 	: 		"blush.png",
-		":-$" 	: 		"blush.png",
-		":)" 	: 		"smile.png",
-		":-)"	:		"smile.png",
-		":P" 	: 		"tongue.png",		
-		":-P" 	: 		"tongue.png",		
-		";)" 	: 		"wink.png",
-		";-)" 	: 		"wink.png",	
-			
-		
-				}
+SMILIES = [
+        ('smile', _('Smile'), [':)', ':-)']),
+        ('wink', _('Winking'), [';)', ';-)']),
+        ('sad', _('Sad'), [':-(', ':(']),
+        ('grin', _('Grin'), [':D', ':-D']),
+        ('shock', _('Shock'), [':O', ':-O', '=-O', '=O']),
+        ('cool', _('Cool'), ['B)', 'B-)', '8-)', '8)']),
+        ('tongue', _('Tongue'), [':P', ':-P']),
+        ('blush', _('Blushing'), [':">']),
+        ('weep', _('Weeping'), [":'-(", ":'("]),
+        ('confused', _('Confused'), [':-/', ':/']),
+        ('angel', _('Angel'), ['O)', 'O-)', 'O:-)', 'O:)']),
+        ('shutup', _("Don't tell anyone"), (':-$', ':-$')),
+        ('neutral', _('Neutral'), (':-|', ':|')),
+        ('angry', _('Angry'), ('x-(', 'x(', 'X-(', 'x-(')),
+        ('devil', _('Devil'), ('>:>', '>:)')),
+        ('nerd', _('Nerd'), (':-B', ':B')),
+        ('kiss', _('Kiss'), (':-*', ':*')),
+        ('laugh', _('Laughing'), [':))']),
+        ('sleep', _('Sleepy'), ['I-)']),
+        ('sick', _('Sick'), [':-&']),
+        ('eyebrow', _('Raised eyebrows'), ['/:)']),
+        ]
+
+SMILEY_NAMES = {}
+
+for name, hint_, smilies in SMILIES:
+    for i in smilies:
+        SMILEY_NAMES[i] = name
+
+
+SMILIES_COLUMNS = 5
+SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
+
 
 def find_key(dic, val):
 		return [k for k, v in dic.iteritems() if v == val][0]
-		
-### Checks if a text is smiley by looking into FILE_NAMES keys
-def is_smiley(text):
-	MYKEYS=FILE_NAMES.keys()
-	for smiley in MYKEYS:
-		if smiley==text:
-			return True
-	return False	
-	
-def  process_text_for_continuous_smileys(text):
-	keys=FILE_NAMES.keys()
-	for key in keys:
-		text=text.replace(key," "+key+" ")
-	return text
+
+def process_text_for_continuous_smileys(text):
+    for key in SMILEY_NAMES.keys():
+        text=text.replace(key," "+key+" ")
+    return text
+
 ###Converts svg into png 
 def from_svg_at_size(filename=None, width=None, height=None, handle=None,
         keep_ratio=True):
@@ -149,61 +150,29 @@ def from_svg_at_size(filename=None, width=None, height=None, handle=None,
     
 ### Invoked on first run to create pngs from svgs and store in ICON_SVG_PATH   
 def create_pngs():
-	os.makedirs(ICON_SVG_PATH)
-	for infile in glob.glob( os.path.join(TEMP_SVG_PATH, '*.svg') ):
-		pixbuf=from_svg_at_size(infile,style.MEDIUM_ICON_SIZE,style.MEDIUM_ICON_SIZE,None,True)
-		pixbuf.save(os.path.join(ICON_SVG_PATH,os.path.basename(os.path.splitext(infile)[0])+".png"),'png')
+    if not exists(ICON_SVG_PATH):
+        os.makedirs(ICON_SVG_PATH)
+
+    for name, hint_, smilies_ in SMILIES:
+        dst_path = join(ICON_SVG_PATH, name + '.png')
+        if exists(dst_path):
+            continue
+        src_path = join(TEMP_SVG_PATH, name + '.svg')
+        pixbuf = from_svg_at_size(src_path,
+                SMILIES_SIZE, SMILIES_SIZE, None, True)
+        pixbuf.save(dst_path, 'png')
 	
 ##returns an Image for a given smily	
 def get_smiley(text):
+        file_name=os.path.join(ICON_SVG_PATH , SMILEY_NAMES[text] + '.png')
+        surface = cairo.ImageSurface.create_from_png(file_name)
+        image = hippo.CanvasImage(image=surface,
+                border=0,
+                border_color=style.COLOR_BUTTON_GREY.get_int(),
+                xalign=hippo.ALIGNMENT_CENTER,
+                yalign=hippo.ALIGNMENT_CENTER)
+        return image
 		
-		if text not in FILE_NAMES:
-			raise KeyError
-		else:
-			file_name=os.path.join(ICON_SVG_PATH , FILE_NAMES[text])
-			surface = cairo.ImageSurface.create_from_png(file_name)
-			image = hippo.CanvasImage(image=surface,
-                    border=0,
-                    border_color=style.COLOR_BUTTON_GREY.get_int(),
-                    xalign=hippo.ALIGNMENT_CENTER,
-                    yalign=hippo.ALIGNMENT_CENTER,
-                    scale_width=35,
-                    scale_height=35)
-			return image
-		
-##returns table of icons for the Smiley palette
-def get_pallete_smiley_table(self):
-	MYVALUES=list(set(FILE_NAMES.values()))
-	smiley_count= len(MYVALUES)
-	row_count=smiley_count/4;
-	last_row_smiley_count=smiley_count%4
-	table=gtk.Table(rows=row_count,columns=4)
-	count=0
-        for i in range(4):
-			for j in range(row_count):
-				count=count+1
-				image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,MYVALUES[count-1]))
-				but=ToolButton(icon_widget=image)
-				but.connect('clicked',self._add_smiley_to_entry,MYVALUES[count-1])
-				#but.set_icon()
-				table.attach(but,i,i+1,j,j+1)
-				but.show()
-	
-   ### add the remaining ICONS to the the last row
-	print last_row_smiley_count	
-	for i in range(last_row_smiley_count):
-		count=count+1
-		image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,MYVALUES[count-1]))
-		but=ToolButton(icon_widget=image)
-		but.connect('clicked',self._add_smiley_to_entry,MYVALUES[count-1])
-		table.attach(but,i,i+1,row_count,row_count+1)
-		but.show()
-		
-			
-	return table
-	
-	
-					
 class Chat(ViewSourceActivity):
     def __init__(self, handle):
         super(Chat, self).__init__(handle)
@@ -219,36 +188,22 @@ class Chat(ViewSourceActivity):
         toolbar_box.toolbar.insert(TitleEntry(self), -1)
         
         ###check for existence of icons directory
-        if(not os.path.isdir(ICON_SVG_PATH)):
-			create_pngs()
-        
-		
-        smiley_icon_image=gtk.image_new_from_file(os.path.join(ICON_SVG_PATH,'smiley-icon')+".png")
-        self.smiley = RadioMenuButton(icon_widget=smiley_icon_image)
-        
-        
-        self.smiley.set_tooltip(_('Insert Smiley'))
-        
-        
-        
-        
-        
-        toolbar_box.toolbar.insert(self.smiley, -1)
-        self.smiley.show()
-        self.smiley_palette=Palette("Choose Smiley")
-        self.smiley.palette=self.smiley_palette
-		
-        
-        table=get_pallete_smiley_table(self)
-							
-        table.show_all()
-        self.smiley_palette.set_content(table)
-        self.smiley.set_palette(self.smiley_palette)
+        create_pngs()
 
-	
         share_button = ShareButton(self)
         toolbar_box.toolbar.insert(share_button, -1)
         toolbar_box.toolbar.insert(KeepButton(self), -1)
+
+        separator = gtk.SeparatorToolItem()
+        toolbar_box.toolbar.insert(separator, -1)
+
+        self._smiley = RadioMenuButton(icon_name='smilies')
+        self._smiley.palette = Palette(_('Insert smiley'))
+        toolbar_box.toolbar.insert(self._smiley, -1)
+
+        table = self._create_pallete_smiley_table()
+        table.show_all()
+        self._smiley.palette.set_content(table)
 
         separator = gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -289,15 +244,35 @@ class Chat(ViewSourceActivity):
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
 
-    
-	
-    def _add_smiley_to_entry(self,activity,text):
-		
-		self.entry.set_text(self.entry.get_text()+ find_key(FILE_NAMES,text))
-		self.smiley_palette.popdown(True)
-    
-    
-		
+    def _create_pallete_smiley_table(self):
+        row_count = int(math.ceil(len(SMILIES) / float(SMILIES_COLUMNS)))
+        table = gtk.Table(rows=row_count, columns=SMILIES_COLUMNS)
+        index = 0
+
+        for y in range(row_count):
+            for x in range(SMILIES_COLUMNS):
+                name, hint, smilies = SMILIES[index]
+
+                image = gtk.image_new_from_file(
+                        join(ICON_SVG_PATH, name + '.png'))
+                button = gtk.ToolButton(icon_widget=image)
+                button.set_tooltip(gtk.Tooltips(), smilies[0] + ' ' + hint)
+                button.connect('clicked', self._add_smiley_to_entry, smilies[0])
+                table.attach(button, x, x + 1, y, y + 1)
+                button.show()
+
+                index = index + 1
+                if index >= len(SMILIES):
+                    break
+
+        return table
+
+    def _add_smiley_to_entry(self, button, text):
+        pos = self.entry.props.cursor_position
+        self.entry.props.buffer.insert_text(pos, text, -1)
+        self.entry.set_position(pos + len(text))
+        self._smiley.palette.popdown(True)
+
     def _shared_cb(self, activity):
         logger.debug('Chat was shared')
         self._setup()
@@ -614,7 +589,7 @@ class Chat(ViewSourceActivity):
 			
 			words=line.split(' ')
 			for word in words:
-				if is_smiley(word):
+				if word in SMILEY_NAMES:
 					
 						image=get_smiley(word)					
 						msg_hbox.append(image)
