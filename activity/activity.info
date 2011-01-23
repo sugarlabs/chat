@@ -7,7 +7,7 @@ license   = GPLv2+
 
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-version   = 69
+version   = 70
 stability = testing
 
 # original activity.info options

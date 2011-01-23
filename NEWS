@@ -1,3 +1,10 @@
+70
+
+* Support gtk<2.18, eg, fc11
+* Make smilies sensitive only in online mode
+* After choosing a smyle, focus entry widget
+* Update translations for de
+
 69
 
 * Add chat smilies (Mukesh Gupta)
