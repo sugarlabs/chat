@@ -14,14 +14,42 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # This file is distributed under the same license as the PACKAGE package.
 # Fabian Affolter <fab@fedoraproject.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2010-09-20 21:26+0200\n"
+"POT-Creation-Date: 2010-12-30 02:34-0500\n"
+"PO-Revision-Date: 2011-01-18 11:03+0200\n"
 "Last-Translator: Markus <m.slg@gmx.de>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
 "Language: de\n"
@@ -36,50 +64,137 @@ msgstr ""
 msgid "Chat"
 msgstr "Chat"
 
-#: activity.py:42
-#, python-format
-msgid "%s Source"
-msgstr "%s Quelle"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr "Smiley einfügen"
 
-#: pippy_app.py:88
+#: activity.py:114 activity.py:180
 msgid "Off-line"
 msgstr "Offline"
 
-#: pippy_app.py:88
+#: activity.py:114
 msgid "Share, or invite someone."
 msgstr "Freigeben oder jemand einladen"
 
-#: pippy_app.py:112 pippy_app.py:124
+#: activity.py:172 activity.py:187
 msgid "On-line"
 msgstr "Online"
 
-#: pippy_app.py:112
+#: activity.py:172
 msgid "Private Chat"
 msgstr "Privater Chat"
 
-#: pippy_app.py:124
-msgid "Connected"
-msgstr "Verbunden"
-
-#: pippy_app.py:163
-msgid "joined the chat"
-msgstr "nimmt am Chat teil"
-
-#: pippy_app.py:174
+#: activity.py:180 activity.py:239
 msgid "left the chat"
 msgstr "beendet den Chat"
 
-#: pippy_app.py:185
+#: activity.py:187
+msgid "Connected"
+msgstr "Verbunden"
+
+#: activity.py:231
+msgid "joined the chat"
+msgstr "nimmt am Chat teil"
+
+#: activity.py:246
 msgid "is here"
 msgstr "ist hier"
 
-#: pippy_app.py:457
+#: chat/box.py:312
 msgid "URL from Chat"
 msgstr "URL des Chat"
 
-#: pippy_app.py:563
+#: chat/box.py:346
 msgid "Copy to Clipboard"
 msgstr "In Zwischenablage kopieren"
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr "Lächeln"
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr "Augenzwinkernd"
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr "Verwirrt"
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr "Traurig"
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr "Grinsen"
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr "Neutral"
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr "Schockiert"
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr "Lässig"
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr "Zunge herausgestreckt"
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr "Errötend"
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr "Weinend"
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr "Engel"
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr "Sag's keinem"
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr "Verärgert"
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr "Teufel"
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr "Nerd"
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr "Kuss"
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr "Lachend"
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr "Schläfrig"
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr "Krank"
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr "Hochgezogene Augenbrauen"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Quelle"
 
 #~ msgid "Connecting"
 #~ msgstr "Verbinden"
