@@ -76,6 +76,7 @@ class Chat(activity.Activity):
 
         self._smiley = RadioMenuButton(icon_name='smilies')
         self._smiley.palette = Palette(_('Insert smiley'))
+        self._smiley.props.sensitive = False
         toolbar_box.toolbar.insert(self._smiley, -1)
 
         table = self._create_pallete_smiley_table()
@@ -140,10 +141,11 @@ class Chat(activity.Activity):
         return table
 
     def _add_smiley_to_entry(self, button, text):
+        self._smiley.palette.popdown(True)
         pos = self.entry.props.cursor_position
         self.entry.insert_text(text, pos)
+        self.entry.grab_focus()
         self.entry.set_position(pos + len(text))
-        self._smiley.palette.popdown(True)
 
     def _shared_cb(self, sender):
         logger.debug('Chat was shared')
@@ -190,6 +192,7 @@ class Chat(activity.Activity):
         self._chat_is_room = True
         self.entry.set_sensitive(True)
         self.entry.grab_focus()
+        self._smiley.props.sensitive = True
 
     def _joined_cb(self, sender):
         """Joined a shared activity."""
