@@ -141,7 +141,7 @@ class Chat(activity.Activity):
 
     def _add_smiley_to_entry(self, button, text):
         pos = self.entry.props.cursor_position
-        self.entry.props.buffer.insert_text(pos, text, -1)
+        self.entry.insert_text(text, pos)
         self.entry.set_position(pos + len(text))
         self._smiley.palette.popdown(True)
 
