@@ -18,41 +18,41 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
-
-#: pippy_app.py:84
-msgid "Off-line"
-msgstr ""
-
-#: pippy_app.py:84
-msgid "Share, or invite someone."
-msgstr ""
-
-#: pippy_app.py:93
-msgid "On-line"
-msgstr ""
-
-#: pippy_app.py:93
-msgid "Connected"
-msgstr ""
-
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr ""
-
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr ""
-
-#: pippy_app.py:156
-msgid "is here"
-msgstr ""
+msgstr "Chat"
 
 #: activity.py:26
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s Source"
+
+#: pippy_app.py:84
+msgid "Off-line"
+msgstr "Off-line"
+
+#: pippy_app.py:84
+msgid "Share, or invite someone."
+msgstr "Share, or invite someone."
+
+#: pippy_app.py:93
+msgid "On-line"
+msgstr "On-line"
+
+#: pippy_app.py:93
+msgid "Connected"
+msgstr "Connected"
+
+#: pippy_app.py:134
+msgid "joined the chat"
+msgstr "joined the chat"
+
+#: pippy_app.py:145
+msgid "left the chat"
+msgstr "left the chat"
+
+#: pippy_app.py:156
+msgid "is here"
+msgstr "is here"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copy to Clipboard"
