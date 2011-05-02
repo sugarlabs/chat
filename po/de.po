@@ -1,10 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # This file is distributed under the same license as the PACKAGE package.
 # Fabian Affolter <fab@fedoraproject.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
 "PO-Revision-Date: 2009-09-23 16:43-0400\n"
 "Last-Translator: Markus Schlager <m.slg@gmx.de>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
@@ -20,48 +24,50 @@ msgstr ""
 msgid "Chat"
 msgstr "Chat"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s Quelle"
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "Offline"
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr "Freigeben oder jemand einladen."
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "Online"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "Verbunden"
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "Privater Chat"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "nimmt am Chat teil"
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr "hat den Chat verlassen"
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "Verbunden"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "nimmt am Chat teil"
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr "ist hier"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "URL des Chat"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
 msgstr "In Zwischenablage kopieren"
 
-#~ msgid "Private Chat"
-#~ msgstr "Privater Chat"
-
-#~ msgid "URL from Chat"
-#~ msgstr "URL des Chat"
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s Quelle"
 
 #~ msgid "Connecting"
 #~ msgstr "Verbinden"
