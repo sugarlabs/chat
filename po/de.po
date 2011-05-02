@@ -9,13 +9,15 @@ msgstr ""
 "Project-Id-Version: chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-06-28 10:16-0400\n"
-"Last-Translator: Markus Schlager <m.slg@gmx.de>\n"
+"PO-Revision-Date: 2011-05-02 23:08+0200\n"
+"Last-Translator: Markus <m.slg@gmx.de>\n"
 "Language-Team: cvs@fedoraprject.org <fedora-trans-de@redhat.com>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 "X-Poedit-Language: German\n"
 
 #: activity/activity.info:2
@@ -53,7 +55,7 @@ msgstr "nimmt am Chat teil"
 
 #: pippy_app.py:174
 msgid "left the chat"
-msgstr "beendet den Chat"
+msgstr "hat den Chat verlassen"
 
 #: pippy_app.py:185
 msgid "is here"
