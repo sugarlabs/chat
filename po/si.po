@@ -2,56 +2,159 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-02-14 03:38-0500\n"
-"Last-Translator: Ruwan Asanka Wasala <wasala@gmail.com>\n"
+"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"PO-Revision-Date: 2008-07-18 06:36-0400\n"
+"Last-Translator: Rashan Anushka <rashan.uoc@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "කතා බහ"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s මූලාශ්‍රය"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr ""
 
-#: pippy_app.py:84
+#: activity.py:115 activity.py:182
 msgid "Off-line"
 msgstr "ජාල ගතවී නැත"
 
-#: pippy_app.py:84
+#: activity.py:115
 msgid "Share, or invite someone."
 msgstr "තවත් කෙනෙකුට ආරාධනා කරන්න හෝ බෙදා ගන්න."
 
-#: pippy_app.py:93
+#: activity.py:174 activity.py:189
 msgid "On-line"
 msgstr "ජාල ගතවී ඇත"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "සම්භන්ධය ස්ථාපිත විය"
+#: activity.py:174
+msgid "Private Chat"
+msgstr "පුද්ගලික කතා බහ"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "කතා බහට එකතු විය"
-
-#: pippy_app.py:145
+#: activity.py:182 activity.py:242
 msgid "left the chat"
 msgstr "කතා බහෙන් ඉවත් විය"
 
-#: pippy_app.py:156
+#: activity.py:189
+msgid "Connected"
+msgstr "සම්භන්ධය ස්ථාපිත විය"
+
+#: activity.py:234
+msgid "joined the chat"
+msgstr "කතා බහට එකතු විය"
+
+#: activity.py:249
 msgid "is here"
 msgstr "මෙහි සිටියි"
 
-#: pippy_app.py:452
+#: chat/box.py:312
+msgid "URL from Chat"
+msgstr "කථාබහෙන් URL"
+
+#: chat/box.py:346
 msgid "Copy to Clipboard"
 msgstr "පසුරු පුවරුවට පිටපත් කරන්න"
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr ""
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr ""
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr ""
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr ""
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr ""
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr ""
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr ""
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr ""
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr ""
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr ""
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr ""
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr ""
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr ""
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr ""
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr ""
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr ""
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr ""
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr ""
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr ""
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr ""
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr ""
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s මූලාශ්‍රය"

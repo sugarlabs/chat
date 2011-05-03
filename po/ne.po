@@ -2,64 +2,161 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2009-02-25 23:17-0500\n"
-"Last-Translator: Shaksham Thapa <shaksham@gmail.com>\n"
+"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"PO-Revision-Date: 2011-02-16 10:25+0200\n"
+"Last-Translator: Shaswot <shaswot.kharel@olenepal.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "कुराकानी"
 
-#: activity.py:42
-#, python-format
-msgid "%s Source"
-msgstr "%s श्रोत"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr "स्माइलि हाल"
 
-#: pippy_app.py:88
+#: activity.py:115 activity.py:182
 msgid "Off-line"
 msgstr "अफ-लाईन"
 
-#: pippy_app.py:88
+#: activity.py:115
 msgid "Share, or invite someone."
-msgstr "साझा गर, अथवा कसैलाई आमन्त्रण गर।"
+msgstr "सहभागी होउ, अथवा कसैलाई आमन्त्रण गर"
 
-#: pippy_app.py:112 pippy_app.py:124
+#: activity.py:174 activity.py:189
 msgid "On-line"
 msgstr "अन-लाईन"
 
-#: pippy_app.py:112
+#: activity.py:174
 msgid "Private Chat"
 msgstr "निजी कुराकानी"
 
-#: pippy_app.py:124
-msgid "Connected"
-msgstr "जडान भयो"
-
-#: pippy_app.py:163
-msgid "joined the chat"
-msgstr "कुराकानीमा सहभागी भयो"
-
-#: pippy_app.py:174
+#: activity.py:182 activity.py:242
 msgid "left the chat"
 msgstr "कुराकानी छोड्यो"
 
-#: pippy_app.py:185
+#: activity.py:189
+msgid "Connected"
+msgstr "जडान भयो"
+
+#: activity.py:234
+msgid "joined the chat"
+msgstr "कुराकानीमा सहभागी भयो"
+
+#: activity.py:249
 msgid "is here"
 msgstr "यहिं छ"
 
-#: pippy_app.py:457
+#: chat/box.py:312
 msgid "URL from Chat"
 msgstr "कुराकानीवाट URL"
 
-#: pippy_app.py:563
+#: chat/box.py:346
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्डमा सार"
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr "मुस्कान"
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr "झिम्क्याऊ"
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr "अलमल्ल पर्यो"
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr "उदास"
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr "मुस्कान"
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr "निस्पक्ष"
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr "आष्चर्य"
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr "कुल"
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr "जिब्रो"
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr "सङ्कोच"
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr "रुदै"
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr "परी"
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr "कसैलाई नभन्ने"
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr "रिसाएको"
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr "राक्क्षश"
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr "पढन्ते"
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr "चुम्बन"
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr "हास्दै"
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr "अल्छि"
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr "बिरामी"
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr "आखिभाँऊ उठाएको"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s श्रोत"

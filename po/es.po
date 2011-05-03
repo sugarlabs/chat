@@ -9,20 +9,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # Domingo Becker <domingobecker@gmail.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-09-25 12:48-0400\n"
-"Last-Translator: Alexander Dupuy <alex.dupuy@mac.com>\n"
+"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"PO-Revision-Date: 2011-02-03 19:07+0200\n"
+"Last-Translator: Santiago <santiago_mota@yahoo.es>\n"
 "Language-Team: ES <fedora-trans-es@redhat.com>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"X-Generator: Pootle 2.0.3\n"
 "X-Poedit-Language: Spanish\n"
 
 # See http://dev.laptop.org/ticket/7173
@@ -30,47 +43,134 @@ msgstr ""
 msgid "Chat"
 msgstr "Charlar"
 
-#: activity.py:42
-#, python-format
-msgid "%s Source"
-msgstr "%s Fuente"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr "Inserte carita"
 
-#: pippy_app.py:88
+#: activity.py:115 activity.py:182
 msgid "Off-line"
 msgstr "Fuera de línea"
 
-#: pippy_app.py:88
+#: activity.py:115
 msgid "Share, or invite someone."
 msgstr "Compartir, o invitar a alguien."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: activity.py:174 activity.py:189
 msgid "On-line"
 msgstr "En línea"
 
-#: pippy_app.py:112
+#: activity.py:174
 msgid "Private Chat"
 msgstr "Charla Privada"
 
-#: pippy_app.py:124
-msgid "Connected"
-msgstr "Conectado"
-
-#: pippy_app.py:163
-msgid "joined the chat"
-msgstr "se unió a la charla"
-
-#: pippy_app.py:174
+#: activity.py:182 activity.py:242
 msgid "left the chat"
 msgstr "abandonó la charla"
 
-#: pippy_app.py:185
+#: activity.py:189
+msgid "Connected"
+msgstr "Conectado"
+
+#: activity.py:234
+msgid "joined the chat"
+msgstr "se unió a la charla"
+
+#: activity.py:249
 msgid "is here"
 msgstr "está aquí"
 
-#: pippy_app.py:457
+#: chat/box.py:312
 msgid "URL from Chat"
 msgstr "URL proveniente de Charla"
 
-#: pippy_app.py:563
+#: chat/box.py:346
 msgid "Copy to Clipboard"
 msgstr "Copiar al Portapapeles"
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr "Sonrisa"
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr "Parpadeo"
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr "Confundido"
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr "Triste"
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr "Sonrisa"
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr "Neutral"
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr "Choque"
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr "Tranquilo"
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr "Lengua"
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr "Sonrojado"
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr "Llorando"
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr "Ángel"
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr "No se lo digas a nadie"
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr "Enfadado"
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr "Demonio"
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr "Empollón"
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr "Beso"
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr "Riendo"
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr "Somnoliento"
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr "Enfermo"
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr "Sorprendido"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Fuente"

@@ -2,64 +2,168 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-01-21 15:03+0000\n"
-"Last-Translator: Eduardo H. Silva <HoboPrimate@gmail.com>\n"
+"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"PO-Revision-Date: 2010-02-12 04:54+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.0.2\n"
+"X-Generator: Pootle 2.0.1\n"
 
 # Tradução amigavel, embora não diretamente correta.
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "Bate-papo"
+msgstr "Conversa - Chat"
 
-# isto é pq. se pode ver o codigo-fonte do chat no pippy, pq ele foi feito pelo pippy. Acho que deverá ficar "Fonte de Bate-Papo"
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "Fonte de %s"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr ""
 
-# Não é exata, mas parece ser a melhor.
-#  E assim? --HP
-#: pippy_app.py:84
+# Não é exata, mas parece ser a melhor.<br /><span class="translation-space"> </span>
+# E assim? --HP
+#: activity.py:115 activity.py:182
 msgid "Off-line"
-msgstr "Desligado da rede"
+msgstr "Desconectado da rede"
 
 # Está a falar directamente com a criança. E deixei em tom pessoal, em vez de "Compartilhe, ou convide alguem" .
-#: pippy_app.py:84
+#: activity.py:115
 msgid "Share, or invite someone."
-msgstr "Compartilhe, ou convide alguem."
+msgstr "Compartilhe, ou convide alguém."
 
 # No chat, online e offline é para dizer se o utilizador está ligado a uma rede (network) ou não.
-#: pippy_app.py:93
+#: activity.py:174 activity.py:189
 msgid "On-line"
-msgstr "Ligado em rede"
+msgstr "Conectado na rede"
 
-#: pippy_app.py:93
+#: activity.py:174
+msgid "Private Chat"
+msgstr "Conversa Privada / Particular"
+
+#: activity.py:182 activity.py:242
+msgid "left the chat"
+msgstr "saiu da conversa"
+
+#: activity.py:189
 msgid "Connected"
 msgstr "Conectado"
 
-#: pippy_app.py:134
+#: activity.py:234
 msgid "joined the chat"
-msgstr "juntou-se no bate-papo"
+msgstr "juntou-se a conversa"
 
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr "saiu do bate-papo"
-
-#: pippy_app.py:156
+#: activity.py:249
 msgid "is here"
 msgstr "está aqui"
 
+#: chat/box.py:312
+msgid "URL from Chat"
+msgstr "endereço (URL) da conversa"
+
 # como está no diário
-#: pippy_app.py:452
+#: chat/box.py:346
 msgid "Copy to Clipboard"
-msgstr "Copiar para a prancheta"
+msgstr "Copiar para a área de trabalho"
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr ""
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr ""
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr ""
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr ""
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr ""
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr ""
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr ""
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr ""
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr ""
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr ""
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr ""
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr ""
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr ""
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr ""
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr ""
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr ""
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr ""
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr ""
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr ""
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr ""
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr ""
+
+# isto é pq. se pode ver o codigo-fonte do chat no pippy, pq ele foi feito pelo pippy. Acho que deverá ficar "Fonte de Bate-Papo"
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "Fonte de %s"

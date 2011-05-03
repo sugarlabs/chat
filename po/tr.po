@@ -2,64 +2,161 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-08-26 05:08-0400\n"
-"Last-Translator: abdullah kocabas <abdullah.kocabas@abcdizustu.com>\n"
+"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"PO-Revision-Date: 2011-02-16 02:43+0200\n"
+"Last-Translator: <arslanilker@windowslive.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "Online yazışma"
 
-#: activity.py:42
-#, python-format
-msgid "%s Source"
-msgstr "%s Kaynak"
+#: activity.py:78
+msgid "Insert smiley"
+msgstr "İfade ekle"
 
-#: pippy_app.py:88
+#: activity.py:115 activity.py:182
 msgid "Off-line"
 msgstr "Çevrimdışı"
 
-#: pippy_app.py:88
+#: activity.py:115
 msgid "Share, or invite someone."
 msgstr "Paylaşınız ya da davet ediniz."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: activity.py:174 activity.py:189
 msgid "On-line"
 msgstr "Çevrimiçi"
 
-#: pippy_app.py:112
+#: activity.py:174
 msgid "Private Chat"
 msgstr "özel konuşma"
 
-#: pippy_app.py:124
-msgid "Connected"
-msgstr "Bağlanmıştır."
-
-#: pippy_app.py:163
-msgid "joined the chat"
-msgstr "sohbete katılmıştır."
-
-#: pippy_app.py:174
+#: activity.py:182 activity.py:242
 msgid "left the chat"
 msgstr "sohbetten ayrılmıştır."
 
-#: pippy_app.py:185
+#: activity.py:189
+msgid "Connected"
+msgstr "Bağlanmıştır."
+
+#: activity.py:234
+msgid "joined the chat"
+msgstr "sohbete katılmıştır."
+
+#: activity.py:249
 msgid "is here"
 msgstr "buradadır."
 
-#: pippy_app.py:457
+#: chat/box.py:312
 msgid "URL from Chat"
 msgstr "yazışmada URL"
 
-#: pippy_app.py:563
+#: chat/box.py:346
 msgid "Copy to Clipboard"
 msgstr "Panoya kopyalayınız."
+
+#: chat/smilies.py:30
+msgid "Smile"
+msgstr "Gülümse"
+
+#: chat/smilies.py:31
+msgid "Winking"
+msgstr "Göz kırpma"
+
+#: chat/smilies.py:32
+msgid "Confused"
+msgstr "Şaşkın"
+
+#: chat/smilies.py:33
+msgid "Sad"
+msgstr "Üzgün"
+
+#: chat/smilies.py:34
+msgid "Grin"
+msgstr "Sırıtış"
+
+#: chat/smilies.py:35
+msgid "Neutral"
+msgstr "Nötr"
+
+#: chat/smilies.py:36
+msgid "Shock"
+msgstr "Şok"
+
+#: chat/smilies.py:37
+msgid "Cool"
+msgstr "Klas"
+
+#: chat/smilies.py:38
+msgid "Tongue"
+msgstr "Dil"
+
+#: chat/smilies.py:39
+msgid "Blushing"
+msgstr "Yüzü kızaran"
+
+#: chat/smilies.py:40
+msgid "Weeping"
+msgstr "Ağlayan"
+
+#: chat/smilies.py:41
+msgid "Angel"
+msgstr "Melek"
+
+#: chat/smilies.py:42
+msgid "Don't tell anyone"
+msgstr "Kimseye söyleme"
+
+#: chat/smilies.py:43
+msgid "Angry"
+msgstr "Kızgın"
+
+#: chat/smilies.py:44
+msgid "Devil"
+msgstr "Şeytan"
+
+#: chat/smilies.py:45
+msgid "Nerd"
+msgstr "İnek öğrenci"
+
+#: chat/smilies.py:46
+msgid "Kiss"
+msgstr "Öpücük"
+
+#: chat/smilies.py:47
+msgid "Laughing"
+msgstr "Gülme"
+
+#: chat/smilies.py:48
+msgid "Sleepy"
+msgstr "Uykulu"
+
+#: chat/smilies.py:49
+msgid "Sick"
+msgstr "Hasta"
+
+#: chat/smilies.py:50
+msgid "Raised eyebrows"
+msgstr "Kalkık Kaşlar"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Kaynak"
