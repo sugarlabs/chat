@@ -29,7 +29,7 @@ msgstr "Czat"
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr ""
+msgstr "Wstaw buźkę"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
@@ -45,7 +45,7 @@ msgstr "Połączony"
 
 #: activity.py:174
 msgid "Private Chat"
-msgstr ""
+msgstr "Czat prywatny"
 
 #: activity.py:182 activity.py:242
 msgid "left the chat"
@@ -65,7 +65,7 @@ msgstr "jest tutaj"
 
 #: chat/box.py:312
 msgid "URL from Chat"
-msgstr ""
+msgstr "URL z czatu"
 
 #: chat/box.py:346
 msgid "Copy to Clipboard"
@@ -73,87 +73,87 @@ msgstr "Kopiuj do schowka"
 
 #: chat/smilies.py:30
 msgid "Smile"
-msgstr ""
+msgstr "Uśmiech"
 
 #: chat/smilies.py:31
 msgid "Winking"
-msgstr ""
+msgstr "Oczko"
 
 #: chat/smilies.py:32
 msgid "Confused"
-msgstr ""
+msgstr "Zmieszany"
 
 #: chat/smilies.py:33
 msgid "Sad"
-msgstr ""
+msgstr "Smutny"
 
 #: chat/smilies.py:34
 msgid "Grin"
-msgstr ""
+msgstr "Roześmiany"
 
 #: chat/smilies.py:35
 msgid "Neutral"
-msgstr ""
+msgstr "Neutralny"
 
 #: chat/smilies.py:36
 msgid "Shock"
-msgstr ""
+msgstr "W szoku"
 
 #: chat/smilies.py:37
 msgid "Cool"
-msgstr ""
+msgstr "Spoko"
 
 #: chat/smilies.py:38
 msgid "Tongue"
-msgstr ""
+msgstr "Język"
 
 #: chat/smilies.py:39
 msgid "Blushing"
-msgstr ""
+msgstr "Rumieniec"
 
 #: chat/smilies.py:40
 msgid "Weeping"
-msgstr ""
+msgstr "Płacz"
 
 #: chat/smilies.py:41
 msgid "Angel"
-msgstr ""
+msgstr "Aniołek"
 
 #: chat/smilies.py:42
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Nikomu nie mów"
 
 #: chat/smilies.py:43
 msgid "Angry"
-msgstr ""
+msgstr "Zły"
 
 #: chat/smilies.py:44
 msgid "Devil"
-msgstr ""
+msgstr "Diabełek"
 
 #: chat/smilies.py:45
 msgid "Nerd"
-msgstr ""
+msgstr "Kujon"
 
 #: chat/smilies.py:46
 msgid "Kiss"
-msgstr ""
+msgstr "Całus"
 
 #: chat/smilies.py:47
 msgid "Laughing"
-msgstr ""
+msgstr "Śmiejący się"
 
 #: chat/smilies.py:48
 msgid "Sleepy"
-msgstr ""
+msgstr "Śpiący"
 
 #: chat/smilies.py:49
 msgid "Sick"
-msgstr ""
+msgstr "Chory"
 
 #: chat/smilies.py:50
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Czyżby?"
 
 #, python-format
 #~ msgid "%s Source"
