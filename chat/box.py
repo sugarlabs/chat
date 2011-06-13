@@ -64,6 +64,7 @@ class ChatBox(hippo.CanvasScrollbars):
 
         self._conversation = hippo.CanvasBox(
                 spacing=0,
+                box_width=-1,  # natural width
                 background_color=style.COLOR_WHITE.get_int())
 
         self.set_policy(hippo.ORIENTATION_HORIZONTAL,
@@ -101,6 +102,7 @@ class ChatBox(hippo.CanvasScrollbars):
         |             | +------------+ | |
         |             +----------------+ |
         `--------------------------------'
+        ###Warning hippocanvas dependency###
         """
         if not buddy:
             buddy = self.owner
@@ -149,18 +151,22 @@ class ChatBox(hippo.CanvasScrollbars):
             rb = self._last_msg
             msg_vbox = rb.get_children()[1]
             msg_hbox = hippo.CanvasBox(
+                box_width=-1,  # natural width
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             msg_vbox.append(msg_hbox)
         else:
             rb = CanvasRoundBox(background_color=color_fill,
                                 border_color=color_stroke,
+                                box_width=-1,  # natural width
                                 padding=4)
             rb.props.border_color = color_stroke  # Bug #3742
             self._last_msg = rb
             self._last_msg_sender = buddy
+
             if not status_message:
                 name = hippo.CanvasText(text=nick + ':   ', color=text_color)
                 name_vbox = hippo.CanvasBox(
+                    box_width=-1,
                     orientation=hippo.ORIENTATION_VERTICAL)
                 name_vbox.append(name)
                 rb.append(name_vbox)
@@ -238,7 +244,7 @@ class ChatBox(hippo.CanvasScrollbars):
 
         timestamp_seconds = time.mktime(time_with_current_year)
         if timestamp_seconds > time.time():
-            time_with_previous_year = (time.localtime(time.time())[0]-1,) +\
+            time_with_previous_year = (time.localtime(time.time())[0] - 1,) +\
                     time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
             timestamp_seconds = time.mktime(time_with_previous_year)
 
