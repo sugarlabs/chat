@@ -27,26 +27,68 @@ from sugar.activity.activity import get_activity_root, get_bundle_path
 
 
 THEME = [
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-) and :)
         ('smile', _('Smile'), [':-)', ':)']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are ;-) and ;)
         ('wink', _('Winking'), [';-)', ';)']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-/ and :/
         ('confused', _('Confused'), [':-/', ':/']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-( and :(
         ('sad', _('Sad'), [':-(', ':(']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-D and :D
         ('grin', _('Grin'), [':-D', ':D']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-| and :|
         ('neutral', _('Neutral'), (':-|', ':|')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
         ('shock', _('Shock'), [':-O', ':O', '=-O', '=O']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
         ('cool', _('Cool'), ['B-)', 'B)', '8-)', '8)']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-P and :P
         ('tongue', _('Tongue'), [':-P', ':P']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :">
         ('blush', _('Blushing'), [':">']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :'-( and :'(
         ('weep', _('Weeping'), [":'-(", ":'("]),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
         ('angel', _('Angel'), ['O-)', 'O)', 'O:-)', 'O:)']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-$ and :-$
         ('shutup', _("Don't tell anyone"), (':-$', ':-$')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
         ('angry', _('Angry'), ('x-(', 'x(', 'X-(', 'x-(')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are >:> and >:)
         ('devil', _('Devil'), ('>:>', '>:)')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-B, :B
         ('nerd', _('Nerd'), (':-B', ':B')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-*, :*
         ('kiss', _('Kiss'), (':-*', ':*')),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :))
         ('laugh', _('Laughing'), [':))']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are I-)
         ('sleep', _('Sleepy'), ['I-)']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are :-&
         ('sick', _('Sick'), [':-&']),
+        # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+        # TRANS: ASCII-art equivalents are /:)
         ('eyebrow', _('Raised eyebrows'), ['/:)']),
         ]
 
