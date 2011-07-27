@@ -35,7 +35,7 @@ from sugar.graphics.palette import Palette
 from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.activity import activity
 from sugar.presence import presenceservice
-from sugar.activity.widgets import ActivityButton, TitleEntry, KeepButton
+from sugar.activity.widgets import ActivityButton, TitleEntry
 from sugar.activity.widgets import StopButton, ShareButton, RadioMenuButton
 
 from chat import smilies
@@ -69,7 +69,6 @@ class Chat(activity.Activity):
 
         share_button = ShareButton(self)
         toolbar_box.toolbar.insert(share_button, -1)
-        toolbar_box.toolbar.insert(KeepButton(self), -1)
 
         separator = gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
