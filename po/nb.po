@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat-activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2008-07-26 13:37+0200\n"
 "Last-Translator: Kent Dahl <kentda@pvv.org>\n"
 "Language-Team: Norsk bokmål <i18n-no@lister.ping.uio.no>\n"
@@ -20,49 +20,47 @@ msgstr ""
 msgid "Chat"
 msgstr "Prat"
 
-#: activity.py:42
+#: activity.py:26
 #, python-format
 #, fuzzy
 msgid "%s Source"
 msgstr "%s kilde"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 #, fuzzy
 msgid "Off-line"
 msgstr "Ikke på nett"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Del med, eller inviter noen."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "På nett"
 
-#: pippy_app.py:112
-msgid "Private Chat"
-msgstr "Privat prat"
-
-#: pippy_app.py:124
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Tilkoblet"
 
-#: pippy_app.py:163
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "ble med i praten"
 
-#: pippy_app.py:174
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "forlot praten"
 
-#: pippy_app.py:185
+#: pippy_app.py:156
 msgid "is here"
 msgstr "er her"
 
-#: pippy_app.py:457
-msgid "URL from Chat"
-msgstr "Lenke fra praten"
-
-#: pippy_app.py:563
+#: pippy_app.py:452
 msgid "Copy to Clipboard"
 msgstr "Kopier til utklippstavle"
+
+#~ msgid "Private Chat"
+#~ msgstr "Privat prat"
+
+#~ msgid "URL from Chat"
+#~ msgstr "Lenke fra praten"

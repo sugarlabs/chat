@@ -6,60 +6,61 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
-"PO-Revision-Date: 2008-07-09 08:16-0400\n"
-"Last-Translator: Denis Oštir <denis.ostir@gmail.com>\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"PO-Revision-Date: 2010-02-07 05:06+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "Klepet"
 
-#: activity.py:42
+#: activity.py:26
 #, python-format
 msgid "%s Source"
 msgstr "%s izvorne kode"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Nedosegljiv"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Share, or invite someone."
-msgstr "Deli z nekom ali ga povabi"
+msgstr "Deli z nekom ali ga povabi."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Dosegljiv"
 
-#: pippy_app.py:112
-msgid "Private Chat"
-msgstr "Zasebni klepet"
-
-#: pippy_app.py:124
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Povezan"
 
-#: pippy_app.py:163
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "se je pridružil klepetu"
 
-#: pippy_app.py:174
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "je zapustil klepet"
 
-#: pippy_app.py:185
+#: pippy_app.py:156
 msgid "is here"
 msgstr "je tukaj"
 
-#: pippy_app.py:457
-msgid "URL from Chat"
-msgstr "spletni naslov klepeta"
-
-#: pippy_app.py:563
+#: pippy_app.py:452
 msgid "Copy to Clipboard"
 msgstr "Kopiraj na namizje"
+
+#~ msgid "Private Chat"
+#~ msgstr "Zasebni klepet"
+
+#~ msgid "URL from Chat"
+#~ msgstr "spletni naslov klepeta"

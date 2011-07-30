@@ -19,6 +19,11 @@ msgstr ""
 msgid "Chat"
 msgstr "สนทนา"
 
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr ""
+
 #: pippy_app.py:84
 msgid "Off-line"
 msgstr "ออฟไลน์"
@@ -46,11 +51,6 @@ msgstr "ออกจากการสนทนา"
 #: pippy_app.py:156
 msgid "is here"
 msgstr "อยู่ที่นี่"
-
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr ""
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"

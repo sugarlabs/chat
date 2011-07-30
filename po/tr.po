@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"POT-Creation-Date: 2007-12-23 20:36+0000\n"
 "PO-Revision-Date: 2008-08-26 05:08-0400\n"
 "Last-Translator: abdullah kocabas <abdullah.kocabas@abcdizustu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,47 +19,45 @@ msgstr ""
 msgid "Chat"
 msgstr "Online yazışma"
 
-#: activity.py:42
+#: activity.py:26
 #, python-format
 msgid "%s Source"
 msgstr "%s Kaynak"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Off-line"
 msgstr "Çevrimdışı"
 
-#: pippy_app.py:88
+#: pippy_app.py:84
 msgid "Share, or invite someone."
 msgstr "Paylaşınız ya da davet ediniz."
 
-#: pippy_app.py:112 pippy_app.py:124
+#: pippy_app.py:93
 msgid "On-line"
 msgstr "Çevrimiçi"
 
-#: pippy_app.py:112
-msgid "Private Chat"
-msgstr "özel konuşma"
-
-#: pippy_app.py:124
+#: pippy_app.py:93
 msgid "Connected"
 msgstr "Bağlanmıştır."
 
-#: pippy_app.py:163
+#: pippy_app.py:134
 msgid "joined the chat"
 msgstr "sohbete katılmıştır."
 
-#: pippy_app.py:174
+#: pippy_app.py:145
 msgid "left the chat"
 msgstr "sohbetten ayrılmıştır."
 
-#: pippy_app.py:185
+#: pippy_app.py:156
 msgid "is here"
 msgstr "buradadır."
 
-#: pippy_app.py:457
-msgid "URL from Chat"
-msgstr "yazışmada URL"
-
-#: pippy_app.py:563
+#: pippy_app.py:452
 msgid "Copy to Clipboard"
 msgstr "Panoya kopyalayınız."
+
+#~ msgid "Private Chat"
+#~ msgstr "özel konuşma"
+
+#~ msgid "URL from Chat"
+#~ msgstr "yazışmada URL"

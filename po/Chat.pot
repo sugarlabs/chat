@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,39 +20,47 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr ""
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr ""
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr ""
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr ""
 
-#: pippy_app.py:93
-msgid "Connected"
+#: pippy_app.py:120
+msgid "Private Chat"
 msgstr ""
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr ""
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr ""
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr ""
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr ""
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr ""
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr ""
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
+msgstr ""
+
+#: activity.py:42
+#, python-format
+msgid "%s Source"
 msgstr ""

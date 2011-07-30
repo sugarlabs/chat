@@ -2,57 +2,58 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-03-26 13:31+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ff\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "  Yeewtere"
 
 #: activity.py:26
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s Iwdi"
 
 #: pippy_app.py:84
 msgid "Off-line"
-msgstr ""
+msgstr "Seŋaaki"
 
 #: pippy_app.py:84
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Renndu, walla noddu neɗɗo."
 
 #: pippy_app.py:93
 msgid "On-line"
-msgstr ""
+msgstr "Ceŋiiɗo"
 
 #: pippy_app.py:93
 msgid "Connected"
-msgstr ""
+msgstr "Naatii"
 
 #: pippy_app.py:134
 msgid "joined the chat"
-msgstr ""
+msgstr "yantii e yeewtere"
 
 #: pippy_app.py:145
 msgid "left the chat"
-msgstr ""
+msgstr "yaltii yeewtere"
 
 #: pippy_app.py:156
 msgid "is here"
-msgstr ""
+msgstr "ena ɗoo"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Natto e Ɗisorde"

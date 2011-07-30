@@ -20,6 +20,11 @@ msgstr ""
 msgid "Chat"
 msgstr "Spjall"
 
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr ""
+
 #: pippy_app.py:84
 msgid "Off-line"
 msgstr "Ótengdur"
@@ -47,11 +52,6 @@ msgstr "aftengdist spjallinu"
 #: pippy_app.py:156
 msgid "is here"
 msgstr "er hér"
-
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr ""
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"

@@ -1,8 +1,12 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
 "PO-Revision-Date: 2008-07-18 19:05-0400\n"
 "Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
@@ -15,45 +19,47 @@ msgstr ""
 msgid "Chat"
 msgstr "聊天"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s原始碼"
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "離線"
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr "分享，或是邀請朋友"
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "上線"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "已連線"
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "悄悄話"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "進入聊天室"
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr "離開聊天室"
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "已連線"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "進入聊天室"
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr "在聊天室"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "聊天中的網址"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
 msgstr "複製到剪貼簿"
 
-#~ msgid "Private Chat"
-#~ msgstr "悄悄話"
-
-#~ msgid "URL from Chat"
-#~ msgstr "聊天中的網址"
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s原始碼"

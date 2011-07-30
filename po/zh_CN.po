@@ -15,6 +15,11 @@ msgstr ""
 msgid "Chat"
 msgstr "聊天"
 
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "%s 源代码"
+
 #: pippy_app.py:84
 msgid "Off-line"
 msgstr "离线"
@@ -42,11 +47,6 @@ msgstr "退出聊天室"
 #: pippy_app.py:156
 msgid "is here"
 msgstr "在聊天室"
-
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s 源代码"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"

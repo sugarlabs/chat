@@ -20,6 +20,11 @@ msgstr ""
 msgid "Chat"
 msgstr "گفتگو"
 
+#: activity.py:26
+#, python-format
+msgid "%s Source"
+msgstr "%s منبع"
+
 #: pippy_app.py:84
 msgid "Off-line"
 msgstr "قطع"
@@ -47,11 +52,6 @@ msgstr "گفتگو را ترک کرده"
 #: pippy_app.py:156
 msgid "is here"
 msgstr "اینجاست"
-
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s منبع"
 
 #: pippy_app.py:452
 msgid "Copy to Clipboard"
