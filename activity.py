@@ -114,9 +114,6 @@ class Chat(activity.Activity):
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
 
-    def handle_view_source(self):
-        pass
-
     def _create_pallete_smiley_table(self):
         row_count = int(math.ceil(len(smilies.THEME) / float(SMILIES_COLUMNS)))
         table = gtk.Table(rows=row_count, columns=SMILIES_COLUMNS)
