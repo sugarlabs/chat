@@ -11,5 +11,5 @@ version   = %(activity_version)s
 stability = stable
 
 # original activity.info options
-activity_version = 70
+activity_version = 71
 bundle_id = org.laptop.Chat

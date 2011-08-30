@@ -1,3 +1,10 @@
+71
+
+* Chat i18n enhancement #2903 (Chris Leonard)
+* Remove the KeepButton due to deprecation (Simon Schampijer)
+* Fix View Source behaviour
+* Update i18n
+
 70
 
 * Support gtk<2.18, eg, fc11
