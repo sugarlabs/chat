@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
 "PO-Revision-Date: 2008-02-14 03:38-0500\n"
 "Last-Translator: Ruwan Asanka Wasala <wasala@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,39 +19,47 @@ msgstr ""
 msgid "Chat"
 msgstr "කතා බහ"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s මූලාශ්‍රය"
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "ජාල ගතවී නැත"
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr "තවත් කෙනෙකුට ආරාධනා කරන්න හෝ බෙදා ගන්න."
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "ජාල ගතවී ඇත"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "සම්භන්ධය ස්ථාපිත විය"
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "පුද්ගලික කතා බහ"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "කතා බහට එකතු විය"
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr "කතා බහෙන් ඉවත් විය"
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "සම්භන්ධය ස්ථාපිත විය"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "කතා බහට එකතු විය"
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr "මෙහි සිටියි"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "කතා බහෙන් URL එක"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
 msgstr "පසුරු පුවරුවට පිටපත් කරන්න"
+
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s මූලාශ්‍රය"
