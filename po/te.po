@@ -32,8 +32,7 @@ msgstr "ఆఫ్ లైన్"
 msgid "Share, or invite someone."
 msgstr "పంచు, లేక ఎవరినైనా పిలువు"
 
-#: pippy_app.py:112
-#: pippy_app.py:124
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "ఆన్ లైన్"
 

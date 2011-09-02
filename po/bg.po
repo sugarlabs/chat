@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
 "PO-Revision-Date: 2008-02-07 08:13-0500\n"
 "Last-Translator: Alexander Todorov <atodorov@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,39 +19,47 @@ msgstr ""
 msgid "Chat"
 msgstr "Разговор"
 
-#: activity.py:26
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr "%s източник"
 
-#: pippy_app.py:84
+#: pippy_app.py:88
 msgid "Off-line"
 msgstr "Не активен"
 
-#: pippy_app.py:84
+#: pippy_app.py:88
 msgid "Share, or invite someone."
 msgstr "Сподели или покани някой."
 
-#: pippy_app.py:93
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "Активен"
 
-#: pippy_app.py:93
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr ""
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "Свързан"
 
-#: pippy_app.py:134
+#: pippy_app.py:163
 msgid "joined the chat"
 msgstr "се включи в разговора"
 
-#: pippy_app.py:145
+#: pippy_app.py:174
 msgid "left the chat"
 msgstr "напусна разговора"
 
-#: pippy_app.py:156
+#: pippy_app.py:185
 msgid "is here"
 msgstr "е тук"
 
-#: pippy_app.py:452
+#: pippy_app.py:457
+msgid "URL from Chat"
+msgstr ""
+
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
 msgstr "Копиране в паметта"

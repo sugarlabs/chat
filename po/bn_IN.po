@@ -1,58 +1,66 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Sankarshan Mukhopadhyay <sankarshan@randomink.org>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: chat-activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2008-01-22 05:25+0000\n"
-"Last-Translator: Sankarshan Mukhopadhyay <sankarshan.mukhopadhyay@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2008-07-13 13:00+0530\n"
+"Last-Translator: Sankarshan Mukhopadhyay <sankarshan@randomink.org>\n"
+"Language-Team: Bengali (India) <discuss@ankur.org.in>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "আড্ডা"
 
-#: activity.py:26
+#: activity.py:42
 #, python-format
 msgid "%s Source"
 msgstr "%s সোর্স"
 
-# বিচ্ছিন্ন লিখলে কি ভাল হয় ? কারণ Off-line মানে তো নেটওয়ার্ক থেকে বিচ্ছিন্ন।
-#: pippy_app.py:84
+# বিচ্ছিন্ন লিখলে কি ভাল হয় ? কারণ Off-line মানে তো নেটওয়ার্ক থেকে বিচ্ছিন্ন।
+#: pippy_app.py:88
 msgid "Off-line"
 msgstr "অফ-লাইন"
 
-#: pippy_app.py:84
+#: pippy_app.py:88
 msgid "Share, or invite someone."
 msgstr "আদানপ্রদান করুন অথবা আমন্ত্রন জানান"
 
-#: pippy_app.py:93
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "অন-লাইন"
 
-#: pippy_app.py:93
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "ব্যক্তিগত আড্ডা"
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "সংযুক্ত"
 
-#: pippy_app.py:134
+#: pippy_app.py:163
 msgid "joined the chat"
 msgstr "আড্ডায় যোগ করেছে"
 
-#: pippy_app.py:145
+#: pippy_app.py:174
 msgid "left the chat"
 msgstr "আড্ডা থেকে বেরিয়ে গেছে"
 
-#: pippy_app.py:156
+#: pippy_app.py:185
 msgid "is here"
 msgstr "এখানে উপস্থিত"
 
-#: pippy_app.py:452
+#: pippy_app.py:457
+msgid "URL from Chat"
+msgstr "আড্ডা থেকে প্রাপ্ত URL"
+
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
 msgstr "ক্লিপবোর্ডে কপি করুন"

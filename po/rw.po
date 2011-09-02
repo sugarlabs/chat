@@ -32,8 +32,7 @@ msgstr "Kuvak'umurongo"
 msgid "Share, or invite someone."
 msgstr "Gusangira, cyangwa gutumira umuntu."
 
-#: pippy_app.py:112
-#: pippy_app.py:124
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
 msgstr "Kuba k'umurongo"
 
@@ -64,4 +63,3 @@ msgstr " Aderesi yakuwe mu kiganiro"
 #: pippy_app.py:563
 msgid "Copy to Clipboard"
 msgstr "Koporora ku Kibaho"
-

@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 00:30-0400\n"
-"PO-Revision-Date: 2008-04-29 16:27-0400\n"
-"Last-Translator: Guy Serge POMPILUS <guysergep@gmail.com>\n"
+"POT-Creation-Date: 2008-06-14 00:30-0400\n"
+"PO-Revision-Date: 2010-01-20 00:49+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ht\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -24,39 +26,42 @@ msgstr "Koze"
 msgid "%s Source"
 msgstr "%s Sous"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Off-line"
-msgstr "Pa konekte"
+msgstr "Pa an liy"
 
-#: pippy_app.py:74
+#: pippy_app.py:88
 msgid "Share, or invite someone."
-msgstr "Pataje, oubyen envite yon moun"
+msgstr "Pataje, oubyen envite yon moun."
 
-#: pippy_app.py:84
+#: pippy_app.py:112 pippy_app.py:124
 msgid "On-line"
-msgstr "Konekte, an liy"
+msgstr "An liy"
 
-#: pippy_app.py:84
+#: pippy_app.py:112
+msgid "Private Chat"
+msgstr "Diskisyon prive"
+
+#: pippy_app.py:124
 msgid "Connected"
 msgstr "Konekte"
 
-#: pippy_app.py:126
+#: pippy_app.py:163
 msgid "joined the chat"
-msgstr "Jwenn diskisyon, koze sa a"
+msgstr "jwenn diskisyon"
 
-#: pippy_app.py:137
+#: pippy_app.py:174
 msgid "left the chat"
-msgstr "Kite tchat la"
+msgstr "kite diskisyon an"
 
-#: pippy_app.py:148
+#: pippy_app.py:185
 msgid "is here"
-msgstr "la"
+msgstr "li la"
 
-#: pippy_app.py:358
+#: pippy_app.py:457
 msgid "URL from Chat"
-msgstr "Adrès pou diskisyon an"
+msgstr "URL diskisyon an"
 
-#: pippy_app.py:446
-#, fuzzy
+#: pippy_app.py:563
 msgid "Copy to Clipboard"
-msgstr "kopye sou ekritwa"
+msgstr "Kopye nan ekritwa"
