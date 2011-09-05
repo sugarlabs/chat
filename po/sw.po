@@ -2,57 +2,66 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
+"PO-Revision-Date: 2011-09-01 07:29+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "mzungumzo"
 
-#: activity.py:26
+#: pippy_app.py:93 pippy_app.py:128
+msgid "Off-line"
+msgstr "inje ya mstari"
+
+#: pippy_app.py:93
+msgid "Share, or invite someone."
+msgstr "kushiriki au kumwalika mtu"
+
+#: pippy_app.py:120 pippy_app.py:135
+msgid "On-line"
+msgstr "kwenye mstari"
+
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "zungumzo binafsi"
+
+#: pippy_app.py:128 pippy_app.py:193
+msgid "left the chat"
+msgstr "kuondoka mzungumzo"
+
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "kushikamana"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "alijiunga kwa chat"
+
+#: pippy_app.py:204
+msgid "is here"
+msgstr "ni hapa"
+
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "url kutoka kwenye gumzo"
+
+#: pippy_app.py:678
+msgid "Copy to Clipboard"
+msgstr "Nakala cha picha ya bodi ya"
+
+#: activity.py:42
 #, python-format
 msgid "%s Source"
-msgstr ""
-
-#: pippy_app.py:84
-msgid "Off-line"
-msgstr ""
-
-#: pippy_app.py:84
-msgid "Share, or invite someone."
-msgstr ""
-
-#: pippy_app.py:93
-msgid "On-line"
-msgstr ""
-
-#: pippy_app.py:93
-msgid "Connected"
-msgstr ""
-
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr ""
-
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr ""
-
-#: pippy_app.py:156
-msgid "is here"
-msgstr ""
-
-#: pippy_app.py:452
-msgid "Copy to Clipboard"
-msgstr ""
+msgstr "%s chanzo"
