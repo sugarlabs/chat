@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 00:31-0500\n"
-"PO-Revision-Date: 2011-02-16 10:25+0200\n"
-"Last-Translator: Shaswot <shaswot.kharel@olenepal.org>\n"
+"POT-Creation-Date: 2011-08-04 13:28+0000\n"
+"PO-Revision-Date: 2011-09-08 11:38+0200\n"
+"Last-Translator:  <aman.maharjan@olenepal.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
-
-#: activity/activity.info:2
-msgid "Chat"
-msgstr "कुराकानी"
 
 #: activity.py:78
 msgid "Insert smiley"
@@ -39,7 +35,7 @@ msgstr "अफ-लाईन"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr "सहभागी होउ, अथवा कसैलाई आमन्त्रण गर"
+msgstr "शेर, अथवा कसैलाई आमन्त्रण गर"
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
@@ -65,95 +61,141 @@ msgstr "कुराकानीमा सहभागी भयो"
 msgid "is here"
 msgstr "यहिं छ"
 
-#: chat/box.py:312
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "कुराकानी"
+
+#: chat/box.py:318
 msgid "URL from Chat"
-msgstr "कुराकानीवाट URL"
+msgstr "कुराकानीबाट URL"
 
-#: chat/box.py:346
+#: chat/box.py:352
 msgid "Copy to Clipboard"
-msgstr "क्लिपबोर्डमा सार"
+msgstr "क्लिपबोर्डमा अनुकरण गर"
 
-#: chat/smilies.py:30
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-) and :)
+#: chat/smilies.py:32
 msgid "Smile"
 msgstr "मुस्कान"
 
-#: chat/smilies.py:31
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are ;-) and ;)
+#: chat/smilies.py:35
 msgid "Winking"
 msgstr "झिम्क्याऊ"
 
-#: chat/smilies.py:32
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-/ and :/
+#: chat/smilies.py:38
 msgid "Confused"
 msgstr "अलमल्ल पर्यो"
 
-#: chat/smilies.py:33
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-( and :(
+#: chat/smilies.py:41
 msgid "Sad"
 msgstr "उदास"
 
-#: chat/smilies.py:34
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-D and :D
+#: chat/smilies.py:44
 msgid "Grin"
 msgstr "मुस्कान"
 
-#: chat/smilies.py:35
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-| and :|
+#: chat/smilies.py:47
 msgid "Neutral"
 msgstr "निस्पक्ष"
 
-#: chat/smilies.py:36
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
+#: chat/smilies.py:50
 msgid "Shock"
-msgstr "आष्चर्य"
+msgstr "कम्पन"
 
-#: chat/smilies.py:37
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
+#: chat/smilies.py:53
 msgid "Cool"
-msgstr "कुल"
+msgstr "अलिकति चिसो"
 
-#: chat/smilies.py:38
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-P and :P
+#: chat/smilies.py:56
 msgid "Tongue"
 msgstr "जिब्रो"
 
-#: chat/smilies.py:39
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :">
+#: chat/smilies.py:59
 msgid "Blushing"
 msgstr "सङ्कोच"
 
-#: chat/smilies.py:40
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :'-( and :'(
+#: chat/smilies.py:62
 msgid "Weeping"
 msgstr "रुदै"
 
-#: chat/smilies.py:41
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
+#: chat/smilies.py:65
 msgid "Angel"
 msgstr "परी"
 
-#: chat/smilies.py:42
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-$ and :-$
+#: chat/smilies.py:68
 msgid "Don't tell anyone"
 msgstr "कसैलाई नभन्ने"
 
-#: chat/smilies.py:43
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
+#: chat/smilies.py:71
 msgid "Angry"
 msgstr "रिसाएको"
 
-#: chat/smilies.py:44
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are >:> and >:)
+#: chat/smilies.py:74
 msgid "Devil"
 msgstr "राक्क्षश"
 
-#: chat/smilies.py:45
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-B, :B
+#: chat/smilies.py:77
 msgid "Nerd"
 msgstr "पढन्ते"
 
-#: chat/smilies.py:46
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-*, :*
+#: chat/smilies.py:80
 msgid "Kiss"
 msgstr "चुम्बन"
 
-#: chat/smilies.py:47
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :))
+#: chat/smilies.py:83
 msgid "Laughing"
 msgstr "हास्दै"
 
-#: chat/smilies.py:48
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are I-)
+#: chat/smilies.py:86
 msgid "Sleepy"
-msgstr "अल्छि"
+msgstr "निन्द्रा लागेको"
 
-#: chat/smilies.py:49
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-&
+#: chat/smilies.py:89
 msgid "Sick"
 msgstr "बिरामी"
 
-#: chat/smilies.py:50
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are /:)
+#: chat/smilies.py:92
 msgid "Raised eyebrows"
 msgstr "आखिभाँऊ उठाएको"
 
