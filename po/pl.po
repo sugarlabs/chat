@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2010-03-22 15:52+0200\n"
-"Last-Translator: Maciej <admin@prowseed.com>\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
+"PO-Revision-Date: 2011-09-12 13:51+0200\n"
+"Last-Translator:  <pawel@makowiecki.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -16,45 +16,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "Czat"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr "%s źródło"
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "Rozłączony"
 
-#: pippy_app.py:84
-msgid "Share, or invite someone."
-msgstr "Przyłącz się lub zaproś kogoś"
-
 #: pippy_app.py:93
+msgid "Share, or invite someone."
+msgstr "Przyłącz się lub zaproś kogoś."
+
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "Połączony"
 
-#: pippy_app.py:93
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "Prywatny Czat"
+
+#: pippy_app.py:128 pippy_app.py:193
+msgid "left the chat"
+msgstr "Opuścił rozmowę"
+
+#: pippy_app.py:135
 msgid "Connected"
 msgstr "Połączony"
 
-#: pippy_app.py:134
+#: pippy_app.py:182
 msgid "joined the chat"
-msgstr "dołączył do czatu"
+msgstr "dołączył do rozmowy"
 
-#: pippy_app.py:145
-msgid "left the chat"
-msgstr "Opuścił czat"
-
-#: pippy_app.py:156
+#: pippy_app.py:204
 msgid "is here"
 msgstr "jest tutaj"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "URL z Czatu"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
-msgstr "Kopiuj do schowka"
+msgstr "Kopiuj do Schowka"
+
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s Źródło"
