@@ -1,0 +1,199 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-04 13:28+0000\n"
+"PO-Revision-Date: 2011-09-04 09:31+0200\n"
+"Last-Translator: Francisco <fordazmx@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: activity.py:78
+msgid "Insert smiley"
+msgstr "Ts'at'banchij i walek"
+
+# La idea de Off-line se refiere a Desconectado, o sin conexión a Internet. Propongo Yab polts'odh.(Zurik)
+#: activity.py:115 activity.py:182
+msgid "Off-line"
+msgstr "Yab polts'odh"
+
+# comentar en grupo algún tema o asunto.
+#: activity.py:115
+msgid "Share, or invite someone."
+msgstr "Pejchixna', o ka kaniy pil jita'."
+
+# En línea da la idea de estar Conectado. Propongo Polts'odh (Zurik)
+#: activity.py:174 activity.py:189
+msgid "On-line"
+msgstr "Polts'odh"
+
+#: activity.py:174
+msgid "Private Chat"
+msgstr "Tsinat t'ilmáts"
+
+# dejó de platicar o de charlar.
+#: activity.py:182 activity.py:242
+msgid "left the chat"
+msgstr "in jilá an t'ilmáts"
+
+#: activity.py:189
+msgid "Connected"
+msgstr "Palk'adh"
+
+# alguien que se unió a la charla.
+#: activity.py:234
+msgid "joined the chat"
+msgstr "junkun k'al an t'ilmáts"
+
+#: activity.py:249
+msgid "is here"
+msgstr "tejé' kw'ajat"
+
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "Owt'ilmáts"
+
+#: chat/box.py:318
+msgid "URL from Chat"
+msgstr "URL xi tal ti al an t'ilmáts"
+
+#: chat/box.py:352
+msgid "Copy to Clipboard"
+msgstr "K'ot'biy ti Kitnom-úw"
+
+# reir en pequeño.
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-) and :)
+#: chat/smilies.py:32
+msgid "Smile"
+msgstr "Tsipti' te'enits"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are ;-) and ;)
+#: chat/smilies.py:35
+msgid "Winking"
+msgstr "Lamlaxtaláb"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-/ and :/
+#: chat/smilies.py:38
+msgid "Confused"
+msgstr "K'ibts'odh"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-( and :(
+#: chat/smilies.py:41
+msgid "Sad"
+msgstr "T'e'pidh"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-D and :D
+#: chat/smilies.py:44
+msgid "Grin"
+msgstr "Te'entaláb"
+
+# en medio o que no sigue a ninguno.
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-| and :|
+#: chat/smilies.py:47
+msgid "Neutral"
+msgstr "Ts'ejladh"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
+#: chat/smilies.py:50
+msgid "Shock"
+msgstr "Jik'pantaláb"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
+#: chat/smilies.py:53
+msgid "Cool"
+msgstr "K'aya'"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-P and :P
+#: chat/smilies.py:56
+msgid "Tongue"
+msgstr "Lek'ab"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :">
+#: chat/smilies.py:59
+msgid "Blushing"
+msgstr "Witsitsbenek"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :'-( and :'(
+#: chat/smilies.py:62
+msgid "Weeping"
+msgstr "Uk'nal"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
+#: chat/smilies.py:65
+msgid "Angel"
+msgstr "Angel"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-$ and :-$
+#: chat/smilies.py:68
+msgid "Don't tell anyone"
+msgstr "Yab ka ólchij ni jíta'"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
+#: chat/smilies.py:71
+msgid "Angry"
+msgstr "Tsakúl"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are >:> and >:)
+#: chat/smilies.py:74
+msgid "Devil"
+msgstr "Tenekláb"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-B, :B
+#: chat/smilies.py:77
+msgid "Nerd"
+msgstr "Wat'k'adh exóbal"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-*, :*
+#: chat/smilies.py:80
+msgid "Kiss"
+msgstr "Ts'uts'baxtaláb"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :))
+#: chat/smilies.py:83
+msgid "Laughing"
+msgstr "Té'nal"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are I-)
+#: chat/smilies.py:86
+msgid "Sleepy"
+msgstr "Ts'ebat"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-&
+#: chat/smilies.py:89
+msgid "Sick"
+msgstr "Yá'ul"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are /:)
+#: chat/smilies.py:92
+msgid "Raised eyebrows"
+msgstr "Jik'padh"
