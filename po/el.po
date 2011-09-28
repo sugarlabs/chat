@@ -15,20 +15,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 00:31-0500\n"
+"POT-Creation-Date: 2011-08-04 13:28+0000\n"
 "PO-Revision-Date: 2011-02-20 12:38+0200\n"
 "Last-Translator: John Sarlis <sarlis@sch.gr>\n"
 "Language-Team: Greek <olpc-l10n-el@googlegroups.com>\n"
-"Language: el\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
-
-#: activity/activity.info:2
-msgid "Chat"
-msgstr "Συνομιλία"
 
 #: activity.py:78
 msgid "Insert smiley"
@@ -66,95 +62,141 @@ msgstr "συμμετέχει στη συνομιλία"
 msgid "is here"
 msgstr "είναι εδώ"
 
-#: chat/box.py:312
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "Συνομιλία"
+
+#: chat/box.py:318
 msgid "URL from Chat"
 msgstr "URL της συνομιλίας"
 
-#: chat/box.py:346
+#: chat/box.py:352
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή στο Πρόχειρο"
 
-#: chat/smilies.py:30
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-) and :)
+#: chat/smilies.py:32
 msgid "Smile"
 msgstr "Φατσούλα"
 
-#: chat/smilies.py:31
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are ;-) and ;)
+#: chat/smilies.py:35
 msgid "Winking"
 msgstr "Κάνω Νεύμα"
 
-#: chat/smilies.py:32
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-/ and :/
+#: chat/smilies.py:38
 msgid "Confused"
 msgstr "Μπερδεμένος"
 
-#: chat/smilies.py:33
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-( and :(
+#: chat/smilies.py:41
 msgid "Sad"
 msgstr "Λυπημένος"
 
-#: chat/smilies.py:34
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-D and :D
+#: chat/smilies.py:44
 msgid "Grin"
 msgstr "Χαμόγελο"
 
-#: chat/smilies.py:35
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-| and :|
+#: chat/smilies.py:47
 msgid "Neutral"
 msgstr "Ουδέτερος"
 
-#: chat/smilies.py:36
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
+#: chat/smilies.py:50
 msgid "Shock"
 msgstr "Έκπληξη"
 
-#: chat/smilies.py:37
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
+#: chat/smilies.py:53
 msgid "Cool"
 msgstr "Χαρούμενος"
 
-#: chat/smilies.py:38
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-P and :P
+#: chat/smilies.py:56
 msgid "Tongue"
 msgstr "Γλώσσα"
 
-#: chat/smilies.py:39
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :">
+#: chat/smilies.py:59
 msgid "Blushing"
 msgstr "Ντροπαλός"
 
-#: chat/smilies.py:40
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :'-( and :'(
+#: chat/smilies.py:62
 msgid "Weeping"
 msgstr "Κλάμα"
 
-#: chat/smilies.py:41
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
+#: chat/smilies.py:65
 msgid "Angel"
 msgstr "Άγγελος"
 
-#: chat/smilies.py:42
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-$ and :-$
+#: chat/smilies.py:68
 msgid "Don't tell anyone"
 msgstr "Μην το πεις πουθενά"
 
-#: chat/smilies.py:43
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
+#: chat/smilies.py:71
 msgid "Angry"
 msgstr "Θυμωμένος"
 
-#: chat/smilies.py:44
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are >:> and >:)
+#: chat/smilies.py:74
 msgid "Devil"
 msgstr "Διαβολικός"
 
-#: chat/smilies.py:45
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-B, :B
+#: chat/smilies.py:77
 msgid "Nerd"
 msgstr "Εξυπνάκιας"
 
-#: chat/smilies.py:46
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-*, :*
+#: chat/smilies.py:80
 msgid "Kiss"
 msgstr "Φιλί"
 
-#: chat/smilies.py:47
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :))
+#: chat/smilies.py:83
 msgid "Laughing"
 msgstr "Γέλιο"
 
-#: chat/smilies.py:48
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are I-)
+#: chat/smilies.py:86
 msgid "Sleepy"
 msgstr "Νυσταγμένος"
 
-#: chat/smilies.py:49
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-&
+#: chat/smilies.py:89
 msgid "Sick"
 msgstr "Άρρωστος"
 
-#: chat/smilies.py:50
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are /:)
+#: chat/smilies.py:92
 msgid "Raised eyebrows"
 msgstr "Σηκωμένα φρύδια"
 
