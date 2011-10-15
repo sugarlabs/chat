@@ -7,9 +7,9 @@ license   = GPLv2+
 
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-version   = %(activity_version)s
+version   = 72
 stability = stable
 
 # original activity.info options
-activity_version = 71
+activity_version = 72
 bundle_id = org.laptop.Chat
