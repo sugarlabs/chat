@@ -25,13 +25,11 @@ from gettext import gettext as _
 from os.path import join
 
 import gtk
-import hippo
 import pango
 import cairo
 
 from sugar.graphics import style
-from sugar.graphics.roundbox import CanvasRoundBox
-from sugar.graphics.palette import Palette, CanvasInvoker
+from sugar.graphics.palette import Palette
 from sugar.presence import presenceservice
 from sugar.graphics.menuitem import MenuItem
 from sugar.activity.activity import get_activity_root, show_object_in_journal
@@ -40,6 +38,7 @@ from sugar.datastore import datastore
 from sugar import profile
 
 from chat import smilies
+from chat.roundbox import RoundBox
 
 
 _URL_REGEXP = re.compile('((http|ftp)s?://)?'
@@ -47,10 +46,33 @@ _URL_REGEXP = re.compile('((http|ftp)s?://)?'
     '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
 
 
-class ChatBox(hippo.CanvasScrollbars):
+class ColorLabel(gtk.Label):
+
+    def __init__(self, text, color=None):
+        self._color = color
+        if self._color is not None:
+            text = '<span foreground="%s">' % self._color.get_html() + \
+                    text + '</span>'
+        gtk.Label.__init__(self)
+        self.set_use_markup(True)
+        self.set_markup(text)
+
+
+class LinkLabel(ColorLabel):
+
+    def __init__(self, text, color=None):
+        self.text = '<a href="%s">' % text + \
+                text + '</a>'
+        ColorLabel.__init__(self, self.text, color)
+
+    def create_palette(self):
+        return _URLMenu(self.text)
+
+
+class ChatBox(gtk.ScrolledWindow):
 
     def __init__(self):
-        hippo.CanvasScrollbars.__init__(self)
+        gtk.ScrolledWindow.__init__(self)
 
         self.owner = presenceservice.get_instance().get_owner()
 
@@ -62,16 +84,16 @@ class ChatBox(hippo.CanvasScrollbars):
         self._last_msg = None
         self._chat_log = ''
 
-        self._conversation = hippo.CanvasBox(
-                spacing=0,
-                box_width=-1,  # natural width
-                background_color=style.COLOR_WHITE.get_int())
+        self._conversation = gtk.VBox()
+        self._conversation.set_homogeneous(False)
+        #self._conversation.background_color=style.COLOR_WHITE
+                #spacing=0,
+                #box_width=-1,  # natural width
+                #background_color=style.COLOR_WHITE.get_int())
 
-        self.set_policy(hippo.ORIENTATION_HORIZONTAL,
-                hippo.SCROLLBAR_NEVER)
-        self.set_root(self._conversation)
-
-        vadj = self.props.widget.get_vadjustment()
+        self.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        self.add_with_viewport(self._conversation)
+        vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
 
@@ -89,7 +111,6 @@ class ChatBox(hippo.CanvasScrollbars):
             False: show what buddy said
             True: show what buddy did
 
-        hippo layout:
         .------------- rb ---------------.
         | +name_vbox+ +----msg_vbox----+ |
         | |         | |                | |
@@ -102,7 +123,6 @@ class ChatBox(hippo.CanvasScrollbars):
         |             | +------------+ | |
         |             +----------------+ |
         `--------------------------------'
-        ###Warning hippocanvas dependency###
         """
         if not buddy:
             buddy = self.owner
@@ -123,13 +143,13 @@ class ChatBox(hippo.CanvasScrollbars):
         color_fill_rgba = style.Color(color_fill_html).get_rgba()
         color_fill_gray = (color_fill_rgba[0] + color_fill_rgba[1] +
                 color_fill_rgba[2]) / 3
-        color_stroke = style.Color(color_stroke_html).get_int()
-        color_fill = style.Color(color_fill_html).get_int()
+        color_stroke = style.Color(color_stroke_html)
+        color_fill = style.Color(color_fill_html)
 
         if color_fill_gray < 0.5:
-            text_color = style.COLOR_WHITE.get_int()
+            text_color = style.COLOR_WHITE
         else:
-            text_color = style.COLOR_BLACK.get_int()
+            text_color = style.COLOR_BLACK
 
         self._add_log(nick, color, text, status_message)
 
@@ -150,32 +170,25 @@ class ChatBox(hippo.CanvasScrollbars):
         if not new_msg:
             rb = self._last_msg
             msg_vbox = rb.get_children()[1]
-            msg_hbox = hippo.CanvasBox(
-                box_width=-1,  # natural width
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            msg_vbox.append(msg_hbox)
+            msg_hbox = gtk.HBox()
+            msg_hbox.show()
+            msg_vbox.pack_start(msg_hbox, True, True)
         else:
-            rb = CanvasRoundBox(background_color=color_fill,
-                                border_color=color_stroke,
-                                box_width=-1,  # natural width
-                                padding=4)
-            rb.props.border_color = color_stroke  # Bug #3742
+            rb = RoundBox()
+            rb.background_color = color_fill
+            rb.border_color = color_stroke
             self._last_msg = rb
             self._last_msg_sender = buddy
 
             if not status_message:
-                name = hippo.CanvasText(text=nick + ':   ', color=text_color)
-                name_vbox = hippo.CanvasBox(
-                    box_width=-1,
-                    orientation=hippo.ORIENTATION_VERTICAL)
-                name_vbox.append(name)
-                rb.append(name_vbox)
-            msg_vbox = hippo.CanvasBox(
-                orientation=hippo.ORIENTATION_VERTICAL)
-            rb.append(msg_vbox)
-            msg_hbox = hippo.CanvasBox(
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            msg_vbox.append(msg_hbox)
+                name = ColorLabel(text=nick + ':   ', color=text_color)
+                name_vbox = gtk.VBox()
+                name_vbox.pack_start(name, False, False)
+                rb.pack_start(name_vbox, False, False)
+            msg_vbox = gtk.VBox()
+            rb.pack_start(msg_vbox, False, False)
+            msg_hbox = gtk.HBox()
+            msg_vbox.pack_start(msg_hbox, False, False)
 
         if status_message:
             self._last_msg_sender = None
@@ -185,46 +198,49 @@ class ChatBox(hippo.CanvasScrollbars):
             # there is a URL in the text
             starttext = text[:match.start()]
             if starttext:
-                message = hippo.CanvasText(
+                message = ColorLabel(
                     text=starttext,
-                    size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
-                    color=text_color,
-                    xalign=hippo.ALIGNMENT_START)
-                msg_hbox.append(message)
+                    color=text_color)
+                msg_hbox.pack_start(message, True, True)
+                message.show()
             url = text[match.start():match.end()]
 
-            message = _CanvasLink(
+            message = LinkLabel(
                 text=url,
                 color=text_color)
-            attrs = pango.AttrList()
-            attrs.insert(pango.AttrUnderline(pango.UNDERLINE_SINGLE, 0, 32767))
-            message.set_property("attributes", attrs)
-            message.connect('activated', self._link_activated_cb)
+            message.connect('activate-link', self._link_activated_cb)
 
-            # call interior magic which should mean just:
-            # CanvasInvoker().parent = message
-            CanvasInvoker(message)
+            align = gtk.Alignment(xalign=0.0, yalign=0.0, xscale=0.0,
+                    yscale=0.0)
+            align.add(message)
 
-            msg_hbox.append(message)
+            msg_hbox.pack_start(align, True, True)
+            msg_hbox.show()
             text = text[match.end():]
             match = _URL_REGEXP.search(text)
 
         if text:
             for word in smilies.parse(text):
                 if isinstance(word, cairo.ImageSurface):
+                    pass
+                    # TODO:
+                    """
                     item = hippo.CanvasImage(
                             image=word,
                             border=0,
                             border_color=style.COLOR_BUTTON_GREY.get_int(),
                             xalign=hippo.ALIGNMENT_CENTER,
                             yalign=hippo.ALIGNMENT_CENTER)
+                    """
                 else:
-                    item = hippo.CanvasText(
+                    item = ColorLabel(
                             text=word,
-                            size_mode=hippo.CANVAS_SIZE_WRAP_WORD,
-                            color=text_color,
-                            xalign=hippo.ALIGNMENT_START)
-                msg_hbox.append(item)
+                            color=text_color)
+                    item.show()
+                align = gtk.Alignment(xalign=0.0, yalign=0.0, xscale=0.0,
+                        yscale=0.0)
+                align.add(item)
+                msg_hbox.pack_start(align, True, True)
 
         # Order of boxes for RTL languages:
         if lang_rtl:
@@ -233,9 +249,11 @@ class ChatBox(hippo.CanvasScrollbars):
                 rb.reverse()
 
         if new_msg:
-            box = hippo.CanvasBox(padding=2)
-            box.append(rb)
-            self._conversation.append(box)
+            box = RoundBox()  # TODO: padding=2)
+            box.show()
+            box.pack_start(rb, True, True)
+            self._conversation.pack_start(box, False, False)
+        self._conversation.show_all()
 
     def add_separator(self, timestamp):
         """Add whitespace and timestamp between chat sessions."""
@@ -248,15 +266,17 @@ class ChatBox(hippo.CanvasScrollbars):
                     time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
             timestamp_seconds = time.mktime(time_with_previous_year)
 
-        message = hippo.CanvasText(
+        message = ColorLabel(
             text=timestamp_to_elapsed_string(timestamp_seconds),
-            color=style.COLOR_BUTTON_GREY.get_int(),
-            font_desc=style.FONT_NORMAL.get_pango_desc(),
-            xalign=hippo.ALIGNMENT_CENTER)
+            color=style.COLOR_BUTTON_GREY)
 
-        box = hippo.CanvasBox(padding=2)
-        box.append(message)
-        self._conversation.append(box)
+        box = gtk.HBox()
+        box.show()
+        align = gtk.Alignment(xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
+        box.pack_start(align, True, True)
+        align.add(message)
+        box.show_all()
+        self._conversation.pack_start(box, False, False)
         self.add_log_timestamp(timestamp)
 
         self._last_msg_sender = None
@@ -306,9 +326,10 @@ class ChatBox(hippo.CanvasScrollbars):
             adj.set_value(adj.upper - adj.page_size)
             self._scroll_value = adj.get_value()
 
-    def _link_activated_cb(self, link):
+    def _link_activated_cb(self, label, link):
         url = _url_check_protocol(link.props.text)
         self._show_via_journal(url)
+        return False
 
     def _show_via_journal(self, url):
         """Ask the journal to display a URL"""
@@ -330,15 +351,6 @@ class ChatBox(hippo.CanvasScrollbars):
         show_object_in_journal(jobject.object_id)
         jobject.destroy()
         os.unlink(file_path)
-
-
-class _CanvasLink(hippo.CanvasLink):
-
-    def __init__(self, **kwargs):
-        hippo.CanvasLink.__init__(self, **kwargs)
-
-    def create_palette(self):
-        return _URLMenu(self.props.text)
 
 
 class _URLMenu(Palette):

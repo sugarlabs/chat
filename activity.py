@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import hippo
 import gtk
 import logging
 import cjson
@@ -267,14 +266,12 @@ class Chat(activity.Activity):
         self.entry = entry
 
         self.chatbox = ChatBox()
-        canvas = hippo.Canvas()
-        canvas.set_root(self.chatbox)
 
         hbox = gtk.HBox()
         hbox.add(entry)
 
         box = gtk.VBox(homogeneous=False)
-        box.pack_start(canvas)
+        box.pack_start(self.chatbox)
         box.pack_start(hbox, expand=False)
 
         return box
