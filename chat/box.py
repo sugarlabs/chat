@@ -26,10 +26,10 @@ from os.path import join
 
 import gtk
 import pango
-import cairo
+from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar.graphics import style
-from sugar.graphics.palette import Palette
+from sugar.graphics.palette import Palette, MouseSpeedDetector
 from sugar.presence import presenceservice
 from sugar.graphics.menuitem import MenuItem
 from sugar.activity.activity import get_activity_root, show_object_in_journal
@@ -46,6 +46,174 @@ _URL_REGEXP = re.compile('((http|ftp)s?://)?'
     '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
 
 
+class TextBox(gtk.TextView):
+
+    __gsignals__ = {
+        'mouse-enter': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'mouse-leave': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'right-click': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+    }
+
+    hand_cursor = gtk.gdk.Cursor(gtk.gdk.HAND2)
+
+    def __init__(self, color, bg_color, lang_rtl):
+        self._lang_rtl = lang_rtl
+        gtk.TextView.__init__(self)
+        self.set_editable(False)
+        self.set_cursor_visible(False)
+        self.set_wrap_mode(gtk.WRAP_WORD_CHAR)
+        self.get_buffer().set_text("", 0)
+        self.iter_text = self.get_buffer().get_iter_at_offset(0)
+        self.fg_tag = self.get_buffer().create_tag("foreground_color",
+            foreground=color.get_html())
+        self._empty = True
+        self.palette = None
+        self._mouse_detector = MouseSpeedDetector(self, 200, 5)
+        self._mouse_detector.connect('motion-slow', self._mouse_slow_cb)
+        self.modify_base(gtk.STATE_NORMAL, bg_color.get_gdk_color())
+        self.connect("event-after", self.event_after)
+        self.motion_notify_id = self.connect("motion-notify-event", \
+                self.motion_notify_event)
+        self.connect("visibility-notify-event", self.visibility_notify_event)
+
+    # Links can be activated by clicking.
+    def event_after(self, widget, event):
+        if event.type != gtk.gdk.BUTTON_RELEASE:
+            return False
+        if event.button == 2:
+            palette = tag.get_data('palette')
+            #xw, yw = self.get_toplevel().get_pointer()
+            logging.error('Popop palette by secondary button click')
+            palette.move(event.x, event.y)
+            palette.popup()
+            return False
+
+        x, y = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET,
+            int(event.x), int(event.y))
+        iter_tags = self.get_iter_at_location(x, y)
+
+        for tag in iter_tags.get_tags():
+            url = tag.get_data('url')
+            if url is not None:
+                self._show_via_journal(url)
+
+        return False
+
+    def _show_via_journal(self, url):
+        """Ask the journal to display a URL"""
+        logging.debug('Create journal entry for URL: %s', url)
+        jobject = datastore.create()
+        metadata = {
+            'title': "%s: %s" % (_('URL from Chat'), url),
+            'title_set_by_user': '1',
+            'icon-color': profile.get_color().to_string(),
+            'mime_type': 'text/uri-list',
+            }
+        for k, v in metadata.items():
+            jobject.metadata[k] = v
+        file_path = join(get_activity_root(), 'instance', '%i_' % time.time())
+        open(file_path, 'w').write(url + '\r\n')
+        os.chmod(file_path, 0755)
+        jobject.set_file_path(file_path)
+        datastore.write(jobject)
+        show_object_in_journal(jobject.object_id)
+        jobject.destroy()
+        os.unlink(file_path)
+
+    # Looks at all tags covering the position (x, y) in the text view,
+    # and if one of them is a link return True
+    def check_url_hovering(self, x, y):
+        hovering = False
+        self.palette = None
+        iter_tags = self.get_iter_at_location(x, y)
+
+        tags = iter_tags.get_tags()
+        for tag in tags:
+            url = tag.get_data('url')
+            self.palette = tag.get_data('palette')
+            if url is not None:
+                hovering = True
+                break
+        return hovering
+
+    # Looks at all tags covering the position (x, y) in the text view,
+    # and if one of them is a link, change the cursor to the "hands" cursor
+    def set_cursor_if_appropriate(self, x, y):
+        hovering_over_link = self.check_url_hovering(x, y)
+        win = self.get_window(gtk.TEXT_WINDOW_TEXT)
+        if hovering_over_link:
+            win.set_cursor(self.hand_cursor)
+            self._mouse_detector.start()
+        else:
+            win.set_cursor(None)
+            self._mouse_detector.stop()
+
+    def _mouse_slow_cb(self, widget):
+        x, y = self.get_pointer()
+        hovering_over_link = self.check_url_hovering(x, y)
+        if hovering_over_link:
+            if self.palette is not None:
+                xw, yw = self.get_toplevel().get_pointer()
+                logging.error('move palette to %d %d' % (xw, yw))
+                self.palette.move(xw, yw)
+                self.palette.popup()
+        else:
+            if self.palette is not None:
+                self.palette.popdown()
+
+    # Update the cursor image if the pointer moved.
+    def motion_notify_event(self, widget, event):
+        x, y = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET,
+            int(event.x), int(event.y))
+        self.set_cursor_if_appropriate(x, y)
+        self.window.get_pointer()
+        return False
+
+    # Also update the cursor image if the window becomes visible
+    # (e.g. when a window covering it got iconified).
+    def visibility_notify_event(self, widget, event):
+        wx, wy, mod = self.window.get_pointer()
+        bx, by = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, wx, wy)
+        self.set_cursor_if_appropriate(bx, by)
+        return False
+
+    def __palette_mouse_enter_cb(self, widget, event):
+        self.handler_block(self.motion_notify_id)
+
+    def __palette_mouse_leave_cb(self, widget, event):
+        self.handler_unblock(self.motion_notify_id)
+
+    def add_text(self, text):
+        if not self._empty:
+            self.get_buffer().insert(self.iter_text, '\n')
+
+        words = text.split()
+        for word in words:
+            if _URL_REGEXP.search(word) is not None:
+                tag = self.get_buffer().create_tag(None,
+                    foreground="blue", underline=pango.UNDERLINE_SINGLE)
+                tag.set_data("url", word)
+                palette = _URLMenu(word)
+                palette.connect('enter-notify-event',
+                        self.__palette_mouse_enter_cb)
+                palette.connect('leave-notify-event',
+                        self.__palette_mouse_leave_cb)
+                tag.set_data('palette', palette)
+                self.get_buffer().insert_with_tags(self.iter_text, word, tag,
+                        self.fg_tag)
+            else:
+                smile_pxb = smilies.get_pixbuf(word)
+                if smile_pxb is not None:
+                    self.get_buffer().insert_pixbuf(self.iter_text, smile_pxb)
+                else:
+                    self.get_buffer().insert_with_tags(self.iter_text, word,
+                            self.fg_tag)
+            self.get_buffer().insert_with_tags(self.iter_text, ' ',
+                    self.fg_tag)
+
+        self._empty = False
+
+
 class ColorLabel(gtk.Label):
 
     def __init__(self, text, color=None):
@@ -56,17 +224,6 @@ class ColorLabel(gtk.Label):
         gtk.Label.__init__(self)
         self.set_use_markup(True)
         self.set_markup(text)
-
-
-class LinkLabel(ColorLabel):
-
-    def __init__(self, text, color=None):
-        self.text = '<a href="%s">' % text + \
-                text + '</a>'
-        ColorLabel.__init__(self, self.text, color)
-
-    def create_palette(self):
-        return _URLMenu(self.text)
 
 
 class ChatBox(gtk.ScrolledWindow):
@@ -86,13 +243,12 @@ class ChatBox(gtk.ScrolledWindow):
 
         self._conversation = gtk.VBox()
         self._conversation.set_homogeneous(False)
-        #self._conversation.background_color=style.COLOR_WHITE
-                #spacing=0,
-                #box_width=-1,  # natural width
-                #background_color=style.COLOR_WHITE.get_int())
+        evbox = gtk.EventBox()
+        evbox.modify_bg(gtk.STATE_NORMAL, style.COLOR_WHITE.get_gdk_color())
+        evbox.add(self._conversation)
 
-        self.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        self.add_with_viewport(self._conversation)
+        self.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+        self.add_with_viewport(evbox)
         vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
@@ -112,15 +268,11 @@ class ChatBox(gtk.ScrolledWindow):
             True: show what buddy did
 
         .------------- rb ---------------.
-        | +name_vbox+ +----msg_vbox----+ |
+        | +name_vbox+ +----align-----+ |
         | |         | |                | |
-        | | nick:   | | +--msg_hbox--+ | |
-        | |         | | | text       | | |
+        | | nick:   | | +--message---+ | |
+        | |         | | |  text      | | |
         | +---------+ | +------------+ | |
-        |             |                | |
-        |             | +--msg_hbox--+ | |
-        |             | | text | url | | |
-        |             | +------------+ | |
         |             +----------------+ |
         `--------------------------------'
         """
@@ -168,91 +320,32 @@ class ChatBox(gtk.ScrolledWindow):
                     new_msg = False
 
         if not new_msg:
-            rb = self._last_msg
-            msg_vbox = rb.get_children()[1]
-            msg_hbox = gtk.HBox()
-            msg_hbox.show()
-            msg_vbox.pack_start(msg_hbox, True, True)
+            message = self._last_msg
         else:
             rb = RoundBox()
+            screen_width = gtk.gdk.screen_width()
+            # keep space to the scrollbar
+            rb.set_size_request(screen_width - 50, -1)
             rb.background_color = color_fill
             rb.border_color = color_stroke
-            self._last_msg = rb
             self._last_msg_sender = buddy
-
             if not status_message:
                 name = ColorLabel(text=nick + ':   ', color=text_color)
                 name_vbox = gtk.VBox()
                 name_vbox.pack_start(name, False, False)
-                rb.pack_start(name_vbox, False, False)
-            msg_vbox = gtk.VBox()
-            rb.pack_start(msg_vbox, False, False)
-            msg_hbox = gtk.HBox()
-            msg_vbox.pack_start(msg_hbox, False, False)
+                rb.pack_start(name_vbox, False, False, padding=5)
+
+            message = TextBox(text_color, color_fill, lang_rtl)
+            vbox = gtk.VBox()
+            vbox.pack_start(message, True, True, padding=5)
+            rb.pack_start(vbox, True, True, padding=5)
+            self._last_msg = message
+            self._conversation.pack_start(rb, False, False, padding=2)
 
         if status_message:
             self._last_msg_sender = None
 
-        match = _URL_REGEXP.search(text)
-        while match:
-            # there is a URL in the text
-            starttext = text[:match.start()]
-            if starttext:
-                message = ColorLabel(
-                    text=starttext,
-                    color=text_color)
-                msg_hbox.pack_start(message, True, True)
-                message.show()
-            url = text[match.start():match.end()]
-
-            message = LinkLabel(
-                text=url,
-                color=text_color)
-            message.connect('activate-link', self._link_activated_cb)
-
-            align = gtk.Alignment(xalign=0.0, yalign=0.0, xscale=0.0,
-                    yscale=0.0)
-            align.add(message)
-
-            msg_hbox.pack_start(align, True, True)
-            msg_hbox.show()
-            text = text[match.end():]
-            match = _URL_REGEXP.search(text)
-
-        if text:
-            for word in smilies.parse(text):
-                if isinstance(word, cairo.ImageSurface):
-                    pass
-                    # TODO:
-                    """
-                    item = hippo.CanvasImage(
-                            image=word,
-                            border=0,
-                            border_color=style.COLOR_BUTTON_GREY.get_int(),
-                            xalign=hippo.ALIGNMENT_CENTER,
-                            yalign=hippo.ALIGNMENT_CENTER)
-                    """
-                else:
-                    item = ColorLabel(
-                            text=word,
-                            color=text_color)
-                    item.show()
-                align = gtk.Alignment(xalign=0.0, yalign=0.0, xscale=0.0,
-                        yscale=0.0)
-                align.add(item)
-                msg_hbox.pack_start(align, True, True)
-
-        # Order of boxes for RTL languages:
-        if lang_rtl:
-            msg_hbox.reverse()
-            if new_msg:
-                rb.reverse()
-
-        if new_msg:
-            box = RoundBox()  # TODO: padding=2)
-            box.show()
-            box.pack_start(rb, True, True)
-            self._conversation.pack_start(box, False, False)
+        message.add_text(text)
         self._conversation.show_all()
 
     def add_separator(self, timestamp):
@@ -325,32 +418,6 @@ class ChatBox(gtk.ScrolledWindow):
         if self._scroll_auto:
             adj.set_value(adj.upper - adj.page_size)
             self._scroll_value = adj.get_value()
-
-    def _link_activated_cb(self, label, link):
-        url = _url_check_protocol(link.props.text)
-        self._show_via_journal(url)
-        return False
-
-    def _show_via_journal(self, url):
-        """Ask the journal to display a URL"""
-        logging.debug('Create journal entry for URL: %s', url)
-        jobject = datastore.create()
-        metadata = {
-            'title': "%s: %s" % (_('URL from Chat'), url),
-            'title_set_by_user': '1',
-            'icon-color': profile.get_color().to_string(),
-            'mime_type': 'text/uri-list',
-            }
-        for k, v in metadata.items():
-            jobject.metadata[k] = v
-        file_path = join(get_activity_root(), 'instance', '%i_' % time.time())
-        open(file_path, 'w').write(url + '\r\n')
-        os.chmod(file_path, 0755)
-        jobject.set_file_path(file_path)
-        datastore.write(jobject)
-        show_object_in_journal(jobject.object_id)
-        jobject.destroy()
-        os.unlink(file_path)
 
 
 class _URLMenu(Palette):

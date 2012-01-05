@@ -25,7 +25,6 @@ import cairo
 from sugar.graphics import style
 from sugar.activity.activity import get_activity_root, get_bundle_path
 
-
 THEME = [
         # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
         # TRANS: ASCII-art equivalents are :-) and :)
@@ -97,6 +96,14 @@ SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
 _catalog = None
 
 
+def get_pixbuf(word):
+    """Return a pixbuf associated to a smile, or None if not available"""
+    for (name, hint, codes) in THEME:
+        if word in codes:
+            return gtk.gdk.pixbuf_new_from_file(name)
+    return None
+
+
 def init():
     """Initialise smilies data."""
     global _catalog
@@ -123,36 +130,6 @@ def init():
                     join(svg_dir, name + '.svg'),
                     SMILIES_SIZE, SMILIES_SIZE, None, True)
             pixbuf.save(png_path, 'png')
-
-
-def parse(text):
-    """Initialise smilies data.
-
-    :param text:
-        string to parse for smilies
-    :returns:
-        array of string parts and ciaro surfaces
-
-    """
-    result = [text]
-
-    for smiley in sorted(_catalog.keys(), lambda x, y: cmp(len(y), len(x))):
-        smiley_surface = cairo.ImageSurface.create_from_png(_catalog[smiley])
-        new_result = []
-
-        for word in result:
-            if isinstance(word, cairo.ImageSurface):
-                new_result.append(word)
-            else:
-                parts = word.split(smiley)
-                for i in parts[:-1]:
-                    new_result.append(i)
-                    new_result.append(smiley_surface)
-                new_result.append(parts[-1])
-
-        result = new_result
-
-    return result
 
 
 def _from_svg_at_size(filename=None, width=None, height=None, handle=None,
