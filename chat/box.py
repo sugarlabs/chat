@@ -81,12 +81,14 @@ class TextBox(gtk.TextView):
         if event.type != gtk.gdk.BUTTON_RELEASE:
             return False
         if event.button == 2:
-            palette = tag.get_data('palette')
+            # XXX `tag` is not defined
+            #palette = tag.get_data('palette')
             #xw, yw = self.get_toplevel().get_pointer()
-            logging.error('Popop palette by secondary button click')
-            palette.move(event.x, event.y)
-            palette.popup()
-            return False
+            #logging.debug('Popop palette by secondary button click')
+            #palette.move(event.x, event.y)
+            #palette.popup()
+            #return False
+            pass
 
         x, y = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET,
             int(event.x), int(event.y))
@@ -120,9 +122,10 @@ class TextBox(gtk.TextView):
         jobject.destroy()
         os.unlink(file_path)
 
-    # Looks at all tags covering the position (x, y) in the text view,
-    # and if one of them is a link return True
     def check_url_hovering(self, x, y):
+        # Looks at all tags covering the position (x, y) in the text view,
+        # and if one of them is a link return True
+
         hovering = False
         self.palette = None
         iter_tags = self.get_iter_at_location(x, y)
@@ -136,9 +139,10 @@ class TextBox(gtk.TextView):
                 break
         return hovering
 
-    # Looks at all tags covering the position (x, y) in the text view,
-    # and if one of them is a link, change the cursor to the "hands" cursor
     def set_cursor_if_appropriate(self, x, y):
+        # Looks at all tags covering the position (x, y) in the text view,
+        # and if one of them is a link, change the cursor to the "hands" cursor
+
         hovering_over_link = self.check_url_hovering(x, y)
         win = self.get_window(gtk.TEXT_WINDOW_TEXT)
         if hovering_over_link:
@@ -154,7 +158,7 @@ class TextBox(gtk.TextView):
         if hovering_over_link:
             if self.palette is not None:
                 xw, yw = self.get_toplevel().get_pointer()
-                logging.error('move palette to %d %d' % (xw, yw))
+                logging.debug('move palette to %d %d', xw, yw)
                 self.palette.move(xw, yw)
                 self.palette.popup()
         else:
@@ -169,10 +173,11 @@ class TextBox(gtk.TextView):
         self.window.get_pointer()
         return False
 
-    # Also update the cursor image if the window becomes visible
-    # (e.g. when a window covering it got iconified).
     def visibility_notify_event(self, widget, event):
-        wx, wy, mod = self.window.get_pointer()
+        # Also update the cursor image if the window becomes visible
+        # (e.g. when a window covering it got iconified).
+
+        wx, wy, __ = self.window.get_pointer()
         bx, by = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, wx, wy)
         self.set_cursor_if_appropriate(bx, by)
         return False
@@ -446,7 +451,7 @@ class _URLMenu(Palette):
                                        self._clipboard_data_get_cb,
                                        self._clipboard_clear_cb,
                                        (self.url)):
-            logging.error('GtkClipboard.set_with_data failed!')
+            logging.debug('GtkClipboard.set_with_data failed!')
         else:
             self.owns_clipboard = True
 

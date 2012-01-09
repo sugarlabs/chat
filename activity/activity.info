@@ -5,10 +5,12 @@ summary   = Text chat
 homepage  = http://wiki.sugarlabs.org/go/Activities/Chat
 license   = GPLv2+
 
+version   = %(activity_version)s
+stability = stable
+
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-version   = 73
-stability = stable
+requires  = sdk/sugar-toolkit
 
 # original activity.info options
 activity_version = 73

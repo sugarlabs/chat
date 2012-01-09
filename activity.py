@@ -46,6 +46,7 @@ logger = logging.getLogger('chat-activity')
 SMILIES_COLUMNS = 5
 
 
+# pylint: disable-msg=W0223
 class Chat(activity.Activity):
 
     def __init__(self, handle):

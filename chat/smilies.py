@@ -98,7 +98,7 @@ _catalog = None
 
 def get_pixbuf(word):
     """Return a pixbuf associated to a smile, or None if not available"""
-    for (name, hint, codes) in THEME:
+    for (name, __, codes) in THEME:
         if word in codes:
             return gtk.gdk.pixbuf_new_from_file(name)
     return None

@@ -11,6 +11,10 @@ class RoundBox(gtk.HBox):
     def __init__(self, **kwargs):
         gtk.HBox.__init__(self, **kwargs)
 
+        self._x = None
+        self._y = None
+        self._width = None
+        self._height = None
         self._radius = style.zoom(10)
         self.border = self._BORDER_DEFAULT
         self.border_color = style.COLOR_BLACK
@@ -58,12 +62,12 @@ class RoundBox(gtk.HBox):
         cr.close_path()
 
         if self.background_color is not None:
-            r, g, b, a = self.background_color.get_rgba()
+            r, g, b, __ = self.background_color.get_rgba()
             cr.set_source_rgb(r, g, b)
             cr.fill_preserve()
 
         if self.border_color is not None:
-            r, g, b, a = self.border_color.get_rgba()
+            r, g, b, __ = self.border_color.get_rgba()
             cr.set_source_rgb(r, g, b)
             cr.set_line_width(self.border)
             cr.stroke()
