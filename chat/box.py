@@ -72,23 +72,20 @@ class TextBox(gtk.TextView):
         self._mouse_detector.connect('motion-slow', self._mouse_slow_cb)
         self.modify_base(gtk.STATE_NORMAL, bg_color.get_gdk_color())
         self.connect("event-after", self.event_after)
+        self.connect('button-press-event', self.__button_press_cb)
         self.motion_notify_id = self.connect("motion-notify-event", \
                 self.motion_notify_event)
         self.connect("visibility-notify-event", self.visibility_notify_event)
+
+    def __button_press_cb(self, widget, event):
+        if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
+            # To disable the standard textview popup
+            return True
 
     # Links can be activated by clicking.
     def event_after(self, widget, event):
         if event.type != gtk.gdk.BUTTON_RELEASE:
             return False
-        if event.button == 2:
-            # XXX `tag` is not defined
-            #palette = tag.get_data('palette')
-            #xw, yw = self.get_toplevel().get_pointer()
-            #logging.debug('Popop palette by secondary button click')
-            #palette.move(event.x, event.y)
-            #palette.popup()
-            #return False
-            pass
 
         x, y = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET,
             int(event.x), int(event.y))
@@ -97,7 +94,14 @@ class TextBox(gtk.TextView):
         for tag in iter_tags.get_tags():
             url = tag.get_data('url')
             if url is not None:
-                self._show_via_journal(url)
+                if event.button == 3:
+                    palette = tag.get_data('palette')
+                    xw, yw = self.get_toplevel().get_pointer()
+                    palette.move(int(xw), int(yw))
+                    palette.popup()
+                else:
+                    self._show_via_journal(url)
+                break
 
         return False
 
@@ -158,9 +162,9 @@ class TextBox(gtk.TextView):
         if hovering_over_link:
             if self.palette is not None:
                 xw, yw = self.get_toplevel().get_pointer()
-                logging.debug('move palette to %d %d', xw, yw)
                 self.palette.move(xw, yw)
                 self.palette.popup()
+                self._mouse_detector.stop()
         else:
             if self.palette is not None:
                 self.palette.popdown()
