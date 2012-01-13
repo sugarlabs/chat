@@ -71,11 +71,21 @@ class TextBox(gtk.TextView):
         self._mouse_detector = MouseSpeedDetector(self, 200, 5)
         self._mouse_detector.connect('motion-slow', self._mouse_slow_cb)
         self.modify_base(gtk.STATE_NORMAL, bg_color.get_gdk_color())
+
+        self.add_events(gtk.gdk.POINTER_MOTION_MASK | \
+                        gtk.gdk.BUTTON_PRESS_MASK | \
+                        gtk.gdk.BUTTON_RELEASE_MASK | \
+                        gtk.gdk.LEAVE_NOTIFY_MASK)
+
         self.connect("event-after", self.event_after)
         self.connect('button-press-event', self.__button_press_cb)
         self.motion_notify_id = self.connect("motion-notify-event", \
                 self.motion_notify_event)
         self.connect("visibility-notify-event", self.visibility_notify_event)
+        self.connect('leave-notify-event', self.__leave_notify_event_cb)
+
+    def __leave_notify_event_cb(self, widget, event):
+        self._mouse_detector.stop()
 
     def __button_press_cb(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
@@ -131,6 +141,11 @@ class TextBox(gtk.TextView):
         # and if one of them is a link return True
 
         hovering = False
+        # When check on_slow_mouse event, the position can be out
+        # of the widget and return negative values.
+        if x < 0 or y < 0:
+            return hovering
+
         self.palette = None
         iter_tags = self.get_iter_at_location(x, y)
 
