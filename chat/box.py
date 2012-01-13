@@ -26,7 +26,6 @@ from os.path import join
 
 import gtk
 import pango
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar.graphics import style
 from sugar.graphics.palette import Palette, MouseSpeedDetector
@@ -48,12 +47,6 @@ _URL_REGEXP = re.compile('((http|ftp)s?://)?'
 
 class TextBox(gtk.TextView):
 
-    __gsignals__ = {
-        'mouse-enter': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'mouse-leave': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'right-click': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-    }
-
     hand_cursor = gtk.gdk.Cursor(gtk.gdk.HAND2)
 
     def __init__(self, color, bg_color, lang_rtl):
@@ -69,7 +62,7 @@ class TextBox(gtk.TextView):
         self._empty = True
         self.palette = None
         self._mouse_detector = MouseSpeedDetector(self, 200, 5)
-        self._mouse_detector.connect('motion-slow', self._mouse_slow_cb)
+        self._mouse_detector.connect('motion-slow', self.__mouse_slow_cb)
         self.modify_base(gtk.STATE_NORMAL, bg_color.get_gdk_color())
 
         self.add_events(gtk.gdk.POINTER_MOTION_MASK | \
@@ -77,11 +70,11 @@ class TextBox(gtk.TextView):
                         gtk.gdk.BUTTON_RELEASE_MASK | \
                         gtk.gdk.LEAVE_NOTIFY_MASK)
 
-        self.connect("event-after", self.event_after)
+        self.connect('event-after', self.__event_after_cb)
         self.connect('button-press-event', self.__button_press_cb)
-        self.motion_notify_id = self.connect("motion-notify-event", \
-                self.motion_notify_event)
-        self.connect("visibility-notify-event", self.visibility_notify_event)
+        self.motion_notify_id = self.connect('motion-notify-event', \
+                self.__motion_notify_cb)
+        self.connect('visibility-notify-event', self.__visibility_notify_cb)
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
 
     def __leave_notify_event_cb(self, widget, event):
@@ -93,7 +86,7 @@ class TextBox(gtk.TextView):
             return True
 
     # Links can be activated by clicking.
-    def event_after(self, widget, event):
+    def __event_after_cb(self, widget, event):
         if event.type != gtk.gdk.BUTTON_RELEASE:
             return False
 
@@ -171,7 +164,7 @@ class TextBox(gtk.TextView):
             win.set_cursor(None)
             self._mouse_detector.stop()
 
-    def _mouse_slow_cb(self, widget):
+    def __mouse_slow_cb(self, widget):
         x, y = self.get_pointer()
         hovering_over_link = self.check_url_hovering(x, y)
         if hovering_over_link:
@@ -185,14 +178,14 @@ class TextBox(gtk.TextView):
                 self.palette.popdown()
 
     # Update the cursor image if the pointer moved.
-    def motion_notify_event(self, widget, event):
+    def __motion_notify_cb(self, widget, event):
         x, y = self.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET,
             int(event.x), int(event.y))
         self.set_cursor_if_appropriate(x, y)
         self.window.get_pointer()
         return False
 
-    def visibility_notify_event(self, widget, event):
+    def __visibility_notify_cb(self, widget, event):
         # Also update the cursor image if the window becomes visible
         # (e.g. when a window covering it got iconified).
 
