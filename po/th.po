@@ -6,52 +6,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 20:36+0000\n"
-"PO-Revision-Date: 2007-12-10 04:17+0000\n"
-"Last-Translator: Manatsawin <manatsawin@gmail.com>\n"
+"POT-Creation-Date: 2009-04-30 18:23-0400\n"
+"PO-Revision-Date: 2011-11-19 09:01+0200\n"
+"Last-Translator: malaku <malaku38@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Chat"
 msgstr "สนทนา"
 
-#: activity.py:26
-#, python-format
-msgid "%s Source"
-msgstr ""
-
-#: pippy_app.py:84
+#: pippy_app.py:93 pippy_app.py:128
 msgid "Off-line"
 msgstr "ออฟไลน์"
 
-#: pippy_app.py:84
+#: pippy_app.py:93
 msgid "Share, or invite someone."
 msgstr "แบ่งปัน หรือเชิญชวนผู้อื่น"
 
-#: pippy_app.py:93
+#: pippy_app.py:120 pippy_app.py:135
 msgid "On-line"
 msgstr "ออนไลน์"
 
-#: pippy_app.py:93
-msgid "Connected"
-msgstr "เชื่อมต่อแล้ว"
+#: pippy_app.py:120
+msgid "Private Chat"
+msgstr "คุยส่วนตัว"
 
-#: pippy_app.py:134
-msgid "joined the chat"
-msgstr "เข้าร่วมสนทนา"
-
-#: pippy_app.py:145
+#: pippy_app.py:128 pippy_app.py:193
 msgid "left the chat"
 msgstr "ออกจากการสนทนา"
 
-#: pippy_app.py:156
+#: pippy_app.py:135
+msgid "Connected"
+msgstr "เชื่อมต่อแล้ว"
+
+#: pippy_app.py:182
+msgid "joined the chat"
+msgstr "เข้าร่วมสนทนา"
+
+#: pippy_app.py:204
 msgid "is here"
 msgstr "อยู่ที่นี่"
 
-#: pippy_app.py:452
+#: pippy_app.py:534
+msgid "URL from Chat"
+msgstr "URL จากการสนทนา"
+
+#: pippy_app.py:678
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "คัดลอกไปที่คลิปบอร์ด"
+
+#: activity.py:42
+#, python-format
+msgid "%s Source"
+msgstr "%s ต้นทาง"
