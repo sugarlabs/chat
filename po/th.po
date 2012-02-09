@@ -14,24 +14,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 00:31-0500\n"
-"PO-Revision-Date: 2010-04-05 15:27+0200\n"
-"Last-Translator: hyouga <wsenasathien@hotmail.com>\n"
+"POT-Creation-Date: 2011-08-04 13:28+0000\n"
+"PO-Revision-Date: 2011-11-23 03:29+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: th\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.3\n"
-
-#: activity/activity.info:2
-msgid "Chat"
-msgstr "แชท"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr ""
+msgstr "ใส่รูปหน้ายิ้ม"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
@@ -65,97 +61,143 @@ msgstr "เข้าร่วมสนทนา"
 msgid "is here"
 msgstr "อยู่ที่นี่"
 
-#: chat/box.py:312
-msgid "URL from Chat"
-msgstr "ีีurl จากการสนทนา"
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "แชท"
 
-#: chat/box.py:346
+#: chat/box.py:318
+msgid "URL from Chat"
+msgstr "URL จากการสนทนา"
+
+#: chat/box.py:352
 msgid "Copy to Clipboard"
 msgstr "คัดลอกไปที่คลิปบอร์ด"
 
-#: chat/smilies.py:30
-msgid "Smile"
-msgstr ""
-
-#: chat/smilies.py:31
-msgid "Winking"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:32
-msgid "Confused"
-msgstr ""
+msgid "Smile"
+msgstr "ยิ้ม"
 
-#: chat/smilies.py:33
-msgid "Sad"
-msgstr ""
-
-#: chat/smilies.py:34
-msgid "Grin"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:35
-msgid "Neutral"
-msgstr ""
+msgid "Winking"
+msgstr "กระพริบตา"
 
-#: chat/smilies.py:36
-msgid "Shock"
-msgstr ""
-
-#: chat/smilies.py:37
-msgid "Cool"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:38
-msgid "Tongue"
-msgstr ""
+msgid "Confused"
+msgstr "สับสน"
 
-#: chat/smilies.py:39
-msgid "Blushing"
-msgstr ""
-
-#: chat/smilies.py:40
-msgid "Weeping"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:41
-msgid "Angel"
-msgstr ""
+msgid "Sad"
+msgstr "เศร้า"
 
-#: chat/smilies.py:42
-msgid "Don't tell anyone"
-msgstr ""
-
-#: chat/smilies.py:43
-msgid "Angry"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:44
-msgid "Devil"
-msgstr ""
+msgid "Grin"
+msgstr "ขบฟัน"
 
-#: chat/smilies.py:45
-msgid "Nerd"
-msgstr ""
-
-#: chat/smilies.py:46
-msgid "Kiss"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:47
-msgid "Laughing"
-msgstr ""
+msgid "Neutral"
+msgstr "เฉย ๆ"
 
-#: chat/smilies.py:48
-msgid "Sleepy"
-msgstr ""
-
-#: chat/smilies.py:49
-msgid "Sick"
-msgstr ""
-
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:50
+msgid "Shock"
+msgstr "ตกใจ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
+#: chat/smilies.py:53
+msgid "Cool"
+msgstr "เจ๋ง"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-P and :P
+#: chat/smilies.py:56
+msgid "Tongue"
+msgstr "แลบลิ้น"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :">
+#: chat/smilies.py:59
+msgid "Blushing"
+msgstr "เขินอาย"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :'-( and :'(
+#: chat/smilies.py:62
+msgid "Weeping"
+msgstr "เศร้า"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
+#: chat/smilies.py:65
+msgid "Angel"
+msgstr "เทวดา"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-$ and :-$
+#: chat/smilies.py:68
+msgid "Don't tell anyone"
+msgstr "อย่าบอกใครนะ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
+#: chat/smilies.py:71
+msgid "Angry"
+msgstr "โกรธ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are >:> and >:)
+#: chat/smilies.py:74
+msgid "Devil"
+msgstr "ปีศาจ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-B, :B
+#: chat/smilies.py:77
+msgid "Nerd"
+msgstr "เด็กเรียน"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-*, :*
+#: chat/smilies.py:80
+msgid "Kiss"
+msgstr "ส่งจูบ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :))
+#: chat/smilies.py:83
+msgid "Laughing"
+msgstr "หัวเราะ"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are I-)
+#: chat/smilies.py:86
+msgid "Sleepy"
+msgstr "ง่วงนอน"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-&
+#: chat/smilies.py:89
+msgid "Sick"
+msgstr "ป่วย"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are /:)
+#: chat/smilies.py:92
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "ยักคิ้ว"
 
 #, python-format
 #~ msgid "%s Source"
