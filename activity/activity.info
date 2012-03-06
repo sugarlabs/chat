@@ -15,3 +15,6 @@ requires  = sdk/sugar-toolkit
 # original activity.info options
 activity_version = 73
 bundle_id = org.laptop.Chat
+
+[Package]
+project   = SweetsDistribution:0.94
