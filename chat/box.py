@@ -219,12 +219,12 @@ class TextBox(gtk.TextView):
                 self.get_buffer().insert_with_tags(self.iter_text, word, tag,
                         self.fg_tag)
             else:
-                smile_pxb = smilies.get_pixbuf(word)
-                if smile_pxb is not None:
-                    self.get_buffer().insert_pixbuf(self.iter_text, smile_pxb)
-                else:
-                    self.get_buffer().insert_with_tags(self.iter_text, word,
-                            self.fg_tag)
+                for i in smilies.parse(word):
+                    if isinstance(i, gtk.gdk.Pixbuf):
+                        self.get_buffer().insert_pixbuf(self.iter_text, i)
+                    else:
+                        self.get_buffer().insert_with_tags(self.iter_text, i,
+                                self.fg_tag)
             self.get_buffer().insert_with_tags(self.iter_text, ' ',
                     self.fg_tag)
 

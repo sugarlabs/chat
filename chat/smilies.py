@@ -93,24 +93,39 @@ THEME = [
 
 SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
 
-_catalog = None
+_catalog = {}
 
 
-def get_pixbuf(word):
-    """Return a pixbuf associated to a smile, or None if not available"""
-    for (name, __, codes) in THEME:
-        if word in codes:
-            return gtk.gdk.pixbuf_new_from_file(name)
-    return None
+def parse(text):
+    """Parse text and find smiles.
+
+    :param text:
+        string to parse for smilies
+    :returns:
+        array of string parts and pixbufs
+
+    """
+    result = [text]
+
+    for smiley in sorted(_catalog.keys(), lambda x, y: cmp(len(y), len(x))):
+        new_result = []
+        for word in result:
+            if isinstance(word, gtk.gdk.Pixbuf):
+                new_result.append(word)
+            else:
+                parts = word.split(smiley)
+                for i in parts[:-1]:
+                    new_result.append(i)
+                    new_result.append(_catalog[smiley])
+                new_result.append(parts[-1])
+        result = new_result
+
+    return result
 
 
 def init():
-    """Initialise smilies data."""
-    global _catalog
-
-    if _catalog is not None:
+    if _catalog:
         return
-    _catalog = {}
 
     png_dir = join(get_activity_root(), 'data', 'icons', 'smilies')
     svg_dir = join(get_bundle_path(), 'icons', 'smilies')
@@ -120,16 +135,16 @@ def init():
 
     for index, (name, hint, codes) in enumerate(THEME):
         png_path = join(png_dir, name + '.png')
-
-        for i in codes:
-            _catalog[i] = png_path
-        THEME[index] = (png_path, hint, codes)
-
-        if not exists(png_path):
+        if exists(png_path):
+            pixbuf = gtk.gdk.pixbuf_new_from_file(png_path)
+        else:
             pixbuf = _from_svg_at_size(
                     join(svg_dir, name + '.svg'),
                     SMILIES_SIZE, SMILIES_SIZE, None, True)
             pixbuf.save(png_path, 'png')
+        for i in codes:
+            _catalog[i] = pixbuf
+        THEME[index] = (png_path, hint, codes)
 
 
 def _from_svg_at_size(filename=None, width=None, height=None, handle=None,
