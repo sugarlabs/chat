@@ -59,6 +59,8 @@ class TextBox(gtk.TextView):
         self.iter_text = self.get_buffer().get_iter_at_offset(0)
         self.fg_tag = self.get_buffer().create_tag("foreground_color",
             foreground=color.get_html())
+        self._subscript_tag = self.get_buffer().create_tag('subscript',
+                    rise=-7 * pango.SCALE) # in pixels
         self._empty = True
         self.palette = None
         self._mouse_detector = MouseSpeedDetector(self, 200, 5)
@@ -201,13 +203,15 @@ class TextBox(gtk.TextView):
         self.handler_unblock(self.motion_notify_id)
 
     def add_text(self, text):
+        buf = self.get_buffer()
+
         if not self._empty:
-            self.get_buffer().insert(self.iter_text, '\n')
+            buf.insert(self.iter_text, '\n')
 
         words = text.split()
         for word in words:
             if _URL_REGEXP.search(word) is not None:
-                tag = self.get_buffer().create_tag(None,
+                tag = buf.create_tag(None,
                     foreground="blue", underline=pango.UNDERLINE_SINGLE)
                 tag.set_data("url", word)
                 palette = _URLMenu(word)
@@ -216,16 +220,18 @@ class TextBox(gtk.TextView):
                 palette.connect('leave-notify-event',
                         self.__palette_mouse_leave_cb)
                 tag.set_data('palette', palette)
-                self.get_buffer().insert_with_tags(self.iter_text, word, tag,
+                buf.insert_with_tags(self.iter_text, word, tag,
                         self.fg_tag)
             else:
                 for i in smilies.parse(word):
                     if isinstance(i, gtk.gdk.Pixbuf):
-                        self.get_buffer().insert_pixbuf(self.iter_text, i)
+                        start = self.iter_text.get_offset()
+                        buf.insert_pixbuf(self.iter_text, i)
+                        buf.apply_tag(self._subscript_tag,
+                                buf.get_iter_at_offset(start), self.iter_text)
                     else:
-                        self.get_buffer().insert_with_tags(self.iter_text, i,
-                                self.fg_tag)
-            self.get_buffer().insert_with_tags(self.iter_text, ' ',
+                        buf.insert_with_tags(self.iter_text, i, self.fg_tag)
+            buf.insert_with_tags(self.iter_text, ' ',
                     self.fg_tag)
 
         self._empty = False
