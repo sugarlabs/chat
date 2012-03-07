@@ -10,10 +10,9 @@ stability = stable
 
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-requires  = sdk/sugar-toolkit
 
 # original activity.info options
-activity_version = 73
+activity_version = 74
 bundle_id = org.laptop.Chat
 
 [Package]
