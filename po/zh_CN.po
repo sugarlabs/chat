@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-03-22 00:44+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2012-03-23 06:03+0200\n"
+"Last-Translator: Xin <dram.wang@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr "微笑"
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:47
 msgid "Neutral"
-msgstr ""
+msgstr "旁观"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
