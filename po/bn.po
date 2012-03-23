@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2010-03-29 03:07+0200\n"
+"PO-Revision-Date: 2012-01-12 08:25+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity.py:78
 msgid "Insert smiley"
@@ -35,7 +35,7 @@ msgstr "অফ-লাইন"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr "আমন্ত্রন করুন."
+msgstr "আমন্ত্রন করুন।"
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
