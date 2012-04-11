@@ -210,7 +210,7 @@ class TextBox(gtk.TextView):
 
         words = text.split()
         for word in words:
-            if _URL_REGEXP.search(word) is not None:
+            if _URL_REGEXP.match(word) is not None:
                 tag = buf.create_tag(None,
                     foreground="blue", underline=pango.UNDERLINE_SINGLE)
                 tag.set_data("url", word)
