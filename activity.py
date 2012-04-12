@@ -293,10 +293,10 @@ class Chat(activity.Activity):
         elif event.keyval == gtk.keysyms.Page_Up:
             vadj.set_value(vadj.get_value() - vadj.page_size)
         elif event.keyval == gtk.keysyms.Home and \
-             event.state == gtk.gdk.CONTROL_MASK:
+             event.state & gtk.gdk.CONTROL_MASK:
             vadj.set_value(vadj.lower)
         elif event.keyval == gtk.keysyms.End and \
-             event.state == gtk.gdk.CONTROL_MASK:
+             event.state & gtk.gdk.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
     def entry_activate_cb(self, entry):
