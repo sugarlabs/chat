@@ -2,28 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-01-12 08:25+0200\n"
+"PO-Revision-Date: 2011-03-25 06:34+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity.py:78
 msgid "Insert smiley"
@@ -31,39 +23,39 @@ msgstr ""
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
-msgstr "অফ-লাইন"
+msgstr "Dogi ina"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr "আমন্ত্রন করুন।"
+msgstr "Ata ko, oa emweminuw,"
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
-msgstr "অন-লাইন"
+msgstr "Awei ina"
 
 #: activity.py:174
 msgid "Private Chat"
-msgstr ""
+msgstr "Awe me anga"
 
 #: activity.py:182 activity.py:242
 msgid "left the chat"
-msgstr "আড্ডা থেকে বেড়িয়ে গেছেন"
+msgstr "tarowong ko"
 
 #: activity.py:189
 msgid "Connected"
-msgstr "যোগাযোগ স্থাপিত"
+msgstr "Epodan"
 
 #: activity.py:234
 msgid "joined the chat"
-msgstr "আড্ডায় যোগ করেছেন"
+msgstr "ar torongab ko"
 
 #: activity.py:249
 msgid "is here"
-msgstr "এখানে যোগ করেছেন"
+msgstr "anga ngun"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "আড্ডা"
+msgstr "Meredu"
 
 #: chat/box.py:318
 msgid "URL from Chat"
@@ -71,7 +63,7 @@ msgstr ""
 
 #: chat/box.py:352
 msgid "Copy to Clipboard"
-msgstr "ক্লীপবোর্ডে কপি করো"
+msgstr ""
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
@@ -198,7 +190,3 @@ msgstr ""
 #: chat/smilies.py:92
 msgid "Raised eyebrows"
 msgstr ""
-
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s উৎস"
