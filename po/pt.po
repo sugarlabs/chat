@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-03-23 20:30+0200\n"
+"PO-Revision-Date: 2012-04-13 19:55+0200\n"
 "Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
@@ -27,11 +27,11 @@ msgstr ""
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr "Inserir smiley"
+msgstr "Inserir Smiley"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
-msgstr "Off-line"
+msgstr "Desligado"
 
 #: activity.py:115
 msgid "Share, or invite someone."
@@ -39,7 +39,7 @@ msgstr "Partilha, ou convida alguém."
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
-msgstr "On-line"
+msgstr "Ligado na rede"
 
 #: activity.py:174
 msgid "Private Chat"
