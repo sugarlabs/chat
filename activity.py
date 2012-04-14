@@ -416,6 +416,10 @@ class TextChannelWrapper(object):
         Converts sender to a Buddy.
         Calls self._activity_cb which is a callback to the activity.
         """
+        if type_ != 0:
+            # Exclude any auxiliary messages
+            return
+
         if self._activity_cb:
             try:
                 self._text_chan[CHANNEL_INTERFACE_GROUP]
