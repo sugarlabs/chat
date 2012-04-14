@@ -50,12 +50,12 @@ SMILIES_COLUMNS = 5
 class Chat(activity.Activity):
 
     def __init__(self, handle):
+        smilies.init()
+        self.chatbox = ChatBox()
+
         super(Chat, self).__init__(handle)
 
-        smilies.init()
-
         self.entry = None
-        self.chatbox = None
 
         root = self.make_root()
         self.set_canvas(root)
@@ -266,8 +266,6 @@ class Chat(activity.Activity):
         entry.connect('activate', self.entry_activate_cb)
         entry.connect('key-press-event', self.entry_key_press_cb)
         self.entry = entry
-
-        self.chatbox = ChatBox()
 
         hbox = gtk.HBox()
         hbox.add(entry)
