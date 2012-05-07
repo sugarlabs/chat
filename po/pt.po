@@ -15,10 +15,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-04-13 19:55+0200\n"
+"PO-Revision-Date: 2012-04-29 00:39+0200\n"
 "Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pt\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,11 +27,11 @@ msgstr ""
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr "Inserir Smiley"
+msgstr "Inserir Cara"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
-msgstr "Desligado"
+msgstr "Desligado da rede"
 
 #: activity.py:115
 msgid "Share, or invite someone."
