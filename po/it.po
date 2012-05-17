@@ -15,19 +15,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2011-02-26 20:09+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2012-01-11 15:22+0200\n"
+"Last-Translator: maux77 <dreadlock@hotmail.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
+# Credo sia sbagliato l'originale, smile non smiley...
 #: activity.py:78
 msgid "Insert smiley"
-msgstr ""
+msgstr "Inserisci sorriso"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
@@ -83,121 +84,121 @@ msgstr "Sorriso"
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:35
 msgid "Winking"
-msgstr ""
+msgstr "Ammiccare"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:38
 msgid "Confused"
-msgstr ""
+msgstr "Confuso"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:41
 msgid "Sad"
-msgstr ""
+msgstr "Triste"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:44
 msgid "Grin"
-msgstr ""
+msgstr "Sorriso"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:47
 msgid "Neutral"
-msgstr ""
+msgstr "Neutrale"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:50
 msgid "Shock"
-msgstr ""
+msgstr "Scioccato"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:53
 msgid "Cool"
-msgstr ""
+msgstr "Figo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:56
 msgid "Tongue"
-msgstr ""
+msgstr "Lingua"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:59
 msgid "Blushing"
-msgstr ""
+msgstr "Arrossire"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:62
 msgid "Weeping"
-msgstr ""
+msgstr "Pianto"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:65
 msgid "Angel"
-msgstr ""
+msgstr "Angelo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:68
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Non dirlo a nessuno"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:71
 msgid "Angry"
-msgstr ""
+msgstr "Arrabbiato"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:74
 msgid "Devil"
-msgstr ""
+msgstr "Diavolo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:77
 msgid "Nerd"
-msgstr ""
+msgstr "Secchione"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:80
 msgid "Kiss"
-msgstr ""
+msgstr "Bacio"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:83
 msgid "Laughing"
-msgstr ""
+msgstr "Risata"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:86
 msgid "Sleepy"
-msgstr ""
+msgstr "Assonnato"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:89
 msgid "Sick"
-msgstr ""
+msgstr "Malato"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:92
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Sopracciglia sollevate"
 
 #, python-format
 #~ msgid "%s Source"
