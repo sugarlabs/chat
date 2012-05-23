@@ -247,6 +247,7 @@ class ColorLabel(gtk.Label):
         gtk.Label.__init__(self)
         self.set_use_markup(True)
         self.set_markup(text)
+        self.props.selectable = True
 
 
 class ChatBox(gtk.ScrolledWindow):
@@ -266,6 +267,8 @@ class ChatBox(gtk.ScrolledWindow):
 
         self._conversation = gtk.VBox()
         self._conversation.set_homogeneous(False)
+        self._conversation.props.spacing = style.LINE_WIDTH
+        self._conversation.props.border_width = style.LINE_WIDTH
         evbox = gtk.EventBox()
         evbox.modify_bg(gtk.STATE_NORMAL, style.COLOR_WHITE.get_gdk_color())
         evbox.add(self._conversation)
@@ -349,21 +352,23 @@ class ChatBox(gtk.ScrolledWindow):
             screen_width = gtk.gdk.screen_width()
             # keep space to the scrollbar
             rb.set_size_request(screen_width - 50, -1)
+            rb.props.border_width = style.DEFAULT_PADDING
+            rb.props.spacing = style.DEFAULT_SPACING
             rb.background_color = color_fill
             rb.border_color = color_stroke
             self._last_msg_sender = buddy
             if not status_message:
-                name = ColorLabel(text=nick + ':   ', color=text_color)
+                name = ColorLabel(text=nick + ':', color=text_color)
                 name_vbox = gtk.VBox()
                 name_vbox.pack_start(name, False, False)
-                rb.pack_start(name_vbox, False, False, padding=5)
+                rb.pack_start(name_vbox, False, False)
 
             message = TextBox(text_color, color_fill, lang_rtl)
             vbox = gtk.VBox()
-            vbox.pack_start(message, True, True, padding=5)
-            rb.pack_start(vbox, True, True, padding=5)
+            vbox.pack_start(message, True, True)
+            rb.pack_start(vbox, True, True)
             self._last_msg = message
-            self._conversation.pack_start(rb, False, False, padding=2)
+            self._conversation.pack_start(rb, False, False)
 
         if status_message:
             self._last_msg_sender = None
