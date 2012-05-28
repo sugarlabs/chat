@@ -16,14 +16,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import os
-from os.path import join, exists
 from gettext import gettext as _
-
-import gtk
-import cairo
-
-from sugar.graphics import style
-from sugar.activity.activity import get_activity_root, get_bundle_path
+from gi.repository import Gtk, GdkPixbuf, Rsvg
+from sugar3.graphics import style
+from sugar3.activity.activity import get_bundle_path
 
 THEME = [
         # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
@@ -90,27 +86,24 @@ THEME = [
         # TRANS: ASCII-art equivalents are /:)
         ('eyebrow', _('Raised eyebrows'), ['/:)']),
         ]
-
+        
 SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
-
 _catalog = {}
-
 
 def parse(text):
     """Parse text and find smiles.
-
     :param text:
-        string to parse for smilies
+    string to parse for smilies
     :returns:
-        array of string parts and pixbufs
-
+    array of string parts and pixbufs
     """
+    
     result = [text]
-
+    
     for smiley in sorted(_catalog.keys(), lambda x, y: cmp(len(y), len(x))):
         new_result = []
         for word in result:
-            if isinstance(word, gtk.gdk.Pixbuf):
+            if isinstance(word, GdkPixbuf.Pixbuf):
                 new_result.append(word)
             else:
                 parts = word.split(smiley)
@@ -119,68 +112,19 @@ def parse(text):
                     new_result.append(_catalog[smiley])
                 new_result.append(parts[-1])
         result = new_result
-
+        
     return result
-
 
 def init():
     if _catalog:
         return
-
-    png_dir = join(get_activity_root(), 'data', 'icons', 'smilies')
-    svg_dir = join(get_bundle_path(), 'icons', 'smilies')
-
-    if not exists(png_dir):
-        os.makedirs(png_dir)
-
+    
+    svg_dir = os.path.join(get_bundle_path(), 'icons', 'smilies')
+    
     for index, (name, hint, codes) in enumerate(THEME):
-        png_path = join(png_dir, name + '.png')
-        if exists(png_path):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(png_path)
-        else:
-            pixbuf = _from_svg_at_size(
-                    join(svg_dir, name + '.svg'),
-                    SMILIES_SIZE, SMILIES_SIZE, None, True)
-            pixbuf.save(png_path, 'png')
+        archivo = os.path.join(svg_dir, '%s.svg' % (name))
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(archivo, SMILIES_SIZE, SMILIES_SIZE)
         for i in codes:
             _catalog[i] = pixbuf
-        THEME[index] = (png_path, hint, codes)
-
-
-def _from_svg_at_size(filename=None, width=None, height=None, handle=None,
-        keep_ratio=True):
-    """Scale and load SVG into pixbuf."""
-    import rsvg
-
-    if not handle:
-        handle = rsvg.Handle(filename)
-
-    dimensions = handle.get_dimension_data()
-    icon_width = dimensions[0]
-    icon_height = dimensions[1]
-    if icon_width != width or icon_height != height:
-        ratio_width = float(width) / icon_width
-        ratio_height = float(height) / icon_height
-
-        if keep_ratio:
-            ratio = min(ratio_width, ratio_height)
-            if ratio_width != ratio:
-                ratio_width = ratio
-                width = int(icon_width * ratio)
-            elif ratio_height != ratio:
-                ratio_height = ratio
-                height = int(icon_height * ratio)
-    else:
-        ratio_width = 1
-        ratio_height = 1
-
-    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
-    context = cairo.Context(surface)
-    context.scale(ratio_width, ratio_height)
-    handle.render_cairo(context)
-
-    loader = gtk.gdk.pixbuf_loader_new_with_mime_type('image/png')
-    surface.write_to_png(loader)
-    loader.close()
-
-    return loader.get_pixbuf()
+            THEME[index] = (archivo, hint, codes)
+            

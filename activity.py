@@ -1,4 +1,4 @@
-# Copyright 2007-2008 One Laptop Per Child
+#Copyright 2007-2008 One Laptop Per Child
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import gtk
+from gi.repository import Gtk, Gdk, GdkPixbuf
 import logging
 import cjson
 import math
@@ -28,14 +28,14 @@ from telepathy.constants import (
     CHANNEL_TEXT_MESSAGE_TYPE_NORMAL)
 from telepathy.client import Connection, Channel
 
-from sugar.graphics import style
-from sugar.graphics.alert import NotifyAlert
-from sugar.graphics.palette import Palette
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.activity import activity
-from sugar.presence import presenceservice
-from sugar.activity.widgets import ActivityButton, TitleEntry
-from sugar.activity.widgets import StopButton, ShareButton, RadioMenuButton
+from sugar3.graphics import style
+from sugar3.graphics.alert import NotifyAlert
+from sugar3.graphics.palette import Palette
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.activity import activity
+from sugar3.presence import presenceservice
+from sugar3.activity.widgets import ActivityButton, TitleEntry
+from sugar3.activity.widgets import StopButton, ShareButton, RadioMenuButton
 
 from chat import smilies
 from chat.box import ChatBox
@@ -68,10 +68,10 @@ class Chat(activity.Activity):
         toolbar_box.toolbar.insert(TitleEntry(self), -1)
 
         try:
-            from sugar.activity.widgets import DescriptionItem
+            from sugar3.activity.widgets import DescriptionItem
         except ImportError:
             logger.debug('DescriptionItem button is not available, ' \
-                   'toolkit version < 0.96')
+                    'toolkit version < 0.96')
         else:
             description_item = DescriptionItem(self)
             toolbar_box.toolbar.insert(description_item, -1)
@@ -80,7 +80,7 @@ class Chat(activity.Activity):
         share_button = ShareButton(self)
         toolbar_box.toolbar.insert(share_button, -1)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
 
         self._smiley = RadioMenuButton(icon_name='smilies')
@@ -92,7 +92,7 @@ class Chat(activity.Activity):
         table.show_all()
         self._smiley.palette.set_content(table)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
         separator.set_expand(True)
         toolbar_box.toolbar.insert(separator, -1)
@@ -113,37 +113,35 @@ class Chat(activity.Activity):
                 # we have already joined
                 self._joined_cb(self)
         elif handle.uri:
-            # XMPP non-Sugar incoming chat, not sharable
+            # XMPP non-sugar3 incoming chat, not sharable
             share_button.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
             if not self.metadata or self.metadata.get('share-scope',
-                    activity.SCOPE_PRIVATE) == activity.SCOPE_PRIVATE:
+                activity.SCOPE_PRIVATE) == activity.SCOPE_PRIVATE:
                 # if we are in private session
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
 
     def _create_pallete_smiley_table(self):
         row_count = int(math.ceil(len(smilies.THEME) / float(SMILIES_COLUMNS)))
-        table = gtk.Table(rows=row_count, columns=SMILIES_COLUMNS)
+        table = Gtk.Table(rows=row_count, columns=SMILIES_COLUMNS)
         index = 0
 
         for y in range(row_count):
             for x in range(SMILIES_COLUMNS):
                 if index >= len(smilies.THEME):
                     break
-
                 path, hint, codes = smilies.THEME[index]
-                image = gtk.image_new_from_file(path)
-                button = gtk.ToolButton(icon_widget=image)
-                button.set_tooltip(gtk.Tooltips(), codes[0] + ' ' + hint)
+                image = Gtk.Image()
+                image.set_from_file(path)
+                button = Gtk.ToolButton()
+                button.set_icon_widget(image)
                 button.connect('clicked', self._add_smiley_to_entry, codes[0])
                 table.attach(button, x, x + 1, y, y + 1)
                 button.show()
-
                 index = index + 1
-
         return table
 
     def _add_smiley_to_entry(self, button, text):
@@ -158,15 +156,13 @@ class Chat(activity.Activity):
         self._setup()
 
     def _one_to_one_connection(self, tp_channel):
-        """Handle a private invite from a non-Sugar XMPP client."""
+        """Handle a private invite from a non-sugar3 XMPP client."""
         if self.shared_activity or self.text_channel:
             return
         bus_name, connection, channel = cjson.decode(tp_channel)
-        logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
-                     channel)
-        Connection(
-            bus_name, connection, ready_handler=lambda conn: \
-            self._one_to_one_connection_ready_cb(bus_name, channel, conn))
+        logger.debug('GOT XMPP: %s %s %s', bus_name, connection,channel)
+        Connection( bus_name, connection, ready_handler=lambda conn: \
+        self._one_to_one_connection_ready_cb(bus_name, channel, conn))
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
         """Callback for Connection for one to one connection"""
@@ -237,52 +233,52 @@ class Chat(activity.Activity):
         if buddy == self.owner:
             return
         self.chatbox.add_text(buddy,
-                buddy.props.nick + ' ' + _('joined the chat'),
-                status_message=True)
+            buddy.props.nick + ' ' + _('joined the chat'),
+            status_message=True)
 
     def _buddy_left_cb(self, sender, buddy):
         """Show a buddy who joined"""
         if buddy == self.owner:
             return
         self.chatbox.add_text(buddy,
-                buddy.props.nick + ' ' + _('left the chat'),
-                status_message=True)
+            buddy.props.nick + ' ' + _('left the chat'),
+            status_message=True)
 
     def _buddy_already_exists(self, buddy):
         """Show a buddy already in the chat."""
         if buddy == self.owner:
             return
         self.chatbox.add_text(buddy, buddy.props.nick + ' ' + _('is here'),
-                status_message=True)
+            status_message=True)
 
     def can_close(self):
         """Perform cleanup before closing.
 
-        Close text channel of a one to one XMPP chat.
+    Close text channel of a one to one XMPP chat.
 
-        """
+    """
         if self._chat_is_room is False:
             if self.text_channel is not None:
                 self.text_channel.close()
         return True
 
     def make_root(self):
-        entry = gtk.Entry()
-        entry.modify_bg(gtk.STATE_INSENSITIVE,
-                        style.COLOR_WHITE.get_gdk_color())
-        entry.modify_base(gtk.STATE_INSENSITIVE,
-                          style.COLOR_WHITE.get_gdk_color())
+        entry = Gtk.Entry()
+        entry.modify_bg(Gtk.StateType.INSENSITIVE,
+            style.COLOR_WHITE.get_gdk_color())
+        entry.modify_base(Gtk.StateType.INSENSITIVE,
+            style.COLOR_WHITE.get_gdk_color())
         entry.set_sensitive(False)
         entry.connect('activate', self.entry_activate_cb)
         entry.connect('key-press-event', self.entry_key_press_cb)
         self.entry = entry
 
-        hbox = gtk.HBox()
+        hbox = Gtk.HBox()
         hbox.add(entry)
 
-        box = gtk.VBox(homogeneous=False)
-        box.pack_start(self.chatbox)
-        box.pack_start(hbox, expand=False)
+        box = Gtk.VBox(homogeneous=False)
+        box.pack_start(self.chatbox, True, True, 0)
+        box.pack_start(hbox, False, True, 0)
 
         return box
 
@@ -293,18 +289,18 @@ class Chat(activity.Activity):
         scroll the window according the pressed key.
         """
         vadj = self.chatbox.get_vadjustment()
-        if event.keyval == gtk.keysyms.Page_Down:
+        if event.keyval == Gdk.KEY_Page_Down:
             value = vadj.get_value() + vadj.page_size
             if value > vadj.upper - vadj.page_size:
                 value = vadj.upper - vadj.page_size
             vadj.set_value(value)
-        elif event.keyval == gtk.keysyms.Page_Up:
+        elif event.keyval == Gdk.KEY_Page_Up:
             vadj.set_value(vadj.get_value() - vadj.page_size)
-        elif event.keyval == gtk.keysyms.Home and \
-             event.state & gtk.gdk.CONTROL_MASK:
+        elif event.keyval == Gdk.KEY_Home and \
+            event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.lower)
-        elif event.keyval == gtk.keysyms.End and \
-             event.state & gtk.gdk.CONTROL_MASK:
+        elif event.keyval == Gdk.KEY_End and \
+            event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
     def entry_activate_cb(self, entry):
@@ -338,7 +334,6 @@ class Chat(activity.Activity):
 
     def read_file(self, file_path):
         """Load a chat log from the Journal.
-
         Handling the Journal is provided by Activity - we only need
         to define this method.
         """
@@ -355,9 +350,8 @@ class Chat(activity.Activity):
                 timestamp, nick, color, status, text = line.strip().split('\t')
                 status_message = bool(int(status))
                 self.chatbox.add_text({'nick': nick, 'color': color},
-                              text, status_message)
+                    text, status_message)
                 last_line_was_timestamp = False
-
 
 class TextChannelWrapper(object):
     """Wrap a telepathy Text Channel to make usage simpler."""
@@ -439,7 +433,7 @@ class TextChannelWrapper(object):
                     CONN_INTERFACE_ALIASING].RequestAliases([sender])[0]
                 buddy = {'nick': nick, 'color': '#000000,#808080'}
             else:
-                # Normal sugar MUC chat
+                # Normal sugar3 MUC chat
                 # XXX: cache these
                 buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
