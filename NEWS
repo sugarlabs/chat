@@ -1,25 +1,31 @@
+77
+
+* Fix issue of not packaging .mo translation files
+* Chat text lines offset on screen lower than username #3634
+* Update translations
+
 76
 
 * Support "Write to Journal Anytime" feature in Sugar 0.86
 
 75
 
-- Scroll the chat log #2782 (Manuel Kaufmann)
-- Don't treat the whole word as an URL (Manuel Kaufmann)
-- Update translations
+* Scroll the chat log #2782 (Manuel Kaufmann)
+* Don't treat the whole word as an URL (Manuel Kaufmann)
+* Update translations
 
 74
 
-- Remove use of hippo (Gonzalo Odiard)
-- Update translations
+* Remove use of hippo (Gonzalo Odiard)
+* Update translations
 
 73
 
-- Return langs back by generating locale/ directory
+* Return langs back by generating locale/ directory
 
 72
 
-- Update translations
+* Update translations
 
 71
 

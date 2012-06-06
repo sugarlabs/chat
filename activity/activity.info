@@ -1,19 +1,8 @@
 [Activity]
-implement = chat
 name      = Chat
 summary   = Text chat
-homepage  = http://wiki.sugarlabs.org/go/Activities/Chat
 license   = GPLv2+
-
-version   = %(activity_version)s
-stability = stable
-
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-
-# original activity.info options
-activity_version = 76
+activity_version = 77
 bundle_id = org.laptop.Chat
-
-[Package]
-project   = SweetsDistribution:0.94
