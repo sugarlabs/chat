@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-from gi.repository import Gtk, Gdk, GdkPixbuf
+from gi.repository import Gtk, Gdk
 import logging
 import cjson
 import math
@@ -273,12 +273,12 @@ class Chat(activity.Activity):
         entry.connect('key-press-event', self.entry_key_press_cb)
         self.entry = entry
 
-        hbox = Gtk.HBox()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         hbox.add(entry)
 
-        box = Gtk.VBox(homogeneous=False)
-        box.pack_start(self.chatbox, True, True, 0)
-        box.pack_start(hbox, False, True, 0)
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False)
+        box.pack_start(self.chatbox, expand=True, fill=True, padding=0)
+        box.pack_start(hbox, expand=False, fill=True, padding=0)
 
         return box
 
@@ -354,7 +354,7 @@ class Chat(activity.Activity):
                 last_line_was_timestamp = False
 
 class TextChannelWrapper(object):
-    """Wrap a telepathy Text Channel to make usage simpler."""
+    """Wrap a telepathy Text Channfel to make usage simpler."""
 
     def __init__(self, text_chan, conn):
         """Connect to the text channel"""
