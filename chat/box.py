@@ -23,14 +23,19 @@ import logging
 from datetime import datetime
 from gettext import gettext as _
 
-from gi.repository import Gtk, Gdk, GObject, GdkPixbuf
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import GdkPixbuf
 from gi.repository import Pango
 
 from sugar3.graphics import style
-from sugar3.graphics.palette import Palette, MouseSpeedDetector
+from sugar3.graphics.palette import Palette
+from sugar3.graphics.palette import MouseSpeedDetector
 from sugar3.presence import presenceservice
 from sugar3.graphics.menuitem import MenuItem
-from sugar3.activity.activity import get_activity_root, show_object_in_journal
+from sugar3.activity.activity import get_activity_root
+from sugar3.activity.activity import show_object_in_journal
 from sugar3.util import timestamp_to_elapsed_string
 from sugar3.datastore import datastore
 from sugar3 import profile

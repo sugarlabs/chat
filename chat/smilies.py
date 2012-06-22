@@ -17,7 +17,9 @@
 
 import os
 from gettext import gettext as _
-from gi.repository import Gtk, GdkPixbuf, Rsvg
+from gi.repository import Gtk
+from gi.repository import GdkPixbuf
+from gi.repository import Rsvg
 from sugar3.graphics import style
 from sugar3.activity.activity import get_bundle_path
 

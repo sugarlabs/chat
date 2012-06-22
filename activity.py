@@ -14,19 +14,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
+from gi.repository import Gdk
 import logging
 import cjson
 import math
 from gettext import gettext as _
 
-from telepathy.interfaces import (
-    CHANNEL_INTERFACE, CHANNEL_INTERFACE_GROUP, CHANNEL_TYPE_TEXT,
-    CONN_INTERFACE_ALIASING)
-from telepathy.constants import (
-    CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES,
-    CHANNEL_TEXT_MESSAGE_TYPE_NORMAL)
-from telepathy.client import Connection, Channel
+from telepathy.interfaces import CHANNEL_INTERFACE
+from telepathy.interfaces import CHANNEL_INTERFACE_GROUP
+from telepathy.interfaces import CHANNEL_TYPE_TEXT
+from telepathy.interfaces import CONN_INTERFACE_ALIASING
+from telepathy.constants import CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
+from telepathy.constants import CHANNEL_TEXT_MESSAGE_TYPE_NORMAL
+from telepathy.client import Connection
+from telepathy.client import Channel
 
 from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
@@ -34,8 +36,11 @@ from sugar3.graphics.palette import Palette
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity import activity
 from sugar3.presence import presenceservice
-from sugar3.activity.widgets import ActivityButton, TitleEntry
-from sugar3.activity.widgets import StopButton, ShareButton, RadioMenuButton
+from sugar3.activity.widgets import ActivityButton
+from sugar3.activity.widgets import TitleEntry
+from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import ShareButton
+from sugar3.activity.widgets import RadioMenuButton
 
 from chat import smilies
 from chat.box import ChatBox

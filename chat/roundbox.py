@@ -1,5 +1,7 @@
 import math
-from gi.repository import Gtk, GObject, cairo
+from gi.repository import Gtk
+from gi.repository import GObject
+from gi.repository import cairo
 from sugar3.graphics import style
 
 BORDER_DEFAULT = style.LINE_WIDTH
