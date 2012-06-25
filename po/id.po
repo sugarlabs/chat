@@ -15,19 +15,19 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2011-07-22 05:05+0200\n"
+"PO-Revision-Date: 2012-06-25 19:20+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr ""
+msgstr "Sisipkan smiley"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
@@ -35,7 +35,7 @@ msgstr "Putus"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr "Berbagi, atau mengundang seseorang"
+msgstr "Berbagi, atau mengundang seseorang."
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
@@ -63,7 +63,7 @@ msgstr "ada disini"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Obrolan"
 
 #: chat/box.py:318
 msgid "URL from Chat"
@@ -77,124 +77,124 @@ msgstr "Salin ke Papan-tempel"
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:32
 msgid "Smile"
-msgstr ""
+msgstr "Tersenyum"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:35
 msgid "Winking"
-msgstr ""
+msgstr "Mengedip"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:38
 msgid "Confused"
-msgstr ""
+msgstr "Bingung"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:41
 msgid "Sad"
-msgstr ""
+msgstr "Sedih"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:44
 msgid "Grin"
-msgstr ""
+msgstr "Nyengir"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:47
 msgid "Neutral"
-msgstr ""
+msgstr "Netral"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:50
 msgid "Shock"
-msgstr ""
+msgstr "Kaget"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:53
 msgid "Cool"
-msgstr ""
+msgstr "Kalem"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:56
 msgid "Tongue"
-msgstr ""
+msgstr "Menjulurkan Lidah"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:59
 msgid "Blushing"
-msgstr ""
+msgstr "Tersipu"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:62
 msgid "Weeping"
-msgstr ""
+msgstr "Menangis"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:65
 msgid "Angel"
-msgstr ""
+msgstr "Malaikat"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:68
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Jangan bilang-bilang"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:71
 msgid "Angry"
-msgstr ""
+msgstr "Marah"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:74
 msgid "Devil"
-msgstr ""
+msgstr "Setan"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:77
 msgid "Nerd"
-msgstr ""
+msgstr "Nerd"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:80
 msgid "Kiss"
-msgstr ""
+msgstr "Cium"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:83
 msgid "Laughing"
-msgstr ""
+msgstr "Tertawa"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:86
 msgid "Sleepy"
-msgstr ""
+msgstr "Mengantuk"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:89
 msgid "Sick"
-msgstr ""
+msgstr "Sakit"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:92
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Mengangkat alis"
