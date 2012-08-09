@@ -16,7 +16,7 @@
 
 import gtk
 import logging
-import cjson
+import json
 import math
 from gettext import gettext as _
 
@@ -161,7 +161,7 @@ class Chat(activity.Activity):
         """Handle a private invite from a non-Sugar XMPP client."""
         if self.shared_activity or self.text_channel:
             return
-        bus_name, connection, channel = cjson.decode(tp_channel)
+        bus_name, connection, channel = json.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
                      channel)
         Connection(
