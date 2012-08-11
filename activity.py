@@ -17,7 +17,7 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 import logging
-import cjson
+import json
 import math
 from gettext import gettext as _
 
@@ -164,7 +164,7 @@ class Chat(activity.Activity):
         """Handle a private invite from a non-sugar3 XMPP client."""
         if self.shared_activity or self.text_channel:
             return
-        bus_name, connection, channel = cjson.decode(tp_channel)
+        bus_name, connection, channel = json.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection,channel)
         Connection( bus_name, connection, ready_handler=lambda conn: \
         self._one_to_one_connection_ready_cb(bus_name, channel, conn))
