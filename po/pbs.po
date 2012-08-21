@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-06-04 21:56+0200\n"
-"Last-Translator: usuariopame04 <proyecto.olpc@gmail.com>\n"
+"PO-Revision-Date: 2012-06-26 18:29+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Kibia ne niñ'eje'"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr "skad-a kjee' matejeel' su'ua'"
+msgstr "skad-a kjee' matejeel' su'ua'."
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
