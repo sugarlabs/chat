@@ -279,11 +279,11 @@ class Chat(activity.Activity):
         self.entry = entry
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox.add(entry)
+        hbox.pack_start(self.entry, True, True, 0)
 
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False)
-        box.pack_start(self.chatbox, expand=True, fill=True, padding=0)
-        box.pack_start(hbox, expand=False, fill=True, padding=0)
+        box.pack_start(self.chatbox, True, True, 0)
+        box.pack_start(hbox, False, True, 0)
 
         return box
 
