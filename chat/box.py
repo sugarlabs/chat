@@ -217,10 +217,11 @@ class TextBox(Gtk.TextView):
                     foreground="blue", underline=Pango.Underline.SINGLE)
                 tag.set_data("url", word)
                 palette = _URLMenu(word)
-                palette.connect('enter-notify-event',
-                    self.__palette_mouse_enter_cb)
-                palette.connect('leave-notify-event',
-                    self.__palette_mouse_leave_cb)
+                # FIXME: TypeError: _URLMenu: unknown signal name: enter-notify-event - leave-notify-event
+                #palette.connect('enter-notify-event',
+                #    self.__palette_mouse_enter_cb)
+                #palette.connect('leave-notify-event',
+                #    self.__palette_mouse_leave_cb)
                 tag.set_data('palette', palette)
                 buf.insert_with_tags(self.iter_text, word, tag,
                     self.fg_tag)
@@ -436,7 +437,7 @@ class _URLMenu(Palette):
     def __init__(self, url):
         Palette.__init__(self, url)
         self.owns_clipboard = False
-        self.url = _url_check_protocol(url)
+        self.url = self._url_check_protocol(url)
         menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
         menu_item.connect('activate', self._copy_to_clipboard_cb)
         self.menu.append(menu_item)
@@ -474,7 +475,7 @@ class _URLMenu(Palette):
         logging.debug('clipboard_clear_cb')
         self.owns_clipboard = False
 
-    def _url_check_protocol(url):
+    def _url_check_protocol(self, url):
         """Check that the url has a protocol, otherwise prepend https://
         url -- string
         Returns url -- string
