@@ -2,14 +2,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #, fuzzy
 msgid ""
 msgstr ""
@@ -27,174 +19,174 @@ msgstr ""
 
 #: activity.py:78
 msgid "Insert smiley"
-msgstr ""
+msgstr "Kōkuhu menemene"
 
 #: activity.py:115 activity.py:182
 msgid "Off-line"
-msgstr ""
+msgstr "Tui-motu"
 
 #: activity.py:115
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Tiri, pōwhiri rānei i tētahi tangata."
 
 #: activity.py:174 activity.py:189
 msgid "On-line"
-msgstr ""
+msgstr "Tui-hono"
 
 #: activity.py:174
 msgid "Private Chat"
-msgstr ""
+msgstr "Kōrerorero Tūmataiti"
 
 #: activity.py:182 activity.py:242
 msgid "left the chat"
-msgstr ""
+msgstr "kua mahue te kōrerorero"
 
 #: activity.py:189
 msgid "Connected"
-msgstr ""
+msgstr "Kua Tūhono"
 
 #: activity.py:234
 msgid "joined the chat"
-msgstr ""
+msgstr "kua hono ki te kōrerorero"
 
 #: activity.py:249
 msgid "is here"
-msgstr ""
+msgstr "kei konei"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Kōrerorero"
 
 #: chat/box.py:318
 msgid "URL from Chat"
-msgstr ""
+msgstr "URL mai i te Kōrerorero"
 
 #: chat/box.py:352
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Tārua ki Papatopenga"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:32
 msgid "Smile"
-msgstr ""
+msgstr "Menemene"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:35
 msgid "Winking"
-msgstr ""
+msgstr "Kemokemo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:38
 msgid "Confused"
-msgstr ""
+msgstr "Rangirua"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:41
 msgid "Sad"
-msgstr ""
+msgstr "Pōuri"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:44
 msgid "Grin"
-msgstr ""
+msgstr "Menemene"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:47
 msgid "Neutral"
-msgstr ""
+msgstr "Wātea"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:50
 msgid "Shock"
-msgstr ""
+msgstr "Ohorere"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:53
 msgid "Cool"
-msgstr ""
+msgstr "Maiangi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:56
 msgid "Tongue"
-msgstr ""
+msgstr "Arero"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:59
 msgid "Blushing"
-msgstr ""
+msgstr "Wherowhero"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:62
 msgid "Weeping"
-msgstr ""
+msgstr "Tangi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:65
 msgid "Angel"
-msgstr ""
+msgstr "Anahera"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:68
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Kaua e whāki atu"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:71
 msgid "Angry"
-msgstr ""
+msgstr "Riri"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:74
 msgid "Devil"
-msgstr ""
+msgstr "Rēwera"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:77
 msgid "Nerd"
-msgstr ""
+msgstr "Puta Mōhio"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:80
 msgid "Kiss"
-msgstr ""
+msgstr "Kihi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:83
 msgid "Laughing"
-msgstr ""
+msgstr "Katakata"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:86
 msgid "Sleepy"
-msgstr ""
+msgstr "Hiamoe"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:89
 msgid "Sick"
-msgstr ""
+msgstr "Māuiui"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:92
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Kua hiki ngā tukemata"
