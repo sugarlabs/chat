@@ -10,188 +10,193 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-04 13:28+0000\n"
-"PO-Revision-Date: 2012-03-23 06:03+0200\n"
-"Last-Translator: Xin <dram.wang@gmail.com>\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"PO-Revision-Date: 2012-09-30 11:52+0200\n"
+"Last-Translator: lite <litekok@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity.py:78
-msgid "Insert smiley"
-msgstr "插入表情符号"
-
-#: activity.py:115 activity.py:182
-msgid "Off-line"
-msgstr "离线"
-
-#: activity.py:115
-msgid "Share, or invite someone."
-msgstr "分享，或者邀请朋友。"
-
-#: activity.py:174 activity.py:189
-msgid "On-line"
-msgstr "上线"
-
-#: activity.py:174
-msgid "Private Chat"
-msgstr "私人聊天"
-
-#: activity.py:182 activity.py:242
-msgid "left the chat"
-msgstr "退出聊天室"
-
-#: activity.py:189
-msgid "Connected"
-msgstr "已连线"
-
-#: activity.py:234
-msgid "joined the chat"
-msgstr "进入聊天室"
-
-#: activity.py:249
-msgid "is here"
-msgstr "在聊天室"
-
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
 msgid "Chat"
 msgstr "聊天"
 
-#: chat/box.py:318
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Text chat"
+msgstr "文字聊天"
+
+#: activity.py:87
+msgid "Insert smiley"
+msgstr "插入表情符号"
+
+#: activity.py:124 activity.py:188
+msgid "Off-line"
+msgstr "离线"
+
+#: activity.py:124
+msgid "Share, or invite someone."
+msgstr "分享，或者邀请朋友。"
+
+#: activity.py:180 activity.py:195
+msgid "On-line"
+msgstr "上线"
+
+#: activity.py:180
+msgid "Private Chat"
+msgstr "私人聊天"
+
+#: activity.py:188 activity.py:248
+msgid "left the chat"
+msgstr "退出聊天室"
+
+#: activity.py:195
+msgid "Connected"
+msgstr "已连线"
+
+#: activity.py:240
+msgid "joined the chat"
+msgstr "进入聊天室"
+
+#: activity.py:255
+msgid "is here"
+msgstr "在聊天室"
+
+#: chat/box.py:118
 msgid "URL from Chat"
 msgstr "聊天中的网址"
 
-#: chat/box.py:352
+#: chat/box.py:459
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:32
+#: chat/smilies.py:31
 msgid "Smile"
 msgstr "表情符号"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:35
+#: chat/smilies.py:34
 msgid "Winking"
 msgstr "眨眼"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:38
+#: chat/smilies.py:37
 msgid "Confused"
 msgstr "困惑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:41
+#: chat/smilies.py:40
 msgid "Sad"
 msgstr "伤心"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:44
+#: chat/smilies.py:43
 msgid "Grin"
 msgstr "微笑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:47
+#: chat/smilies.py:46
 msgid "Neutral"
 msgstr "旁观"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:50
+#: chat/smilies.py:49
 msgid "Shock"
 msgstr "震惊"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:53
+#: chat/smilies.py:52
 msgid "Cool"
 msgstr "酷"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:56
+#: chat/smilies.py:55
 msgid "Tongue"
 msgstr "吐舌头"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:59
+#: chat/smilies.py:58
 msgid "Blushing"
 msgstr "脸红"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:62
+#: chat/smilies.py:61
 msgid "Weeping"
 msgstr "流眼泪"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:65
+#: chat/smilies.py:64
 msgid "Angel"
 msgstr "天使"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:68
+#: chat/smilies.py:67
 msgid "Don't tell anyone"
 msgstr "要保密哦"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:71
+#: chat/smilies.py:70
 msgid "Angry"
 msgstr "生气"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:74
+#: chat/smilies.py:73
 msgid "Devil"
 msgstr "恶魔"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:77
+#: chat/smilies.py:76
 msgid "Nerd"
 msgstr "书呆子"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:80
+#: chat/smilies.py:79
 msgid "Kiss"
 msgstr "吻"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:83
+#: chat/smilies.py:82
 msgid "Laughing"
 msgstr "大笑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:86
+#: chat/smilies.py:85
 msgid "Sleepy"
 msgstr "犯困"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:89
+#: chat/smilies.py:88
 msgid "Sick"
 msgstr "生病了"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:92
+#: chat/smilies.py:91
 msgid "Raised eyebrows"
 msgstr "眉毛上挑"
 

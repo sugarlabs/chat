@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-04 13:28+0000\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
 "PO-Revision-Date: 2011-11-23 07:23+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,220 +17,225 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
+#  "Charlar"
+#  [es] "Charlar"
+#. TRANS: "name" option from activity.info file
+msgid "Chat"
+msgstr "Jakintasiña"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Text chat"
+msgstr ""
+
 #  "Inserte carita"
-#: activity.py:78
+#: activity.py:87
 msgid "Insert smiley"
 msgstr "Ajanumpi chimpt'ma"
 
 #  "Fuera de línea"
 # [es] "Sin línea"
-#: activity.py:115 activity.py:182
+#: activity.py:124 activity.py:188
 msgid "Off-line"
 msgstr "Mistutawa chhaqatawa"
 
 #  "Compartir, o invitar a alguien."
 # [es] "Compartir, o invitar a alguien."
-#: activity.py:115
+#: activity.py:124
 msgid "Share, or invite someone."
 msgstr "Chikachasiñataki achikt'aña."
 
 #  "En línea"
 # [es] "En línea"
-#: activity.py:174 activity.py:189
+#: activity.py:180 activity.py:195
 msgid "On-line"
 msgstr "Mantatawa jiwasampiwa"
 
 #  "Charla Privada"
 # [es] "Charla Privada"
-#: activity.py:174
+#: activity.py:180
 msgid "Private Chat"
 msgstr "Jiwaskama jakintasïwi"
 
 #  "abandonó la charla"
 #  [es] "abandonó la charla"
-#: activity.py:182 activity.py:242
+#: activity.py:188 activity.py:248
 msgid "left the chat"
 msgstr "jakintasïwita mistuta"
 
 #  "Conectado"
 # [es] "Conectado"
-#: activity.py:189
+#: activity.py:195
 msgid "Connected"
 msgstr "Qhantayata"
 
 #  "se unió a la charla"
 #  [es] "se unió a la charla"
-#: activity.py:234
+#: activity.py:240
 msgid "joined the chat"
 msgstr "jakintasïwiru mantaniwa"
 
 #  "está aquí"
 #  [es] "está aquí"
-#: activity.py:249
+#: activity.py:255
 msgid "is here"
 msgstr "akankiwa"
 
-#  "Charlar"
-#  [es] "Charlar"
-#: activity/activity.info:2
-msgid "Chat"
-msgstr "Jakintasiña"
-
 #  "URL proveniente de Charla"
 #  [es] "URL proveniente de Charla"
-#: chat/box.py:318
+#: chat/box.py:118
 msgid "URL from Chat"
 msgstr "Jakintasiñataki URL"
 
 #  "Copiar al Portapapeles"
 #  [es] "Copiar al Portapapeles"
-#: chat/box.py:352
+#: chat/box.py:459
 msgid "Copy to Clipboard"
 msgstr "Wayaqaru talliqaña"
 
 #  "Sonrisa"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:32
+#: chat/smilies.py:31
 msgid "Smile"
 msgstr "K'uchi"
 
 #  "Parpadeo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:35
+#: chat/smilies.py:34
 msgid "Winking"
 msgstr "Jiwañachi"
 
 #  "Confundido"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:38
+#: chat/smilies.py:37
 msgid "Confused"
 msgstr "Pantjata"
 
 #  "Triste"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:41
+#: chat/smilies.py:40
 msgid "Sad"
 msgstr "Llakita"
 
 #  "Sonrisa"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:44
+#: chat/smilies.py:43
 msgid "Grin"
 msgstr "K'uchi"
 
 #  "Neutral"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:47
+#: chat/smilies.py:46
 msgid "Neutral"
 msgstr "Purapa"
 
 #  "Choque"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:50
+#: chat/smilies.py:49
 msgid "Shock"
 msgstr "Chikacha"
 
 #  "Tranquilo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:53
+#: chat/smilies.py:52
 msgid "Cool"
 msgstr "Llamphi kankañani"
 
 #  "Lengua"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:56
+#: chat/smilies.py:55
 msgid "Tongue"
 msgstr "Aru"
 
 #  "Sonrojado"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:59
+#: chat/smilies.py:58
 msgid "Blushing"
 msgstr "Llakita"
 
 #  "Llorando"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:62
+#: chat/smilies.py:61
 msgid "Weeping"
 msgstr "Jacht'asa"
 
 #  "Ángel"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:65
+#: chat/smilies.py:64
 msgid "Angel"
 msgstr "Qhispiyiri"
 
 #  "No se lo digas a nadie"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:68
+#: chat/smilies.py:67
 msgid "Don't tell anyone"
 msgstr "Taqiru imxataña"
 
 #  "Enfadado"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:71
+#: chat/smilies.py:70
 msgid "Angry"
 msgstr "Phiñata"
 
 #  "Demonio"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:74
+#: chat/smilies.py:73
 msgid "Devil"
 msgstr "Supaya"
 
 #  "Empollón"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:77
+#: chat/smilies.py:76
 msgid "Nerd"
 msgstr "Wayusiri"
 
 #  "Beso"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:80
+#: chat/smilies.py:79
 msgid "Kiss"
 msgstr "Jallallaña"
 
 #  "Riendo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:83
+#: chat/smilies.py:82
 msgid "Laughing"
 msgstr "Larusisa"
 
 #  "Somnoliento"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:86
+#: chat/smilies.py:85
 msgid "Sleepy"
 msgstr "Iki ch'awa"
 
 #  "Enfermo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:89
+#: chat/smilies.py:88
 msgid "Sick"
 msgstr "Usuta"
 
 #  "Sorprendido"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:92
+#: chat/smilies.py:91
 msgid "Raised eyebrows"
 msgstr "Warakjata"
