@@ -203,6 +203,3 @@ msgstr ""
 msgid "Raised eyebrows"
 msgstr ""
 
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s మూలం"
