@@ -202,4 +202,3 @@ msgstr ""
 #: chat/smilies.py:91
 msgid "Raised eyebrows"
 msgstr ""
-
