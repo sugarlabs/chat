@@ -4,5 +4,5 @@ summary   = Text chat
 license   = GPLv2+
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-activity_version = 77
+activity_version = 78
 bundle_id = org.laptop.Chat
