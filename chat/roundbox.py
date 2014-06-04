@@ -19,7 +19,7 @@ from gi.repository import Gtk
 from gi.repository import GObject
 from sugar3.graphics import style
 
-BORDER_DEFAULT = style.LINE_WIDTH
+_BORDER_DEFAULT = style.LINE_WIDTH
 
 
 class RoundBox(Gtk.HBox):
@@ -29,8 +29,10 @@ class RoundBox(Gtk.HBox):
         GObject.GObject.__init__(self, **kwargs)
         self._radius = style.zoom(10)
         self.border_color = style.COLOR_BLACK
+        self.tail = None
         self.background_color = None
         self.set_resize_mode(Gtk.ResizeMode.PARENT)
+        self.set_reallocate_redraws(True)
         self.connect('draw', self.__expose_cb)
         self.connect('add', self.__add_cb)
 
@@ -39,18 +41,37 @@ class RoundBox(Gtk.HBox):
 
     def __expose_cb(self, widget, cr):
         rect = self.get_allocation()
-        x = rect.x
-        y = rect.y
-        width = rect.width - BORDER_DEFAULT
-        height = rect.height - BORDER_DEFAULT
+        x = 0
+        y = 0
+        width = rect.width - _BORDER_DEFAULT * 2.
+        if self.tail is not None:
+            height = rect.height - _BORDER_DEFAULT * 2. - self._radius
+        else:
+            height = rect.height - _BORDER_DEFAULT * 2.
 
-        cr.move_to(x, y)
+        cr.move_to(x + self._radius, y)
         cr.arc(x + width - self._radius, y + self._radius,
                self._radius, math.pi * 1.5, math.pi * 2)
-        cr.arc(x + width - self._radius, y + height - self._radius,
-               self._radius, 0, math.pi * 0.5)
-        cr.arc(x + self._radius, y + height - self._radius,
-               self._radius, math.pi * 0.5, math.pi)
+        if self.tail == 'right':
+            cr.arc(x + width - self._radius, y + height - self._radius * 2,
+                   self._radius, 0, math.pi * 0.5)
+            cr.line_to(x + width - self._radius, y + height)
+            cr.line_to(x + width - 3 * self._radius, y + height - self._radius)
+            cr.arc(x + self._radius, y + height - self._radius * 2,
+                   self._radius, math.pi * 0.5, math.pi)
+        elif self.tail == 'left':
+            cr.arc(x + width - self._radius, y + height - self._radius * 2,
+                   self._radius, 0, math.pi * 0.5)
+            cr.line_to(x + self._radius * 3, y + height - self._radius)
+            cr.line_to(x + self._radius, y + height)
+            cr.line_to(x + self._radius, y + height - self._radius)
+            cr.arc(x + self._radius, y + height - self._radius * 2,
+                   self._radius, math.pi * 0.5, math.pi)
+        else:
+            cr.arc(x + width - self._radius, y + height - self._radius,
+                   self._radius, 0, math.pi * 0.5)
+            cr.arc(x + self._radius, y + height - self._radius,
+                   self._radius, math.pi * 0.5, math.pi)
         cr.arc(x + self._radius, y + self._radius, self._radius,
                math.pi, math.pi * 1.5)
         cr.close_path()
@@ -63,6 +84,35 @@ class RoundBox(Gtk.HBox):
         if self.border_color is not None:
             r, g, b, __ = self.border_color.get_rgba()
             cr.set_source_rgb(r, g, b)
-            cr.set_line_width(BORDER_DEFAULT)
+            cr.set_line_width(_BORDER_DEFAULT)
             cr.stroke()
         return False
+
+
+
+if __name__ == '__main__':
+
+    win = Gtk.Window()
+    win.connect('destroy', Gtk.main_quit)
+    win.set_default_size(450, 450)
+    vbox = Gtk.VBox()
+
+    box1 = RoundBox()
+    vbox.add(box1)
+    label1 = Gtk.Label("Test 1")
+    box1.add(label1)
+
+    rbox = RoundBox()
+    rbox.background_color = style.Color('#FF0000')
+    vbox.add(rbox)
+    label2 = Gtk.Label("Test 2")
+    rbox.add(label2)
+
+    bbox = RoundBox()
+    bbox.background_color = style.Color('#aaff33')
+    bbox.border_color = style.Color('#ff3300')
+    vbox.add(bbox)
+
+    win.add(vbox)
+    win.show_all()
+    Gtk.main()
