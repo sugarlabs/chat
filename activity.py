@@ -28,6 +28,7 @@ import logging
 import json
 import math
 import os
+import subprocess
 from gettext import gettext as _
 
 from telepathy.interfaces import CHANNEL_INTERFACE
@@ -60,6 +61,20 @@ SMILIES_COLUMNS = 7
 
 if _HAS_SOUND:
     Gst.init([])
+
+
+def _is_tablet_mode():
+    if not os.path.exists('/dev/input/event4'):
+        return False
+    try:
+        output = subprocess.call(
+            ['evtest', '--query', '/dev/input/event4', 'EV_SW',
+             'SW_TABLET_MODE'])
+    except (OSError, subprocess.CalledProcessError):
+        return False
+    if str(output) == '10':
+        return True
+    return False
 
 
 # pylint: disable-msg=W0223
@@ -284,12 +299,20 @@ class Chat(activity.Activity):
         return True
 
     def make_root(self):
+        # filler used to move entry box to accomodate OSK
+        self._filler = [Gtk.VBox(), Gtk.VBox()]
+        # ToDo: calculate filler sizes
+        self._filler[0].set_size_request(-1, 160)
+        self._filler[1].set_size_request(-1, 80)
+
         entry = Gtk.Entry()
         entry.modify_bg(Gtk.StateType.INSENSITIVE,
                         style.COLOR_WHITE.get_gdk_color())
         entry.modify_base(Gtk.StateType.INSENSITIVE,
                           style.COLOR_WHITE.get_gdk_color())
         entry.set_sensitive(False)
+        entry.connect('focus-in-event', self.entry_focus_in_cb)
+        entry.connect('focus-out-event', self.entry_focus_out_cb)
         entry.connect('activate', self.entry_activate_cb)
         entry.connect('key-press-event', self.entry_key_press_cb)
         self.entry = entry
@@ -300,8 +323,25 @@ class Chat(activity.Activity):
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False)
         box.pack_start(self.chatbox, True, True, 0)
         box.pack_start(hbox, False, True, 0)
+        if _is_tablet_mode():
+            box.pack_start(self._filler[0], True, True, 0)
+            box.pack_start(self._filler[1], True, True, 0)
 
         return box
+
+    def entry_focus_in_cb(self, entry, event):
+        logging.error('focus in')
+        if _is_tablet_mode():
+            if Gdk.Screen.width() > Gdk.Screen.height():
+                self._filler[0].show()
+            else:
+                self._filler[1].show()
+
+    def entry_focus_out_cb(self, entry, event):
+        logging.error('focus out')
+        if _is_tablet_mode():
+            self._filler[0].hide()
+            self._filler[1].hide()
 
     def entry_key_press_cb(self, widget, event):
         '''Check for scrolling keys.
