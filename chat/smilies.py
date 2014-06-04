@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 # Copyright 2010, Mukesh Gupta
 # Copyright 2010, Aleksey Lim
+# Copyright 2014, Walter Bender
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -87,6 +89,55 @@ THEME = [
         # TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
         # TRANS: ASCII-art equivalents are /:)
         ('eyebrow', _('Raised eyebrows'), ['/:)']),
+        ('unicode-1', _('Heart'), ['♥']),
+        ('unicode-2', _('Airplane'), ['✈']),
+        ('unicode-3', _('Music'), ['♬']),
+        ('unicode-4', _('Check box'), ['☑']),
+        ('unicode-5', _('Spade'), ['♠']),
+        ('unicode-6', _('Telephone'), ['☎']),
+        ('unicode-7', _('X box'), ['☒']),
+        ('unicode-8', _('Cadusis'), ['☤']),
+        ('unicode-9', _('Female'), ['♀']),
+        ('unicode-10', _('Star'), ['✩']),
+        ('unicode-11', _('Letter'), ['✉']),
+        ('unicode-12', _('Poison'), ['☠']),
+        ('unicode-13', _('Check mark'), ['✔']),
+        ('unicode-14', _('Maile'), ['♂']),
+        ('unicode-15', _('Star'), ['★']),
+        ('unicode-16', _('Shamrock'), ['☘']),
+        ('unicode-17', _('Recycle'), ['♺']),
+        ('unicode-18', _('X'), ['✖']),
+        ('unicode-19', _('Fire'), ['♨']),
+        ('unicode-20', _('Leaf'), ['❦']),
+        ('unicode-21', _('Cloud'), ['☁']),
+        ('unicode-22', _('V'), ['✌']),
+        ('unicode-23', _('Crown'), ['♛']),
+        ('unicode-24', _('Floret'), ['❁']),
+        ('unicode-25', _('Moon and star'), ['☪']),
+        ('unicode-26', _('Umbrella'), ['☂']),
+        ('unicode-27', _('Pencil'), ['✏']),
+        ('unicode-28', _('Floret'), ['❀']),
+        ('unicode-29', _('Snowman'), ['☃']),
+        ('unicode-30', _('Point right'), ['☛']),
+        ('unicode-31', _('Horse'), ['♞']),
+        ('unicode-32', _('Floret'), ['✿']),
+        ('unicode-33', _('Peace sign'), ['☮']),
+        ('unicode-34', _('Sun'), ['☼']),
+        ('unicode-35', _('Point left'), ['☚']),
+        ('unicode-36', _('Floret'), ['✾']),
+        ('unicode-37', _('Yin yang'), ['☯']),
+        ('unicode-38', _('Moon'), ['☾']),
+        ('unicode-39', _('Point up'), ['☝']),
+        ('unicode-40', _('Floret'), ['✽']),
+        ('unicode-41', _('Meteor'), ['☄']),
+        ('unicode-42', _('Point down'), ['☟']),
+        ('unicode-43', _('Floret'), ['✺']),
+        ('unicode-44', _('Sizzors'), ['✂']),
+        ('unicode-45', _('Pen'), ['✍']),
+        ('unicode-46', _('Floret'), ['✵']),
+        ('unicode-47', _('Stars'), ['⁂']),
+        ('unicode-48', _('Place'), ['⌘']),
+        ('unicode-49', _('Clock'), ['⏲']),
         ]
         
 SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
@@ -117,6 +168,7 @@ def parse(text):
         
     return result
 
+
 def init():
     if _catalog:
         return
@@ -125,8 +177,42 @@ def init():
     
     for index, (name, hint, codes) in enumerate(THEME):
         archivo = os.path.join(svg_dir, '%s.svg' % (name))
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(archivo, SMILIES_SIZE, SMILIES_SIZE)
+        if name[0:7] == 'unicode':
+            # Create the icon from unicode characters on the fly
+            pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
+            pl.write(_generate_svg(codes[0]))
+            pl.close()
+            pixbuf = pl.get_pixbuf()
+        else:
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                archivo, SMILIES_SIZE, SMILIES_SIZE)
         for i in codes:
             _catalog[i] = pixbuf
             THEME[index] = (archivo, hint, codes)
             
+
+def _generate_svg(letter):
+    # TODO: Adjust font size and character positioning
+    return '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + \
+        '<svg\n' + \
+        ' xmlns:dc="http://purl.org/dc/elements/1.1/"\n' + \
+        ' xmlns:cc="http://creativecommons.org/ns#"\n' + \
+        ' xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n' + \
+        ' xmlns:svg="http://www.w3.org/2000/svg"\n' + \
+        ' xmlns="http://www.w3.org/2000/svg"\n' + \
+        ' version="1.0"\n' + \
+        ' width="%d"\n' % SMILIES_SIZE + \
+        ' height="%d"\n' % SMILIES_SIZE + \
+        '>\n' + \
+        '<text\n' + \
+        ' x="14"\n' + \
+        ' y="42"\n' + \
+        'style="font-size:40px;font-style:normal;font-weight:normal;\n' + \
+        'fill:#ffffff;fill-opacity:1;stroke:none;'  + \
+        'font-family:Bitstream Vera Sans">\n' + \
+        '<tspan\n' + \
+        ' x="14"\n' + \
+        ' y="42">\n' + \
+        letter + \
+        '</tspan></text>\n' + \
+        '</svg>\n'

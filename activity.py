@@ -1,4 +1,5 @@
 #Copyright 2007-2008 One Laptop Per Child
+#Copyright 2009-14 Sugar Labs
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -288,9 +289,8 @@ class Chat(activity.Activity):
     def can_close(self):
         '''Perform cleanup before closing.
 
-    Close text channel of a one to one XMPP chat.
-
-    '''
+        Close text channel of a one to one XMPP chat.
+        '''
         if self._chat_is_room is False:
             if self.text_channel is not None:
                 self.text_channel.close()
