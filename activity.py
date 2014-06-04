@@ -16,9 +16,17 @@
 
 from gi.repository import Gtk
 from gi.repository import Gdk
+
+try:
+    from gi.repository import Gst
+    _HAS_SOUND = True
+except:
+    _HAS_SOUND = False
+
 import logging
 import json
 import math
+import os
 from gettext import gettext as _
 
 from telepathy.interfaces import CHANNEL_INTERFACE
@@ -35,6 +43,7 @@ from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.palette import Palette
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity import activity
+from sugar3.activity.activity import get_bundle_path
 from sugar3.presence import presenceservice
 from sugar3.activity.widgets import ActivityButton
 from sugar3.activity.widgets import TitleEntry
@@ -48,7 +57,10 @@ from chat.box import ChatBox
 
 logger = logging.getLogger('chat-activity')
 
-SMILIES_COLUMNS = 5
+SMILIES_COLUMNS = 7
+
+if _HAS_SOUND:
+    Gst.init([])
 
 
 # pylint: disable-msg=W0223
@@ -75,8 +87,8 @@ class Chat(activity.Activity):
         try:
             from sugar3.activity.widgets import DescriptionItem
         except ImportError:
-            logger.debug('DescriptionItem button is not available, ' \
-                    'toolkit version < 0.96')
+            logger.debug('DescriptionItem button is not available, '
+                         'toolkit version < 0.96')
         else:
             description_item = DescriptionItem(self)
             toolbar_box.toolbar.insert(description_item, -1)
@@ -111,6 +123,9 @@ class Chat(activity.Activity):
         self._chat_is_room = False
         self.text_channel = None
 
+        if _HAS_SOUND:
+            self.element = Gst.ElementFactory.make('playbin', 'Player')
+
         if self.shared_activity:
             # we are joining the activity
             self.connect('joined', self._joined_cb)
@@ -123,8 +138,9 @@ class Chat(activity.Activity):
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
-            if not self.metadata or self.metadata.get('share-scope',
-                activity.SCOPE_PRIVATE) == activity.SCOPE_PRIVATE:
+            if not self.metadata or self.metadata.get(
+                    'share-scope', activity.SCOPE_PRIVATE) == \
+                    activity.SCOPE_PRIVATE:
                 # if we are in private session
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             self.connect('shared', self._shared_cb)
@@ -161,16 +177,17 @@ class Chat(activity.Activity):
         self._setup()
 
     def _one_to_one_connection(self, tp_channel):
-        """Handle a private invite from a non-sugar3 XMPP client."""
+        '''Handle a private invite from a non-sugar3 XMPP client.'''
         if self.shared_activity or self.text_channel:
             return
         bus_name, connection, channel = json.loads(tp_channel)
-        logger.debug('GOT XMPP: %s %s %s', bus_name, connection,channel)
-        Connection( bus_name, connection, ready_handler=lambda conn: \
-        self._one_to_one_connection_ready_cb(bus_name, channel, conn))
+        logger.debug('GOT XMPP: %s %s %s', bus_name, connection, channel)
+        Connection(bus_name, connection, ready_handler=lambda conn:
+                   self._one_to_one_connection_ready_cb(
+                       bus_name, channel, conn))
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
-        """Callback for Connection for one to one connection"""
+        '''Callback for Connection for one to one connection'''
         text_channel = Channel(bus_name, channel)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
@@ -185,7 +202,7 @@ class Chat(activity.Activity):
         self.entry.grab_focus()
 
     def _one_to_one_connection_closed_cb(self):
-        """Callback for when the text channel closes."""
+        '''Callback for when the text channel closes.'''
         self._alert(_('Off-line'), _('left the chat'))
 
     def _setup(self):
@@ -202,7 +219,7 @@ class Chat(activity.Activity):
         self._smiley.props.sensitive = True
 
     def _joined_cb(self, sender):
-        """Joined a shared activity."""
+        '''Joined a shared activity.'''
         if not self.shared_activity:
             return
         logger.debug('Joined a shared chat')
@@ -211,7 +228,7 @@ class Chat(activity.Activity):
         self._setup()
 
     def _received_cb(self, buddy, text):
-        """Show message that was received."""
+        '''Show message that was received.'''
         if buddy:
             if type(buddy) is dict:
                 nick = buddy['nick']
@@ -221,8 +238,15 @@ class Chat(activity.Activity):
             nick = '???'
         logger.debug('Received message from %s: %s', nick, text)
         self.chatbox.add_text(buddy, text)
-        if not self.has_focus:
-            self.notify_user(_("Message from %s") % buddy, text)
+
+        if self.owner.props.nick in text:
+            self.play_sound('said_nick')
+
+        vscroll = self.chatbox.get_vadjustment()
+        if vscroll.get_property('value') != vscroll.get_property('upper'):
+            self._alert(_('New message'), _('New message from %s' % nick))
+        # if not self.has_focus:
+        #     self.notify_user(_('Message from %s') % buddy, text)
 
     def _alert(self, title, text=None):
         alert = NotifyAlert(timeout=5)
@@ -236,34 +260,37 @@ class Chat(activity.Activity):
         self.remove_alert(alert)
 
     def _buddy_joined_cb(self, sender, buddy):
-        """Show a buddy who joined"""
+        '''Show a buddy who joined'''
         if buddy == self.owner:
             return
         self.chatbox.add_text(buddy,
-            buddy.props.nick + ' ' + _('joined the chat'),
-            status_message=True)
+                              _('%s joined the chat') % buddy.props.nick,
+                              status_message=True)
+
+        self.play_sound('login')
 
     def _buddy_left_cb(self, sender, buddy):
-        """Show a buddy who joined"""
+        '''Show a buddy who joined'''
         if buddy == self.owner:
             return
-        self.chatbox.add_text(buddy,
-            buddy.props.nick + ' ' + _('left the chat'),
-            status_message=True)
+        self.chatbox.add_text(buddy, _('%s left the chat') % buddy.props.nick,
+                              status_message=True)
+
+        self.play_sound('logout')
 
     def _buddy_already_exists(self, buddy):
-        """Show a buddy already in the chat."""
+        '''Show a buddy already in the chat.'''
         if buddy == self.owner:
             return
-        self.chatbox.add_text(buddy, buddy.props.nick + ' ' + _('is here'),
-            status_message=True)
+        self.chatbox.add_text(buddy, _('%s is here') % buddy.props.nick,
+                              status_message=True)
 
     def can_close(self):
-        """Perform cleanup before closing.
+        '''Perform cleanup before closing.
 
     Close text channel of a one to one XMPP chat.
 
-    """
+    '''
         if self._chat_is_room is False:
             if self.text_channel is not None:
                 self.text_channel.close()
@@ -272,9 +299,9 @@ class Chat(activity.Activity):
     def make_root(self):
         entry = Gtk.Entry()
         entry.modify_bg(Gtk.StateType.INSENSITIVE,
-            style.COLOR_WHITE.get_gdk_color())
+                        style.COLOR_WHITE.get_gdk_color())
         entry.modify_base(Gtk.StateType.INSENSITIVE,
-            style.COLOR_WHITE.get_gdk_color())
+                          style.COLOR_WHITE.get_gdk_color())
         entry.set_sensitive(False)
         entry.connect('activate', self.entry_activate_cb)
         entry.connect('key-press-event', self.entry_key_press_cb)
@@ -290,11 +317,11 @@ class Chat(activity.Activity):
         return box
 
     def entry_key_press_cb(self, widget, event):
-        """Check for scrolling keys.
+        '''Check for scrolling keys.
 
         Check if the user pressed Page Up, Page Down, Home or End and
         scroll the window according the pressed key.
-        """
+        '''
         vadj = self.chatbox.get_vadjustment()
         if event.keyval == Gdk.KEY_Page_Down:
             value = vadj.get_value() + vadj.page_size
@@ -304,10 +331,10 @@ class Chat(activity.Activity):
         elif event.keyval == Gdk.KEY_Page_Up:
             vadj.set_value(vadj.get_value() - vadj.page_size)
         elif event.keyval == Gdk.KEY_Home and \
-            event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+             event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.lower)
         elif event.keyval == Gdk.KEY_End and \
-            event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+             event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
     def entry_activate_cb(self, entry):
@@ -322,14 +349,14 @@ class Chat(activity.Activity):
                 self.text_channel.send(text)
             else:
                 logger.debug('Tried to send message but text channel '
-                    'not connected.')
+                             'not connected.')
 
     def write_file(self, file_path):
-        """Store chat log in Journal.
+        '''Store chat log in Journal.
 
         Handling the Journal is provided by Activity - we only need
         to define this method.
-        """
+        '''
         logger.debug('write_file: writing %s' % file_path)
         self.chatbox.add_log_timestamp()
         f = open(file_path, 'w')
@@ -340,10 +367,10 @@ class Chat(activity.Activity):
         self.metadata['mime_type'] = 'text/plain'
 
     def read_file(self, file_path):
-        """Load a chat log from the Journal.
+        '''Load a chat log from the Journal.
         Handling the Journal is provided by Activity - we only need
         to define this method.
-        """
+        '''
         logger.debug('read_file: reading %s' % file_path)
         log = open(file_path).readlines()
         last_line_was_timestamp = False
@@ -357,14 +384,26 @@ class Chat(activity.Activity):
                 timestamp, nick, color, status, text = line.strip().split('\t')
                 status_message = bool(int(status))
                 self.chatbox.add_text({'nick': nick, 'color': color},
-                    text, status_message)
+                                      text, status_message)
                 last_line_was_timestamp = False
 
+    def play_sound(self, event):
+        if _HAS_SOUND:
+            SOUNDS_PATH = os.path.join(get_bundle_path(), 'sounds')
+            SOUNDS = {'said_nick': os.path.join(SOUNDS_PATH, 'alert.wav'),
+                      'login': os.path.join(SOUNDS_PATH, 'login.wav'),
+                      'logout': os.path.join(SOUNDS_PATH, 'logout.wav')}
+
+            self.element.set_state(Gst.State.NULL)
+            self.element.set_property('uri', 'file://%s' % SOUNDS[event])
+            self.element.set_state(Gst.State.PLAYING)
+
+
 class TextChannelWrapper(object):
-    """Wrap a telepathy Text Channfel to make usage simpler."""
+    '''Wrap a telepathy Text Channfel to make usage simpler.'''
 
     def __init__(self, text_chan, conn):
-        """Connect to the text channel"""
+        '''Connect to the text channel'''
         self._activity_cb = None
         self._activity_close_cb = None
         self._text_chan = text_chan
@@ -377,14 +416,14 @@ class TextChannelWrapper(object):
         self._signal_matches.append(m)
 
     def send(self, text):
-        """Send text over the Telepathy text channel."""
+        '''Send text over the Telepathy text channel.'''
         # XXX Implement CHANNEL_TEXT_MESSAGE_TYPE_ACTION
         if self._text_chan is not None:
             self._text_chan[CHANNEL_TYPE_TEXT].Send(
                 CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
 
     def close(self):
-        """Close the text channel."""
+        '''Close the text channel.'''
         self._logger.debug('Closing text channel')
         try:
             self._text_chan[CHANNEL_INTERFACE].Close()
@@ -393,7 +432,7 @@ class TextChannelWrapper(object):
             self._closed_cb()
 
     def _closed_cb(self):
-        """Clean up text channel."""
+        '''Clean up text channel.'''
         self._logger.debug('Text channel closed.')
         for match in self._signal_matches:
             match.remove()
@@ -403,30 +442,30 @@ class TextChannelWrapper(object):
             self._activity_close_cb()
 
     def set_received_callback(self, callback):
-        """Connect the function callback to the signal.
+        '''Connect the function callback to the signal.
 
         callback -- callback function taking buddy and text args
-        """
+        '''
         if self._text_chan is None:
             return
         self._activity_cb = callback
-        m = self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal('Received',
-            self._received_cb)
+        m = self._text_chan[CHANNEL_TYPE_TEXT].connect_to_signal(
+            'Received', self._received_cb)
         self._signal_matches.append(m)
 
     def handle_pending_messages(self):
-        """Get pending messages and show them as received."""
+        '''Get pending messages and show them as received.'''
         for identity, timestamp, sender, type_, flags, text in \
             self._text_chan[
                 CHANNEL_TYPE_TEXT].ListPendingMessages(False):
             self._received_cb(identity, timestamp, sender, type_, flags, text)
 
     def _received_cb(self, identity, timestamp, sender, type_, flags, text):
-        """Handle received text from the text channel.
+        '''Handle received text from the text channel.
 
         Converts sender to a Buddy.
         Calls self._activity_cb which is a callback to the activity.
-        """
+        '''
         if type_ != 0:
             # Exclude any auxiliary messages
             return
@@ -448,19 +487,19 @@ class TextChannelWrapper(object):
                 CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([identity])
         else:
             self._logger.debug('Throwing received message on the floor'
-                ' since there is no callback connected. See '
-                'set_received_callback')
+                               ' since there is no callback connected. See'
+                               ' set_received_callback')
 
     def set_closed_callback(self, callback):
-        """Connect a callback for when the text channel is closed.
+        '''Connect a callback for when the text channel is closed.
 
         callback -- callback function taking no args
 
-        """
+        '''
         self._activity_close_cb = callback
 
     def _get_buddy(self, cs_handle):
-        """Get a Buddy from a (possibly channel-specific) handle."""
+        '''Get a Buddy from a (possibly channel-specific) handle.'''
         # XXX This will be made redundant once Presence Service
         # provides buddy resolution
         # Get the Presence Service
@@ -472,8 +511,8 @@ class TextChannelWrapper(object):
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
-        elif group.GetGroupFlags() & \
-            CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+        elif group.GetGroupFlags() and \
+             CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
             handle = group.GetHandleOwners([cs_handle])[0]
         else:
             handle = cs_handle

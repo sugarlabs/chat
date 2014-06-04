@@ -12,7 +12,7 @@ icon      = activity-icon
 exec      = sugar-activity activity.Chat
 
 # original activity.info options
-activity_version = 76
+activity_version = 79
 bundle_id = org.laptop.Chat
 
 [Package]
