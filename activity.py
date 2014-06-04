@@ -96,9 +96,9 @@ class Chat(activity.Activity):
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
 
-        activity_button_toolbar = ActivityToolbarButton(self)
-        toolbar_box.toolbar.insert(activity_button_toolbar, 0)
-        activity_button_toolbar.show()
+        self._activity_button_toolbar = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(self._activity_button_toolbar, 0)
+        self._activity_button_toolbar.show()
 
         separator = Gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
@@ -137,7 +137,7 @@ class Chat(activity.Activity):
                 self._joined_cb(self)
         elif handle.uri:
             # XMPP non-sugar3 incoming chat, not sharable
-            share_button.props.visible = False
+            self._activity_button_toolbar.share.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
