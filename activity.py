@@ -181,10 +181,18 @@ class Chat(activity.Activity):
         if self.shared_activity or self.text_channel:
             return
         bus_name, connection, channel = json.loads(tp_channel)
+<<<<<<< HEAD
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection, channel)
         Connection(bus_name, connection, ready_handler=lambda conn:
                    self._one_to_one_connection_ready_cb(
                        bus_name, channel, conn))
+=======
+        logger.debug('GOT XMPP: %s %s %s', bus_name, connection,
+                     channel)
+        Connection(
+            bus_name, connection, ready_handler=lambda conn: \
+            self._one_to_one_connection_ready_cb(bus_name, channel, conn))
+>>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
         '''Callback for Connection for one to one connection'''

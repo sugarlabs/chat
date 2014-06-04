@@ -1,8 +1,21 @@
+<<<<<<< HEAD
 79
 
 * GTK3 update by Flavio
 * Sound alerts by Ignacio
 * Notifications by Jorge and SAMdroid
+=======
+78
+
+* Replace cjson with json #3142
+* Update translations
+
+77
+
+* Fix issue of not packaging .mo translation files
+* Chat text lines offset on screen lower than username #3634
+* Update translations
+>>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
 
 76
 
@@ -10,22 +23,22 @@
 
 75
 
-- Scroll the chat log #2782 (Manuel Kaufmann)
-- Don't treat the whole word as an URL (Manuel Kaufmann)
-- Update translations
+* Scroll the chat log #2782 (Manuel Kaufmann)
+* Don't treat the whole word as an URL (Manuel Kaufmann)
+* Update translations
 
 74
 
-- Remove use of hippo (Gonzalo Odiard)
-- Update translations
+* Remove use of hippo (Gonzalo Odiard)
+* Update translations
 
 73
 
-- Return langs back by generating locale/ directory
+* Return langs back by generating locale/ directory
 
 72
 
-- Update translations
+* Update translations
 
 71
 

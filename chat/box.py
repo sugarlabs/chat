@@ -240,6 +240,7 @@ class TextBox(Gtk.TextView):
 
 class ColorLabel(Gtk.Label):
     def __init__(self, text, color=None):
+<<<<<<< HEAD
             GObject.GObject.__init__(self)
             self.set_use_markup(True)
             self._color = color
@@ -248,6 +249,20 @@ class ColorLabel(Gtk.Label):
             self.set_markup(text)
 
 class ChatBox(Gtk.ScrolledWindow):
+=======
+        self._color = color
+        if self._color is not None:
+            text = '<span foreground="%s">' % self._color.get_html() + \
+                    text + '</span>'
+        gtk.Label.__init__(self)
+        self.set_use_markup(True)
+        self.set_markup(text)
+        self.props.selectable = True
+
+
+class ChatBox(gtk.ScrolledWindow):
+
+>>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
     def __init__(self):
         GObject.GObject.__init__(self)
 
@@ -263,8 +278,15 @@ class ChatBox(Gtk.ScrolledWindow):
         
         self._conversation = Gtk.VBox()
         self._conversation.set_homogeneous(False)
+<<<<<<< HEAD
         evbox = Gtk.EventBox()
         evbox.modify_bg(Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
+=======
+        self._conversation.props.spacing = style.LINE_WIDTH
+        self._conversation.props.border_width = style.LINE_WIDTH
+        evbox = gtk.EventBox()
+        evbox.modify_bg(gtk.STATE_NORMAL, style.COLOR_WHITE.get_gdk_color())
+>>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
         evbox.add(self._conversation)
         
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
@@ -341,6 +363,7 @@ class ChatBox(Gtk.ScrolledWindow):
         if not new_msg:
             message = self._last_msg
         else:
+<<<<<<< HEAD
                 rb = RoundBox()
                 screen_width = Gdk.Screen.width()
                 # keep space to the scrollbar
@@ -360,6 +383,30 @@ class ChatBox(Gtk.ScrolledWindow):
                 self._last_msg = message
                 self._conversation.pack_start(rb, False, False, 2)
         
+=======
+            rb = RoundBox()
+            screen_width = gtk.gdk.screen_width()
+            # keep space to the scrollbar
+            rb.set_size_request(screen_width - 50, -1)
+            rb.props.border_width = style.DEFAULT_PADDING
+            rb.props.spacing = style.DEFAULT_SPACING
+            rb.background_color = color_fill
+            rb.border_color = color_stroke
+            self._last_msg_sender = buddy
+            if not status_message:
+                name = ColorLabel(text=nick + ':', color=text_color)
+                name_vbox = gtk.VBox()
+                name_vbox.pack_start(name, False, False)
+                rb.pack_start(name_vbox, False, False)
+
+            message = TextBox(text_color, color_fill, lang_rtl)
+            vbox = gtk.VBox()
+            vbox.pack_start(message, True, True)
+            rb.pack_start(vbox, True, True)
+            self._last_msg = message
+            self._conversation.pack_start(rb, False, False)
+
+>>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
         if status_message:
             self._last_msg_sender = None
 
