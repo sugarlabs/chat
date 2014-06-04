@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 79
 
 * GTK3 update by Flavio
 * Sound alerts by Ignacio
 * Notifications by Jorge and SAMdroid
-=======
+
 78
 
 * Replace cjson with json #3142
@@ -15,7 +14,6 @@
 * Fix issue of not packaging .mo translation files
 * Chat text lines offset on screen lower than username #3634
 * Update translations
->>>>>>> 33573db18b7ced67555baf2468a599eaa46abf4c
 
 76
 
