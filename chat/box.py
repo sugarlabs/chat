@@ -44,7 +44,8 @@ from chat import smilies
 from chat.roundbox import RoundBox
 
 
-_URL_REGEXP = re.compile('((http|ftp)s?://)?'
+_URL_REGEXP = re.compile(
+    '((http|ftp)s?://)?'
     '(([-a-zA-Z0-9]+[.])+[-a-zA-Z0-9]{2,}|([0-9]{1,3}[.]){3}[0-9]{1,3})'
     '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
 
@@ -52,10 +53,10 @@ _URL_REGEXP = re.compile('((http|ftp)s?://)?'
 def _luminance(color):
     ''' Calculate luminance value '''
     return int(color[1:3], 16) * 0.3 + int(color[3:5], 16) * 0.6 + \
-           int(color[5:7], 16) * 0.1
+        int(color[5:7], 16) * 0.1
 
 
-def ligher_color(colors):
+def lighter_color(colors):
     ''' Which color is lighter? Use that one for the text nick color '''
     if _luminance(colors[0]) > _luminance(colors[1]):
         return 0
@@ -80,24 +81,24 @@ class TextBox(Gtk.TextView):
         self.get_buffer().set_text("", 0)
         self.iter_text = self.get_buffer().get_iter_at_offset(0)
         self.fg_tag = self.get_buffer().create_tag("foreground_color",
-            foreground=color.get_html())
-        self._subscript_tag = self.get_buffer().create_tag('subscript',
-            rise=-7 * Pango.SCALE) # in pixels
+                                                   foreground=color.get_html())
+        self._subscript_tag = self.get_buffer().create_tag(
+            'subscript', rise=-7 * Pango.SCALE)  # in pixels
         self._empty = True
         self.palette = None
         self._mouse_detector = MouseSpeedDetector(200, 5)
         self._mouse_detector.connect('motion-slow', self.__mouse_slow_cb)
         self.modify_bg(0, bg_color.get_gdk_color())
 
-        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK | \
-            Gdk.EventMask.BUTTON_PRESS_MASK | \
-            Gdk.EventMask.BUTTON_RELEASE_MASK | \
-            Gdk.EventMask.LEAVE_NOTIFY_MASK)
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK |
+                        Gdk.EventMask.BUTTON_PRESS_MASK |
+                        Gdk.EventMask.BUTTON_RELEASE_MASK |
+                        Gdk.EventMask.LEAVE_NOTIFY_MASK)
 
         self.connect('event-after', self.__event_after_cb)
         self.connect('button-press-event', self.__button_press_cb)
-        self.motion_notify_id = self.connect('motion-notify-event', \
-            self.__motion_notify_cb)
+        self.motion_notify_id = self.connect('motion-notify-event',
+                                             self.__motion_notify_cb)
         self.connect('visibility-notify-event', self.__visibility_notify_cb)
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
 
@@ -115,7 +116,7 @@ class TextBox(Gtk.TextView):
             return False
 
         x, y = self.window_to_buffer_coords(Gtk.TextWindowType.WIDGET,
-            int(event.x), int(event.y))
+                                            int(event.x), int(event.y))
         iter_tags = self.get_iter_at_location(x, y)
 
         for tag in iter_tags.get_tags():
@@ -144,7 +145,8 @@ class TextBox(Gtk.TextView):
             }
         for k, v in metadata.items():
             jobject.metadata[k] = v
-        file_path = os.path.join(get_activity_root(), 'instance', '%i_' % time.time())
+        file_path = os.path.join(get_activity_root(), 'instance',
+                                 '%i_' % time.time())
         open(file_path, 'w').write(url + '\r\n')
         os.chmod(file_path, 0755)
         jobject.set_file_path(file_path)
@@ -192,19 +194,19 @@ class TextBox(Gtk.TextView):
         x, y = self.get_pointer()
         hovering_over_link = self.check_url_hovering(x, y)
         if hovering_over_link:
-            if self.palette != None:
+            if self.palette is not None:
                 xw, yw = self.get_toplevel().get_pointer()
                 self.palette.move(xw, yw)
                 self.palette.popup()
                 self._mouse_detector.stop()
         else:
-            if self.palette != None:
+            if self.palette is not None:
                 self.palette.popdown()
 
     # Update the cursor image if the pointer moved.
     def __motion_notify_cb(self, widget, event):
         x, y = self.window_to_buffer_coords(Gtk.TextWindowType.WIDGET,
-            int(event.x), int(event.y))
+                                            int(event.x), int(event.y))
         self.set_cursor_if_appropriate(x, y)
         self.get_pointer()
         return False
@@ -212,7 +214,8 @@ class TextBox(Gtk.TextView):
     def __visibility_notify_cb(self, widget, event):
         # Also update the cursor image if the window becomes visible
         # (e.g. when a window covering it got iconified).
-        bx, by = self.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, 200, 200)
+        bx, by = self.window_to_buffer_coords(
+            Gtk.TextWindowType.WIDGET, 200, 200)
         self.set_cursor_if_appropriate(bx, by)
         return False
 
@@ -231,46 +234,52 @@ class TextBox(Gtk.TextView):
         words = text.split()
         for word in words:
             if _URL_REGEXP.match(word) is not None:
-                tag = buf.create_tag(None,
-                    foreground="blue", underline=Pango.Underline.SINGLE)
+                tag = buf.create_tag(None, foreground="blue",
+                                     underline=Pango.Underline.SINGLE)
                 tag.set_data("url", word)
                 palette = _URLMenu(word)
-                # FIXME: TypeError: _URLMenu: unknown signal name: enter-notify-event - leave-notify-event
+                # FIXME: TypeError: _URLMenu: unknown signal name:
+                # enter-notify-event - leave-notify-event
                 #palette.connect('enter-notify-event',
                 #    self.__palette_mouse_enter_cb)
                 #palette.connect('leave-notify-event',
                 #    self.__palette_mouse_leave_cb)
                 tag.set_data('palette', palette)
-                buf.insert_with_tags(self.iter_text, word, tag,
-                    self.fg_tag)
+                buf.insert_with_tags(self.iter_text, word, tag, self.fg_tag)
             else:
                 for i in smilies.parse(word):
                     if isinstance(i, GdkPixbuf.Pixbuf):
                         start = self.iter_text.get_offset()
                         buf.insert_pixbuf(self.iter_text, i)
                         buf.apply_tag(self._subscript_tag,
-                            buf.get_iter_at_offset(start), self.iter_text)
+                                      buf.get_iter_at_offset(start),
+                                      self.iter_text)
                     else:
                         buf.insert_with_tags(self.iter_text, i, self.fg_tag)
             buf.insert_with_tags(self.iter_text, ' ', self.fg_tag)
 
         self._empty = False
 
+
 class ColorLabel(Gtk.Label):
+
     def __init__(self, text, color=None):
-            GObject.GObject.__init__(self)
-            self.set_use_markup(True)
-            self._color = color
-            if self._color != None:
-                text = '<span foreground="%s">%s</span>' % (self._color.get_html(), text)
-            self.set_markup(text)
+        GObject.GObject.__init__(self)
+        self.set_use_markup(True)
+        self._color = color
+        if self._color is not None:
+            text = '<span foreground="%s">%s</span>' % (
+                self._color.get_html(), text)
+        self.set_markup(text)
+
 
 class ChatBox(Gtk.ScrolledWindow):
+
     def __init__(self):
         GObject.GObject.__init__(self)
 
         self.owner = presenceservice.get_instance().get_owner()
-        
+
         # Auto vs manual scrolling:
         self._scroll_auto = True
         self._scroll_value = 0.0
@@ -278,19 +287,20 @@ class ChatBox(Gtk.ScrolledWindow):
         # Track last message, to combine several messages:
         self._last_msg = None
         self._chat_log = ''
-        
+
         self._conversation = Gtk.VBox()
         self._conversation.set_homogeneous(False)
         evbox = Gtk.EventBox()
-        evbox.modify_bg(Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
+        evbox.modify_bg(
+            Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
         evbox.add(self._conversation)
-        
+
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
         self.add_with_viewport(evbox)
         vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
-    
+
     def get_log(self):
         return self._chat_log
 
@@ -328,7 +338,7 @@ class ChatBox(Gtk.ScrolledWindow):
         """
         if not buddy:
             buddy = self.owner
-        
+
         if type(buddy) is dict:
             # dict required for loading chat log from journal
             nick = buddy['nick']
@@ -340,27 +350,27 @@ class ChatBox(Gtk.ScrolledWindow):
             color_stroke_html, color_fill_html = color.split(',')
         except ValueError:
             color_stroke_html, color_fill_html = ('#000000', '#888888')
-        
+
         # Select text color based on fill color:
         color_fill_rgba = style.Color(color_fill_html).get_rgba()
         color_fill_gray = (color_fill_rgba[0] + color_fill_rgba[1] +
-            color_fill_rgba[2]) / 3
+                           color_fill_rgba[2]) / 3
         color_stroke = style.Color(color_stroke_html)
         color_fill = style.Color(color_fill_html)
-        
+
         if color_fill_gray < 0.5:
             text_color = style.COLOR_WHITE
         else:
             text_color = style.COLOR_BLACK
-        
+
         self._add_log(nick, color, text, status_message)
-        
+
         # Check for Right-To-Left languages:
         if Pango.find_base_dir(nick, -1) == Pango.Direction.RTL:
             lang_rtl = True
         else:
             lang_rtl = False
-        
+
         # Check if new message box or add text to previous:
         new_msg = True
         if self._last_msg_sender:
@@ -368,12 +378,11 @@ class ChatBox(Gtk.ScrolledWindow):
                 if buddy == self._last_msg_sender:
                     # Add text to previous message
                     new_msg = False
-        
+
         if not new_msg:
             message = self._last_msg
         else:
                 rb = RoundBox()
-                screen_width = Gdk.Screen.width()
                 # keep space to the scrollbar
                 rb.background_color = color_fill
                 rb.border_color = color_stroke
@@ -382,45 +391,47 @@ class ChatBox(Gtk.ScrolledWindow):
                     name = ColorLabel(text='%s: ' % (nick), color=text_color)
                     name_vbox = Gtk.VBox()
                     name_vbox.pack_start(name, False, False, 0)
-                    rb.pack_start(name_vbox, False, False,0)
+                    rb.pack_start(name_vbox, False, False, 0)
 
                 message = TextBox(text_color, color_fill, lang_rtl)
                 vbox = Gtk.VBox()
-                vbox.pack_start(message, True, True,0)
-                rb.pack_start(vbox, True, True,0)
+                vbox.pack_start(message, True, True, 0)
+                rb.pack_start(vbox, True, True, 0)
                 self._last_msg = message
                 self._conversation.pack_start(rb, False, False, 2)
-        
+
         if status_message:
             self._last_msg_sender = None
 
         message.add_text(text)
         self._conversation.show_all()
-        
+
     def add_separator(self, timestamp):
             """Add whitespace and timestamp between chat sessions."""
-            time_with_current_year = (time.localtime(time.time())[0],) +\
+            time_with_current_year = (time.localtime(time.time())[0], ) + \
                 time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
-            
+
             timestamp_seconds = time.mktime(time_with_current_year)
             if timestamp_seconds > time.time():
-                time_with_previous_year = (time.localtime(time.time())[0] - 1,) +\
+                time_with_previous_year = \
+                    (time.localtime(time.time())[0] - 1, ) + \
                     time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
                 timestamp_seconds = time.mktime(time_with_previous_year)
-            
+
             message = ColorLabel(
                 text=timestamp_to_elapsed_string(timestamp_seconds),
                 color=style.COLOR_BUTTON_GREY)
             box = Gtk.HBox()
             box.show()
-            align = Gtk.Alignment.new(xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
+            align = Gtk.Alignment.new(
+                xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
             box.pack_start(align, True, True, 0)
             align.add(message)
             box.show_all()
             self._conversation.pack_start(box, False, False, 0)
             self.add_log_timestamp(timestamp)
             self._last_msg_sender = None
-    
+
     def add_log_timestamp(self, existing_timestamp=None):
         """Add a timestamp entry to the chat log."""
         if existing_timestamp is not None:
@@ -428,7 +439,7 @@ class ChatBox(Gtk.ScrolledWindow):
         else:
             self._chat_log += '%s\t\t\n' % (
                 datetime.strftime(datetime.now(), '%b %d %H:%M:%S'))
-    
+
     def _add_log(self, nick, color, text, status_message):
         """Add the text to the chat log.
         nick -- string, buddy nickname
@@ -447,7 +458,7 @@ class ChatBox(Gtk.ScrolledWindow):
         self._chat_log += '%s\t%s\t%s\t%d\t%s\n' % (
             datetime.strftime(datetime.now(), '%b %d %H:%M:%S'),
             nick, color, status_message, text)
-    
+
     def _scroll_value_changed_cb(self, adj, scroll=None):
         """Turn auto scrolling on or off.
         If the user scrolled up, turn it off.
@@ -457,14 +468,16 @@ class ChatBox(Gtk.ScrolledWindow):
             self._scroll_auto = False
         elif adj.get_value() == adj.get_upper() - adj.get_page_size():
             self._scroll_auto = True
-    
+
     def _scroll_changed_cb(self, adj, scroll=None):
         """Scroll the chat window to the bottom"""
         if self._scroll_auto:
             adj.set_value(adj.get_upper() - adj.get_page_size())
             self._scroll_value = adj.get_value()
-            
+
+
 class _URLMenu(Palette):
+
     def __init__(self, url):
         Palette.__init__(self, url)
         self.owns_clipboard = False
@@ -480,20 +493,17 @@ class _URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logging.debug('Copy %s to clipboard', self.url)
         clipboard = Gtk.clipboard_get()
-        targets = [("text/uri-list", 0, 0),
-            ("UTF8_STRING", 0, 1)]
-        
-        if not clipboard.set_with_data(targets,
-            self._clipboard_data_get_cb,
-            self._clipboard_clear_cb,
-            (self.url)):
+        targets = [("text/uri-list", 0, 0), ("UTF8_STRING", 0, 1)]
+
+        if not clipboard.set_with_data(targets, self._clipboard_data_get_cb,
+                                       self._clipboard_clear_cb, (self.url)):
             logging.debug('GtkClipboard.set_with_data failed!')
         else:
             self.owns_clipboard = True
-    
+
     def _clipboard_data_get_cb(self, clipboard, selection, info, data):
         logging.debug('_clipboard_data_get_cb data=%s target=%s', data,
-            selection.target)
+                      selection.target)
         if selection.target in ['text/uri-list']:
             if not selection.set_uris([data]):
                 logging.debug('failed to set_uris')
@@ -501,7 +511,7 @@ class _URLMenu(Palette):
             logging.debug('not uri')
             if not selection.set_text(data):
                 logging.debug('failed to set_text')
-    
+
     def _clipboard_clear_cb(self, clipboard, data):
         logging.debug('clipboard_clear_cb')
         self.owns_clipboard = False
@@ -519,4 +529,3 @@ class _URLMenu(Palette):
         if no_protocol:
             url = 'http://' + url
         return url
-    
