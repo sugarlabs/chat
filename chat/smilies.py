@@ -113,7 +113,7 @@ THEME = [
         ('unicode-22', _('V'), ['✌']),
         ('unicode-23', _('Crown'), ['♛']),
         ('unicode-24', _('Floret'), ['❁']),
-        ('unicode-25', _('Moon and star'), ['☪']),
+        ('unicode-25', _('Star and crescent'), ['☪']),
         ('unicode-26', _('Umbrella'), ['☂']),
         ('unicode-27', _('Pencil'), ['✏']),
         ('unicode-28', _('Floret'), ['❀']),
@@ -137,11 +137,12 @@ THEME = [
         ('unicode-46', _('Floret'), ['✵']),
         ('unicode-47', _('Stars'), ['⁂']),
         ('unicode-48', _('Place'), ['⌘']),
-        ('unicode-49', _('Clock'), ['⏲']),
+        ('unicode-49', _('High voltage'), ['⚡']),
         ]
         
 SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
 _catalog = {}
+
 
 def parse(text):
     """Parse text and find smiles.
@@ -180,9 +181,14 @@ def init():
         if name[0:7] == 'unicode':
             # Create the icon from unicode characters on the fly
             pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
+            svg = _generate_svg(codes[0])
             pl.write(_generate_svg(codes[0]))
             pl.close()
             pixbuf = pl.get_pixbuf()
+            if not os.path.exists(archivo):
+                fd = open(archivo, 'w')
+                fd.write(_generate_svg(codes[0]))
+                fd.close()
         else:
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
                 archivo, SMILIES_SIZE, SMILIES_SIZE)
@@ -201,17 +207,17 @@ def _generate_svg(letter):
         ' xmlns:svg="http://www.w3.org/2000/svg"\n' + \
         ' xmlns="http://www.w3.org/2000/svg"\n' + \
         ' version="1.0"\n' + \
-        ' width="%d"\n' % SMILIES_SIZE + \
-        ' height="%d"\n' % SMILIES_SIZE + \
+        ' width="55"\n' + \
+        ' height="55"\n' + \
         '>\n' + \
         '<text\n' + \
-        ' x="14"\n' + \
+        ' x="0"\n' + \
         ' y="42"\n' + \
         'style="font-size:40px;font-style:normal;font-weight:normal;\n' + \
         'fill:#ffffff;fill-opacity:1;stroke:none;'  + \
         'font-family:Bitstream Vera Sans">\n' + \
         '<tspan\n' + \
-        ' x="14"\n' + \
+        ' x="0"\n' + \
         ' y="42">\n' + \
         letter + \
         '</tspan></text>\n' + \
