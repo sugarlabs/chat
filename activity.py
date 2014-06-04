@@ -46,10 +46,8 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity import activity
 from sugar3.activity.activity import get_bundle_path
 from sugar3.presence import presenceservice
-from sugar3.activity.widgets import ActivityButton
-from sugar3.activity.widgets import TitleEntry
+from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
-from sugar3.activity.widgets import ShareButton
 from sugar3.activity.widgets import RadioMenuButton
 
 from chat import smilies
@@ -82,21 +80,10 @@ class Chat(activity.Activity):
 
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
-        toolbar_box.toolbar.insert(ActivityButton(self), -1)
-        toolbar_box.toolbar.insert(TitleEntry(self), -1)
 
-        try:
-            from sugar3.activity.widgets import DescriptionItem
-        except ImportError:
-            logger.debug('DescriptionItem button is not available, '
-                         'toolkit version < 0.96')
-        else:
-            description_item = DescriptionItem(self)
-            toolbar_box.toolbar.insert(description_item, -1)
-            description_item.show()
-
-        share_button = ShareButton(self)
-        toolbar_box.toolbar.insert(share_button, -1)
+        activity_button_toolbar = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(activity_button_toolbar, 0)
+        activity_button_toolbar.show()
 
         separator = Gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
