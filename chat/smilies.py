@@ -143,12 +143,12 @@ _catalog = {}
 
 
 def parse(text):
-    """Parse text and find smiles.
+    '''Parse text and find smiles.
     :param text:
     string to parse for smilies
     :returns:
     array of string parts and pixbufs
-    """
+    '''
 
     result = [text]
 
