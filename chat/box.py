@@ -49,6 +49,24 @@ _URL_REGEXP = re.compile('((http|ftp)s?://)?'
     '(:[1-9][0-9]{0,4})?(/[-a-zA-Z0-9/%~@&_+=;:,.?#]*[a-zA-Z0-9/])?')
 
 
+def _luminance(color):
+    ''' Calculate luminance value '''
+    return int(color[1:3], 16) * 0.3 + int(color[3:5], 16) * 0.6 + \
+           int(color[5:7], 16) * 0.1
+
+
+def ligher_color(colors):
+    ''' Which color is lighter? Use that one for the text nick color '''
+    if _luminance(colors[0]) > _luminance(colors[1]):
+        return 0
+    return 1
+
+
+def darker_color(colors):
+    ''' Which color is darker? Use that one for the text background '''
+    return 1 - lighter_color(colors)
+
+
 class TextBox(Gtk.TextView):
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
@@ -294,6 +312,19 @@ class ChatBox(Gtk.ScrolledWindow):
         | +---------+ | +------------+ | |
         |             +----------------+ |
         `--------------------------------'
+
+        The color scheme for owner messages is:
+        nick in lighter of stroke and fill colors
+        background in darker of stroke and fill colors
+        text in white
+
+        The color scheme for buddy messages is:
+        nick in darker of stroke and fill colors
+        background in light gray
+        text in black
+
+        rb has a tail on the right for owner messages and the left for
+        buddy messages.
         """
         if not buddy:
             buddy = self.owner
