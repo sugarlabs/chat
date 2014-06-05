@@ -25,7 +25,7 @@ class RoundBox(Gtk.HBox):
     __gtype_name__ = 'RoundBox'
 
     def __init__(self, **kwargs):
-        Gtk.Hbox.__init__(self, **kwargs)
+        Gtk.HBox.__init__(self, **kwargs)
         self._radius = style.zoom(10)
         self.border_color = style.COLOR_BLACK
         self.tail = None
