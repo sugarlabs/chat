@@ -56,8 +56,11 @@ def _luminance(color):
         int(color[5:7], 16) * 0.1
 
 
+def is_low_contrast(colors):
+    return _luminance(colors[0]) - _luminance(colors[1]) < 64
+
+
 def is_dark_light(color):
-    logging.error(_luminance(color))
     return _luminance(color) > 96
 
 
@@ -77,6 +80,11 @@ class TextBox(Gtk.TextView):
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
+    '''
+            if self._color is not None:
+            text = '<span foreground="%s"><b> %s</b></span>' % (
+                self._color.get_html(), text)
+    '''
     def __init__(self, color, bg_color, lang_rtl):
         self._lang_rtl = lang_rtl
         GObject.GObject.__init__(self)
@@ -268,10 +276,12 @@ class TextBox(Gtk.TextView):
 
 class ColorLabel(Gtk.Label):
 
-    def __init__(self, text, color=None):
+    def __init__(self, text, color=None, bg_color=None):
         GObject.GObject.__init__(self)
         self.set_use_markup(True)
         self._color = color
+        if bg_color is not None:
+            self.modify_bg(0, bg_color.get_gdk_color())
         if self._color is not None:
             text = '<span foreground="%s"><b> %s</b></span>' % (
                 self._color.get_html(), text)
@@ -368,20 +378,31 @@ class ChatBox(Gtk.ScrolledWindow):
             if darker == 0:
                 color_fill_rgba = style.Color(color_stroke_html).get_rgba()
                 color_fill = style.Color(color_stroke_html)
-                nick_color = style.Color(color_fill_html)
+                if is_low_contrast(color.split(',')):
+                    nick_color = text_color
+                else:
+                    nick_color = style.Color(color_fill_html)
             else:
                 color_fill_rgba = style.Color(color_fill_html).get_rgba()
                 color_fill = style.Color(color_fill_html)
-                nick_color = style.Color(color_stroke_html)
+                if is_low_contrast(color.split(',')):
+                    nick_color = text_color
+                else:
+                    nick_color = style.Color(color_stroke_html)
             tail = 'right'
         else:
             if darker == 0:
                 nick_color = style.Color(color_stroke_html)
             else:
                 nick_color = style.Color(color_fill_html)
-            text_color = style.COLOR_BLACK
-            color_fill = style.Color('#A0A0A0')
-            tail = 'left'
+            if status_message:
+                text_color = style.COLOR_WHITE
+                color_fill = style.Color('#808080')
+                tail = None
+            else:
+                text_color = style.COLOR_BLACK
+                color_fill = style.Color('#A0A0A0')
+                tail = 'left'
 
         color_stroke = None
 
@@ -419,14 +440,16 @@ class ChatBox(Gtk.ScrolledWindow):
             message = self._last_msg
         else:
                 rb = RoundBox()
-                rb.set_size_request(Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
+                rb.set_size_request(
+                    Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
                 # keep space to the scrollbar
                 rb.background_color = color_fill
                 rb.border_color = color_stroke
                 rb.tail = tail
                 self._last_msg_sender = buddy
                 if not status_message:
-                    name = ColorLabel(text='%s: ' % (nick), color=nick_color)
+                    name = ColorLabel(text='%s: ' % (nick), color=nick_color,
+                                      bg_color=color_fill)
                     name_vbox = Gtk.VBox()
                     name_vbox.pack_start(name, False, False, 0)
                     rb.pack_start(name_vbox, False, False, 0)

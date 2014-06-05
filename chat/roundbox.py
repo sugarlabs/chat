@@ -16,7 +16,6 @@
 
 import math
 from gi.repository import Gtk
-from gi.repository import GObject
 from sugar3.graphics import style
 
 _BORDER_DEFAULT = style.LINE_WIDTH
@@ -26,7 +25,7 @@ class RoundBox(Gtk.HBox):
     __gtype_name__ = 'RoundBox'
 
     def __init__(self, **kwargs):
-        GObject.GObject.__init__(self, **kwargs)
+        Gtk.Hbox.__init__(self, **kwargs)
         self._radius = style.zoom(10)
         self.border_color = style.COLOR_BLACK
         self.tail = None
@@ -98,11 +97,13 @@ if __name__ == '__main__':
     vbox = Gtk.VBox()
 
     box1 = RoundBox()
+    box1.tail = 'right'
     vbox.add(box1)
     label1 = Gtk.Label("Test 1")
     box1.add(label1)
 
     rbox = RoundBox()
+    rbox.tail = 'left'
     rbox.background_color = style.Color('#FF0000')
     vbox.add(rbox)
     label2 = Gtk.Label("Test 2")
