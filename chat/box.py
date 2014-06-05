@@ -56,6 +56,11 @@ def _luminance(color):
         int(color[5:7], 16) * 0.1
 
 
+def is_dark_light(color):
+    logging.error(_luminance(color))
+    return _luminance(color) > 96
+
+
 def lighter_color(colors):
     ''' Which color is lighter? Use that one for the text nick color '''
     if _luminance(colors[0]) > _luminance(colors[1]):
@@ -78,9 +83,9 @@ class TextBox(Gtk.TextView):
         self.set_editable(False)
         self.set_cursor_visible(False)
         self.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
-        self.get_buffer().set_text("", 0)
+        self.get_buffer().set_text('', 0)
         self.iter_text = self.get_buffer().get_iter_at_offset(0)
-        self.fg_tag = self.get_buffer().create_tag("foreground_color",
+        self.fg_tag = self.get_buffer().create_tag('foreground_color',
                                                    foreground=color.get_html())
         self._subscript_tag = self.get_buffer().create_tag(
             'subscript', rise=-7 * Pango.SCALE)  # in pixels
@@ -134,11 +139,11 @@ class TextBox(Gtk.TextView):
         return False
 
     def _show_via_journal(self, url):
-        """Ask the journal to display a URL"""
+        '''Ask the journal to display a URL'''
         logging.debug('Create journal entry for URL: %s', url)
         jobject = datastore.create()
         metadata = {
-            'title': "%s: %s" % (_('URL from Chat'), url),
+            'title': '%s: %s' % (_('URL from Chat'), url),
             'title_set_by_user': '1',
             'icon-color': profile.get_color().to_string(),
             'mime_type': 'text/uri-list',
@@ -179,7 +184,7 @@ class TextBox(Gtk.TextView):
 
     def set_cursor_if_appropriate(self, x, y):
         # Looks at all tags covering the position (x, y) in the text view,
-        # and if one of them is a link, change the cursor to the "hands" cursor
+        # and if one of them is a link, change the cursor to the 'hands' cursor
 
         hovering_over_link = self.check_url_hovering(x, y)
         win = self.get_window(Gtk.TextWindowType.TEXT)
@@ -234,9 +239,9 @@ class TextBox(Gtk.TextView):
         words = text.split()
         for word in words:
             if _URL_REGEXP.match(word) is not None:
-                tag = buf.create_tag(None, foreground="blue",
+                tag = buf.create_tag(None, foreground='blue',
                                      underline=Pango.Underline.SINGLE)
-                tag.set_data("url", word)
+                tag.set_data('url', word)
                 palette = _URLMenu(word)
                 # FIXME: TypeError: _URLMenu: unknown signal name:
                 # enter-notify-event - leave-notify-event
@@ -268,7 +273,7 @@ class ColorLabel(Gtk.Label):
         self.set_use_markup(True)
         self._color = color
         if self._color is not None:
-            text = '<span foreground="%s">%s</span>' % (
+            text = '<span foreground="%s"><b> %s</b></span>' % (
                 self._color.get_html(), text)
         self.set_markup(text)
 
@@ -305,7 +310,7 @@ class ChatBox(Gtk.ScrolledWindow):
         return self._chat_log
 
     def add_text(self, buddy, text, status_message=False):
-        """Display text on screen, with name and colors.
+        '''Display text on screen, with name and colors.
         buddy -- buddy object or dict {nick: string, color: string}
         (The dict is for loading the chat log from the journal,
         when we don't have the buddy object any more.)
@@ -335,7 +340,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
         rb has a tail on the right for owner messages and the left for
         buddy messages.
-        """
+        '''
         if not buddy:
             buddy = self.owner
 
@@ -351,6 +356,36 @@ class ChatBox(Gtk.ScrolledWindow):
         except ValueError:
             color_stroke_html, color_fill_html = ('#000000', '#888888')
 
+        lighter = lighter_color(color.split(','))
+        darker = 1 - lighter
+
+        if nick == profile.get_nick_name():
+            if is_dark_light(color.split(',')[darker]):
+                text_color = style.COLOR_BLACK
+                darker = lighter  # use black on lighter of the two colors
+            else:
+                text_color = style.COLOR_WHITE
+            if darker == 0:
+                color_fill_rgba = style.Color(color_stroke_html).get_rgba()
+                color_fill = style.Color(color_stroke_html)
+                nick_color = style.Color(color_fill_html)
+            else:
+                color_fill_rgba = style.Color(color_fill_html).get_rgba()
+                color_fill = style.Color(color_fill_html)
+                nick_color = style.Color(color_stroke_html)
+            tail = 'right'
+        else:
+            if darker == 0:
+                nick_color = style.Color(color_stroke_html)
+            else:
+                nick_color = style.Color(color_fill_html)
+            text_color = style.COLOR_BLACK
+            color_fill = style.Color('#A0A0A0')
+            tail = 'left'
+
+        color_stroke = None
+
+        '''
         # Select text color based on fill color:
         color_fill_rgba = style.Color(color_fill_html).get_rgba()
         color_fill_gray = (color_fill_rgba[0] + color_fill_rgba[1] +
@@ -362,6 +397,7 @@ class ChatBox(Gtk.ScrolledWindow):
             text_color = style.COLOR_WHITE
         else:
             text_color = style.COLOR_BLACK
+        '''
 
         self._add_log(nick, color, text, status_message)
 
@@ -383,12 +419,14 @@ class ChatBox(Gtk.ScrolledWindow):
             message = self._last_msg
         else:
                 rb = RoundBox()
+                rb.set_size_request(Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
                 # keep space to the scrollbar
                 rb.background_color = color_fill
                 rb.border_color = color_stroke
+                rb.tail = tail
                 self._last_msg_sender = buddy
                 if not status_message:
-                    name = ColorLabel(text='%s: ' % (nick), color=text_color)
+                    name = ColorLabel(text='%s: ' % (nick), color=nick_color)
                     name_vbox = Gtk.VBox()
                     name_vbox.pack_start(name, False, False, 0)
                     rb.pack_start(name_vbox, False, False, 0)
@@ -407,15 +445,15 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation.show_all()
 
     def add_separator(self, timestamp):
-            """Add whitespace and timestamp between chat sessions."""
+            '''Add whitespace and timestamp between chat sessions.'''
             time_with_current_year = (time.localtime(time.time())[0], ) + \
-                time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
+                time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
 
             timestamp_seconds = time.mktime(time_with_current_year)
             if timestamp_seconds > time.time():
                 time_with_previous_year = \
                     (time.localtime(time.time())[0] - 1, ) + \
-                    time.strptime(timestamp, "%b %d %H:%M:%S")[1:]
+                    time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
                 timestamp_seconds = time.mktime(time_with_previous_year)
 
             message = ColorLabel(
@@ -433,7 +471,7 @@ class ChatBox(Gtk.ScrolledWindow):
             self._last_msg_sender = None
 
     def add_log_timestamp(self, existing_timestamp=None):
-        """Add a timestamp entry to the chat log."""
+        '''Add a timestamp entry to the chat log.'''
         if existing_timestamp is not None:
             self._chat_log += '%s\t\t\n' % existing_timestamp
         else:
@@ -441,12 +479,12 @@ class ChatBox(Gtk.ScrolledWindow):
                 datetime.strftime(datetime.now(), '%b %d %H:%M:%S'))
 
     def _add_log(self, nick, color, text, status_message):
-        """Add the text to the chat log.
+        '''Add the text to the chat log.
         nick -- string, buddy nickname
         color -- string, buddy.props.color
         text -- string, body of message
         status_message -- boolean
-        """
+        '''
         if not nick:
             nick = '???'
         if not color:
@@ -460,17 +498,17 @@ class ChatBox(Gtk.ScrolledWindow):
             nick, color, status_message, text)
 
     def _scroll_value_changed_cb(self, adj, scroll=None):
-        """Turn auto scrolling on or off.
+        '''Turn auto scrolling on or off.
         If the user scrolled up, turn it off.
         If the user scrolled to the bottom, turn it back on.
-        """
+        '''
         if adj.get_value() < self._scroll_value:
             self._scroll_auto = False
         elif adj.get_value() == adj.get_upper() - adj.get_page_size():
             self._scroll_auto = True
 
     def _scroll_changed_cb(self, adj, scroll=None):
-        """Scroll the chat window to the bottom"""
+        '''Scroll the chat window to the bottom'''
         if self._scroll_auto:
             adj.set_value(adj.get_upper() - adj.get_page_size())
             self._scroll_value = adj.get_value()
@@ -493,7 +531,7 @@ class _URLMenu(Palette):
     def _copy_to_clipboard_cb(self, menuitem):
         logging.debug('Copy %s to clipboard', self.url)
         clipboard = Gtk.clipboard_get()
-        targets = [("text/uri-list", 0, 0), ("UTF8_STRING", 0, 1)]
+        targets = [('text/uri-list', 0, 0), ('UTF8_STRING', 0, 1)]
 
         if not clipboard.set_with_data(targets, self._clipboard_data_get_cb,
                                        self._clipboard_clear_cb, (self.url)):
@@ -517,10 +555,10 @@ class _URLMenu(Palette):
         self.owns_clipboard = False
 
     def _url_check_protocol(self, url):
-        """Check that the url has a protocol, otherwise prepend https://
+        '''Check that the url has a protocol, otherwise prepend https://
         url -- string
         Returns url -- string
-        """
+        '''
         protocols = ['http://', 'https://', 'ftp://', 'ftps://']
         no_protocol = True
         for protocol in protocols:
