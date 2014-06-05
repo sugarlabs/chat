@@ -538,7 +538,7 @@ class TextChannelWrapper(object):
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
-        elif group.GetGroupFlags() and \
+        elif group.GetGroupFlags() & \
              CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
             handle = group.GetHandleOwners([cs_handle])[0]
         else:
