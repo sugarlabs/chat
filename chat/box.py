@@ -86,8 +86,8 @@ class TextBox(Gtk.TextView):
                 self._color.get_html(), text)
     '''
     def __init__(self, color, bg_color, lang_rtl):
+        Gtk.TextView.__init__(self)
         self._lang_rtl = lang_rtl
-        GObject.GObject.__init__(self)
         self.set_editable(False)
         self.set_cursor_visible(False)
         self.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
@@ -277,7 +277,7 @@ class TextBox(Gtk.TextView):
 class ColorLabel(Gtk.Label):
 
     def __init__(self, text, color=None, bg_color=None):
-        GObject.GObject.__init__(self)
+        Gtk.Label.__init__(self)
         self.set_use_markup(True)
         self._color = color
         if bg_color is not None:
@@ -291,7 +291,7 @@ class ColorLabel(Gtk.Label):
 class ChatBox(Gtk.ScrolledWindow):
 
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.ScrolledWindow.__init__(self)
 
         self.owner = presenceservice.get_instance().get_owner()
 
