@@ -29,6 +29,7 @@ import json
 import math
 import os
 import subprocess
+import time
 from gettext import gettext as _
 
 from telepathy.interfaces import CHANNEL_INTERFACE
@@ -50,6 +51,10 @@ from sugar3.presence import presenceservice
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import RadioMenuButton
+from sugar3.activity.activity import get_activity_root
+from sugar3.activity.activity import show_object_in_journal
+from sugar3.datastore import datastore
+from sugar3 import profile
 
 from chat import smilies
 from chat.box import ChatBox
@@ -82,7 +87,12 @@ class Chat(activity.Activity):
 
     def __init__(self, handle):
         smilies.init()
-        self.chatbox = ChatBox()
+
+        pservice = presenceservice.get_instance()
+        self.owner = pservice.get_owner()
+
+        self.chatbox = ChatBox(self.owner)
+        self.chatbox.connect('open-on-journal', self.__open_on_journal)
 
         super(Chat, self).__init__(handle)
 
@@ -120,8 +130,6 @@ class Chat(activity.Activity):
         toolbar_box.toolbar.insert(StopButton(self), -1)
         toolbar_box.show_all()
 
-        pservice = presenceservice.get_instance()
-        self.owner = pservice.get_owner()
         # Chat is room or one to one:
         self._chat_is_room = False
         self.text_channel = None
@@ -261,6 +269,28 @@ class Chat(activity.Activity):
 
     def _alert_cancel_cb(self, alert, response_id):
         self.remove_alert(alert)
+
+    def __open_on_journal(self, widget, url):
+        '''Ask the journal to display a URL'''
+        logging.debug('Create journal entry for URL: %s', url)
+        jobject = datastore.create()
+        metadata = {
+            'title': '%s: %s' % (_('URL from Chat'), url),
+            'title_set_by_user': '1',
+            'icon-color': profile.get_color().to_string(),
+            'mime_type': 'text/uri-list',
+            }
+        for k, v in metadata.items():
+            jobject.metadata[k] = v
+        file_path = os.path.join(get_activity_root(), 'instance',
+                                 '%i_' % time.time())
+        open(file_path, 'w').write(url + '\r\n')
+        os.chmod(file_path, 0755)
+        jobject.set_file_path(file_path)
+        datastore.write(jobject)
+        show_object_in_journal(jobject.object_id)
+        jobject.destroy()
+        os.unlink(file_path)
 
     def _buddy_joined_cb(self, sender, buddy):
         '''Show a buddy who joined'''

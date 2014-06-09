@@ -17,12 +17,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import re
-import os
 import time
 import logging
 from datetime import datetime
 from gettext import gettext as _
 
+from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -32,11 +32,7 @@ from sugar3.graphics import style
 from sugar3.graphics.palette import Palette, Invoker
 from sugar3.graphics.palettemenu import PaletteMenuItem
 from sugar3.graphics.palette import MouseSpeedDetector
-from sugar3.presence import presenceservice
-from sugar3.activity.activity import get_activity_root
-from sugar3.activity.activity import show_object_in_journal
 from sugar3.util import timestamp_to_elapsed_string
-from sugar3.datastore import datastore
 from sugar3 import profile
 
 from chat import smilies
@@ -76,6 +72,9 @@ def darker_color(colors):
 
 
 class TextBox(Gtk.TextView):
+
+    __gsignals__ = {
+        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])), }
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
@@ -148,26 +147,7 @@ class TextBox(Gtk.TextView):
         return False
 
     def _show_via_journal(self, url):
-        '''Ask the journal to display a URL'''
-        logging.debug('Create journal entry for URL: %s', url)
-        jobject = datastore.create()
-        metadata = {
-            'title': '%s: %s' % (_('URL from Chat'), url),
-            'title_set_by_user': '1',
-            'icon-color': profile.get_color().to_string(),
-            'mime_type': 'text/uri-list',
-            }
-        for k, v in metadata.items():
-            jobject.metadata[k] = v
-        file_path = os.path.join(get_activity_root(), 'instance',
-                                 '%i_' % time.time())
-        open(file_path, 'w').write(url + '\r\n')
-        os.chmod(file_path, 0755)
-        jobject.set_file_path(file_path)
-        datastore.write(jobject)
-        show_object_in_journal(jobject.object_id)
-        jobject.destroy()
-        os.unlink(file_path)
+        self.emit('open-on-journal', url)
 
     def check_url_hovering(self, x, y):
         # Looks at all tags covering the position (x, y) in the text view,
@@ -293,10 +273,13 @@ class ColorLabel(Gtk.Label):
 
 class ChatBox(Gtk.ScrolledWindow):
 
-    def __init__(self):
+    __gsignals__ = {
+        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])), }
+
+    def __init__(self, owner):
         Gtk.ScrolledWindow.__init__(self)
 
-        self.owner = presenceservice.get_instance().get_owner()
+        self.owner = owner
 
         # Auto vs manual scrolling:
         self._scroll_auto = True
@@ -318,6 +301,9 @@ class ChatBox(Gtk.ScrolledWindow):
         vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
+
+    def __open_on_journal(self, widget, url):
+        self.emit('open-on-journal', url)
 
     def get_log(self):
         return self._chat_log
@@ -457,6 +443,7 @@ class ChatBox(Gtk.ScrolledWindow):
                 vbox_internal.pack_start(name, False, False, 0)
 
             message = TextBox(text_color, color_fill, lang_rtl)
+            message.connect('open-on-journal', self.__open_on_journal)
 
             self._last_msg_sender = buddy
             self._last_msg = message
