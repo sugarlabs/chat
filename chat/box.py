@@ -29,10 +29,10 @@ from gi.repository import GdkPixbuf
 from gi.repository import Pango
 
 from sugar3.graphics import style
-from sugar3.graphics.palette import Palette
+from sugar3.graphics.palette import Palette, Invoker
+from sugar3.graphics.palettemenu import PaletteMenuItem
 from sugar3.graphics.palette import MouseSpeedDetector
 from sugar3.presence import presenceservice
-from sugar3.graphics.menuitem import MenuItem
 from sugar3.activity.activity import get_activity_root
 from sugar3.activity.activity import show_object_in_journal
 from sugar3.util import timestamp_to_elapsed_string
@@ -132,12 +132,14 @@ class TextBox(Gtk.TextView):
         iter_tags = self.get_iter_at_location(x, y)
 
         for tag in iter_tags.get_tags():
-            url = tag.get_data('url')
+            try:
+                url = tag.url
+            except:
+                url = None
             if url is not None:
                 if event.button == 3:
-                    palette = tag.get_data('palette')
+                    palette = tag.palette
                     xw, yw = self.get_toplevel().get_pointer()
-                    palette.move(int(xw), int(yw))
                     palette.popup()
                 else:
                     self._show_via_journal(url)
@@ -182,8 +184,11 @@ class TextBox(Gtk.TextView):
 
         tags = iter_tags.get_tags()
         for tag in tags:
-            url = tag.get_data('url')
-            self.palette = tag.get_data('palette')
+            try:
+                url = tag.url
+                self.palette = tag.palette
+            except:
+                url = None
             if url is not None:
                 hovering = True
                 break
@@ -208,7 +213,6 @@ class TextBox(Gtk.TextView):
         if hovering_over_link:
             if self.palette is not None:
                 xw, yw = self.get_toplevel().get_pointer()
-                self.palette.move(xw, yw)
                 self.palette.popup()
                 self._mouse_detector.stop()
         else:
@@ -248,15 +252,15 @@ class TextBox(Gtk.TextView):
             if _URL_REGEXP.match(word) is not None:
                 tag = buf.create_tag(None, foreground='blue',
                                      underline=Pango.Underline.SINGLE)
-                tag.set_data('url', word)
+                tag.url = word
                 palette = _URLMenu(word)
                 # FIXME: TypeError: _URLMenu: unknown signal name:
                 # enter-notify-event - leave-notify-event
-                #palette.connect('enter-notify-event',
-                #    self.__palette_mouse_enter_cb)
-                #palette.connect('leave-notify-event',
-                #    self.__palette_mouse_leave_cb)
-                tag.set_data('palette', palette)
+                # palette.connect('enter-notify-event',
+                #                 self.__palette_mouse_enter_cb)
+                # palette.connect('leave-notify-event',
+                #                 self.__palette_mouse_leave_cb)
+                tag.palette = palette
                 buf.insert_with_tags(self.iter_text, word, tag, self.fg_tag)
             else:
                 for i in smilies.parse(word):
@@ -328,14 +332,15 @@ class ChatBox(Gtk.ScrolledWindow):
         False: show what buddy said
         True: show what buddy did
 
-        .------------- rb ---------------.
-        | +name_vbox+ +----align-----+ |
-        | |         | |                | |
-        | | nick:   | | +--message---+ | |
-        | |         | | |  text      | | |
-        | +---------+ | +------------+ | |
-        |             +----------------+ |
-        `--------------------------------'
+        .----- rb ------------.
+        |  +----align-------+ |
+        |  | nick:          | |
+        |  | +--message---+ | |
+        |  | |  text      | | |
+        |  | +------------+ | |
+        |  +----------------+ |
+        `----------------- +--'
+                          \|
 
         The color scheme for owner messages is:
         nick in lighter of stroke and fill colors
@@ -438,27 +443,32 @@ class ChatBox(Gtk.ScrolledWindow):
         if not new_msg:
             message = self._last_msg
         else:
-                rb = RoundBox()
-                rb.set_size_request(
-                    Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
-                # keep space to the scrollbar
-                rb.background_color = color_fill
-                rb.border_color = color_stroke
-                rb.tail = tail
-                self._last_msg_sender = buddy
-                if not status_message:
-                    name = ColorLabel(text='%s: ' % (nick), color=nick_color,
-                                      bg_color=color_fill)
-                    name_vbox = Gtk.VBox()
-                    name_vbox.pack_start(name, False, False, 0)
-                    rb.pack_start(name_vbox, False, False, 0)
+            rb = RoundBox()
+            rb.background_color = color_fill
+            rb.border_color = color_stroke
+            rb.tail = tail
 
-                message = TextBox(text_color, color_fill, lang_rtl)
-                vbox = Gtk.VBox()
-                vbox.pack_start(message, True, True, 0)
-                rb.pack_start(vbox, True, True, 0)
-                self._last_msg = message
-                self._conversation.pack_start(rb, False, False, 2)
+            vbox_internal = Gtk.VBox()
+
+            if not status_message:
+                name = ColorLabel(text='%s: ' % (nick), color=nick_color,
+                                  bg_color=color_fill)
+                name.props.halign = Gtk.Align.START
+                vbox_internal.pack_start(name, False, False, 0)
+
+            message = TextBox(text_color, color_fill, lang_rtl)
+
+            self._last_msg_sender = buddy
+            self._last_msg = message
+
+            vbox_internal.pack_start(message, False, False, 0)
+
+            align = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=1.0,
+                                      yscale=1.0)
+            align.set_padding(10, 30, 15, 15)
+            align.add(vbox_internal)
+            rb.pack_start(align, True, True, 0)
+            self._conversation.pack_start(rb, False, False, 2)
 
         if status_message:
             self._last_msg_sender = None
@@ -536,16 +546,34 @@ class ChatBox(Gtk.ScrolledWindow):
             self._scroll_value = adj.get_value()
 
 
+class ContentInvoker(Invoker):
+    def __init__(self):
+        Invoker.__init__(self)
+        self._position_hint = self.AT_CURSOR
+
+    def get_default_position(self):
+        return self.AT_CURSOR
+
+    def get_toplevel(self):
+        return None
+
+
 class _URLMenu(Palette):
 
     def __init__(self, url):
         Palette.__init__(self, url)
         self.owns_clipboard = False
         self.url = self._url_check_protocol(url)
-        menu_item = MenuItem(_('Copy to Clipboard'), 'edit-copy')
+
+        menu_box = Gtk.VBox()
+        self.set_content(menu_box)
+        menu_box.show()
+        self._content.set_border_width(1)
+        menu_item = PaletteMenuItem(_('Copy to Clipboard'), 'edit-copy')
         menu_item.connect('activate', self._copy_to_clipboard_cb)
-        self.menu.append(menu_item)
+        menu_box.pack_start(menu_item, False, False, 0)
         menu_item.show()
+        self.props.invoker = ContentInvoker()
 
     def create_palette(self):
         pass

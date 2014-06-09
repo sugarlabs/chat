@@ -26,7 +26,7 @@ class RoundBox(Gtk.HBox):
 
     def __init__(self, **kwargs):
         Gtk.HBox.__init__(self, **kwargs)
-        self._radius = style.zoom(10)
+        self._radius = style.zoom(15)
         self.border_color = style.COLOR_BLACK
         self.tail = None
         self.background_color = None
@@ -40,9 +40,10 @@ class RoundBox(Gtk.HBox):
 
     def __expose_cb(self, widget, cr):
         rect = self.get_allocation()
-        x = 0
+        hmargin = style.zoom(15)
+        x = hmargin
         y = 0
-        width = rect.width - _BORDER_DEFAULT * 2.
+        width = rect.width - _BORDER_DEFAULT * 2. - hmargin * 2
         if self.tail is not None:
             height = rect.height - _BORDER_DEFAULT * 2. - self._radius
         else:
@@ -51,17 +52,20 @@ class RoundBox(Gtk.HBox):
         cr.move_to(x + self._radius, y)
         cr.arc(x + width - self._radius, y + self._radius,
                self._radius, math.pi * 1.5, math.pi * 2)
+        tail_height = style.zoom(5)
         if self.tail == 'right':
             cr.arc(x + width - self._radius, y + height - self._radius * 2,
                    self._radius, 0, math.pi * 0.5)
             cr.line_to(x + width - self._radius, y + height)
-            cr.line_to(x + width - 3 * self._radius, y + height - self._radius)
+            cr.line_to(x + width - tail_height * self._radius,
+                       y + height - self._radius)
             cr.arc(x + self._radius, y + height - self._radius * 2,
                    self._radius, math.pi * 0.5, math.pi)
         elif self.tail == 'left':
             cr.arc(x + width - self._radius, y + height - self._radius * 2,
                    self._radius, 0, math.pi * 0.5)
-            cr.line_to(x + self._radius * 3, y + height - self._radius)
+            cr.line_to(x + self._radius * tail_height,
+                       y + height - self._radius)
             cr.line_to(x + self._radius, y + height)
             cr.line_to(x + self._radius, y + height - self._radius)
             cr.arc(x + self._radius, y + height - self._radius * 2,
@@ -86,7 +90,6 @@ class RoundBox(Gtk.HBox):
             cr.set_line_width(_BORDER_DEFAULT)
             cr.stroke()
         return False
-
 
 
 if __name__ == '__main__':
