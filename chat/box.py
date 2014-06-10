@@ -263,6 +263,7 @@ class ColorLabel(Gtk.Label):
         Gtk.Label.__init__(self)
         self.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
+        self.set_justify(Gtk.Justification.LEFT)
         self.set_use_markup(True)
         self._color = color
         if bg_color is not None:
