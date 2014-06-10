@@ -78,21 +78,21 @@ class TextBox(Gtk.TextView):
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
-    '''
-            if self._color is not None:
-            text = '<span foreground="%s"><b> %s</b></span>' % (
-                self._color.get_html(), text)
-    '''
-    def __init__(self, color, bg_color, lang_rtl):
+    def __init__(self, name_color, text_color, bg_color, lang_rtl):
         Gtk.TextView.__init__(self)
+        self.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
+
         self._lang_rtl = lang_rtl
         self.set_editable(False)
         self.set_cursor_visible(False)
         self.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
         self.get_buffer().set_text('', 0)
         self.iter_text = self.get_buffer().get_iter_at_offset(0)
-        self.fg_tag = self.get_buffer().create_tag('foreground_color',
-                                                   foreground=color.get_html())
+        self.name_tag = self.get_buffer().create_tag(
+            'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
+        self.fg_tag = self.get_buffer().create_tag(
+            'foreground_color', foreground=text_color.get_html())
         self._subscript_tag = self.get_buffer().create_tag(
             'subscript', rise=-7 * Pango.SCALE)  # in pixels
         self._empty = True
@@ -221,6 +221,15 @@ class TextBox(Gtk.TextView):
     def __palette_mouse_leave_cb(self, widget, event):
         self.handler_unblock(self.motion_notify_id)
 
+    def add_name(self, name):
+        buf = self.get_buffer()
+        words = name.split()
+        for word in words:
+            buf.insert_with_tags(self.iter_text, word, self.name_tag)
+            buf.insert_with_tags(self.iter_text, ' ', self.fg_tag)
+
+        self._empty = False
+
     def add_text(self, text):
         buf = self.get_buffer()
 
@@ -255,23 +264,6 @@ class TextBox(Gtk.TextView):
             buf.insert_with_tags(self.iter_text, ' ', self.fg_tag)
 
         self._empty = False
-
-
-class ColorLabel(Gtk.Label):
-
-    def __init__(self, text, color=None, bg_color=None):
-        Gtk.Label.__init__(self)
-        self.set_size_request(
-            Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
-        self.set_justify(Gtk.Justification.LEFT)
-        self.set_use_markup(True)
-        self._color = color
-        if bg_color is not None:
-            self.modify_bg(0, bg_color.get_gdk_color())
-        if self._color is not None:
-            text = '<span foreground="%s"><b>%s</b></span>' % (
-                self._color.get_html(), text)
-        self.set_markup(text)
 
 
 class ChatBox(Gtk.ScrolledWindow):
@@ -331,9 +323,10 @@ class ChatBox(Gtk.ScrolledWindow):
 
         .----- rb ------------.
         |  +----align-------+ |
-        |  | nick:          | |
         |  | +--message---+ | |
-        |  | |  text      | | |
+        |  | | nick:      | | |
+        |  | | text 1     | | |
+        |  | | text 2     | | |
         |  | +------------+ | |
         |  +----------------+ |
         `----------------- +--'
@@ -452,16 +445,11 @@ class ChatBox(Gtk.ScrolledWindow):
                 Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
             row = 0
 
-            if not status_message:
-                name = ColorLabel(text='%s: ' % (nick), color=nick_color,
-                                  bg_color=color_fill)
-                name.props.halign = Gtk.Align.START
-                grid_internal.attach(name, 0, row, 1, 1)
-                row += 1
-                name.show()
-
-            message = TextBox(text_color, color_fill, lang_rtl)
+            message = TextBox(nick_color, text_color, color_fill, lang_rtl)
             message.connect('open-on-journal', self.__open_on_journal)
+
+            if not status_message:
+                message.add_name(nick)
 
             self._last_msg_sender = buddy
             self._last_msg = message
