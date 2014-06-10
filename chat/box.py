@@ -469,7 +469,14 @@ class ChatBox(Gtk.ScrolledWindow):
 
             align = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=1.0,
                                       yscale=1.0)
-            align.set_padding(10, 30, 15, 15)
+
+            if rb.tail is not None:
+                bottom_padding = style.zoom(42)
+            else:
+                bottom_padding = style.zoom(14)
+
+            align.set_padding(style.zoom(10), bottom_padding, style.zoom(21),
+                              style.zoom(21))
             align.add(grid_internal)
             grid_internal.show()
 
