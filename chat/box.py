@@ -293,7 +293,8 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation = Gtk.Grid()
         self._conversation.set_row_spacing(style.DEFAULT_SPACING)
         self._conversation.set_border_width(style.DEFAULT_SPACING * 2)
-        self._conversation.set_size_request(Gdk.Screen.width(), -1)
+        self._conversation.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
 
         evbox = Gtk.EventBox()
         evbox.modify_bg(
@@ -483,7 +484,6 @@ class ChatBox(Gtk.ScrolledWindow):
             self._last_msg_sender = None
 
         message.add_text(text)
-        text.show()
 
     def add_separator(self, timestamp):
         '''Add whitespace and timestamp between chat sessions.'''
