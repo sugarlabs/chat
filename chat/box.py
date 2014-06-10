@@ -266,7 +266,7 @@ class ColorLabel(Gtk.Label):
         if bg_color is not None:
             self.modify_bg(0, bg_color.get_gdk_color())
         if self._color is not None:
-            text = '<span foreground="%s"><b> %s</b></span>' % (
+            text = '<span foreground="%s"><b>%s</b></span>' % (
                 self._color.get_html(), text)
         self.set_markup(text)
 
@@ -288,16 +288,23 @@ class ChatBox(Gtk.ScrolledWindow):
         # Track last message, to combine several messages:
         self._last_msg = None
         self._chat_log = ''
+        self._row_counter = 0
 
-        self._conversation = Gtk.VBox()
-        self._conversation.set_homogeneous(False)
+        self._conversation = Gtk.Grid()
+        self._conversation.set_row_spacing(style.DEFAULT_SPACING)
+        self._conversation.set_border_width(style.DEFAULT_SPACING * 2)
+        self._conversation.set_size_request(Gdk.Screen.width(), -1)
+
         evbox = Gtk.EventBox()
         evbox.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
         evbox.add(self._conversation)
+        self._conversation.show()
 
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
         self.add_with_viewport(evbox)
+        evbox.show()
+
         vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
@@ -434,13 +441,20 @@ class ChatBox(Gtk.ScrolledWindow):
             rb.border_color = color_stroke
             rb.tail = tail
 
-            vbox_internal = Gtk.VBox()
+            grid_internal = Gtk.Grid()
+            grid_internal.set_row_spacing(0)
+            grid_internal.set_border_width(style.DEFAULT_SPACING)
+            grid_internal.set_size_request(
+                Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
+            row = 0
 
             if not status_message:
                 name = ColorLabel(text='%s: ' % (nick), color=nick_color,
                                   bg_color=color_fill)
                 name.props.halign = Gtk.Align.START
-                vbox_internal.pack_start(name, False, False, 0)
+                grid_internal.attach(name, 0, row, 1, 1)
+                row += 1
+                name.show()
 
             message = TextBox(text_color, color_fill, lang_rtl)
             message.connect('open-on-journal', self.__open_on_journal)
@@ -448,46 +462,57 @@ class ChatBox(Gtk.ScrolledWindow):
             self._last_msg_sender = buddy
             self._last_msg = message
 
-            vbox_internal.pack_start(message, False, False, 0)
+            grid_internal.attach(message, 0, row, 1, 1)
+            row += 1
+            message.show()
 
             align = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=1.0,
                                       yscale=1.0)
             align.set_padding(10, 30, 15, 15)
-            align.add(vbox_internal)
+            align.add(grid_internal)
+            grid_internal.show()
+
             rb.pack_start(align, True, True, 0)
-            self._conversation.pack_start(rb, False, False, 2)
+            align.show()
+
+            self._conversation.attach(rb, 0, self._row_counter, 1, 1)
+            rb.show()
+            self._row_counter += 1
 
         if status_message:
             self._last_msg_sender = None
 
         message.add_text(text)
-        self._conversation.show_all()
+        text.show()
 
     def add_separator(self, timestamp):
-            '''Add whitespace and timestamp between chat sessions.'''
-            time_with_current_year = (time.localtime(time.time())[0], ) + \
+        '''Add whitespace and timestamp between chat sessions.'''
+        time_with_current_year = \
+            (time.localtime(time.time())[0], ) + \
+            time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
+
+        timestamp_seconds = time.mktime(time_with_current_year)
+        if timestamp_seconds > time.time():
+            time_with_previous_year = \
+                (time.localtime(time.time())[0] - 1, ) + \
                 time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
+            timestamp_seconds = time.mktime(time_with_previous_year)
 
-            timestamp_seconds = time.mktime(time_with_current_year)
-            if timestamp_seconds > time.time():
-                time_with_previous_year = \
-                    (time.localtime(time.time())[0] - 1, ) + \
-                    time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
-                timestamp_seconds = time.mktime(time_with_previous_year)
-
-            message = ColorLabel(
-                text=timestamp_to_elapsed_string(timestamp_seconds),
-                color=style.COLOR_BUTTON_GREY)
-            box = Gtk.HBox()
-            box.show()
-            align = Gtk.Alignment.new(
-                xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
-            box.pack_start(align, True, True, 0)
-            align.add(message)
-            box.show_all()
-            self._conversation.pack_start(box, False, False, 0)
-            self.add_log_timestamp(timestamp)
-            self._last_msg_sender = None
+        message = ColorLabel(
+            text=timestamp_to_elapsed_string(timestamp_seconds),
+            color=style.COLOR_BUTTON_GREY)
+        box = Gtk.HBox()
+        align = Gtk.Alignment.new(
+            xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
+        box.pack_start(align, True, True, 0)
+        align.show()
+        align.add(message)
+        message.show()
+        self._conversation.attach(box, 0, self._row_counter, 1, 1)
+        box.show()
+        self._row_counter += 1
+        self.add_log_timestamp(timestamp)
+        self._last_msg_sender = None
 
     def add_log_timestamp(self, existing_timestamp=None):
         '''Add a timestamp entry to the chat log.'''
