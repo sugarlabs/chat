@@ -261,6 +261,8 @@ class ColorLabel(Gtk.Label):
 
     def __init__(self, text, color=None, bg_color=None):
         Gtk.Label.__init__(self)
+        self.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
         self.set_use_markup(True)
         self._color = color
         if bg_color is not None:
@@ -294,7 +296,7 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation.set_row_spacing(style.DEFAULT_SPACING)
         self._conversation.set_border_width(style.DEFAULT_SPACING * 2)
         self._conversation.set_size_request(
-            Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
+            Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
 
         evbox = Gtk.EventBox()
         evbox.modify_bg(
@@ -446,7 +448,7 @@ class ChatBox(Gtk.ScrolledWindow):
             grid_internal.set_row_spacing(0)
             grid_internal.set_border_width(style.DEFAULT_SPACING)
             grid_internal.set_size_request(
-                Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
+                Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
             row = 0
 
             if not status_message:
@@ -473,10 +475,10 @@ class ChatBox(Gtk.ScrolledWindow):
             if rb.tail is not None:
                 bottom_padding = style.zoom(42)
             else:
-                bottom_padding = style.zoom(14)
+                bottom_padding = style.zoom(5)
 
-            align.set_padding(style.zoom(10), bottom_padding, style.zoom(21),
-                              style.zoom(21))
+            align.set_padding(style.zoom(14), bottom_padding, style.zoom(30),
+                              style.zoom(30))
             align.add(grid_internal)
             grid_internal.show()
 
