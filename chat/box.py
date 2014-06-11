@@ -383,7 +383,7 @@ class ChatBox(Gtk.ScrolledWindow):
             text_color = style.COLOR_WHITE
             nick_color = style.COLOR_WHITE
             color_fill = style.Color('#808080')
-            highlight_fill = style.COLOR_BLACK
+            highlight_fill = style.COLOR_WHITE
             tail = None
         else:
             highlight_fill = style.COLOR_BUTTON_GREY

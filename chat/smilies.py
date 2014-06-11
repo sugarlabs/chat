@@ -142,6 +142,13 @@ SMILIES_SIZE = int(style.STANDARD_ICON_SIZE * 0.75)
 _catalog = {}
 
 
+def _smiley_to_theme_name(smiley):
+    for theme in THEME:
+        if smiley in theme[2]:
+            return theme[0]
+    return None
+
+
 def parse(text):
     '''Parse text and find smiles.
     :param text:
@@ -160,8 +167,12 @@ def parse(text):
             else:
                 parts = word.split(smiley)
                 for i in parts[:-1]:
+                    name = _smiley_to_theme_name(smiley)
                     new_result.append(i)
-                    new_result.append(_catalog[smiley])
+                    if name is not None and 'unicode' in name:
+                        new_result.append(smiley)
+                    else:
+                        new_result.append(_catalog[smiley])
                 new_result.append(parts[-1])
         result = new_result
 
