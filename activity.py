@@ -360,7 +360,6 @@ class Chat(activity.Activity):
         return box
 
     def entry_focus_in_cb(self, entry, event):
-        logging.error('focus in')
         if _is_tablet_mode():
             if Gdk.Screen.width() > Gdk.Screen.height():
                 self._filler[0].show()
@@ -368,7 +367,6 @@ class Chat(activity.Activity):
                 self._filler[1].show()
 
     def entry_focus_out_cb(self, entry, event):
-        logging.error('focus out')
         if _is_tablet_mode():
             self._filler[0].hide()
             self._filler[1].hide()

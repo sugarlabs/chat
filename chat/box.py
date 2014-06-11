@@ -1,6 +1,8 @@
 # Copyright 2007-2008 One Laptop Per Child
 # Copyright 2009, Aleksey Lim
 # Copyright 2010, Mukesh Gupta
+# Copyright 2014, Walter Bender
+# Copyright 2014, Gonzalo Odiard
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -52,7 +54,9 @@ def _luminance(color):
 
 
 def is_low_contrast(colors):
-    return _luminance(colors[0]) - _luminance(colors[1]) < 64
+    ''' We require lots of luminance contrast to make color text legible. '''
+    # To turn off color on color, always return False
+    return _luminance(colors[0]) - _luminance(colors[1]) < 96
 
 
 def is_dark_too_light(color):
@@ -79,7 +83,11 @@ class TextBox(Gtk.TextView):
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
     def __init__(self, name_color, text_color, bg_color, lang_rtl):
-        Gtk.TextView.__init__(self)
+        if text_color == style.COLOR_WHITE:
+            Gtk.TextView.__init__(self, name='white-text')
+        else:
+            Gtk.TextView.__init__(self, name='black-text')
+
         self.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
 
@@ -92,9 +100,11 @@ class TextBox(Gtk.TextView):
         self.name_tag = self.get_buffer().create_tag(
             'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
         self.fg_tag = self.get_buffer().create_tag(
-            'foreground_color', foreground=text_color.get_html())
-        self._subscript_tag = self.get_buffer().create_tag(
-            'subscript', rise=-7 * Pango.SCALE)  # in pixels
+            # 'foreground_color', foreground=text_color.get_html())
+            weight=Pango.Weight.NORMAL)
+        self._subscript_tag = self.get_buffer().create_tag('subscript',
+            foreground=text_color.get_html(),
+            rise=-7 * Pango.SCALE)  # in pixels
         self._empty = True
         self.palette = None
         self._mouse_detector = MouseSpeedDetector(200, 5)
@@ -239,8 +249,7 @@ class TextBox(Gtk.TextView):
         words = text.split()
         for word in words:
             if _URL_REGEXP.match(word) is not None:
-                tag = buf.create_tag(None, foreground='blue',
-                                     underline=Pango.Underline.SINGLE)
+                tag = buf.create_tag(None, underline=Pango.Underline.SINGLE)
                 tag.url = word
                 palette = _URLMenu(word)
                 # FIXME: TypeError: _URLMenu: unknown signal name:
@@ -273,6 +282,9 @@ class ChatBox(Gtk.ScrolledWindow):
 
     def __init__(self, owner):
         Gtk.ScrolledWindow.__init__(self)
+
+        cssProvider = Gtk.CssProvider()
+        cssProvider.load_from_path('style.css')
 
         self.owner = owner
 
@@ -451,7 +463,6 @@ class ChatBox(Gtk.ScrolledWindow):
 
             grid_internal.attach(message, 0, row, 1, 1)
             row += 1
-            message.show()
 
             align = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=1.0,
                                       yscale=1.0)
@@ -477,6 +488,7 @@ class ChatBox(Gtk.ScrolledWindow):
             self._last_msg_sender = None
 
         message.add_text(text)
+        message.show()
 
     def add_separator(self, timestamp):
         '''Add whitespace and timestamp between chat sessions.'''
