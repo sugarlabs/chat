@@ -55,7 +55,7 @@ def is_low_contrast(colors):
     return _luminance(colors[0]) - _luminance(colors[1]) < 64
 
 
-def is_dark_light(color):
+def is_dark_too_light(color):
     return _luminance(color) > 96
 
 
@@ -363,8 +363,12 @@ class ChatBox(Gtk.ScrolledWindow):
         lighter = lighter_color(color.split(','))
         darker = 1 - lighter
 
-        if nick == profile.get_nick_name():
-            if is_dark_light(color.split(',')[darker]):
+        if status_message:
+            text_color = style.COLOR_WHITE
+            color_fill = style.Color('#808080')
+            tail = None
+        else:
+            if is_dark_too_light(color.split(',')[darker]):
                 text_color = style.COLOR_BLACK
                 darker = lighter  # use black on lighter of the two colors
             else:
@@ -383,19 +387,9 @@ class ChatBox(Gtk.ScrolledWindow):
                     nick_color = text_color
                 else:
                     nick_color = style.Color(color_stroke_html)
-            tail = 'right'
-        else:
-            if darker == 0:
-                nick_color = style.Color(color_stroke_html)
+            if nick == profile.get_nick_name():
+                tail = 'right'
             else:
-                nick_color = style.Color(color_fill_html)
-            if status_message:
-                text_color = style.COLOR_WHITE
-                color_fill = style.Color('#808080')
-                tail = None
-            else:
-                text_color = style.COLOR_BLACK
-                color_fill = style.Color('#A0A0A0')
                 tail = 'left'
 
         color_stroke = None
@@ -496,9 +490,10 @@ class ChatBox(Gtk.ScrolledWindow):
                 time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
             timestamp_seconds = time.mktime(time_with_previous_year)
 
-        message = ColorLabel(
-            text=timestamp_to_elapsed_string(timestamp_seconds),
-            color=style.COLOR_BUTTON_GREY)
+        message = TextBox(style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
+                          style.COLOR_WHITE, False)
+
+        message.add_text(timestamp_to_elapsed_string(timestamp_seconds))
         box = Gtk.HBox()
         align = Gtk.Alignment.new(
             xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
