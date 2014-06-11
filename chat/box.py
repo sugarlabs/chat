@@ -100,8 +100,7 @@ class TextBox(Gtk.TextView):
         self.name_tag = self.get_buffer().create_tag(
             'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
         self.fg_tag = self.get_buffer().create_tag(
-            # 'foreground_color', foreground=text_color.get_html())
-            weight=Pango.Weight.NORMAL)
+            'foreground_color', foreground=text_color.get_html())
         self._subscript_tag = self.get_buffer().create_tag('subscript',
             foreground=text_color.get_html(),
             rise=-7 * Pango.SCALE)  # in pixels
