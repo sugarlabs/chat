@@ -82,11 +82,9 @@ class TextBox(Gtk.TextView):
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
-    def __init__(self, name_color, text_color, bg_color, lang_rtl):
-        if text_color == style.COLOR_WHITE:
-            Gtk.TextView.__init__(self, name='white-text')
-        else:
-            Gtk.TextView.__init__(self, name='black-text')
+    def __init__(self, name_color, text_color, bg_color, highlight_color,
+                 lang_rtl):
+        Gtk.TextView.__init__(self)
 
         self.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
@@ -95,8 +93,10 @@ class TextBox(Gtk.TextView):
         self.set_editable(False)
         self.set_cursor_visible(False)
         self.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
+
         self.get_buffer().set_text('', 0)
         self.iter_text = self.get_buffer().get_iter_at_offset(0)
+
         self.name_tag = self.get_buffer().create_tag(
             'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
         self.fg_tag = self.get_buffer().create_tag(
@@ -105,11 +105,19 @@ class TextBox(Gtk.TextView):
         self._subscript_tag = self.get_buffer().create_tag('subscript',
             foreground=text_color.get_html(),
             rise=-7 * Pango.SCALE)  # in pixels
+
         self._empty = True
         self.palette = None
+
         self._mouse_detector = MouseSpeedDetector(200, 5)
         self._mouse_detector.connect('motion-slow', self.__mouse_slow_cb)
+
         self.modify_bg(0, bg_color.get_gdk_color())
+
+        rgba = Gdk.RGBA()
+        rgba.red, rgba.green, rgba.blue, rgba.alpha = \
+            highlight_color.get_rgba()
+        self.override_background_color(Gtk.StateFlags.SELECTED, rgba)
 
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK |
                         Gdk.EventMask.BUTTON_PRESS_MASK |
@@ -118,8 +126,8 @@ class TextBox(Gtk.TextView):
 
         self.connect('event-after', self.__event_after_cb)
         self.connect('button-press-event', self.__button_press_cb)
-        self.motion_notify_id = self.connect('motion-notify-event',
-                                             self.__motion_notify_cb)
+        self.motion_notify_id = \
+            self.connect('motion-notify-event', self.__motion_notify_cb)
         self.connect('visibility-notify-event', self.__visibility_notify_cb)
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
 
@@ -283,9 +291,6 @@ class ChatBox(Gtk.ScrolledWindow):
     def __init__(self, owner):
         Gtk.ScrolledWindow.__init__(self)
 
-        cssProvider = Gtk.CssProvider()
-        cssProvider.load_from_path('style.css')
-
         self.owner = owner
 
         # Auto vs manual scrolling:
@@ -379,8 +384,10 @@ class ChatBox(Gtk.ScrolledWindow):
             text_color = style.COLOR_WHITE
             nick_color = style.COLOR_WHITE
             color_fill = style.Color('#808080')
+            highlight_fill = style.COLOR_BLACK
             tail = None
         else:
+            highlight_fill = style.COLOR_BUTTON_GREY
             if is_dark_too_light(color.split(',')[darker]):
                 text_color = style.COLOR_BLACK
                 darker = lighter  # use black on lighter of the two colors
@@ -452,7 +459,8 @@ class ChatBox(Gtk.ScrolledWindow):
                 Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
             row = 0
 
-            message = TextBox(nick_color, text_color, color_fill, lang_rtl)
+            message = TextBox(nick_color, text_color, color_fill,
+                              highlight_fill, lang_rtl)
             message.connect('open-on-journal', self.__open_on_journal)
 
             if not status_message:
@@ -504,7 +512,7 @@ class ChatBox(Gtk.ScrolledWindow):
             timestamp_seconds = time.mktime(time_with_previous_year)
 
         message = TextBox(style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
-                          style.COLOR_WHITE, False)
+                          style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False)
 
         message.add_text(timestamp_to_elapsed_string(timestamp_seconds))
         box = Gtk.HBox()
