@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 #Copyright 2007-2008 One Laptop Per Child
 #Copyright 2009-14 Sugar Labs
+# Copyright 2014, Walter Bender
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +19,7 @@
 
 from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import GdkPixbuf
 from gi.repository import GObject
 
 try:
@@ -44,15 +47,15 @@ from telepathy.client import Channel
 
 from sugar3.graphics import style
 from sugar3.graphics import iconentry
+from sugar3.graphics.icon import EventIcon
 from sugar3.graphics.alert import NotifyAlert
-from sugar3.graphics.palette import Palette
 from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity import activity
 from sugar3.activity.activity import get_bundle_path
 from sugar3.presence import presenceservice
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
-from sugar3.activity.widgets import RadioMenuButton
 from sugar3.activity.activity import get_activity_root
 from sugar3.activity.activity import show_object_in_journal
 from sugar3.datastore import datastore
@@ -97,12 +100,12 @@ class Chat(activity.Activity):
 
         super(Chat, self).__init__(handle)
 
-        self.entry = None
+        self._entry = None
 
         self._setup_canvas()
         GObject.idle_add(self._create_smiley_window)
 
-        self.entry.grab_focus()
+        self._entry.grab_focus()
 
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
@@ -134,7 +137,8 @@ class Chat(activity.Activity):
                 self._joined_cb(self)
         elif handle.uri:
             # XMPP non-sugar3 incoming chat, not sharable
-            self._activity_toolbar_button.props.page.share.props.visible = False
+            self._activity_toolbar_button.props.page.share.props.visible = \
+                False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
@@ -148,27 +152,26 @@ class Chat(activity.Activity):
     def _fixed_resize_cb(self, widget=None, rect=None):
         ''' If a toolbar opens or closes, we need to resize the vbox
         holding out scrolling window. '''
-        self._root.set_size_request(rect.width, rect.height)
+        self._entry_widgets.set_size_request(rect.width, rect.height)
 
     def _setup_canvas(self):
         ''' Create a canvas '''
-
         self._fixed = Gtk.Fixed()
         self._fixed.connect('size-allocate', self._fixed_resize_cb)
         self._fixed.show()
         self.set_canvas(self._fixed)
 
-        self._root = self.make_root()
-        self._fixed.put(self._root, 0, 0)
-        self._root.show_all()
+        self._entry_widgets = self._make_entry_widgets()
+        self._fixed.put(self._entry_widgets, 0, 0)
+        self._entry_widgets.show()
 
-    def _create_palette_smiley_table(self):
-        smilies_columns = int((Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE) / style.GRID_CELL_SIZE)
-
+    def _create_smiley_table(self):
+        smilies_columns = int((Gdk.Screen.width() - 4 * style.GRID_CELL_SIZE)
+                              / style.GRID_CELL_SIZE)
         row_count = int(math.ceil(len(smilies.THEME) / float(smilies_columns)))
         table = Gtk.Table(rows=row_count, columns=smilies_columns)
-        index = 0
 
+        index = 0
         for y in range(row_count):
             for x in range(smilies_columns):
                 if index >= len(smilies.THEME):
@@ -181,18 +184,17 @@ class Chat(activity.Activity):
                 button.connect('clicked', self._add_smiley_to_entry, codes[0])
                 table.attach(button, x, x + 1, y, y + 1)
                 button.show()
-                index = index + 1
+                index += 1
         return table
 
     def _add_smiley_to_entry(self, button, text):
-        pos = self.entry.props.cursor_position
-        self.entry.insert_text(text, pos)
-        self.entry.grab_focus()
-        self.entry.set_position(pos + len(text))
+        pos = self._entry.props.cursor_position
+        self._entry.insert_text(text, pos)
+        self._entry.grab_focus()
+        self._entry.set_position(pos + len(text))
         self._hide_smiley_window()
 
     def _shared_cb(self, sender):
-        logger.debug('Chat was shared')
         self._setup()
 
     def _one_to_one_connection(self, tp_channel):
@@ -217,8 +219,8 @@ class Chat(activity.Activity):
         self._alert(_('On-line'), _('Private Chat'))
 
         # XXX How do we detect the sender going offline?
-        self.entry.set_sensitive(True)
-        self.entry.grab_focus()
+        self._entry.set_sensitive(True)
+        self._entry.grab_focus()
 
     def _one_to_one_connection_closed_cb(self):
         '''Callback for when the text channel closes.'''
@@ -233,9 +235,8 @@ class Chat(activity.Activity):
         self.shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
-        self.entry.set_sensitive(True)
-        self.entry.grab_focus()
-        # self._smiley.props.sensitive = True
+        self._entry.set_sensitive(True)
+        self._entry.grab_focus()
 
     def _joined_cb(self, sender):
         '''Joined a shared activity.'''
@@ -264,8 +265,8 @@ class Chat(activity.Activity):
         vscroll = self.chatbox.get_vadjustment()
         if vscroll.get_property('value') != vscroll.get_property('upper'):
             self._alert(_('New message'), _('New message from %s' % nick))
-        # if not self.has_focus:
-        #     self.notify_user(_('Message from %s') % buddy, text)
+        if not self.has_focus:
+            self.notify_user(_('Message from %s') % buddy, text)
 
     def _alert(self, title, text=None):
         alert = NotifyAlert(timeout=5)
@@ -304,9 +305,9 @@ class Chat(activity.Activity):
         '''Show a buddy who joined'''
         if buddy == self.owner:
             return
-        self.chatbox.add_text(buddy,
-                              _('%s joined the chat') % buddy.props.nick,
-                              status_message=True)
+        self.chatbox.add_text(
+            buddy, _('%s joined the chat') % buddy.props.nick,
+            status_message=True)
 
         self.play_sound('login')
 
@@ -314,8 +315,9 @@ class Chat(activity.Activity):
         '''Show a buddy who joined'''
         if buddy == self.owner:
             return
-        self.chatbox.add_text(buddy, _('%s left the chat') % buddy.props.nick,
-                              status_message=True)
+        self.chatbox.add_text(
+            buddy, _('%s left the chat') % buddy.props.nick,
+            status_message=True)
 
         self.play_sound('logout')
 
@@ -323,12 +325,12 @@ class Chat(activity.Activity):
         '''Show a buddy already in the chat.'''
         if buddy == self.owner:
             return
-        self.chatbox.add_text(buddy, _('%s is here') % buddy.props.nick,
-                              status_message=True)
+        self.chatbox.add_text(
+            buddy, _('%s is here') % buddy.props.nick,
+            status_message=True)
 
     def can_close(self):
         '''Perform cleanup before closing.
-
         Close text channel of a one to one XMPP chat.
         '''
         if self._chat_is_room is False:
@@ -336,46 +338,80 @@ class Chat(activity.Activity):
                 self.text_channel.close()
         return True
 
-    def _smiley_icon_pressed(self, widget, event, data):
-        logging.debug('smiley icon pressed')
-        self._show_smiley_window()
+    def _make_entry_widgets(self):
+        '''We need to create a button for the smiley, a text entry, and a
+        send button. Also, in tablet mode, we need some fillers to
+        move the entry and chat box when the on-screen keyboard is
+        present.
 
-    def make_root(self):
-        # filler used to move entry box to accomodate OSK
+        All of this, along with the chatbox, goes into a grid.
+
+        ---------------------------------------
+        | chat box                            |
+        | smiley button | entry | send button |
+        | filler 1 (landscape mode)           |
+        | filler 2 (portrait mode)            |
+        ---------------------------------------
+        '''
+        if _is_tablet_mode():
+            entry_height = int(style.GRID_CELL_SIZE * 1.5)
+        else:
+            entry_height = style.GRID_CELL_SIZE
+        entry_width = Gdk.Screen.width() - \
+            2 * (entry_height + style.GRID_CELL_SIZE)
+        chat_height = Gdk.Screen.height() - entry_height - style.GRID_CELL_SIZE
+        chat_width =  Gdk.Screen.width()
+
+        grid = Gtk.Grid()
+        self.chatbox.set_size_request(chat_width, chat_height)
+        grid.attach(self.chatbox, 0, 0, 3, 1)
+        self.chatbox.show()
+
+        smiley_button = EventIcon(icon_name='smilies', pixel_size=entry_height)
+        smiley_button.connect('button-press-event', self._smiley_button_cb)
+        grid.attach(smiley_button, 0, 1, 1, 1)
+        smiley_button.show()
+
+        self._entry = Gtk.Entry()
+        self._entry.set_size_request(entry_width, entry_height)
+        self._entry.modify_bg(Gtk.StateType.INSENSITIVE,
+                              style.COLOR_WHITE.get_gdk_color())
+        self._entry.modify_base(Gtk.StateType.INSENSITIVE,
+                                style.COLOR_WHITE.get_gdk_color())
+        self._entry.set_sensitive(False)
+        self._entry.connect('focus-in-event', self._entry_focus_in_cb)
+        self._entry.connect('focus-out-event', self._entry_focus_out_cb)
+        self._entry.connect('activate', self._entry_activate_cb)
+        self._entry.connect('key-press-event', self._entry_key_press_cb)
+        grid.attach(self._entry, 1, 1, 1, 1)
+        self._entry.show()
+
+        send_button = EventIcon(icon_name='send', pixel_size=entry_height)
+        send_button.connect('button-press-event', self._send_button_cb)
+        grid.attach(send_button, 2, 1, 1, 1)
+        send_button.show()
+
         self._filler = [Gtk.VBox(), Gtk.VBox()]
-        # ToDo: calculate filler sizes
+        # ToDo: calculate proper filler sizes
         self._filler[0].set_size_request(-1, 160)
         self._filler[1].set_size_request(-1, 80)
-
-        entry = iconentry.IconEntry()
-        entry.set_icon_from_name(iconentry.ICON_ENTRY_PRIMARY,
-                                 'smilies-bw')
-        entry.connect('icon-press', self._smiley_icon_pressed)
-
-        entry.modify_bg(Gtk.StateType.INSENSITIVE,
-                        style.COLOR_WHITE.get_gdk_color())
-        entry.modify_base(Gtk.StateType.INSENSITIVE,
-                          style.COLOR_WHITE.get_gdk_color())
-        entry.set_sensitive(False)
-        entry.connect('focus-in-event', self.entry_focus_in_cb)
-        entry.connect('focus-out-event', self.entry_focus_out_cb)
-        entry.connect('activate', self.entry_activate_cb)
-        entry.connect('key-press-event', self.entry_key_press_cb)
-        self.entry = entry
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox.pack_start(self.entry, True, True, 0)
-
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False)
-        box.pack_start(self.chatbox, True, True, 0)
-        box.pack_start(hbox, False, True, 0)
         if _is_tablet_mode():
-            box.pack_start(self._filler[0], True, True, 0)
-            box.pack_start(self._filler[1], True, True, 0)
+            grid.attach(self._filler[0], 0, 2, 3, 1)
+            grid.attach(self._filler[1], 0, 3, 3, 1)
 
-        return box
+        return grid
 
-    def entry_focus_in_cb(self, entry, event):
+    def _get_icon_pixbuf(self, name):
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_info = icon_theme.lookup_icon(
+            name, style.LARGE_ICON_SIZE, 0)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+            icon_info.get_filename(), style.LARGE_ICON_SIZE,
+            style.LARGE_ICON_SIZE)
+        del icon_info
+        return pixbuf
+
+    def _entry_focus_in_cb(self, entry, event):
         self._hide_smiley_window()
         if _is_tablet_mode():
             if Gdk.Screen.width() > Gdk.Screen.height():
@@ -383,12 +419,12 @@ class Chat(activity.Activity):
             else:
                 self._filler[1].show()
 
-    def entry_focus_out_cb(self, entry, event):
+    def _entry_focus_out_cb(self, entry, event):
         if _is_tablet_mode():
             self._filler[0].hide()
             self._filler[1].hide()
 
-    def entry_key_press_cb(self, widget, event):
+    def _entry_key_press_cb(self, widget, event):
         '''Check for scrolling keys.
 
         Check if the user pressed Page Up, Page Down, Home or End and
@@ -409,7 +445,13 @@ class Chat(activity.Activity):
              event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
-    def entry_activate_cb(self, entry):
+    def _smiley_button_cb(self, widget, event):
+        self._show_smiley_window()
+
+    def _send_button_cb(self, widget, event):
+        self._entry_activate_cb(self._entry)
+
+    def _entry_activate_cb(self, entry):
         self.chatbox._scroll_auto = True
 
         text = entry.props.text
@@ -473,7 +515,7 @@ class Chat(activity.Activity):
     def _create_smiley_window(self):
         self._smiley_window = Gtk.ScrolledWindow()
         self._smiley_window.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        self._smiley_window.set_policy(Gtk.PolicyType.NEVER,
+        self._smiley_window.set_policy(Gtk.PolicyType.AUTOMATIC,
                                        Gtk.PolicyType.AUTOMATIC)
         self._smiley_window.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
@@ -481,7 +523,7 @@ class Chat(activity.Activity):
         height = int(Gdk.Screen.height() - 6 * style.GRID_CELL_SIZE)
         self._smiley_window.set_size_request(width, height)
 
-        table = self._create_palette_smiley_table()
+        table = self._create_smiley_table()
         self._smiley_window.add_with_viewport(table)
         table.show_all()
 
