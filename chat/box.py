@@ -130,6 +130,10 @@ class TextBox(Gtk.TextView):
         self.connect('visibility-notify-event', self.__visibility_notify_cb)
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
 
+    def resize_box(self):
+        self.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE * 3, -1)
+
     def __leave_notify_event_cb(self, widget, event):
         self._mouse_detector.stop()
 
@@ -301,6 +305,10 @@ class ChatBox(Gtk.ScrolledWindow):
         self._chat_log = ''
         self._row_counter = 0
 
+        # We need access to individual messages for resizing
+        # TODO: use a signal for this
+        self._message_list = []
+
         self._conversation = Gtk.Grid()
         self._conversation.set_row_spacing(style.DEFAULT_SPACING)
         self._conversation.set_border_width(style.DEFAULT_SPACING * 2)
@@ -460,6 +468,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
             message = TextBox(nick_color, text_color, color_fill,
                               highlight_fill, lang_rtl)
+            self.message_list.append(message)
             message.connect('open-on-journal', self.__open_on_journal)
 
             if not status_message:
@@ -512,6 +521,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
         message = TextBox(style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
                           style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False)
+        self.message_list.append(message)
 
         message.add_text(timestamp_to_elapsed_string(timestamp_seconds))
         box = Gtk.HBox()
@@ -570,6 +580,9 @@ class ChatBox(Gtk.ScrolledWindow):
             adj.set_value(adj.get_upper() - adj.get_page_size())
             self._scroll_value = adj.get_value()
 
+    def resize_all(self):
+        for message in message_list:
+            message.resize()
 
 class ContentInvoker(Invoker):
     def __init__(self):

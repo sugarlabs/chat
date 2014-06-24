@@ -224,7 +224,13 @@ class Chat(activity.Activity):
             self._entry_height)
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
                             style.GRID_CELL_SIZE
-        self._chat_width =  Gdk.Screen.width()
+        self._chat_width = Gdk.Screen.width()
+        logger.debug('Chatbox size request %dx%d' %
+                      (self._chat_width, self._chat_height))
+        self.chatbox.set_size_request(self._chat_width, self._chat_height)
+
+        self.chatbox.resize_all()
+
         self._fixed_resize_cb()
 
     def _create_smiley_table(self):
