@@ -288,7 +288,7 @@ class Chat(activity.Activity):
 
         # XXX How do we detect the sender going offline?
         self._entry.set_sensitive(True)
-        self._entry.props.placeholder_text = ''
+        self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
     def _one_to_one_connection_closed_cb(self):
