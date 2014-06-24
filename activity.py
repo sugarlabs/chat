@@ -288,6 +288,7 @@ class Chat(activity.Activity):
 
         # XXX How do we detect the sender going offline?
         self._entry.set_sensitive(True)
+        self._entry.props.placeholder_text = ''
         self._entry.grab_focus()
 
     def _one_to_one_connection_closed_cb(self):
@@ -459,7 +460,11 @@ class Chat(activity.Activity):
                               style.COLOR_WHITE.get_gdk_color())
         self._entry.modify_base(Gtk.StateType.INSENSITIVE,
                                 style.COLOR_WHITE.get_gdk_color())
+
         self._entry.set_sensitive(False)
+        self._entry.props.placeholder_text = \
+            _('You must be connected before starting to chat.')
+
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)
         self._entry.connect('activate', self._entry_activate_cb)
