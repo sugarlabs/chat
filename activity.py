@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-#Copyright 2007-2008 One Laptop Per Child
-#Copyright 2009-14 Sugar Labs
+# Copyright 2007-2008 One Laptop Per Child
+# Copyright 2009-14 Sugar Labs
 # Copyright 2014, Walter Bender
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +27,8 @@ try:
     _HAS_SOUND = True
 except:
     _HAS_SOUND = False
+
+OSK_HEIGHT = [400, 300]
 
 import logging
 import json
@@ -101,6 +103,8 @@ class Chat(activity.Activity):
         super(Chat, self).__init__(handle)
 
         self._entry = None
+        self._has_alert = False
+        self._has_osk = False
 
         self._setup_canvas()
         GObject.idle_add(self._create_smiley_window)
@@ -111,6 +115,8 @@ class Chat(activity.Activity):
         self.set_toolbar_box(toolbar_box)
 
         self._activity_toolbar_button = ActivityToolbarButton(self)
+        self._activity_toolbar_button.connect('clicked', self._fixed_resize_cb)
+
         toolbar_box.toolbar.insert(self._activity_toolbar_button, 0)
         self._activity_toolbar_button.show()
 
@@ -152,18 +158,58 @@ class Chat(activity.Activity):
     def _fixed_resize_cb(self, widget=None, rect=None):
         ''' If a toolbar opens or closes, we need to resize the vbox
         holding out scrolling window. '''
-        self._entry_widgets.set_size_request(rect.width, rect.height)
+        # self._entry_widgets.set_size_request(rect.width, rect.height)
+        logging.debug('FIXED RESIZE CB %dx%d' %
+                      (self._chat_width, self._chat_height))
+        if self._has_alert:
+            dy = style.GRID_CELL_SIZE
+        else:
+            dy = 0
+        if self._has_osk:
+            if Gdk.Screen.width() > Gdk.Screen.height():
+                dy += OSK_HEIGHT[0]
+            else:
+                dy += OSK_HEIGHT[1]
+
+        logging.debug('DY: %d' % dy)
+        if self._toolbar_expanded():
+            logging.debug('expanded: %d' %
+                          (self._chat_height - style.GRID_CELL_SIZE))
+            self.chatbox.set_size_request(
+                self._chat_width, self._chat_height - style.GRID_CELL_SIZE - dy)
+            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
+                             self._chat_height - style.GRID_CELL_SIZE - dy)
+        else:
+            logging.debug('not expanded: %d' %
+                          (self._chat_height))
+            self.chatbox.set_size_request(self._chat_width,
+                                          self._chat_height - dy)
+            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
+                             self._chat_height - dy)
+
+        """
+            self._scrolled_window.set_size_request(
+                Gdk.Screen.width(), Gdk.Screen.height() - dy1)
+            self._fixed.move(self._progress_area, 0, Gdk.Screen.height() - dy2)
+            self._fixed.move(self._button_area, 0, Gdk.Screen.height() - dy1)
+        """
 
     def _setup_canvas(self):
         ''' Create a canvas '''
         self._fixed = Gtk.Fixed()
+        self._fixed.set_size_request(
+            Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
         self._fixed.connect('size-allocate', self._fixed_resize_cb)
-        self._fixed.show()
         self.set_canvas(self._fixed)
+        self._fixed.show()
 
         self._entry_widgets = self._make_entry_widgets()
-        self._fixed.put(self._entry_widgets, 0, 0)
-        self._entry_widgets.show()
+        self._fixed.put(self.chatbox, 0, 0)
+        self.chatbox.show()
+
+        self._fixed.put(self._entry_grid, style.GRID_CELL_SIZE,
+                        self._chat_height)
+        self._entry_grid.show()
 
     def _create_smiley_table(self):
         smilies_columns = int((Gdk.Screen.width() - 4 * style.GRID_CELL_SIZE)
@@ -268,6 +314,11 @@ class Chat(activity.Activity):
         if not self.has_focus:
             self.notify_user(_('Message from %s') % buddy, text)
 
+    def _toolbar_expanded(self):
+        if self._activity_toolbar_button.is_expanded():
+            return True
+        return False
+
     def _alert(self, title, text=None):
         alert = NotifyAlert(timeout=5)
         alert.props.title = title
@@ -275,9 +326,13 @@ class Chat(activity.Activity):
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
         alert.show()
+        self._has_alert = True
+        self._fixed_resize_cb()
 
     def _alert_cancel_cb(self, alert, response_id):
         self.remove_alert(alert)
+        self._has_alert = False
+        self._fixed_resize_cb()
 
     def __open_on_journal(self, widget, url):
         '''Ask the journal to display a URL'''
@@ -340,40 +395,43 @@ class Chat(activity.Activity):
 
     def _make_entry_widgets(self):
         '''We need to create a button for the smiley, a text entry, and a
-        send button. Also, in tablet mode, we need some fillers to
-        move the entry and chat box when the on-screen keyboard is
-        present.
+        send button.
 
         All of this, along with the chatbox, goes into a grid.
 
         ---------------------------------------
         | chat box                            |
         | smiley button | entry | send button |
-        | filler 1 (landscape mode)           |
-        | filler 2 (portrait mode)            |
         ---------------------------------------
         '''
         if _is_tablet_mode():
-            entry_height = int(style.GRID_CELL_SIZE * 1.5)
+            self._entry_height = int(style.GRID_CELL_SIZE * 1.5)
         else:
-            entry_height = style.GRID_CELL_SIZE
+            self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-            2 * (entry_height + style.GRID_CELL_SIZE)
-        chat_height = Gdk.Screen.height() - entry_height - style.GRID_CELL_SIZE
-        chat_width =  Gdk.Screen.width()
+            2 * (self._entry_height + style.GRID_CELL_SIZE)
+        self._chat_height = Gdk.Screen.height() - self._entry_height - \
+                            style.GRID_CELL_SIZE
+        self._chat_width =  Gdk.Screen.width()
 
-        grid = Gtk.Grid()
-        self.chatbox.set_size_request(chat_width, chat_height)
-        grid.attach(self.chatbox, 0, 0, 3, 1)
-        self.chatbox.show()
+        logging.debug('Chatbox size request %dx%d' %
+                      (self._chat_width, self._chat_height))
+        self.chatbox.set_size_request(self._chat_width, self._chat_height)
 
-        smiley_button = EventIcon(icon_name='smilies', pixel_size=entry_height)
+        self._entry_grid = Gtk.Grid()
+        self._entry_grid.set_size_request(Gdk.Screen.width(),
+                                          self._entry_height)
+
+        smiley_button = EventIcon(icon_name='smilies',
+                                  pixel_size=self._entry_height)
         smiley_button.connect('button-press-event', self._smiley_button_cb)
-        grid.attach(smiley_button, 0, 1, 1, 1)
+        self._entry_grid.attach(smiley_button, 0, 0, 1, 1)
         smiley_button.show()
 
         self._entry = Gtk.Entry()
-        self._entry.set_size_request(entry_width, entry_height)
+        logging.debug('Entry size request %dx%d' %
+                      (entry_width, self._entry_height))
+        self._entry.set_size_request(entry_width, self._entry_height)
         self._entry.modify_bg(Gtk.StateType.INSENSITIVE,
                               style.COLOR_WHITE.get_gdk_color())
         self._entry.modify_base(Gtk.StateType.INSENSITIVE,
@@ -383,23 +441,14 @@ class Chat(activity.Activity):
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)
         self._entry.connect('activate', self._entry_activate_cb)
         self._entry.connect('key-press-event', self._entry_key_press_cb)
-        grid.attach(self._entry, 1, 1, 1, 1)
+        self._entry_grid.attach(self._entry, 1, 0, 1, 1)
         self._entry.show()
 
-        send_button = EventIcon(icon_name='send', pixel_size=entry_height)
+        send_button = EventIcon(icon_name='send',
+                                pixel_size=self._entry_height)
         send_button.connect('button-press-event', self._send_button_cb)
-        grid.attach(send_button, 2, 1, 1, 1)
+        self._entry_grid.attach(send_button, 2, 0, 1, 1)
         send_button.show()
-
-        self._filler = [Gtk.VBox(), Gtk.VBox()]
-        # ToDo: calculate proper filler sizes
-        self._filler[0].set_size_request(-1, 160)
-        self._filler[1].set_size_request(-1, 80)
-        if _is_tablet_mode():
-            grid.attach(self._filler[0], 0, 2, 3, 1)
-            grid.attach(self._filler[1], 0, 3, 3, 1)
-
-        return grid
 
     def _get_icon_pixbuf(self, name):
         icon_theme = Gtk.IconTheme.get_default()
@@ -412,17 +461,18 @@ class Chat(activity.Activity):
         return pixbuf
 
     def _entry_focus_in_cb(self, entry, event):
+        logging.debug('ENTRY FOCUS IN')
         self._hide_smiley_window()
+
         if _is_tablet_mode():
-            if Gdk.Screen.width() > Gdk.Screen.height():
-                self._filler[0].show()
-            else:
-                self._filler[1].show()
+            self._has_osk = True
+            self._fixed_resize_cb()
 
     def _entry_focus_out_cb(self, entry, event):
+        logging.debug('ENTRY FOCUS OUT')
         if _is_tablet_mode():
-            self._filler[0].hide()
-            self._filler[1].hide()
+            self._has_osk = False
+            self._fixed_resize_cb()
 
     def _entry_key_press_cb(self, widget, event):
         '''Check for scrolling keys.
