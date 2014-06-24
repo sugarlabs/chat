@@ -69,20 +69,20 @@ msgid "Private Chat"
 msgstr "Charla Privada"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "abandonó la charla"
+msgid "%s left the chat"
+msgstr "%s abandonó la charla"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Conectado"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "se unió a la charla"
+msgid "%s joined the chat"
+msgstr "%s se unió a la charla"
 
 #: activity.py:255
-msgid "is here"
-msgstr "está aquí"
+msgid "%s is here"
+msgstr "%s está aquí"
 
 #: chat/box.py:118
 msgid "URL from Chat"
@@ -221,3 +221,6 @@ msgstr "Sorprendido"
 #, python-format
 #~ msgid "%s Source"
 #~ msgstr "%s Fuente"
+
+msgid "You must be connected before starting to chat."
+msgstr "Usted debe estar conectado antes de comenzar a hablar."
