@@ -581,8 +581,8 @@ class ChatBox(Gtk.ScrolledWindow):
             self._scroll_value = adj.get_value()
 
     def resize_all(self):
-        for message in message_list:
-            message.resize()
+        for message in self._message_list:
+            message.resize_box()
 
 class ContentInvoker(Invoker):
     def __init__(self):
