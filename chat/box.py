@@ -468,7 +468,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
             message = TextBox(nick_color, text_color, color_fill,
                               highlight_fill, lang_rtl)
-            self.message_list.append(message)
+            self._message_list.append(message)
             message.connect('open-on-journal', self.__open_on_journal)
 
             if not status_message:
@@ -521,7 +521,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
         message = TextBox(style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
                           style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False)
-        self.message_list.append(message)
+        self._message_list.append(message)
 
         message.add_text(timestamp_to_elapsed_string(timestamp_seconds))
         box = Gtk.HBox()
