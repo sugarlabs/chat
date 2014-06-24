@@ -287,7 +287,7 @@ class Chat(activity.Activity):
         self._alert(_('On-line'), _('Private Chat'))
 
         # XXX How do we detect the sender going offline?
-        self._entry.set_sensitive(True)
+        self._entry.set_sensitive(True) 
         self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
@@ -305,6 +305,7 @@ class Chat(activity.Activity):
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
         self._entry.set_sensitive(True)
+        self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
     def _joined_cb(self, sender):
