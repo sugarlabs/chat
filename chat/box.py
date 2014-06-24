@@ -307,6 +307,8 @@ class ChatBox(Gtk.ScrolledWindow):
 
         # We need access to individual messages for resizing
         # TODO: use a signal for this
+        self._rb_list = []
+        self._grid_list = []
         self._message_list = []
 
         self._conversation = Gtk.Grid()
@@ -458,12 +460,17 @@ class ChatBox(Gtk.ScrolledWindow):
             rb.background_color = color_fill
             rb.border_color = color_stroke
             rb.tail = tail
+            # TODO: with signal
+            self._rb_list.append(rb)
 
             grid_internal = Gtk.Grid()
             grid_internal.set_row_spacing(0)
             grid_internal.set_border_width(style.DEFAULT_SPACING)
             grid_internal.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+            # TODO: with signal
+            self._grid_list.append(grid_internal)
+
             row = 0
 
             message = TextBox(nick_color, text_color, color_fill,
@@ -583,6 +590,13 @@ class ChatBox(Gtk.ScrolledWindow):
     def resize_all(self):
         for message in self._message_list:
             message.resize_box()
+        for grid in self._grid_list:
+            grid.set_size_request(
+                Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+        for rb in self._rb_list:
+            rb.set_size_request(
+                Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+
 
 class ContentInvoker(Invoker):
     def __init__(self):
