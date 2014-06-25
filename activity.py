@@ -464,7 +464,7 @@ class Chat(activity.Activity):
 
         self._entry.set_sensitive(False)
         self._entry.props.placeholder_text = \
-            _('You must be connected before starting to chat.')
+            _('You must be connected to a friend before starting to chat.')
 
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)

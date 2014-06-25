@@ -222,5 +222,5 @@ msgstr "Sorprendido"
 #~ msgid "%s Source"
 #~ msgstr "%s Fuente"
 
-msgid "You must be connected before starting to chat."
-msgstr "Usted debe estar conectado antes de comenzar a hablar."
+msgid "You must be connected to a friend before starting to chat."
+msgstr "Es necesario estar conectado a un amigo antes de empezar a chatear."
