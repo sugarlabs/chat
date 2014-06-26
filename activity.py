@@ -222,26 +222,31 @@ class Chat(activity.Activity):
         self._fixed_resize_cb()
 
     def _create_smiley_table(self):
-        smilies_columns = int(
-            (Gdk.Screen.width() - (3 * style.GRID_CELL_SIZE))
-            / style.GRID_CELL_SIZE)
-        row_count = int(math.ceil(len(smilies.THEME) / float(smilies_columns)))
-        table = Gtk.Table(rows=row_count, columns=smilies_columns)
+        button_size = style.GRID_CELL_SIZE + style.DEFAULT_SPACING
+        width = Gdk.Screen.width() - \
+                (2 * style.DEFAULT_SPACING + 3 * style.GRID_CELL_SIZE)
+        smilies_columns = int(width / button_size) - 1
 
-        index = 0
-        for y in range(row_count):
-            for x in range(smilies_columns):
-                if index >= len(smilies.THEME):
-                    break
-                path, hint, codes = smilies.THEME[index]
-                image = Gtk.Image()
-                image.set_from_file(path)
-                button = Gtk.ToolButton()
-                button.set_icon_widget(image)
-                button.connect('clicked', self._add_smiley_to_entry, codes[0])
-                table.attach(button, x, x + 1, y, y + 1)
-                button.show()
-                index += 1
+        table = Gtk.Grid()
+        table.set_row_spacing(0)
+        table.set_column_spacing(0)
+        table.set_border_width(style.DEFAULT_SPACING)
+
+        x = 0
+        y = 0
+        for i in range(len(smilies.THEME)):
+            path, hint, codes = smilies.THEME[i]
+            image = Gtk.Image()
+            image.set_from_file(path)
+            button = Gtk.ToolButton()
+            button.set_icon_widget(image)
+            button.connect('clicked', self._add_smiley_to_entry, codes[0])
+            table.attach(button, x, y, 1, 1)
+            button.show()
+            x += 1
+            if x == smilies_columns:
+                y += 1
+                x = 0
         return table
 
     def _add_smiley_to_entry(self, button, text):
