@@ -251,11 +251,14 @@ class TextBox(Gtk.TextView):
 
         self._empty = False
 
-    def add_text(self, text):
+    def add_text(self, text, newline=True):
         buf = self.get_buffer()
 
         if not self._empty:
-            buf.insert(self.iter_text, '\n')
+            if newline:
+                buf.insert(self.iter_text, '\n')
+            else:
+                buf.insert(self.iter_text, ' ')
 
         words = text.split()
         for word in words:
@@ -423,20 +426,6 @@ class ChatBox(Gtk.ScrolledWindow):
 
         color_stroke = None
 
-        '''
-        # Select text color based on fill color:
-        color_fill_rgba = style.Color(color_fill_html).get_rgba()
-        color_fill_gray = (color_fill_rgba[0] + color_fill_rgba[1] +
-                           color_fill_rgba[2]) / 3
-        color_stroke = style.Color(color_stroke_html)
-        color_fill = style.Color(color_fill_html)
-
-        if color_fill_gray < 0.5:
-            text_color = style.COLOR_WHITE
-        else:
-            text_color = style.COLOR_BLACK
-        '''
-
         self._add_log(nick, color, text, status_message)
 
         # Check for Right-To-Left languages:
@@ -510,7 +499,10 @@ class ChatBox(Gtk.ScrolledWindow):
         if status_message:
             self._last_msg_sender = None
 
-        message.add_text(text)
+        if new_msg:
+            message.add_text(text, newline=False)
+        else:
+            message.add_text(text)
         message.show()
 
     def add_separator(self, timestamp):
