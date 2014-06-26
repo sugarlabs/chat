@@ -596,6 +596,9 @@ class ChatBox(Gtk.ScrolledWindow):
         for rb in self._rb_list:
             rb.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+        self._conversation.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE * 2,
+            Gdk.Screen.height() - style.GRID_CELL_SIZE)
 
 
 class ContentInvoker(Invoker):
