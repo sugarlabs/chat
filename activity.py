@@ -49,7 +49,7 @@ from telepathy.client import Channel
 
 from sugar3.graphics import style
 from sugar3.graphics import iconentry
-from sugar3.graphics.icon import EventIcon
+from sugar3.graphics.icon import EventIcon, Icon
 from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
@@ -158,9 +158,6 @@ class Chat(activity.Activity):
     def _fixed_resize_cb(self, widget=None, rect=None):
         ''' If a toolbar opens or closes, we need to resize the vbox
         holding out scrolling window. '''
-        # self._entry_widgets.set_size_request(rect.width, rect.height)
-        logger.debug('FIXED RESIZE CB %dx%d' %
-                      (self._chat_width, self._chat_height))
         if self._has_alert:
             dy = style.GRID_CELL_SIZE
         else:
@@ -171,18 +168,13 @@ class Chat(activity.Activity):
             else:
                 dy += OSK_HEIGHT[1]
 
-        logger.debug('DY: %d' % dy)
         if self._toolbar_expanded():
-            logger.debug('expanded: %d' %
-                          (self._chat_height - style.GRID_CELL_SIZE))
             self.chatbox.set_size_request(
                 self._chat_width,
                 self._chat_height - style.GRID_CELL_SIZE - dy)
             self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
                              self._chat_height - style.GRID_CELL_SIZE - dy)
         else:
-            logger.debug('not expanded: %d' %
-                          (self._chat_height))
             self.chatbox.set_size_request(self._chat_width,
                                           self._chat_height - dy)
             self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
@@ -208,8 +200,6 @@ class Chat(activity.Activity):
         Gdk.Screen.get_default().connect('size-changed', self._configure_cb)
 
     def _configure_cb(self, event):
-        logger.debug('CONFIGURE CB %dx%d' %
-                      (Gdk.Screen.width(), Gdk.Screen.height()))
         self._fixed.set_size_request(
             Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
         if _is_tablet_mode():
@@ -225,8 +215,6 @@ class Chat(activity.Activity):
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
                             style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
-        logger.debug('Chatbox size request %dx%d' %
-                      (self._chat_width, self._chat_height))
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
 
         self.chatbox.resize_all()
@@ -234,8 +222,9 @@ class Chat(activity.Activity):
         self._fixed_resize_cb()
 
     def _create_smiley_table(self):
-        smilies_columns = int((Gdk.Screen.width() - 4 * style.GRID_CELL_SIZE)
-                              / style.GRID_CELL_SIZE)
+        smilies_columns = int(
+            (Gdk.Screen.width() - (3 * style.GRID_CELL_SIZE))
+            / style.GRID_CELL_SIZE)
         row_count = int(math.ceil(len(smilies.THEME) / float(smilies_columns)))
         table = Gtk.Table(rows=row_count, columns=smilies_columns)
 
@@ -492,7 +481,6 @@ class Chat(activity.Activity):
         return pixbuf
 
     def _entry_focus_in_cb(self, entry, event):
-        logger.debug('ENTRY FOCUS IN')
         self._hide_smiley_window()
 
         if _is_tablet_mode():
@@ -500,7 +488,6 @@ class Chat(activity.Activity):
             self._fixed_resize_cb()
 
     def _entry_focus_out_cb(self, entry, event):
-        logger.debug('ENTRY FOCUS OUT')
         if _is_tablet_mode():
             self._has_osk = False
             self._fixed_resize_cb()
@@ -594,19 +581,41 @@ class Chat(activity.Activity):
             self.element.set_state(Gst.State.PLAYING)
 
     def _create_smiley_window(self):
-        self._smiley_window = Gtk.ScrolledWindow()
-        self._smiley_window.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        self._smiley_window.set_policy(Gtk.PolicyType.AUTOMATIC,
-                                       Gtk.PolicyType.AUTOMATIC)
-        self._smiley_window.modify_bg(
+        grid = Gtk.Grid()
+
+        self._smiley_toolbar = SmileyToolbar(self)
+        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
+        height = style.GRID_CELL_SIZE
+        self._smiley_toolbar.set_size_request(width, height)
+        grid.attach(self._smiley_toolbar, 0, 0, 1, 1)
+        self._smiley_toolbar.show()
+
+        window = Gtk.ScrolledWindow()
+        window.set_policy(Gtk.PolicyType.AUTOMATIC,
+                          Gtk.PolicyType.AUTOMATIC)
+        window.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
-        width = int(Gdk.Screen.width() - 4 * style.GRID_CELL_SIZE)
+        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
+        height = int(Gdk.Screen.height() - 6 * style.GRID_CELL_SIZE)
+        window.set_size_request(width, height)
+
+        table = self._create_smiley_table()
+        window.add_with_viewport(table)
+        table.show_all()
+
+        grid.attach(window, 0, 1, 1, 1)
+        window.show()
+
+        self._smiley_window = Gtk.ScrolledWindow()
+        self._smiley_window.set_policy(Gtk.PolicyType.NEVER,
+                                       Gtk.PolicyType.NEVER)
+        self._smiley_window.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
         height = int(Gdk.Screen.height() - 6 * style.GRID_CELL_SIZE)
         self._smiley_window.set_size_request(width, height)
 
-        table = self._create_smiley_table()
-        self._smiley_window.add_with_viewport(table)
-        table.show_all()
+        self._smiley_window.add_with_viewport(grid)
+        grid.show()
 
         self._fixed.put(self._smiley_window, style.GRID_CELL_SIZE, 0)
 
@@ -740,3 +749,51 @@ class TextChannelWrapper(object):
 
         return pservice.get_buddy_by_telepathy_handle(
             tp_name, tp_path, handle)
+
+
+class SmileyToolbar(Gtk.Toolbar):
+
+    def __init__(self, activity):
+        Gtk.Toolbar.__init__(self)
+
+        self._activity = activity
+        self._add_separator()
+
+        self._icon = Icon(icon_name='smilies-white')
+        self._add_widget(self._icon)
+
+        self._add_separator()
+
+        self._title = Gtk.Label(_('Insert a smiley'))
+        self._add_widget(self._title)
+
+        self._add_separator(True)
+
+        self.cancel_button = ToolButton('dialog-cancel')
+        self.cancel_button.set_tooltip(_('Cancel'))
+        self.cancel_button.connect('clicked', self.__cancel_button_clicked_cb)
+        self.insert(self.cancel_button, -1)
+        self.cancel_button.show()
+
+    def _add_separator(self, expand=False):
+        separator = Gtk.SeparatorToolItem()
+        separator.props.draw = False
+        if expand:
+            separator.set_expand(True)
+        else:
+            separator.set_size_request(style.DEFAULT_SPACING, -1)
+        self.insert(separator, -1)
+        separator.show()
+
+    def _add_widget(self, widget, expand=False):
+        tool_item = Gtk.ToolItem()
+        tool_item.set_expand(expand)
+
+        tool_item.add(widget)
+        widget.show()
+
+        self.insert(tool_item, -1)
+        tool_item.show()
+
+    def __cancel_button_clicked_cb(self, widget, data=None):
+        self._activity._hide_smiley_window()
