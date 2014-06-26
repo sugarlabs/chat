@@ -332,9 +332,11 @@ class Chat(activity.Activity):
         if self.owner.props.nick in text:
             self.play_sound('said_nick')
 
+        '''
         vscroll = self.chatbox.get_vadjustment()
         if vscroll.get_property('value') != vscroll.get_property('upper'):
             self._alert(_('New message'), _('New message from %s' % nick))
+        '''
         if not self.has_focus:
             self.notify_user(_('Message from %s') % buddy, text)
 
