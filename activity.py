@@ -219,13 +219,21 @@ class Chat(activity.Activity):
 
         self.chatbox.resize_all()
 
+        width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
+        if _is_tablet_mode():
+            height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
+        else:
+            height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
+        self._smiley_table.set_size_request(width, height)
+        self._smiley_toolbar.set_size_request(width, -1)
+        self._smiley_window.set_size_request(width, -1)
+
         self._fixed_resize_cb()
 
-    def _create_smiley_table(self):
-        button_size = style.GRID_CELL_SIZE + style.DEFAULT_SPACING
-        width = Gdk.Screen.width() - \
-                (2 * style.DEFAULT_SPACING + 3 * style.GRID_CELL_SIZE)
-        smilies_columns = int(width / button_size) - 1
+    def _create_smiley_table(self, width):
+        button_size = style.STANDARD_ICON_SIZE + style.DEFAULT_PADDING
+        width = width - 2 * style.DEFAULT_SPACING
+        smilies_columns = int(width / button_size) - 2
 
         table = Gtk.Grid()
         table.set_row_spacing(0)
@@ -587,37 +595,37 @@ class Chat(activity.Activity):
 
     def _create_smiley_window(self):
         grid = Gtk.Grid()
+        width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
 
         self._smiley_toolbar = SmileyToolbar(self)
-        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
         height = style.GRID_CELL_SIZE
         self._smiley_toolbar.set_size_request(width, height)
         grid.attach(self._smiley_toolbar, 0, 0, 1, 1)
         self._smiley_toolbar.show()
 
-        window = Gtk.ScrolledWindow()
-        window.set_policy(Gtk.PolicyType.AUTOMATIC,
+        self._smiley_table = Gtk.ScrolledWindow()
+        self._smiley_table.set_policy(Gtk.PolicyType.AUTOMATIC,
                           Gtk.PolicyType.AUTOMATIC)
-        window.modify_bg(
+        self._smiley_table.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
-        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
-        height = int(Gdk.Screen.height() - 6 * style.GRID_CELL_SIZE)
-        window.set_size_request(width, height)
+        if _is_tablet_mode():
+            height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
+        else:
+            height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
+        self._smiley_table.set_size_request(width, height)
 
-        table = self._create_smiley_table()
-        window.add_with_viewport(table)
+        table = self._create_smiley_table(width)
+        self._smiley_table.add_with_viewport(table)
         table.show_all()
 
-        grid.attach(window, 0, 1, 1, 1)
-        window.show()
+        grid.attach(self._smiley_table, 0, 1, 1, 1)
+        self._smiley_table.show()
 
         self._smiley_window = Gtk.ScrolledWindow()
         self._smiley_window.set_policy(Gtk.PolicyType.NEVER,
                                        Gtk.PolicyType.NEVER)
         self._smiley_window.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        width = int(Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE)
-        height = int(Gdk.Screen.height() - 6 * style.GRID_CELL_SIZE)
-        self._smiley_window.set_size_request(width, height)
+        self._smiley_window.set_size_request(width, -1)
 
         self._smiley_window.add_with_viewport(grid)
         grid.show()
