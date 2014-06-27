@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Berdelaedje privé"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "a moussî foû do berdelaedje"
+msgid "%s left the chat"
+msgstr "%s a moussî foû do berdelaedje"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Raloyî"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "a-st arivé e berdelaedje"
+msgid "%s joined the chat"
+msgstr "%s a-st arivé e berdelaedje"
 
 #: activity.py:255
-msgid "is here"
-msgstr "est cial"
+msgid "%s is here"
+msgstr "%s est cial"
 
 #: chat/box.py:118
 msgid "URL from Chat"

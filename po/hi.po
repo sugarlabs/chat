@@ -59,20 +59,20 @@ msgid "Private Chat"
 msgstr "निजी गपशप"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "गपशप छोड दिया"
+msgid "%s left the chat"
+msgstr "%s गपशप छोड दिया"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "कनेक्ट है"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "गपशप में शामिल हुआ"
+msgid "%s joined the chat"
+msgstr "%s गपशप में शामिल हुआ"
 
 #: activity.py:255
-msgid "is here"
-msgstr "अभी हैं"
+msgid "%s is here"
+msgstr "%s अभी हैं"
 
 #: chat/box.py:118
 msgid "URL from Chat"

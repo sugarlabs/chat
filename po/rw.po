@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "kuganira by'umwihariko"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "yaretse ikiganiro"
+msgid "%s left the chat"
+msgstr "%s yaretse ikiganiro"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Birahujwe"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "yiyunze kukiganiro"
+msgid "%s joined the chat"
+msgstr "%s yiyunze kukiganiro"
 
 #: activity.py:255
-msgid "is here"
-msgstr "ni hano"
+msgid "%s is here"
+msgstr "%s ni hano"
 
 #: chat/box.py:118
 msgid "URL from Chat"

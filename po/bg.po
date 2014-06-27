@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr ""
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "напусна разговора"
+msgid "%s left the chat"
+msgstr "%s напусна разговора"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Свързан"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "се включи в разговора"
+msgid "%s joined the chat"
+msgstr "%s се включи в разговора"
 
 #: activity.py:255
-msgid "is here"
-msgstr "е тук"
+msgid "%s is here"
+msgstr "%s е тук"
 
 #: chat/box.py:118
 msgid "URL from Chat"

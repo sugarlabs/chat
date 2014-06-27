@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "内緒のチャット"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "さんが退室しました"
+msgid "%s left the chat"
+msgstr "%s さんが退室しました"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "接続しました"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "さんが入室しました"
+msgid "%s joined the chat"
+msgstr "%s さんが入室しました"
 
 #: activity.py:255
-msgid "is here"
-msgstr "がいます"
+msgid "%s is here"
+msgstr "%s がいます"
 
 #: chat/box.py:118
 msgid "URL from Chat"

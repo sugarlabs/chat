@@ -56,20 +56,20 @@ msgid "Private Chat"
 msgstr "Zasebni klepet"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "je zapustil klepet"
+msgid "%s left the chat"
+msgstr "%s je zapustil klepet"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Povezan"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "se je pridružil klepetu"
+msgid "%s joined the chat"
+msgstr "%s se je pridružil klepetu"
 
 #: activity.py:255
-msgid "is here"
-msgstr "je tukaj"
+msgid "%s is here"
+msgstr "%s je tukaj"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Tafatafan'olondroa"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "nandao ny tafatafa"
+msgid "%s left the chat"
+msgstr "%s nandao ny tafatafa"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Mifandray"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "niditra ny tafatafa"
+msgid "%s joined the chat"
+msgstr "%s niditra ny tafatafa"
 
 #: activity.py:255
-msgid "is here"
-msgstr "dia eto"
+msgid "%s is here"
+msgstr "%s dia eto"
 
 #: chat/box.py:118
 msgid "URL from Chat"

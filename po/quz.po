@@ -54,8 +54,8 @@ msgstr "Sapalla rimanapaq"
 
 #  "abandonó la charla"
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "pasapunmi rimanakuymantaqa"
+msgid "%s left the chat"
+msgstr "%s pasapunmi rimanakuymantaqa"
 
 #  "Conectado"
 #: activity.py:195
@@ -64,13 +64,13 @@ msgstr "T'inkisqa"
 
 #  "se unió a la charla"
 #: activity.py:240
-msgid "joined the chat"
-msgstr "haykurinmi rimanakuymanqa"
+msgid "%s joined the chat"
+msgstr "%s haykurinmi rimanakuymanqa"
 
 #  "está aquí"
 #: activity.py:255
-msgid "is here"
-msgstr "kaypin kachkan"
+msgid "%s is here"
+msgstr "%s kaypin kachkan"
 
 #  "URL proveniente de Charla"
 #: chat/box.py:118

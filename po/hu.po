@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Privát csevegés"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "Elhagyta a csevegést"
+msgid "%s left the chat"
+msgstr "%s elhagyta a csevegést"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Kapcsolódott"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Belépett a csevegésbe"
+msgid "%s joined the chat"
+msgstr "%s belépett a csevegésbe"
 
 #: activity.py:255
-msgid "is here"
-msgstr "Itt van"
+msgid "%s is here"
+msgstr "%s itt van"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -47,20 +47,20 @@ msgid "Private Chat"
 msgstr "Awe me anga"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "tarowong ko"
+msgid "%s left the chat"
+msgstr "%s tarowong ko"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Epodan"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "ar torongab ko"
+msgid "%s joined the chat"
+msgstr "%s ar torongab ko"
 
 #: activity.py:255
-msgid "is here"
-msgstr "anga ngun"
+msgid "%s is here"
+msgstr "%s anga ngun"
 
 #: chat/box.py:118
 msgid "URL from Chat"

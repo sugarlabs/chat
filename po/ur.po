@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr "پرائيويٹ گپ شپ"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "گپ شپ سے باہر نکل گيا"
+msgid "%s left the chat"
+msgstr "گپ شپ سے باہر نکل گيا %s"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "کنيکٹڈ"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "گپ شپ میں شامل ہوا"
+msgid "%s joined the chat"
+msgstr "گپ شپ میں شامل ہوا %s"
 
 #: activity.py:255
-msgid "is here"
-msgstr "ادهر ہے"
+msgid "%s is here"
+msgstr "ادهر ہے %s"
 
 #: chat/box.py:118
 msgid "URL from Chat"

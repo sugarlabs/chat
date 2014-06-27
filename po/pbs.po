@@ -47,20 +47,20 @@ msgid "Private Chat"
 msgstr "M'ajai ma nal'u kad-er mjang"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "valjaiñ se tily'ajau"
+msgid "%s left the chat"
+msgstr "%s valjaiñ se tily'ajau"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Maka'am"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "ma nabeik ma tal'ajau"
+msgid "%s joined the chat"
+msgstr "%s ma nabeik ma tal'ajau"
 
 #: activity.py:255
-msgid "is here"
-msgstr "kunji mejeu"
+msgid "%s is here"
+msgstr "%s kunji mejeu"
 
 #: chat/box.py:118
 msgid "URL from Chat"

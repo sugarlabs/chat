@@ -60,20 +60,20 @@ msgid "Private Chat"
 msgstr "Conversa Privada"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "saiu da conversa"
+msgid "%s left the chat"
+msgstr "%s saiu da conversa"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Conectado"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "juntou-se a conversa"
+msgid "%s joined the chat"
+msgstr "%s juntou-se a conversa"
 
 #: activity.py:255
-msgid "is here"
-msgstr "está aqui"
+msgid "%s is here"
+msgstr "%s está aqui"
 
 #: chat/box.py:118
 msgid "URL from Chat"

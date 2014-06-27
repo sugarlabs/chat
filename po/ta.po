@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "பிரத்தியேக உரை"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "உரையிலிருந்து வெளியேறு"
+msgid "%s left the chat"
+msgstr "%s உரையிலிருந்து வெளியேறு"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "இணைக்கப்பட்டுள்ளது"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "பேச்சு இணைக்கப்பட்டுள்ளது"
+msgid "%s joined the chat"
+msgstr "%s பேச்சு இணைக்கப்பட்டுள்ளது"
 
 #: activity.py:255
-msgid "is here"
-msgstr "இங்கே"
+msgid "%s is here"
+msgstr "%s இங்கே"
 
 #: chat/box.py:118
 msgid "URL from Chat"

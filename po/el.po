@@ -56,20 +56,20 @@ msgid "Private Chat"
 msgstr "Ιδιωτική συνομιλία"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "άφησε την συνομιλία"
+msgid "%s left the chat"
+msgstr "%s άφησε την συνομιλία"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Συνδέθηκε"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "συμμετέχει στη συνομιλία"
+msgid "%s joined the chat"
+msgstr "%s συμμετέχει στη συνομιλία"
 
 #: activity.py:255
-msgid "is here"
-msgstr "είναι εδώ"
+msgid "%s is here"
+msgstr "%s είναι εδώ"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -55,21 +55,21 @@ msgid "Private Chat"
 msgstr "개인 채팅방"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "채팅방 나오기"
+msgid "%s left the chat"
+msgstr "%s 채팅방 나오기"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "연결됨"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "채팅방 들어가기"
+msgid "%s joined the chat"
+msgstr "%s 채팅방 들어가기"
 
 #: activity.py:255
 #, fuzzy
-msgid "is here"
-msgstr "여기"
+msgid "%s is here"
+msgstr "%s 여기"
 
 #: chat/box.py:118
 #, fuzzy

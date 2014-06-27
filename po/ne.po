@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "निजी कुराकानी"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "कुराकानी छोड्यो"
+msgid "%s left the chat"
+msgstr "%s कुराकानी छोड्यो"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "जडान भयो"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "कुराकानीमा सहभागी भयो"
+msgid "%s joined the chat"
+msgstr "%s कुराकानीमा सहभागी भयो"
 
 #: activity.py:255
-msgid "is here"
-msgstr "यहिं छ"
+msgid "%s is here"
+msgstr "%s यहिं छ"
 
 #: chat/box.py:118
 msgid "URL from Chat"

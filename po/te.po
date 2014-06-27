@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr "వ్యక్తిగతంగా కబుర్లు"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "కబుర్లు వదిలేసారు"
+msgid "%s left the chat"
+msgstr "%s కబుర్లు వదిలేసారు"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "జతకుదిరింది"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "కబుర్లకు కలిసారు"
+msgid "%s joined the chat"
+msgstr "%s కబుర్లకు కలిసారు"
 
 #: activity.py:255
-msgid "is here"
-msgstr "ఇక్కడ ఉన్నారు"
+msgid "%s is here"
+msgstr "%s ఇక్కడ ఉన్నారు"
 
 #: chat/box.py:118
 msgid "URL from Chat"

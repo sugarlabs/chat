@@ -36,6 +36,14 @@ msgstr ""
 msgid "Insert smiley"
 msgstr "أدرج ابتسامة"
 
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "يرجى الانتظار لاتصال قبل البدء في الدردشة."
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "يجب أن تكون متصلا لصديق قبل البدء في الدردشة"
+
 #: activity.py:124 activity.py:188
 msgid "Off-line"
 msgstr "غير مٌتّصل"
@@ -53,20 +61,20 @@ msgid "Private Chat"
 msgstr "دردشة خاصة"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "غادر الدردشة"
+msgid "%s left the chat"
+msgstr "غادر الدردشة %s"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "اتّصلَ"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "انضم للدرشة"
+msgid "%s joined the chat"
+msgstr "انضم للدرشة %s"
 
 #: activity.py:255
-msgid "is here"
-msgstr "هنا"
+msgid "%s is here"
+msgstr "هنا %s"
 
 #: chat/box.py:118
 msgid "URL from Chat"

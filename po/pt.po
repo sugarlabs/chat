@@ -38,6 +38,14 @@ msgstr "Conversa de texto"
 msgid "Insert smiley"
 msgstr "Inserir Cara"
 
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "Por favor, aguarde para uma conexão antes de começar a conversar."
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "Você deve estar conectado a um amigo antes de começar a conversar."
+
 #: activity.py:124 activity.py:188
 msgid "Off-line"
 msgstr "Desligado da rede"
@@ -55,20 +63,20 @@ msgid "Private Chat"
 msgstr "Conversa Privada"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "saiu da conversa"
+msgid "%s left the chat"
+msgstr "%s saiu da conversa"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Ligado"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "juntou-se à conversa"
+msgid "%s joined the chat"
+msgstr "%s juntou-se à conversa"
 
 #: activity.py:255
-msgid "is here"
-msgstr "está aqui"
+msgid "%s is here"
+msgstr "%s está aqui"
 
 #: chat/box.py:118
 msgid "URL from Chat"

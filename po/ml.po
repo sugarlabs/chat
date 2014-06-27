@@ -54,7 +54,7 @@ msgid "Private Chat"
 msgstr ""
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
+msgid "%s left the chat"
 msgstr ""
 
 #: activity.py:195
@@ -62,11 +62,11 @@ msgid "Connected"
 msgstr ""
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "സല്ലാപത്തില്‍ ചേര്‍ന്നു"
+msgid "%s joined the chat"
+msgstr "%s സല്ലാപത്തില്‍ ചേര്‍ന്നു"
 
 #: activity.py:255
-msgid "is here"
+msgid "%s is here"
 msgstr ""
 
 #: chat/box.py:118

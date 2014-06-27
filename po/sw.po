@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "zungumzo binafsi"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "kuondoka mzungumzo"
+msgid "%s left the chat"
+msgstr "%s kuondoka mzungumzo"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Konektiwa"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "alijiunga kwa chat"
+msgid "%s joined the chat"
+msgstr "%s alijiunga kwa chat"
 
 #: activity.py:255
-msgid "is here"
-msgstr "ni hapa"
+msgid "%s is here"
+msgstr "%s ni hapa"
 
 #: chat/box.py:118
 msgid "URL from Chat"

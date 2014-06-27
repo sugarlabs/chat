@@ -51,8 +51,8 @@ msgstr "Tsinat t'ilmáts"
 
 # dejó de platicar o de charlar.
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "in jilá an t'ilmáts"
+msgid "%s left the chat"
+msgstr "%s in jilá an t'ilmáts"
 
 #: activity.py:195
 msgid "Connected"
@@ -60,12 +60,12 @@ msgstr "Palk'adh"
 
 # alguien que se unió a la charla.
 #: activity.py:240
-msgid "joined the chat"
-msgstr "junkun k'al an t'ilmáts"
+msgid "%s joined the chat"
+msgstr "%s junkun k'al an t'ilmáts"
 
 #: activity.py:255
-msgid "is here"
-msgstr "tejé' kw'ajat"
+msgid "%s is here"
+msgstr "%s tejé' kw'ajat"
 
 #: chat/box.py:118
 msgid "URL from Chat"

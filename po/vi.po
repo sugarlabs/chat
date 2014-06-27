@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr "Trò chuyện riêng"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "dừng tham gia"
+msgid "%s left the chat"
+msgstr "%s dừng tham gia"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Đã kết nối"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "tham gia trò chuyện"
+msgid "%s joined the chat"
+msgstr "%s tham gia trò chuyện"
 
 #: activity.py:255
-msgid "is here"
-msgstr "ở đây"
+msgid "%s is here"
+msgstr "%s ở đây"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Privat Tjatt"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "lämnade tjatten"
+msgid "%s left the chat"
+msgstr "%s lämnade tjatten"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Ansluten"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "gick med i tjatten"
+msgid "%s joined the chat"
+msgstr "%s gick med i tjatten"
 
 #: activity.py:255
-msgid "is here"
-msgstr "är här"
+msgid "%s is here"
+msgstr "%s är här"
 
 #: chat/box.py:118
 msgid "URL from Chat"

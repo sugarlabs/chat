@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Xat privat"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "Abandona el xat"
+msgid "%s left the chat"
+msgstr "%s abandona el xat"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Connectat/da"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Entra al xat"
+msgid "%s joined the chat"
+msgstr "%s entra al xat"
 
 #: activity.py:255
-msgid "is here"
-msgstr "és aquí"
+msgid "%s is here"
+msgstr "%s és aquí"
 
 #: chat/box.py:118
 #, fuzzy

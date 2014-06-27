@@ -51,20 +51,20 @@ msgid "Private Chat"
 msgstr "悄悄話"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "離開聊天室"
+msgid "%s left the chat"
+msgstr "%s 離開聊天室"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "已連線"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "進入聊天室"
+msgid "%s joined the chat"
+msgstr "%s 進入聊天室"
 
 #: activity.py:255
-msgid "is here"
-msgstr "在聊天室"
+msgid "%s is here"
+msgstr "%s 在聊天室"
 
 #: chat/box.py:118
 msgid "URL from Chat"

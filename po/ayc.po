@@ -60,8 +60,8 @@ msgstr "Jiwaskama jakintasïwi"
 #  "abandonó la charla"
 #  [es] "abandonó la charla"
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "jakintasïwita mistuta"
+msgid "%s left the chat"
+msgstr "%s jakintasïwita mistuta"
 
 #  "Conectado"
 # [es] "Conectado"
@@ -72,14 +72,14 @@ msgstr "Qhantayata"
 #  "se unió a la charla"
 #  [es] "se unió a la charla"
 #: activity.py:240
-msgid "joined the chat"
-msgstr "jakintasïwiru mantaniwa"
+msgid "%s joined the chat"
+msgstr "%s jakintasïwiru mantaniwa"
 
 #  "está aquí"
 #  [es] "está aquí"
 #: activity.py:255
-msgid "is here"
-msgstr "akankiwa"
+msgid "%s is here"
+msgstr "%s akankiwa"
 
 #  "URL proveniente de Charla"
 #  [es] "URL proveniente de Charla"

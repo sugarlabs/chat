@@ -47,20 +47,20 @@ msgid "Private Chat"
 msgstr "Kōrerorero Tūmataiti"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "kua mahue te kōrerorero"
+msgid "%s left the chat"
+msgstr "%s kua mahue te kōrerorero"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Kua Tūhono"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "kua hono ki te kōrerorero"
+msgid "%s joined the chat"
+msgstr "%s kua hono ki te kōrerorero"
 
 #: activity.py:255
-msgid "is here"
-msgstr "kei konei"
+msgid "%s is here"
+msgstr "%s kei konei"
 
 #: chat/box.py:118
 msgid "URL from Chat"

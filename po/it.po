@@ -34,6 +34,14 @@ msgstr "Chat"
 msgid "Text chat"
 msgstr "Chat testuale"
 
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "Si prega di attendere una connessione prima di iniziare a chattare."
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "È necessario essere connessi a un amico prima di iniziare a chattare."
+
 # Credo sia sbagliato l'originale, smile non smiley...
 #: activity.py:87
 msgid "Insert smiley"
@@ -56,20 +64,20 @@ msgid "Private Chat"
 msgstr "Chat Privata"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "abbandona la chat"
+msgid "%s left the chat"
+msgstr "%s abbandona la chat"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Connesso"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "partecipa alla chat"
+msgid "%s joined the chat"
+msgstr "%s partecipa alla chat"
 
 #: activity.py:255
-msgid "is here"
-msgstr "è qui"
+msgid "%s is here"
+msgstr "%s è qui"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "özel konuşma"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "sohbetten ayrılmıştır."
+msgid "%s left the chat"
+msgstr "%s sohbetten ayrılmıştır."
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Bağlanmıştır."
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "sohbete katılmıştır."
+msgid "%s joined the chat"
+msgstr "%s sohbete katılmıştır."
 
 #: activity.py:255
-msgid "is here"
-msgstr "buradadır."
+msgid "%s is here"
+msgstr "%s buradadır."
 
 #: chat/box.py:118
 msgid "URL from Chat"

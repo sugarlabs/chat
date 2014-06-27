@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Diskisyon prive"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "Kite diskisyon an"
+msgid "%s left the chat"
+msgstr "Kite diskisyon an %s"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Konekte"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Jwenn diskisyon"
+msgid "%s joined the chat"
+msgstr "Jwenn diskisyon %s"
 
 #: activity.py:255
-msgid "is here"
-msgstr "Li la"
+msgid "%s is here"
+msgstr "Li la %s"
 
 #: chat/box.py:118
 msgid "URL from Chat"

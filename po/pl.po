@@ -56,20 +56,20 @@ msgid "Private Chat"
 msgstr "Czat prywatny"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "Opuścił czat"
+msgid "%s left the chat"
+msgstr "%s Opuścił czat"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Połączony"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Przyłączony do czatu"
+msgid "%s joined the chat"
+msgstr "%s Przyłączony do czatu"
 
 #: activity.py:255
-msgid "is here"
-msgstr "jest tutaj"
+msgid "%s is here"
+msgstr "%s jest tutaj"
 
 #: chat/box.py:118
 msgid "URL from Chat"

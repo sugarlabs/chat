@@ -55,20 +55,20 @@ msgid "Private Chat"
 msgstr "Soukromý rozhovor"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "opustit rozhovor"
+msgid "%s left the chat"
+msgstr "%s opustit rozhovor"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Připojený"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "připojil se k rozhovoru"
+msgid "%s joined the chat"
+msgstr "%s připojil se k rozhovoru"
 
 #: activity.py:255
-msgid "is here"
-msgstr "je zde"
+msgid "%s is here"
+msgstr "%s je zde"
 
 #: chat/box.py:118
 msgid "URL from Chat"

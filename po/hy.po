@@ -47,20 +47,20 @@ msgid "Private Chat"
 msgstr "Անձնական զրուցարան"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "լքեց զրույցը"
+msgid "%s left the chat"
+msgstr "%s լքեց զրույցը"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Միացած"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Միացավ զրույցին"
+msgid "%s joined the chat"
+msgstr "%s միացավ զրույցին"
 
 #: activity.py:255
-msgid "is here"
-msgstr "Այստեղ է"
+msgid "%s is here"
+msgstr "%s այստեղ է"
 
 #: chat/box.py:118
 msgid "URL from Chat"

@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr "Vivinei hese"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "Vura loa pa vivinei"
+msgid "%s left the chat"
+msgstr "%s vura loa pa vivinei"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "Vari Sotoi"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "Raku pa vivinei"
+msgid "%s joined the chat"
+msgstr "%s raku pa vivinei"
 
 #: activity.py:255
-msgid "is here"
-msgstr "Pia ia"
+msgid "%s is here"
+msgstr "%s pia ia"
 
 #: chat/box.py:118
 msgid "URL from Chat"

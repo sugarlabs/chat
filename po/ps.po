@@ -54,20 +54,20 @@ msgid "Private Chat"
 msgstr "ځانی بنډار"
 
 #: activity.py:188 activity.py:248
-msgid "left the chat"
-msgstr "بنډار يې پرېښود"
+msgid "%s left the chat"
+msgstr "بنډار يې پرېښود %s"
 
 #: activity.py:195
 msgid "Connected"
 msgstr "پیوست شو ،ونښلیده"
 
 #: activity.py:240
-msgid "joined the chat"
-msgstr "بنډار كې يوځاېينې شو"
+msgid "%s joined the chat"
+msgstr "بنډار كې يوځاېينې شو %s"
 
 #: activity.py:255
-msgid "is here"
-msgstr "همدلته دى"
+msgid "%s is here"
+msgstr "همدلته دى %s"
 
 #: chat/box.py:118
 msgid "URL from Chat"
