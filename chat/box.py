@@ -315,7 +315,7 @@ class ChatBox(Gtk.ScrolledWindow):
         self._message_list = []
 
         self._conversation = Gtk.Grid()
-        self._conversation.set_row_spacing(style.DEFAULT_SPACING)
+        self._conversation.set_row_spacing(style.DEFAULT_PADDING)
         self._conversation.set_border_width(style.DEFAULT_SPACING * 2)
         self._conversation.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
