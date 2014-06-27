@@ -44,10 +44,10 @@ class RoundBox(Gtk.HBox):
         x = hmargin
         y = 0
         width = rect.width - _BORDER_DEFAULT * 2. - hmargin * 2
-        if self.tail is not None:
-            height = rect.height - _BORDER_DEFAULT * 2. - self._radius
-        else:
+        if self.tail is None:
             height = rect.height - _BORDER_DEFAULT * 2.
+        else:
+            height = rect.height - _BORDER_DEFAULT * 2. - self._radius
 
         cr.move_to(x + self._radius, y)
         cr.arc(x + width - self._radius, y + self._radius,
