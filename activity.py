@@ -137,6 +137,8 @@ class Chat(activity.Activity):
 
         if self.shared_activity:
             # we are joining the activity
+            self._entry.props.placeholder_text = \
+                _('Please wait for a connection before starting to chat.')
             self.connect('joined', self._joined_cb)
             if self.get_shared():
                 # we have already joined
@@ -153,6 +155,9 @@ class Chat(activity.Activity):
                     activity.SCOPE_PRIVATE:
                 # if we are in private session
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
+            else:
+                self._entry.props.placeholder_text = \
+                    _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
 
     def _fixed_resize_cb(self, widget=None, rect=None):
