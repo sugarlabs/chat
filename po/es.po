@@ -48,6 +48,10 @@ msgstr "Charlar"
 msgid "Text chat"
 msgstr "Chat de texto"
 
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "Por favor, espere a que una conexión antes de empezar a hablar."
+
 #: activity.py:87
 msgid "Insert smiley"
 msgstr "Insertar carita"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-25 08:13-0400\n"
+"POT-Creation-Date: 2014-06-27 17:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,68 +25,71 @@ msgstr ""
 msgid "Text chat"
 msgstr ""
 
-#: activity.py:155 activity.py:296
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr ""
+
+#: activity.py:157 activity.py:303
 msgid "Off-line"
 msgstr ""
 
-#: activity.py:155
+#: activity.py:157
 msgid "Share, or invite someone."
 msgstr ""
 
-#: activity.py:287 activity.py:303
+#: activity.py:294 activity.py:310
 msgid "On-line"
 msgstr ""
 
-#: activity.py:287
+#: activity.py:294
 msgid "Private Chat"
 msgstr ""
 
-#: activity.py:296
+#: activity.py:303
 msgid "left the chat"
 msgstr ""
 
-#: activity.py:303
+#: activity.py:310
 msgid "Connected"
 msgstr ""
 
-#: activity.py:337
-msgid "New message"
-msgstr ""
-
-#: activity.py:337
-#, python-format
-msgid "New message from %s"
-msgstr ""
-
-#: activity.py:339
+#: activity.py:348
 #, python-format
 msgid "Message from %s"
 msgstr ""
 
-#: activity.py:366
+#: activity.py:375
 msgid "URL from Chat"
 msgstr ""
 
-#: activity.py:388
+#: activity.py:397
 #, python-format
 msgid "%s joined the chat"
 msgstr ""
 
-#: activity.py:398
+#: activity.py:407
 #, python-format
 msgid "%s left the chat"
 msgstr ""
 
-#: activity.py:408
+#: activity.py:417
 #, python-format
 msgid "%s is here"
 msgstr ""
 
-#: activity.py:467
+#: activity.py:476
 msgid "You must be connected to a friend before starting to chat."
 msgstr ""
 
-#: chat/box.py:624
+#: activity.py:785
+msgid "Insert a smiley"
+msgstr ""
+
+#: activity.py:791
+msgid "Cancel"
+msgstr ""
+
+#: chat/box.py:619
 msgid "Copy to Clipboard"
 msgstr ""
 
