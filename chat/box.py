@@ -86,8 +86,7 @@ class TextBox(Gtk.TextView):
                  lang_rtl):
         Gtk.TextView.__init__(self)
 
-        self.set_size_request(
-            Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+        self.resize_box()
 
         self._lang_rtl = lang_rtl
         self.set_editable(False)
@@ -131,8 +130,8 @@ class TextBox(Gtk.TextView):
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
 
     def resize_box(self):
-        self.set_size_request(
-            Gdk.Screen.width() - style.GRID_CELL_SIZE * 2, -1)
+        self.set_size_request(Gdk.Screen.width() - style.GRID_CELL_SIZE
+                              - 2 * style.DEFAULT_SPAING, -1)
 
     def __leave_notify_event_cb(self, widget, event):
         self._mouse_detector.stop()
