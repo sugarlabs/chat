@@ -392,6 +392,11 @@ class ChatBox(Gtk.ScrolledWindow):
         lighter = lighter_color(color.split(','))
         darker = 1 - lighter
 
+        # Treat /me messages as status messages
+        if len(text) > 2 and text[0:3] == '/me':
+            status_message = True
+            text = text.replace('/me', nick)
+
         if status_message:
             text_color = style.COLOR_WHITE
             nick_color = style.COLOR_WHITE
