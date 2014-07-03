@@ -3,6 +3,7 @@
 * Add /me support
 * Use a bit more of the roundbox width for the text message
 * Fix problem with resizing textview for long messages (w/Gonzalo)
+* Fix padding problem with OSK that pushed messages off screen
 
 79
 
