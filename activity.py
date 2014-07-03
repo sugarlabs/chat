@@ -32,7 +32,6 @@ OSK_HEIGHT = [400, 300]
 
 import logging
 import json
-import math
 import os
 import subprocess
 import time
@@ -48,7 +47,6 @@ from telepathy.client import Connection
 from telepathy.client import Channel
 
 from sugar3.graphics import style
-from sugar3.graphics import iconentry
 from sugar3.graphics.icon import EventIcon, Icon
 from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -97,7 +95,7 @@ class Chat(activity.Activity):
         pservice = presenceservice.get_instance()
         self.owner = pservice.get_owner()
 
-        self.chatbox = ChatBox(self.owner)
+        self.chatbox = ChatBox(self.owner, _is_tablet_mode())
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
 
         super(Chat, self).__init__(handle)
@@ -212,7 +210,7 @@ class Chat(activity.Activity):
         else:
             self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-            2 * (self._entry_height + style.GRID_CELL_SIZE)
+                      2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._entry.set_size_request(entry_width, self._entry_height)
         self._entry_grid.set_size_request(
             Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
@@ -221,7 +219,6 @@ class Chat(activity.Activity):
                             style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
-
         self.chatbox.resize_all()
 
         width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
@@ -294,7 +291,7 @@ class Chat(activity.Activity):
         self._alert(_('On-line'), _('Private Chat'))
 
         # XXX How do we detect the sender going offline?
-        self._entry.set_sensitive(True) 
+        self._entry.set_sensitive(True)
         self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
@@ -442,13 +439,11 @@ class Chat(activity.Activity):
         else:
             self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-            2 * (self._entry_height + style.GRID_CELL_SIZE)
+                      2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
                             style.GRID_CELL_SIZE
-        self._chat_width =  Gdk.Screen.width()
+        self._chat_width = Gdk.Screen.width()
 
-        logger.debug('Chatbox size request %dx%d' %
-                      (self._chat_width, self._chat_height))
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
 
         self._entry_grid = Gtk.Grid()
@@ -463,8 +458,6 @@ class Chat(activity.Activity):
         smiley_button.show()
 
         self._entry = Gtk.Entry()
-        logger.debug('Entry size request %dx%d' %
-                      (entry_width, self._entry_height))
         self._entry.set_size_request(entry_width, self._entry_height)
         self._entry.modify_bg(Gtk.StateType.INSENSITIVE,
                               style.COLOR_WHITE.get_gdk_color())
@@ -526,10 +519,10 @@ class Chat(activity.Activity):
             vadj.set_value(vadj.get_value() - vadj.page_size)
         elif event.keyval == Gdk.KEY_Home and \
              event.get_state() & Gdk.ModifierType.CONTROL_MASK:
-            vadj.set_value(vadj.lower)
+                vadj.set_value(vadj.lower)
         elif event.keyval == Gdk.KEY_End and \
              event.get_state() & Gdk.ModifierType.CONTROL_MASK:
-            vadj.set_value(vadj.upper - vadj.page_size)
+                vadj.set_value(vadj.upper - vadj.page_size)
 
     def _smiley_button_cb(self, widget, event):
         self._show_smiley_window()
@@ -610,7 +603,7 @@ class Chat(activity.Activity):
 
         self._smiley_table = Gtk.ScrolledWindow()
         self._smiley_table.set_policy(Gtk.PolicyType.AUTOMATIC,
-                          Gtk.PolicyType.AUTOMATIC)
+                                      Gtk.PolicyType.AUTOMATIC)
         self._smiley_table.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
         if _is_tablet_mode():
@@ -758,7 +751,7 @@ class TextChannelWrapper(object):
             handle = conn.GetSelfHandle()
         elif group.GetGroupFlags() & \
              CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
-            handle = group.GetHandleOwners([cs_handle])[0]
+                handle = group.GetHandleOwners([cs_handle])[0]
         else:
             handle = cs_handle
 

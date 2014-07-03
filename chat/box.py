@@ -82,9 +82,28 @@ class TextBox(Gtk.TextView):
 
     hand_cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
-    def __init__(self, name_color, text_color, bg_color, highlight_color,
-                 lang_rtl):
+    def __init__(self, parent,
+                 name_color, text_color, bg_color, highlight_color,
+                 lang_rtl, nick_name=None, text=None):
         Gtk.TextView.__init__(self)
+        self._parent = parent
+        self._buffer = Gtk.TextBuffer()
+        self._empty_buffer = Gtk.TextBuffer()
+        self._empty_buffer.set_text('')
+        self._empty = True
+        self._name_tag = self._buffer.create_tag(
+            'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
+        self._fg_tag = self._buffer.create_tag(
+            'foreground_color', foreground=text_color.get_html())
+        self._subscript_tag = self.get_buffer().create_tag(
+            'subscript', foreground=text_color.get_html(),
+            rise=-7 * Pango.SCALE)  # in pixels
+
+        if nick_name:
+            self._add_name(nick_name)
+            self.add_text(text, newline=False)
+        elif text:
+            self.add_text(text)
 
         self.resize_box()
 
@@ -93,18 +112,6 @@ class TextBox(Gtk.TextView):
         self.set_cursor_visible(False)
         self.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
 
-        self.get_buffer().set_text('', 0)
-        self.iter_text = self.get_buffer().get_iter_at_offset(0)
-
-        self.name_tag = self.get_buffer().create_tag(
-            'name', foreground=name_color.get_html(), weight=Pango.Weight.BOLD)
-        self.fg_tag = self.get_buffer().create_tag(
-            'foreground_color', foreground=text_color.get_html())
-        self._subscript_tag = self.get_buffer().create_tag('subscript',
-            foreground=text_color.get_html(),
-            rise=-7 * Pango.SCALE)  # in pixels
-
-        self._empty = True
         self.palette = None
 
         self._mouse_detector = MouseSpeedDetector(200, 5)
@@ -128,8 +135,15 @@ class TextBox(Gtk.TextView):
             self.connect('motion-notify-event', self.__motion_notify_cb)
         self.connect('visibility-notify-event', self.__visibility_notify_cb)
         self.connect('leave-notify-event', self.__leave_notify_event_cb)
+        self.connect('size-allocate', self.__size_allocate_cb)
+
+    def __size_allocate_cb(self, widget, allocation):
+        ''' Load buffer after resize to circumvent race condition '''
+        self.set_buffer(self._buffer)
+        self._parent.resize_rb()
 
     def resize_box(self):
+        self.set_buffer(self._empty_buffer)
         self.set_size_request(Gdk.Screen.width() - style.GRID_CELL_SIZE
                               - 2 * style.DEFAULT_SPACING, -1)
 
@@ -241,17 +255,19 @@ class TextBox(Gtk.TextView):
     def __palette_mouse_leave_cb(self, widget, event):
         self.handler_unblock(self.motion_notify_id)
 
-    def add_name(self, name):
-        buf = self.get_buffer()
+    def _add_name(self, name):
+        buf = self._buffer
+        self.iter_text = self._buffer.get_iter_at_offset(0)
         words = name.split()
         for word in words:
-            buf.insert_with_tags(self.iter_text, word, self.name_tag)
-            buf.insert_with_tags(self.iter_text, ' ', self.fg_tag)
+            buf.insert_with_tags(self.iter_text, word, self._name_tag)
+            buf.insert_with_tags(self.iter_text, ' ', self._fg_tag)
 
         self._empty = False
 
     def add_text(self, text, newline=True):
-        buf = self.get_buffer()
+        buf = self._buffer
+        self.iter_text = self._buffer.get_end_iter()
 
         if not self._empty:
             if newline:
@@ -272,7 +288,7 @@ class TextBox(Gtk.TextView):
                 # palette.connect('leave-notify-event',
                 #                 self.__palette_mouse_leave_cb)
                 tag.palette = palette
-                buf.insert_with_tags(self.iter_text, word, tag, self.fg_tag)
+                buf.insert_with_tags(self.iter_text, word, tag, self._fg_tag)
             else:
                 for i in smilies.parse(word):
                     if isinstance(i, GdkPixbuf.Pixbuf):
@@ -282,8 +298,8 @@ class TextBox(Gtk.TextView):
                                       buf.get_iter_at_offset(start),
                                       self.iter_text)
                     else:
-                        buf.insert_with_tags(self.iter_text, i, self.fg_tag)
-            buf.insert_with_tags(self.iter_text, ' ', self.fg_tag)
+                        buf.insert_with_tags(self.iter_text, i, self._fg_tag)
+            buf.insert_with_tags(self.iter_text, ' ', self._fg_tag)
 
         self._empty = False
 
@@ -291,12 +307,14 @@ class TextBox(Gtk.TextView):
 class ChatBox(Gtk.ScrolledWindow):
 
     __gsignals__ = {
+        'foo': (GObject.SignalFlags.RUN_FIRST, None, ([])),
         'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])), }
 
-    def __init__(self, owner):
+    def __init__(self, owner, tablet_mode):
         Gtk.ScrolledWindow.__init__(self)
 
-        self.owner = owner
+        self._owner = owner
+        self._tablet_mode = tablet_mode
 
         # Auto vs manual scrolling:
         self._scroll_auto = True
@@ -332,6 +350,8 @@ class ChatBox(Gtk.ScrolledWindow):
         vadj = self.get_vadjustment()
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
+
+        self.connect('foo', self.resize_rb)
 
     def __open_on_journal(self, widget, url):
         self.emit('open-on-journal', url)
@@ -374,7 +394,7 @@ class ChatBox(Gtk.ScrolledWindow):
         buddy messages.
         '''
         if not buddy:
-            buddy = self.owner
+            buddy = self._owner
 
         if type(buddy) is dict:
             # dict required for loading chat log from journal
@@ -410,14 +430,12 @@ class ChatBox(Gtk.ScrolledWindow):
             else:
                 text_color = style.COLOR_WHITE
             if darker == 0:
-                color_fill_rgba = style.Color(color_stroke_html).get_rgba()
                 color_fill = style.Color(color_stroke_html)
                 if is_low_contrast(color.split(',')):
                     nick_color = text_color
                 else:
                     nick_color = style.Color(color_fill_html)
             else:
-                color_fill_rgba = style.Color(color_fill_html).get_rgba()
                 color_fill = style.Color(color_fill_html)
                 if is_low_contrast(color.split(',')):
                     nick_color = text_color
@@ -448,12 +466,12 @@ class ChatBox(Gtk.ScrolledWindow):
 
         if not new_msg:
             message = self._last_msg
+            message.add_text(text)
         else:
             rb = RoundBox()
             rb.background_color = color_fill
             rb.border_color = color_stroke
             rb.tail = tail
-            # TODO: with signal
             self._rb_list.append(rb)
 
             grid_internal = Gtk.Grid()
@@ -461,18 +479,17 @@ class ChatBox(Gtk.ScrolledWindow):
             grid_internal.set_border_width(style.DEFAULT_SPACING)
             grid_internal.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
-            # TODO: with signal
             self._grid_list.append(grid_internal)
 
             row = 0
 
-            message = TextBox(nick_color, text_color, color_fill,
-                              highlight_fill, lang_rtl)
+            if status_message:
+                nick = None
+
+            message = TextBox(self, nick_color, text_color, color_fill,
+                              highlight_fill, lang_rtl, nick, text)
             self._message_list.append(message)
             message.connect('open-on-journal', self.__open_on_journal)
-
-            if not status_message:
-                message.add_name(nick)
 
             self._last_msg_sender = buddy
             self._last_msg = message
@@ -499,15 +516,10 @@ class ChatBox(Gtk.ScrolledWindow):
             self._conversation.attach(rb, 0, self._row_counter, 1, 1)
             rb.show()
             self._row_counter += 1
+            message.show()
 
         if status_message:
             self._last_msg_sender = None
-
-        if new_msg:
-            message.add_text(text, newline=False)
-        else:
-            message.add_text(text)
-        message.show()
 
     def add_separator(self, timestamp):
         '''Add whitespace and timestamp between chat sessions.'''
@@ -522,11 +534,11 @@ class ChatBox(Gtk.ScrolledWindow):
                 time.strptime(timestamp, '%b %d %H:%M:%S')[1:]
             timestamp_seconds = time.mktime(time_with_previous_year)
 
-        message = TextBox(style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
-                          style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False)
+        message = TextBox(self,
+                          style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
+                          style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False,
+                          None, timestamp_to_elapsed_string(timestamp_seconds))
         self._message_list.append(message)
-
-        message.add_text(timestamp_to_elapsed_string(timestamp_seconds))
         box = Gtk.HBox()
         align = Gtk.Alignment.new(
             xalign=0.5, yalign=0.0, xscale=0.0, yscale=0.0)
@@ -586,15 +598,23 @@ class ChatBox(Gtk.ScrolledWindow):
     def resize_all(self):
         for message in self._message_list:
             message.resize_box()
+        self.resize_rb()
+
+    def resize_rb(self):
         for grid in self._grid_list:
             grid.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
         for rb in self._rb_list:
             rb.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
-        self._conversation.set_size_request(
-            Gdk.Screen.width() - style.GRID_CELL_SIZE,
-            Gdk.Screen.height() - style.GRID_CELL_SIZE)
+        if self._tablet_mode:
+            self._conversation.set_size_request(
+                Gdk.Screen.width() - style.GRID_CELL_SIZE,
+                int(Gdk.Screen.height() - 2.5 * style.GRID_CELL_SIZE))
+        else:
+            self._conversation.set_size_request(
+                Gdk.Screen.width() - style.GRID_CELL_SIZE,
+                Gdk.Screen.height() - 2 * style.GRID_CELL_SIZE)
 
 
 class ContentInvoker(Invoker):

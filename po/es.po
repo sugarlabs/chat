@@ -50,7 +50,7 @@ msgstr "Chat de texto"
 
 #: activity.py:141 activity.py:160
 msgid "Please wait for a connection before starting to chat."
-msgstr "Por favor, espere a que una conexión antes de empezar a hablar."
+msgstr "Por favor espere por una conexión."
 
 #: activity.py:87
 msgid "Insert smiley"
@@ -227,4 +227,4 @@ msgstr "Sorprendido"
 #~ msgstr "%s Fuente"
 
 msgid "You must be connected to a friend before starting to chat."
-msgstr "Es necesario estar conectado a un amigo antes de empezar a chatear."
+msgstr "Por favor espere por una conexión."
