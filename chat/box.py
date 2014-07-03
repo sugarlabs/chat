@@ -612,7 +612,7 @@ class ChatBox(Gtk.ScrolledWindow):
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
         self.resize_conversation()
 
-    def resize_conversation(dy=None):
+    def resize_conversation(self, dy=None):
         ''' Take into account OSK (dy) '''
         if dy is None:
             dy = self._dy
