@@ -337,6 +337,9 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
 
+        # OSK padding for conversation
+        self._dy = 0
+
         evbox = Gtk.EventBox()
         evbox.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
@@ -607,14 +610,23 @@ class ChatBox(Gtk.ScrolledWindow):
         for rb in self._rb_list:
             rb.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
+        self.resize_conversation()
+
+    def resize_conversation(dy=None):
+        ''' Take into account OSK (dy) '''
+        if dy is None:
+            dy = self._dy
+        else:
+            self._dy = dy
+
         if self._tablet_mode:
             self._conversation.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE,
-                int(Gdk.Screen.height() - 2.5 * style.GRID_CELL_SIZE))
+                int(Gdk.Screen.height() - 2.5 * style.GRID_CELL_SIZE) - dy)
         else:
             self._conversation.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE,
-                Gdk.Screen.height() - 2 * style.GRID_CELL_SIZE)
+                Gdk.Screen.height() - 2 * style.GRID_CELL_SIZE - dy)
 
 
 class ContentInvoker(Invoker):

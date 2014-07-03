@@ -183,6 +183,8 @@ class Chat(activity.Activity):
             self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
                              self._chat_height - dy)
 
+        self.chatbox.resize_conversation(dy)
+
     def _setup_canvas(self):
         ''' Create a canvas '''
         self._fixed = Gtk.Fixed()
@@ -215,8 +217,9 @@ class Chat(activity.Activity):
         self._entry_grid.set_size_request(
             Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
             self._entry_height)
+
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
-                            style.GRID_CELL_SIZE
+                                style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
         self.chatbox.resize_all()
