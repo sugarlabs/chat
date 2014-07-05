@@ -29,6 +29,7 @@ except:
     _HAS_SOUND = False
 
 OSK_HEIGHT = [400, 300]
+SLASH = '-x-SLASH-x-'  # slash safe encoding
 
 import logging
 import json
@@ -537,11 +538,12 @@ class Chat(activity.Activity):
         self.chatbox._scroll_auto = True
 
         text = entry.props.text
-        logger.debug('Entry: %s' % text)
         if text:
+            logger.debug('Adding text to chatbox: %s: %s' % (self.owner, text))
             self.chatbox.add_text(self.owner, text)
             entry.props.text = ''
             if self.text_channel:
+                logger.debug('sending to text_channel: %s' % (text))
                 self.text_channel.send(text)
             else:
                 logger.debug('Tried to send message but text channel '
@@ -659,6 +661,10 @@ class TextChannelWrapper(object):
     def send(self, text):
         '''Send text over the Telepathy text channel.'''
         # XXX Implement CHANNEL_TEXT_MESSAGE_TYPE_ACTION
+        logging.debug('sending %s' % text)
+
+        text = text.replace('/', SLASH)
+
         if self._text_chan is not None:
             self._text_chan[CHANNEL_TYPE_TEXT].Send(
                 CHANNEL_TEXT_MESSAGE_TYPE_NORMAL, text)
@@ -707,9 +713,12 @@ class TextChannelWrapper(object):
         Converts sender to a Buddy.
         Calls self._activity_cb which is a callback to the activity.
         '''
+        logging.debug('received_cb %r %s' % (type_, text))
         if type_ != 0:
             # Exclude any auxiliary messages
             return
+
+        text = text.replace(SLASH, '/')
 
         if self._activity_cb:
             try:

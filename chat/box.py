@@ -414,12 +414,12 @@ class ChatBox(Gtk.ScrolledWindow):
         lighter = lighter_color(color.split(','))
         darker = 1 - lighter
 
-        # Treat /me messages as status messages
-        if len(text) > 2 and text[0:3] == '/me':
-            status_message = True
-            text = text.replace('/me', nick)
+        if len(text) > 3 and text[0:4] == '/me ':
+            me_message = True
+        else:
+            me_message = False
 
-        if status_message:
+        if status_message or me_message:
             text_color = style.COLOR_WHITE
             nick_color = style.COLOR_WHITE
             color_fill = style.Color('#808080')
@@ -461,11 +461,10 @@ class ChatBox(Gtk.ScrolledWindow):
 
         # Check if new message box or add text to previous:
         new_msg = True
-        if self._last_msg_sender:
-            if not status_message:
-                if buddy == self._last_msg_sender:
-                    # Add text to previous message
-                    new_msg = False
+        if self._last_msg_sender and buddy == self._last_msg_sender:
+            # Add text to previous message
+            if not (me_message or status_message):
+                new_msg = False
 
         if not new_msg:
             message = self._last_msg
@@ -479,7 +478,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
             grid_internal = Gtk.Grid()
             grid_internal.set_row_spacing(0)
-            grid_internal.set_border_width(style.DEFAULT_SPACING)
+            grid_internal.set_border_width(style.DEFAULT_PADDING)
             grid_internal.set_size_request(
                 Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
             self._grid_list.append(grid_internal)
@@ -488,6 +487,8 @@ class ChatBox(Gtk.ScrolledWindow):
 
             if status_message:
                 nick = None
+            elif me_message:
+                text = text[4:]
 
             message = TextBox(self, nick_color, text_color, color_fill,
                               highlight_fill, lang_rtl, nick, text)
@@ -502,14 +503,13 @@ class ChatBox(Gtk.ScrolledWindow):
 
             align = Gtk.Alignment.new(xalign=0.0, yalign=0.0, xscale=1.0,
                                       yscale=1.0)
-
-            if rb.tail is not None:
-                bottom_padding = style.zoom(42)
+            if rb.tail is None:
+                bottom_padding = style.zoom(7)
             else:
-                bottom_padding = style.zoom(15)
-
-            align.set_padding(style.zoom(14), bottom_padding, style.zoom(30),
+                bottom_padding = style.zoom(35)
+            align.set_padding(style.zoom(7), bottom_padding, style.zoom(30),
                               style.zoom(30))
+
             align.add(grid_internal)
             grid_internal.show()
 
