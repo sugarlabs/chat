@@ -194,9 +194,12 @@ def init():
             pl.close()
             pixbuf = pl.get_pixbuf()
             if not os.path.exists(archivo):
-                fd = open(archivo, 'w')
-                fd.write(_generate_svg(codes[0]))
-                fd.close()
+                try:
+                    fd = open(archivo, 'w')
+                    fd.write(_generate_svg(codes[0]))
+                    fd.close()
+                except IOError as e:
+                    pass
         else:
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
                 archivo, SMILIES_SIZE, SMILIES_SIZE)
