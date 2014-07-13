@@ -1,3 +1,8 @@
+81
+
+BUG FIX:
+* Don't try to write smile files to readonly directory
+
 80
 
 * Add /me support
