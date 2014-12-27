@@ -65,26 +65,13 @@ from sugar3 import profile
 from chat import smilies
 from chat.box import ChatBox
 
+from utils import EbookModeDetector
 
 logger = logging.getLogger('chat-activity')
 
 
 if _HAS_SOUND:
     Gst.init([])
-
-
-def _is_tablet_mode():
-    if not os.path.exists('/dev/input/event4'):
-        return False
-    try:
-        output = subprocess.call(
-            ['evtest', '--query', '/dev/input/event4', 'EV_SW',
-             'SW_TABLET_MODE'])
-    except (OSError, subprocess.CalledProcessError):
-        return False
-    if str(output) == '10':
-        return True
-    return False
 
 
 # pylint: disable-msg=W0223
@@ -96,7 +83,10 @@ class Chat(activity.Activity):
         pservice = presenceservice.get_instance()
         self.owner = pservice.get_owner()
 
-        self.chatbox = ChatBox(self.owner, _is_tablet_mode())
+        self._ebook_mode_detector = EbookModeDetector()
+
+        self.chatbox = ChatBox(
+            self.owner, self._ebook_mode_detector.get_ebook_mode())
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
 
         super(Chat, self).__init__(handle)
@@ -208,7 +198,7 @@ class Chat(activity.Activity):
     def _configure_cb(self, event):
         self._fixed.set_size_request(
             Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             self._entry_height = int(style.GRID_CELL_SIZE * 1.5)
         else:
             self._entry_height = style.GRID_CELL_SIZE
@@ -226,7 +216,7 @@ class Chat(activity.Activity):
         self.chatbox.resize_all()
 
         width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
         else:
             height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
@@ -438,7 +428,7 @@ class Chat(activity.Activity):
         | smiley button | entry | send button |
         ---------------------------------------
         '''
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             self._entry_height = int(style.GRID_CELL_SIZE * 1.5)
         else:
             self._entry_height = style.GRID_CELL_SIZE
@@ -498,12 +488,12 @@ class Chat(activity.Activity):
     def _entry_focus_in_cb(self, entry, event):
         self._hide_smiley_window()
 
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             self._has_osk = True
             self._fixed_resize_cb()
 
     def _entry_focus_out_cb(self, entry, event):
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             self._has_osk = False
             self._fixed_resize_cb()
 
@@ -611,7 +601,7 @@ class Chat(activity.Activity):
                                       Gtk.PolicyType.AUTOMATIC)
         self._smiley_table.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
-        if _is_tablet_mode():
+        if self._ebook_mode_detector.get_ebook_mode():
             height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
         else:
             height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
