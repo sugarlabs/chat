@@ -7,3 +7,4 @@ exec      = sugar-activity activity.Chat
 # original activity.info options
 activity_version = 81
 bundle_id = org.laptop.Chat
+category = language
