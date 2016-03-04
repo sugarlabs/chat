@@ -5,6 +5,7 @@ license   = GPLv2+
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
 # original activity.info options
-activity_version = 81
+activity_version = 82
 bundle_id = org.laptop.Chat
 category = language
+repository = https://github.com/walterbender/chat
