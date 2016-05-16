@@ -2,389 +2,390 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-02-15 03:11+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ibo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.11.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1455505918.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "ikori"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "ederede ikori"
 
 #: activity.py:141 activity.py:160
 msgid "Please wait for a connection before starting to chat."
-msgstr ""
+msgstr "Biko chere maka a njikọ tupu ịmalite ikori."
 
 #: activity.py:157 activity.py:303
 msgid "Off-line"
-msgstr ""
+msgstr "Na-anọghị n'ịntanetị"
 
 #: activity.py:157
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Ekekọrịta, ma ọ bụ kpọọ mmadụ."
 
 #: activity.py:294 activity.py:310
 msgid "On-line"
-msgstr ""
+msgstr "anọ n'ịntanetị"
 
 #: activity.py:294
 msgid "Private Chat"
-msgstr ""
+msgstr "abughi nke oha ikori"
 
 #: activity.py:303
 msgid "left the chat"
-msgstr ""
+msgstr "hapụrụ ikori"
 
 #: activity.py:310
 msgid "Connected"
-msgstr ""
+msgstr "ejikọrọ"
 
 #: activity.py:348
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "iwere ozi si %s"
 
 #: activity.py:375
 msgid "URL from Chat"
-msgstr ""
+msgstr "URL si ikori"
 
 #: activity.py:397
 #, python-format
 msgid "%s joined the chat"
-msgstr ""
+msgstr "%s abatala na inkori"
 
 #: activity.py:407
 #, python-format
 msgid "%s left the chat"
-msgstr ""
+msgstr "%s apuola na inkori"
 
 #: activity.py:417
 #, python-format
 msgid "%s is here"
-msgstr ""
+msgstr "%s nụ ebe a"
 
 #: activity.py:476
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "e ga e-weriri ejikọrọ na otu enyi ewe ibido inkori"
 
 #: activity.py:785
 msgid "Insert a smiley"
-msgstr ""
+msgstr "tinye smiley"
 
 #: activity.py:791
 msgid "Cancel"
-msgstr ""
+msgstr "kagbuo"
 
 #: chat/box.py:619
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Detuo na clipboard"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:29
 msgid "Smile"
-msgstr ""
+msgstr "ọnụ ọchị"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:32
 msgid "Winking"
-msgstr ""
+msgstr "-egbu iku"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:35
 msgid "Confused"
-msgstr ""
+msgstr "mgbagwoju anya"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:38
 msgid "Sad"
-msgstr ""
+msgstr "mwute"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:41
 msgid "Grin"
-msgstr ""
+msgstr "ochi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:44
 msgid "Neutral"
-msgstr ""
+msgstr "anọpụ iche"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:47
 msgid "Shock"
-msgstr ""
+msgstr "ujo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:50
 msgid "Cool"
-msgstr ""
+msgstr "jụụ"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:53
 msgid "Tongue"
-msgstr ""
+msgstr "ire"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:56
 msgid "Blushing"
-msgstr ""
+msgstr "keihiere"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:59
 msgid "Weeping"
-msgstr ""
+msgstr "ikwa ákwá"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:62
 msgid "Angel"
-msgstr ""
+msgstr "mmuo ozi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:65
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Agwakwala onye ọ bụla"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:68
 msgid "Angry"
-msgstr ""
+msgstr "iwe"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:71
 msgid "Devil"
-msgstr ""
+msgstr "ekwensu"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:74
 msgid "Nerd"
-msgstr ""
+msgstr "Nerd"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:77
 msgid "Kiss"
-msgstr ""
+msgstr "imi ọnụ"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:80
 msgid "Laughing"
-msgstr ""
+msgstr "ichi ochi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:83
 msgid "Sleepy"
-msgstr ""
+msgstr "ira ụra"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:86
 msgid "Sick"
-msgstr ""
+msgstr "arịa ọrịa"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "welitere iku anya"
 
 #: chat/smilies.py:90
 msgid "Heart"
-msgstr ""
+msgstr "obi"
 
 #: chat/smilies.py:91
 msgid "Airplane"
-msgstr ""
+msgstr "ụgbọelu"
 
 #: chat/smilies.py:92
 msgid "Music"
-msgstr ""
+msgstr "egwu"
 
 #: chat/smilies.py:93
 msgid "Check box"
-msgstr ""
+msgstr "ìgbe nhọrọ"
 
 #: chat/smilies.py:94
 msgid "Spade"
-msgstr ""
+msgstr "iheejiegwala"
 
 #: chat/smilies.py:95
 msgid "Telephone"
-msgstr ""
+msgstr "ekwentị"
 
 #: chat/smilies.py:96
 msgid "X box"
-msgstr ""
+msgstr "X box"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
-msgstr ""
+msgstr "Cadusis"
 
 #: chat/smilies.py:98
 msgid "Female"
-msgstr ""
+msgstr "nwaanyi"
 
 #: chat/smilies.py:99 chat/smilies.py:104
 msgid "Star"
-msgstr ""
+msgstr "kpakpondo"
 
 #: chat/smilies.py:100
 msgid "Letter"
-msgstr ""
+msgstr "Akwụkwọ Ozi"
 
 #: chat/smilies.py:101
 msgid "Poison"
-msgstr ""
+msgstr "nsi"
 
 #: chat/smilies.py:102
 msgid "Check mark"
-msgstr ""
+msgstr "leru anya akara"
 
 #: chat/smilies.py:103
 msgid "Male"
-msgstr ""
+msgstr "nwoke"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "Shamrock"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "egweri"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "x"
 
 #: chat/smilies.py:108
 msgid "Fire"
-msgstr ""
+msgstr "ọkụ"
 
 #: chat/smilies.py:109
 msgid "Leaf"
-msgstr ""
+msgstr "akwukwo"
 
 #: chat/smilies.py:110
 msgid "Cloud"
-msgstr ""
+msgstr "urupuru"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "okpu eze"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "Floret"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
-msgstr ""
+msgstr "kpakpondo na mpekere onwa"
 
 #: chat/smilies.py:115
 msgid "Umbrella"
-msgstr ""
+msgstr "nche anwụ"
 
 #: chat/smilies.py:116
 msgid "Pencil"
-msgstr ""
+msgstr "mkpisi odide"
 
 #: chat/smilies.py:118
 msgid "Snowman"
-msgstr ""
+msgstr "nwoke sinoo"
 
 #: chat/smilies.py:119
 msgid "Point right"
-msgstr ""
+msgstr "ebe aka nri"
 
 #: chat/smilies.py:120
 msgid "Horse"
-msgstr ""
+msgstr "ịnyịnya"
 
 #: chat/smilies.py:122
 msgid "Peace sign"
-msgstr ""
+msgstr "nnutuaka udo"
 
 #: chat/smilies.py:123
 msgid "Sun"
-msgstr ""
+msgstr "anwu"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "ebe aka ekpe"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
-msgstr ""
+msgstr "Yin yang"
 
 #: chat/smilies.py:127
 msgid "Moon"
-msgstr ""
+msgstr "Ọnwa"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "ebe elu"
 
 #: chat/smilies.py:130
 msgid "Meteor"
-msgstr ""
+msgstr "Meteor"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "ebe ala"
 
 #: chat/smilies.py:133
 msgid "Scissors"
-msgstr ""
+msgstr "mkpa"
 
 #: chat/smilies.py:134
 msgid "Pen"
-msgstr ""
+msgstr "mkpisi ode akwukwo"
 
 #: chat/smilies.py:136
 msgid "Stars"
-msgstr ""
+msgstr "kpakpondo"
 
 #: chat/smilies.py:137
 msgid "Place"
-msgstr ""
+msgstr "ebe"
 
 #: chat/smilies.py:138
 msgid "High voltage"
-msgstr ""
+msgstr "keelu voltaji"
