@@ -6,236 +6,444 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2013-05-21 23:33+0200\n"
-"Last-Translator: EdgarQuispeChambi <quispedgar@yahoo.es>\n"
+"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"PO-Revision-Date: 2016-05-16 05:14+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ayc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1463375669.000000\n"
 
 #  "Charlar"
 #  [es] "Charlar"
-#. TRANS: "name" option from activity.info file
+#: activity/activity.info:2
 msgid "Chat"
-msgstr "Jakintasiña"
+msgstr "Aruskipasiwi"
 
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:3
 msgid "Text chat"
-msgstr "Qillqäwimpi jakisiña"
+msgstr "Qillqasisaki aruskipaña"
 
-#  "Inserte carita"
-#: activity.py:87
-msgid "Insert smiley"
-msgstr "Ajanumpi chimpt'ma"
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "Mira suma, jakthapiyawi suyt'ma."
 
 #  "Fuera de línea"
 # [es] "Sin línea"
-#: activity.py:124 activity.py:188
+#: activity.py:157 activity.py:303
 msgid "Off-line"
-msgstr "Mistutawa chhaqatawa"
+msgstr "Linya chhaqtawayiwa"
 
 #  "Compartir, o invitar a alguien."
 # [es] "Compartir, o invitar a alguien."
-#: activity.py:124
+#: activity.py:157
 msgid "Share, or invite someone."
-msgstr "Chikachasiñataki achikt'aña."
+msgstr "Apt'ayaña, januka maynimpi jawst'aña."
 
 #  "En línea"
 # [es] "En línea"
-#: activity.py:180 activity.py:195
+#: activity.py:294 activity.py:310
 msgid "On-line"
-msgstr "Mantatawa jiwasampiwa"
+msgstr "Linya utjaskiwa"
 
 #  "Charla Privada"
 # [es] "Charla Privada"
-#: activity.py:180
+#: activity.py:294
 msgid "Private Chat"
-msgstr "Jiwaskama jakintasïwi"
+msgstr "Jamäsatha jiwasaki aruskipasiña"
 
-#  "abandonó la charla"
+# "abandonó la charla"
 #  [es] "abandonó la charla"
-#: activity.py:188 activity.py:248
-msgid "%s left the chat"
-msgstr "%s jakintasïwita mistuta"
+#: activity.py:303
+msgid "left the chat"
+msgstr "aka aruskipasiwitha mistsuwayxiwa"
 
 #  "Conectado"
 # [es] "Conectado"
-#: activity.py:195
+#: activity.py:310
 msgid "Connected"
-msgstr "Qhantayata"
+msgstr "Qhantatäskiwa"
 
-#  "se unió a la charla"
-#  [es] "se unió a la charla"
-#: activity.py:240
-msgid "%s joined the chat"
-msgstr "%s jakintasïwiru mantaniwa"
-
-#  "está aquí"
-#  [es] "está aquí"
-#: activity.py:255
-msgid "%s is here"
-msgstr "%s akankiwa"
+#: activity.py:348
+#, python-format
+msgid "Message from %s"
+msgstr "Akïri %s satatha jutiri yatiyawi"
 
 #  "URL proveniente de Charla"
 #  [es] "URL proveniente de Charla"
-#: chat/box.py:118
+#: activity.py:375
 msgid "URL from Chat"
-msgstr "Jakintasiñataki URL"
+msgstr "Aruskipasiwitha jutiri URL"
+
+#  "se unió a la charla"
+#  [es] "se unió a la charla"
+#: activity.py:397
+#, python-format
+msgid "%s joined the chat"
+msgstr "%s aka aruskipasiwiru mantaniwa"
+
+#  "abandonó la charla"
+#  [es] "abandonó la charla"
+#: activity.py:407
+#, python-format
+msgid "%s left the chat"
+msgstr "%s aka aruskipasiwitha mistsuwayxiwa"
+
+#  "está aquí"
+#  [es] "está aquí"
+#: activity.py:417
+#, python-format
+msgid "%s is here"
+msgstr "%s akankaskiwa"
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "Mira suma, aruskipasiñatakixa, mayni masimana mantaniñapa suyt'ma."
+
+# "Inserte carita"
+#: activity.py:785
+msgid "Insert a smiley"
+msgstr "Ajanullampi uskunt'ma"
+
+#: activity.py:791
+msgid "Cancel"
+msgstr "Acht'ayaña"
 
 #  "Copiar al Portapapeles"
 #  [es] "Copiar al Portapapeles"
-#: chat/box.py:459
+#: chat/box.py:619
 msgid "Copy to Clipboard"
-msgstr "Wayaqaru talliqaña"
+msgstr "Laphi-q'ipiru talliqaña"
 
 #  "Sonrisa"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:31
+#: chat/smilies.py:29
 msgid "Smile"
 msgstr "K'uchi"
 
 #  "Parpadeo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:34
+#: chat/smilies.py:32
 msgid "Winking"
-msgstr "Jiwañachi"
+msgstr "Ch'irmch'ukiña"
 
 #  "Confundido"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:37
+#: chat/smilies.py:35
 msgid "Confused"
-msgstr "Pantjata"
+msgstr "Warakjasita"
 
 #  "Triste"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:40
+#: chat/smilies.py:38
 msgid "Sad"
-msgstr "Llakita"
+msgstr "Q'uyasita"
 
 #  "Sonrisa"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:43
+#: chat/smilies.py:41
 msgid "Grin"
-msgstr "K'uchi"
+msgstr "Larusiña"
 
 #  "Neutral"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:46
+#: chat/smilies.py:44
 msgid "Neutral"
-msgstr "Purapa"
+msgstr "Aliqaki"
 
 #  "Choque"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:49
+#: chat/smilies.py:47
 msgid "Shock"
-msgstr "Chikacha"
+msgstr "Mulljasita"
 
 #  "Tranquilo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:52
+#: chat/smilies.py:50
 msgid "Cool"
-msgstr "Llamphi kankañani"
+msgstr "Llamp'u chuymani"
 
-#  "Lengua"
+# Se refiere  al hecho de sacarle la lengua, burlarse. No se refiere al idioma.
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:55
+#: chat/smilies.py:53
 msgid "Tongue"
-msgstr "Aru"
+msgstr "Laxra iqsusiña"
 
 #  "Sonrojado"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:58
+#: chat/smilies.py:56
 msgid "Blushing"
-msgstr "Llakita"
+msgstr "Phinq'asitjama"
 
 #  "Llorando"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:61
+#: chat/smilies.py:59
 msgid "Weeping"
-msgstr "Jacht'asa"
+msgstr "Jachkiri"
 
 #  "Ángel"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:64
+#: chat/smilies.py:62
 msgid "Angel"
-msgstr "Qhispiyiri"
+msgstr "Anjila wawa"
 
 #  "No se lo digas a nadie"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:67
+#: chat/smilies.py:65
 msgid "Don't tell anyone"
-msgstr "Taqiru imxataña"
+msgstr "Jani khitirusa samti"
 
 #  "Enfadado"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:70
+#: chat/smilies.py:68
 msgid "Angry"
-msgstr "Phiñata"
+msgstr "Phiñasita"
 
-#  "Demonio"
+# "Diablo" es un concepto occidental que no debe traducirse al aimara por ser agresivo y colonizador. Resérvese Supaya o  saxra para algo diferente y propio.
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:73
+#: chat/smilies.py:71
 msgid "Devil"
-msgstr "Supaya"
+msgstr "Yawlu"
 
-#  "Empollón"
+# Una cara con los dientes de fuera :B / Aveces tambien lo usan para un icono que tiene la cara estupida
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:76
+#: chat/smilies.py:74
 msgid "Nerd"
-msgstr "Wayusiri"
+msgstr "Ipjamaraki yatirjamaraki"
 
 #  "Beso"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:79
+#: chat/smilies.py:77
 msgid "Kiss"
-msgstr "Jallallaña"
+msgstr "Jamp'ati"
 
 #  "Riendo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:82
+#: chat/smilies.py:80
 msgid "Laughing"
-msgstr "Larusisa"
+msgstr "Lart'asisa"
 
 #  "Somnoliento"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:85
+#: chat/smilies.py:83
 msgid "Sleepy"
-msgstr "Iki ch'awa"
+msgstr "Iki ch'uwiri"
 
 #  "Enfermo"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:88
+#: chat/smilies.py:86
 msgid "Sick"
 msgstr "Usuta"
 
-#  "Sorprendido"
+# /:) Me parece que warakjata mejor da para confundido.
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:91
+#: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr "Warakjata"
+msgstr "Musparata"
+
+#: chat/smilies.py:90
+msgid "Heart"
+msgstr "Lluqu"
+
+#: chat/smilies.py:91
+msgid "Airplane"
+msgstr "Awiyuna"
+
+# Hay música para cada caso como 'phust'awi', pero esto es muy específico: hacer música 'soplando'.
+#: chat/smilies.py:92
+msgid "Music"
+msgstr "Musika"
+
+#: chat/smilies.py:93
+msgid "Check box"
+msgstr "Ajllisiwi chiqa"
+
+# Bertonio 'punta de lanza'
+#: chat/smilies.py:94
+msgid "Spade"
+msgstr "Chuki"
+
+#: chat/smilies.py:95
+msgid "Telephone"
+msgstr "Tiliphunu"
+
+#: chat/smilies.py:96
+msgid "X box"
+msgstr "X kajuna"
+
+# RAE: En la Antigüedad como símbolo de la paz y empleada hoy comúnmente como símbolo del comercio
+#: chat/smilies.py:97
+msgid "Cadusis"
+msgstr "Phich'i"
+
+#: chat/smilies.py:98
+msgid "Female"
+msgstr "Warmi"
+
+#: chat/smilies.py:99 chat/smilies.py:104
+msgid "Star"
+msgstr "Warawara"
+
+#: chat/smilies.py:100
+msgid "Letter"
+msgstr "Karta"
+
+#: chat/smilies.py:101
+msgid "Poison"
+msgstr "Jiwañataki qulla"
+
+# ch'iku 'color gris, plomo' (Saturnino Callo)
+#: chat/smilies.py:102
+msgid "Check mark"
+msgstr "Chimpu"
+
+#: chat/smilies.py:103
+msgid "Male"
+msgstr "Chacha"
+
+#: chat/smilies.py:105
+msgid "Shamrock"
+msgstr "Layu"
+
+#: chat/smilies.py:106
+msgid "Recycle"
+msgstr "Kutikiptayaña"
+
+#: chat/smilies.py:107
+msgid "X"
+msgstr "X"
+
+#: chat/smilies.py:108
+msgid "Fire"
+msgstr "Nina"
+
+#: chat/smilies.py:109
+msgid "Leaf"
+msgstr "Laphi"
+
+# Qinayu (cf. Felipe Huayhua)
+#: chat/smilies.py:110
+msgid "Cloud"
+msgstr "Qinayu"
+
+#: chat/smilies.py:111
+msgid "V"
+msgstr "V"
+
+#: chat/smilies.py:112
+msgid "Crown"
+msgstr "Pillu"
+
+#: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
+#: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
+#: chat/smilies.py:135
+msgid "Floret"
+msgstr "Florete sata junusiña"
+
+#: chat/smilies.py:114
+msgid "Star and crescent"
+msgstr "Warawarampi chika phaxsimpi"
+
+#: chat/smilies.py:115
+msgid "Umbrella"
+msgstr "Ch'iwuchiri"
+
+#: chat/smilies.py:116
+msgid "Pencil"
+msgstr "Lapisa"
+
+#: chat/smilies.py:118
+msgid "Snowman"
+msgstr "Chhullunkhaya jaqi"
+
+# Si hay "left", entonces "rigth" debe ser "derecho" por analogía.  POR FAVOR, aclarar. Por eso no traduje como LUZ APUNTADORA.
+#: chat/smilies.py:119
+msgid "Point right"
+msgstr "Kupiru luqt'aña"
+
+#: chat/smilies.py:120
+msgid "Horse"
+msgstr "Kawallu"
+
+#: chat/smilies.py:122
+msgid "Peace sign"
+msgstr "Phajtatäña aliqäña chimpu"
+
+#: chat/smilies.py:123
+msgid "Sun"
+msgstr "Willka"
+
+# Si hay "left", entonces "rigth" debe ser "derecho" por analogía.
+#: chat/smilies.py:124
+msgid "Point left"
+msgstr "Ch'iqaru luqt'aña"
+
+#: chat/smilies.py:126
+msgid "Yin yang"
+msgstr "Yin yang"
+
+#: chat/smilies.py:127
+msgid "Moon"
+msgstr "Phaxsi"
+
+#: chat/smilies.py:128
+msgid "Point up"
+msgstr "Patxaru luqt'aña"
+
+# cf. fenómenos meteorológicos  / fenómenos de la naturaleza: viento, arco iris, lluvia, nieve, etc.
+#: chat/smilies.py:130
+msgid "Meteor"
+msgstr "Mitiwuru"
+
+#: chat/smilies.py:131
+msgid "Point down"
+msgstr "Aynacharu luqt'aña"
+
+#: chat/smilies.py:133
+msgid "Scissors"
+msgstr "Tijira"
+
+#: chat/smilies.py:134
+msgid "Pen"
+msgstr "Lapisa"
+
+#: chat/smilies.py:136
+msgid "Stars"
+msgstr "Warawaranaka"
+
+#: chat/smilies.py:137
+msgid "Place"
+msgstr "Kawki kankaña"
+
+#: chat/smilies.py:138
+msgid "High voltage"
+msgstr "Juk'ampi walja wultajini"
+
+#  "Inserte carita"
+#~ msgid "Insert smiley"
+#~ msgstr "Ajanumpi chimpt'ma"

@@ -8,86 +8,88 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-05-16 05:20+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: gn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.11.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1463376038.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Ñemongeta"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "ñemongeta hai"
 
 #: activity.py:141 activity.py:160
 msgid "Please wait for a connection before starting to chat."
-msgstr ""
+msgstr "Eha'ãrõ ñembojoajuhag̃ua."
 
 #: activity.py:157 activity.py:303
 msgid "Off-line"
-msgstr ""
+msgstr "Ndereikatui rehai"
 
 #: activity.py:157
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "ñemongeta aty, terã ehenõi pyahu."
 
 #: activity.py:294 activity.py:310
 msgid "On-line"
-msgstr ""
+msgstr "ñembojoaju"
 
 #: activity.py:294
 msgid "Private Chat"
-msgstr ""
+msgstr "ñeẽ ñemi"
 
 #: activity.py:303
 msgid "left the chat"
-msgstr ""
+msgstr "jeheja ñeẽ"
 
 #: activity.py:310
 msgid "Connected"
-msgstr ""
+msgstr "Ehejarei ñe'ẽ"
 
 #: activity.py:348
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "ñe emondo %s"
 
 #: activity.py:375
 msgid "URL from Chat"
-msgstr ""
+msgstr "URL ouva ekue ñe ẽgui"
 
 #: activity.py:397
 #, python-format
 msgid "%s joined the chat"
-msgstr ""
+msgstr "%s oike ñemongetape"
 
 #: activity.py:407
 #, python-format
 msgid "%s left the chat"
-msgstr ""
+msgstr "%s oheja jemongeta"
 
 #: activity.py:417
 #, python-format
 msgid "%s is here"
-msgstr ""
+msgstr "%s oĩ ko'ape"
 
 #: activity.py:476
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "Pytyvõreheve eha arõ conexión rehe."
 
 #: activity.py:785
 msgid "Insert a smiley"
-msgstr ""
+msgstr "Emoĩ emoticon"
 
 #: activity.py:791
 msgid "Cancel"
-msgstr ""
+msgstr "Emboai"
 
 #: chat/box.py:619
 msgid "Copy to Clipboard"
@@ -305,13 +307,13 @@ msgstr ""
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "Akã rehegua"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "Florete"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
@@ -335,56 +337,56 @@ msgstr ""
 
 #: chat/smilies.py:120
 msgid "Horse"
-msgstr ""
+msgstr "Cabaju"
 
 #: chat/smilies.py:122
 msgid "Peace sign"
-msgstr ""
+msgstr "Py aguapy ñembojoja"
 
 #: chat/smilies.py:123
 msgid "Sun"
-msgstr ""
+msgstr "Kuarahy"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "Kyta asúpe"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
-msgstr ""
+msgstr "Yin yang"
 
 #: chat/smilies.py:127
 msgid "Moon"
-msgstr ""
+msgstr "Jasy"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "Kyta yvate"
 
 #: chat/smilies.py:130
 msgid "Meteor"
-msgstr ""
+msgstr "Meteoro"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "Kyta yvýpe"
 
 #: chat/smilies.py:133
 msgid "Scissors"
-msgstr ""
+msgstr "jetapakuera"
 
 #: chat/smilies.py:134
 msgid "Pen"
-msgstr ""
+msgstr "Haiha"
 
 #: chat/smilies.py:136
 msgid "Stars"
-msgstr ""
+msgstr "Jasykuera"
 
 #: chat/smilies.py:137
 msgid "Place"
-msgstr ""
+msgstr "Tenda"
 
 #: chat/smilies.py:138
 msgid "High voltage"
-msgstr ""
+msgstr "Yvate voltaje"

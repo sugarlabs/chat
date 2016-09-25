@@ -14,23 +14,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2012-10-27 15:10+0200\n"
-"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
+"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"PO-Revision-Date: 2016-05-16 04:57+0000\n"
+"Last-Translator: krhome <padodanle51@gmail.com>\n"
 "Language-Team: French <mrtom@fedoraproject.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1463374674.000000\n"
 
-#. TRANS: "name" option from activity.info file
+#: activity/activity.info:2
 msgid "Chat"
 msgstr "Discuter"
 
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:3
 msgid "Text chat"
 msgstr "Discussion texte"
 
@@ -38,179 +38,369 @@ msgstr "Discussion texte"
 msgid "Please wait for a connection before starting to chat."
 msgstr "S'il vous plaît attendre une connexion avant de commencer à discuter."
 
+#: activity.py:157 activity.py:303
+msgid "Off-line"
+msgstr "Hors ligne"
+
+#: activity.py:157
+msgid "Share, or invite someone."
+msgstr "Partager ou inviter quelqu'un."
+
+#: activity.py:294 activity.py:310
+msgid "On-line"
+msgstr "En ligne"
+
+#: activity.py:294
+msgid "Private Chat"
+msgstr "Discussion privée"
+
+#: activity.py:303
+msgid "left the chat"
+msgstr "quitter la discussion"
+
+#: activity.py:310
+msgid "Connected"
+msgstr "Connecté"
+
+#: activity.py:348
+#, python-format
+msgid "Message from %s"
+msgstr "Message de %s"
+
+#: activity.py:375
+msgid "URL from Chat"
+msgstr "URL depuis la Discussion"
+
+#: activity.py:397
+#, python-format
+msgid "%s joined the chat"
+msgstr "%s a rejoint la discussion"
+
+#: activity.py:407
+#, python-format
+msgid "%s left the chat"
+msgstr "%s a quitté la discussion"
+
+#: activity.py:417
+#, python-format
+msgid "%s is here"
+msgstr "%s est ici"
+
 #: activity.py:476
 msgid "You must be connected to a friend before starting to chat."
 msgstr "Vous devez être connecté à un ami avant de commencer à discuter."
 
-#: activity.py:87
-msgid "Insert smiley"
-msgstr "Insérer un smiley"
+#: activity.py:785
+msgid "Insert a smiley"
+msgstr "Insérer une frimousse"
 
-#: activity.py:124 activity.py:188
-msgid "Off-line"
-msgstr "Hors ligne"
+#: activity.py:791
+msgid "Cancel"
+msgstr "Annuler"
 
-#: activity.py:124
-msgid "Share, or invite someone."
-msgstr "Partager ou inviter quelqu'un."
-
-#: activity.py:180 activity.py:195
-msgid "On-line"
-msgstr "En ligne"
-
-#: activity.py:180
-msgid "Private Chat"
-msgstr "Discussion privée"
-
-#: activity.py:188 activity.py:248
-msgid "%s left the chat"
-msgstr "%s a quitté la discussion"
-
-#: activity.py:195
-msgid "Connected"
-msgstr "Connecté"
-
-#: activity.py:240
-msgid "%s joined the chat"
-msgstr "%s a rejoint la discussion"
-
-#: activity.py:255
-msgid "%s is here"
-msgstr "%s est ici"
-
-#: chat/box.py:118
-msgid "URL from Chat"
-msgstr "URL depuis la Discussion"
-
-#: chat/box.py:459
+#: chat/box.py:619
 msgid "Copy to Clipboard"
 msgstr "Copier dans le presse-papier"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:31
+#: chat/smilies.py:29
 msgid "Smile"
 msgstr "Sourire"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:34
+#: chat/smilies.py:32
 msgid "Winking"
 msgstr "Clin d'oeil"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:37
+#: chat/smilies.py:35
 msgid "Confused"
 msgstr "Embarras"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:40
+#: chat/smilies.py:38
 msgid "Sad"
 msgstr "Tristesse"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:43
+#: chat/smilies.py:41
 msgid "Grin"
 msgstr "Large sourire"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:46
+#: chat/smilies.py:44
 msgid "Neutral"
 msgstr "Neutre"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:49
+#: chat/smilies.py:47
 msgid "Shock"
 msgstr "Choc"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:52
+#: chat/smilies.py:50
 msgid "Cool"
 msgstr "Cool"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:55
+#: chat/smilies.py:53
 msgid "Tongue"
 msgstr "Tirant la langue"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:58
+#: chat/smilies.py:56
 msgid "Blushing"
 msgstr "Rougissant"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:61
+#: chat/smilies.py:59
 msgid "Weeping"
 msgstr "Larmes"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:64
+#: chat/smilies.py:62
 msgid "Angel"
 msgstr "Ange"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:67
+#: chat/smilies.py:65
 msgid "Don't tell anyone"
 msgstr "Chut"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:70
+#: chat/smilies.py:68
 msgid "Angry"
 msgstr "Fâché"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:73
+#: chat/smilies.py:71
 msgid "Devil"
 msgstr "Diabolique"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:76
+#: chat/smilies.py:74
 msgid "Nerd"
 msgstr "Crétin"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:79
+#: chat/smilies.py:77
 msgid "Kiss"
 msgstr "Bisous"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:82
+#: chat/smilies.py:80
 msgid "Laughing"
 msgstr "Rigolard"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:85
+#: chat/smilies.py:83
 msgid "Sleepy"
 msgstr "Endormi"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:88
+#: chat/smilies.py:86
 msgid "Sick"
 msgstr "Malade"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:91
+#: chat/smilies.py:89
 msgid "Raised eyebrows"
 msgstr "Sourcils froncés"
+
+#: chat/smilies.py:90
+msgid "Heart"
+msgstr "Cœur"
+
+#: chat/smilies.py:91
+msgid "Airplane"
+msgstr "Avion"
+
+#: chat/smilies.py:92
+msgid "Music"
+msgstr "Musique"
+
+#: chat/smilies.py:93
+msgid "Check box"
+msgstr "Case à cocher"
+
+#: chat/smilies.py:94
+msgid "Spade"
+msgstr "Pique"
+
+#: chat/smilies.py:95
+msgid "Telephone"
+msgstr "Téléphone"
+
+#: chat/smilies.py:96
+msgid "X box"
+msgstr "boite X"
+
+#: chat/smilies.py:97
+msgid "Cadusis"
+msgstr "caducée"
+
+#: chat/smilies.py:98
+msgid "Female"
+msgstr "Femme"
+
+#: chat/smilies.py:99 chat/smilies.py:104
+msgid "Star"
+msgstr "Étoile"
+
+#: chat/smilies.py:100
+msgid "Letter"
+msgstr "Lettre"
+
+#: chat/smilies.py:101
+msgid "Poison"
+msgstr "Poison"
+
+#: chat/smilies.py:102
+msgid "Check mark"
+msgstr "Coche"
+
+#: chat/smilies.py:103
+msgid "Male"
+msgstr "Homme"
+
+#: chat/smilies.py:105
+msgid "Shamrock"
+msgstr "trèfle"
+
+#: chat/smilies.py:106
+msgid "Recycle"
+msgstr "Modifier"
+
+#: chat/smilies.py:107
+msgid "X"
+msgstr "X"
+
+#: chat/smilies.py:108
+msgid "Fire"
+msgstr "Feu"
+
+#: chat/smilies.py:109
+msgid "Leaf"
+msgstr "Feuille"
+
+#: chat/smilies.py:110
+msgid "Cloud"
+msgstr "Nuage"
+
+#: chat/smilies.py:111
+msgid "V"
+msgstr "V"
+
+#: chat/smilies.py:112
+msgid "Crown"
+msgstr "couronne"
+
+#: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
+#: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
+#: chat/smilies.py:135
+#, fuzzy
+msgid "Floret"
+msgstr "Fleuron"
+
+#: chat/smilies.py:114
+msgid "Star and crescent"
+msgstr "L'étoile et le croissant"
+
+#: chat/smilies.py:115
+msgid "Umbrella"
+msgstr "Parapluie"
+
+#: chat/smilies.py:116
+msgid "Pencil"
+msgstr "Crayon"
+
+#: chat/smilies.py:118
+msgid "Snowman"
+msgstr "Bonhomme de neige"
+
+#: chat/smilies.py:119
+msgid "Point right"
+msgstr "pointer vers la droite"
+
+#: chat/smilies.py:120
+msgid "Horse"
+msgstr "Cheval"
+
+#: chat/smilies.py:122
+msgid "Peace sign"
+msgstr "Signe de paix"
+
+#: chat/smilies.py:123
+msgid "Sun"
+msgstr "Soleil"
+
+#: chat/smilies.py:124
+msgid "Point left"
+msgstr "pointer vers la gauche"
+
+#: chat/smilies.py:126
+msgid "Yin yang"
+msgstr "Yin yang"
+
+#: chat/smilies.py:127
+msgid "Moon"
+msgstr "Lune"
+
+#: chat/smilies.py:128
+msgid "Point up"
+msgstr "pointer vers le haut"
+
+#: chat/smilies.py:130
+msgid "Meteor"
+msgstr "Météore"
+
+#: chat/smilies.py:131
+msgid "Point down"
+msgstr "pointer vers le bas"
+
+#: chat/smilies.py:133
+msgid "Scissors"
+msgstr "Les ciseaux"
+
+#: chat/smilies.py:134
+msgid "Pen"
+msgstr "Crayon"
+
+#: chat/smilies.py:136
+msgid "Stars"
+msgstr "Étoiles"
+
+#: chat/smilies.py:137
+msgid "Place"
+msgstr "Lieu"
+
+#: chat/smilies.py:138
+msgid "High voltage"
+msgstr "Haute Tension"
+
+#~ msgid "Insert smiley"
+#~ msgstr "Insérer un smiley"
 
 #, python-format
 #~ msgid "%s Source"

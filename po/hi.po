@@ -18,195 +18,392 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat-activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2011-10-05 09:45+0200\n"
-"Last-Translator: satyaakam goswami <satyaakam@gmail.com>\n"
+"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"PO-Revision-Date: 2016-03-08 23:49+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
-"Language: \n"
+"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1457480958.000000\n"
 
-#. TRANS: "name" option from activity.info file
+#: activity/activity.info:2
 msgid "Chat"
 msgstr "गपशप"
 
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "पाठ गपशप"
 
-#: activity.py:87
-msgid "Insert smiley"
-msgstr "सम्मिलित करें स्माइली"
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "गपशप करने से पहले एक कनेक्शन के लिए प्रतीक्षा करें"
 
-#: activity.py:124 activity.py:188
+#: activity.py:157 activity.py:303
 msgid "Off-line"
 msgstr "ऑफ़लाइन"
 
-#: activity.py:124
+#: activity.py:157
 msgid "Share, or invite someone."
 msgstr "साझा करें या किसी को आमंत्रित करें."
 
-#: activity.py:180 activity.py:195
+#: activity.py:294 activity.py:310
 msgid "On-line"
 msgstr "ऑन-लाइन"
 
-#: activity.py:180
+#: activity.py:294
 msgid "Private Chat"
 msgstr "निजी गपशप"
 
-#: activity.py:188 activity.py:248
-msgid "%s left the chat"
-msgstr "%s गपशप छोड दिया"
+#: activity.py:303
+msgid "left the chat"
+msgstr "ने गपशप छोड दिया"
 
-#: activity.py:195
+#: activity.py:310
 msgid "Connected"
 msgstr "कनेक्ट है"
 
-#: activity.py:240
-msgid "%s joined the chat"
-msgstr "%s गपशप में शामिल हुआ"
+#: activity.py:348
+#, python-format
+msgid "Message from %s"
+msgstr "%s से संदेश"
 
-#: activity.py:255
-msgid "%s is here"
-msgstr "%s अभी हैं"
-
-#: chat/box.py:118
+#: activity.py:375
 msgid "URL from Chat"
 msgstr "गपशप से यू.आर.एल"
 
-#: chat/box.py:459
+#: activity.py:397
+#, python-format
+msgid "%s joined the chat"
+msgstr "%s गपशप में शामिल हुआ"
+
+#: activity.py:407
+#, python-format
+msgid "%s left the chat"
+msgstr "%s गपशप छोड दिया"
+
+#: activity.py:417
+#, python-format
+msgid "%s is here"
+msgstr "%s अभी हैं"
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "आप गपशप शुरू करने से पहले एक दोस्त से जुड़ें होना चाहिए"
+
+#: activity.py:785
+msgid "Insert a smiley"
+msgstr "स्माइली सम्मिलित करें"
+
+#: activity.py:791
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: chat/box.py:619
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड पर नकल बनाएं"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:31
+#: chat/smilies.py:29
 msgid "Smile"
 msgstr "मुस्कान"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:34
+#: chat/smilies.py:32
 msgid "Winking"
 msgstr "पलके झपके"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:37
+#: chat/smilies.py:35
 msgid "Confused"
 msgstr "उलझन में"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:40
+#: chat/smilies.py:38
 msgid "Sad"
 msgstr "दुखी"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:43
+#: chat/smilies.py:41
 msgid "Grin"
 msgstr "मुसकान"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:46
+#: chat/smilies.py:44
 msgid "Neutral"
 msgstr "निष्पक्ष"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:49
+#: chat/smilies.py:47
 msgid "Shock"
 msgstr "झटका"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:52
+#: chat/smilies.py:50
 msgid "Cool"
 msgstr "ठंडा"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:55
+#: chat/smilies.py:53
 msgid "Tongue"
 msgstr "Tongue"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:58
+#: chat/smilies.py:56
 msgid "Blushing"
 msgstr "शरमाके लाल होना"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:61
+#: chat/smilies.py:59
 msgid "Weeping"
 msgstr "रो रहा (रही) है"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:64
+#: chat/smilies.py:62
 msgid "Angel"
 msgstr "परी"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:67
+#: chat/smilies.py:65
 msgid "Don't tell anyone"
 msgstr "किसीको मत बताना"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:70
+#: chat/smilies.py:68
 msgid "Angry"
 msgstr "गुस्सा"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:73
+#: chat/smilies.py:71
 msgid "Devil"
 msgstr "शैतान"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:76
+#: chat/smilies.py:74
 msgid "Nerd"
 msgstr "बेवकूफ"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:79
+#: chat/smilies.py:77
 msgid "Kiss"
 msgstr "चुम्बन"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:82
+#: chat/smilies.py:80
 msgid "Laughing"
 msgstr "हंसी"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:85
+#: chat/smilies.py:83
 msgid "Sleepy"
 msgstr "नींद आ रहा (रही) है"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:88
+#: chat/smilies.py:86
 msgid "Sick"
 msgstr "बीमार"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:91
+#: chat/smilies.py:89
 msgid "Raised eyebrows"
 msgstr "भ्रूलता उठाये हुए"
+
+#: chat/smilies.py:90
+msgid "Heart"
+msgstr "हृदय"
+
+#: chat/smilies.py:91
+msgid "Airplane"
+msgstr "विमान"
+
+#: chat/smilies.py:92
+msgid "Music"
+msgstr "संगीत"
+
+#: chat/smilies.py:93
+msgid "Check box"
+msgstr "चेक बक्सा"
+
+#: chat/smilies.py:94
+msgid "Spade"
+msgstr "कुदाल"
+
+#: chat/smilies.py:95
+msgid "Telephone"
+msgstr "टेलिफोन"
+
+#: chat/smilies.py:96
+msgid "X box"
+msgstr "एक्सबॉक्स"
+
+#: chat/smilies.py:97
+msgid "Cadusis"
+msgstr "कैदूसिस"
+
+#: chat/smilies.py:98
+msgid "Female"
+msgstr "स्त्री"
+
+#: chat/smilies.py:99 chat/smilies.py:104
+msgid "Star"
+msgstr "तारा"
+
+#: chat/smilies.py:100
+msgid "Letter"
+msgstr "पत्र"
+
+#: chat/smilies.py:101
+msgid "Poison"
+msgstr "ज़हर"
+
+#: chat/smilies.py:102
+msgid "Check mark"
+msgstr "जाँच चिह्न"
+
+#: chat/smilies.py:103
+msgid "Male"
+msgstr "पुरुष"
+
+#: chat/smilies.py:105
+msgid "Shamrock"
+msgstr "तिपतिया"
+
+#: chat/smilies.py:106
+msgid "Recycle"
+msgstr "रीसायकल"
+
+#: chat/smilies.py:107
+msgid "X"
+msgstr "X"
+
+#: chat/smilies.py:108
+msgid "Fire"
+msgstr "आग"
+
+#: chat/smilies.py:109
+msgid "Leaf"
+msgstr "पत्ती"
+
+#: chat/smilies.py:110
+msgid "Cloud"
+msgstr "बादल"
+
+#: chat/smilies.py:111
+msgid "V"
+msgstr "V"
+
+#: chat/smilies.py:112
+msgid "Crown"
+msgstr "ताज"
+
+#: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
+#: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
+#: chat/smilies.py:135
+msgid "Floret"
+msgstr "पुष्पक"
+
+#: chat/smilies.py:114
+msgid "Star and crescent"
+msgstr "तारा और वर्धमान"
+
+#: chat/smilies.py:115
+msgid "Umbrella"
+msgstr "छतरी"
+
+#: chat/smilies.py:116
+msgid "Pencil"
+msgstr "कूँची"
+
+#: chat/smilies.py:118
+msgid "Snowman"
+msgstr "स्नोमैन"
+
+#: chat/smilies.py:119
+msgid "Point right"
+msgstr "बायीं ओर इशारा करें"
+
+#: chat/smilies.py:120
+msgid "Horse"
+msgstr "घोड़ा"
+
+#: chat/smilies.py:122
+msgid "Peace sign"
+msgstr "शांति का चिन्ह"
+
+#: chat/smilies.py:123
+msgid "Sun"
+msgstr "सूर्य"
+
+#: chat/smilies.py:124
+msgid "Point left"
+msgstr "बाएं प्वाइंट करें"
+
+#: chat/smilies.py:126
+msgid "Yin yang"
+msgstr "यिन यांग"
+
+#: chat/smilies.py:127
+msgid "Moon"
+msgstr "चन्द्रमा"
+
+#: chat/smilies.py:128
+msgid "Point up"
+msgstr "ऊपर प्वाइंट करें"
+
+#: chat/smilies.py:130
+msgid "Meteor"
+msgstr "उल्का"
+
+#: chat/smilies.py:131
+msgid "Point down"
+msgstr "नीचे प्वाइंट करें"
+
+#: chat/smilies.py:133
+msgid "Scissors"
+msgstr "कैंची"
+
+#: chat/smilies.py:134
+msgid "Pen"
+msgstr "पेन"
+
+#: chat/smilies.py:136
+msgid "Stars"
+msgstr "तारे"
+
+#: chat/smilies.py:137
+msgid "Place"
+msgstr "स्थान"
+
+#: chat/smilies.py:138
+msgid "High voltage"
+msgstr "ऊँचा वोल्टेज"
+
+#~ msgid "Insert smiley"
+#~ msgstr "सम्मिलित करें स्माइली"
 
 #, python-format
 #~ msgid "%s Source"
