@@ -5,8 +5,8 @@ license   = GPLv2+
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
 # original activity.info options
-activity_version = 82
+activity_version = 82.1
 max_participants = 20
 bundle_id = org.laptop.Chat
 category = language
-repository = https://github.com/walterbender/chat
+repository = https://github.com/quozl/chat
