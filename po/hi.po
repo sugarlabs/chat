@@ -1,15 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # translation of chat-activity.po to Hindi
 # G Karunakar <karunakar@indlinux.org>, 2007.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -19,7 +7,7 @@ msgstr ""
 "Project-Id-Version: chat-activity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: 2016-03-08 23:49+0000\n"
+"PO-Revision-Date: 2016-05-20 01:26+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -28,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1457480958.000000\n"
+"X-POOTLE-MTIME: 1463707604.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -40,7 +28,7 @@ msgstr "पाठ गपशप"
 
 #: activity.py:141 activity.py:160
 msgid "Please wait for a connection before starting to chat."
-msgstr "गपशप करने से पहले एक कनेक्शन के लिए प्रतीक्षा करें"
+msgstr "गपशप करने से पहले एक कनेक्शन के लिए प्रतीक्षा करें."
 
 #: activity.py:157 activity.py:303
 msgid "Off-line"
@@ -92,7 +80,7 @@ msgstr "%s अभी हैं"
 
 #: activity.py:476
 msgid "You must be connected to a friend before starting to chat."
-msgstr "आप गपशप शुरू करने से पहले एक दोस्त से जुड़ें होना चाहिए"
+msgstr "आप गपशप शुरू करने से पहले एक दोस्त से जुड़ें होना चाहिए."
 
 #: activity.py:785
 msgid "Insert a smiley"
@@ -401,10 +389,3 @@ msgstr "स्थान"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "ऊँचा वोल्टेज"
-
-#~ msgid "Insert smiley"
-#~ msgstr "सम्मिलित करें स्माइली"
-
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s स्रोत"
