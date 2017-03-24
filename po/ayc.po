@@ -443,7 +443,3 @@ msgstr "Kawki kankaña"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "Juk'ampi walja wultajini"
-
-#  "Inserte carita"
-#~ msgid "Insert smiley"
-#~ msgstr "Ajanumpi chimpt'ma"
