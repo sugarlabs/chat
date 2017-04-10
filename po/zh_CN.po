@@ -2,204 +2,391 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2012-09-30 11:52+0200\n"
-"Last-Translator: lite <litekok@gmail.com>\n"
+"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"PO-Revision-Date: 2017-03-21 04:39+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1490071156.000000\n"
 
-#. TRANS: "name" option from activity.info file
+#: activity/activity.info:2
 msgid "Chat"
 msgstr "聊天"
 
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:3
 msgid "Text chat"
 msgstr "文字聊天"
 
-#: activity.py:87
-msgid "Insert smiley"
-msgstr "插入表情符号"
+#: activity.py:141 activity.py:160
+msgid "Please wait for a connection before starting to chat."
+msgstr "在开始聊天之前，请等待连接。"
 
-#: activity.py:124 activity.py:188
+#: activity.py:157 activity.py:303
 msgid "Off-line"
 msgstr "离线"
 
-#: activity.py:124
+#: activity.py:157
 msgid "Share, or invite someone."
 msgstr "分享，或者邀请朋友。"
 
-#: activity.py:180 activity.py:195
+#: activity.py:294 activity.py:310
 msgid "On-line"
 msgstr "上线"
 
-#: activity.py:180
+#: activity.py:294
 msgid "Private Chat"
 msgstr "私人聊天"
 
-#: activity.py:188 activity.py:248
-msgid "%s left the chat"
-msgstr "%s 退出聊天室"
+#: activity.py:303
+msgid "left the chat"
+msgstr "退出聊天室"
 
-#: activity.py:195
+#: activity.py:310
 msgid "Connected"
 msgstr "已连线"
 
-#: activity.py:240
-msgid "%s joined the chat"
-msgstr "%s 进入聊天室"
+#: activity.py:348
+#, python-format
+msgid "Message from %s"
+msgstr "来自 %s 的信息"
 
-#: activity.py:255
-msgid "%s is here"
-msgstr "%s 在聊天室"
-
-#: chat/box.py:118
+#: activity.py:375
 msgid "URL from Chat"
 msgstr "聊天中的网址"
 
-#: chat/box.py:459
+#: activity.py:397
+#, python-format
+msgid "%s joined the chat"
+msgstr "%s 进入聊天室"
+
+#: activity.py:407
+#, python-format
+msgid "%s left the chat"
+msgstr "%s 退出聊天室"
+
+#: activity.py:417
+#, python-format
+msgid "%s is here"
+msgstr "%s 在聊天室"
+
+#: activity.py:476
+msgid "You must be connected to a friend before starting to chat."
+msgstr "在开始聊天之前，你必须和一个朋友进行连接。"
+
+#: activity.py:785
+msgid "Insert a smiley"
+msgstr "插入一个笑脸"
+
+#: activity.py:791
+msgid "Cancel"
+msgstr "取消"
+
+#: chat/box.py:619
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
-#: chat/smilies.py:31
+#: chat/smilies.py:29
 msgid "Smile"
-msgstr "表情符号"
+msgstr "笑脸"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
-#: chat/smilies.py:34
+#: chat/smilies.py:32
 msgid "Winking"
 msgstr "眨眼"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
-#: chat/smilies.py:37
+#: chat/smilies.py:35
 msgid "Confused"
 msgstr "困惑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
-#: chat/smilies.py:40
+#: chat/smilies.py:38
 msgid "Sad"
 msgstr "伤心"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
-#: chat/smilies.py:43
+#: chat/smilies.py:41
 msgid "Grin"
 msgstr "微笑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
-#: chat/smilies.py:46
+#: chat/smilies.py:44
 msgid "Neutral"
 msgstr "旁观"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
-#: chat/smilies.py:49
+#: chat/smilies.py:47
 msgid "Shock"
 msgstr "震惊"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
-#: chat/smilies.py:52
+#: chat/smilies.py:50
 msgid "Cool"
 msgstr "酷"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
-#: chat/smilies.py:55
+#: chat/smilies.py:53
 msgid "Tongue"
 msgstr "吐舌头"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
-#: chat/smilies.py:58
+#: chat/smilies.py:56
 msgid "Blushing"
 msgstr "脸红"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
-#: chat/smilies.py:61
+#: chat/smilies.py:59
 msgid "Weeping"
 msgstr "流眼泪"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
-#: chat/smilies.py:64
+#: chat/smilies.py:62
 msgid "Angel"
 msgstr "天使"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
-#: chat/smilies.py:67
+#: chat/smilies.py:65
 msgid "Don't tell anyone"
 msgstr "要保密哦"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
-#: chat/smilies.py:70
+#: chat/smilies.py:68
 msgid "Angry"
 msgstr "生气"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
-#: chat/smilies.py:73
+#: chat/smilies.py:71
 msgid "Devil"
 msgstr "恶魔"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
-#: chat/smilies.py:76
+#: chat/smilies.py:74
 msgid "Nerd"
 msgstr "书呆子"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
-#: chat/smilies.py:79
+#: chat/smilies.py:77
 msgid "Kiss"
 msgstr "吻"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
-#: chat/smilies.py:82
+#: chat/smilies.py:80
 msgid "Laughing"
 msgstr "大笑"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
-#: chat/smilies.py:85
+#: chat/smilies.py:83
 msgid "Sleepy"
 msgstr "犯困"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
-#: chat/smilies.py:88
+#: chat/smilies.py:86
 msgid "Sick"
 msgstr "生病了"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
-#: chat/smilies.py:91
+#: chat/smilies.py:89
 msgid "Raised eyebrows"
 msgstr "眉毛上挑"
 
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s 源代码"
+#: chat/smilies.py:90
+msgid "Heart"
+msgstr "心"
+
+#: chat/smilies.py:91
+msgid "Airplane"
+msgstr "飞机"
+
+#: chat/smilies.py:92
+msgid "Music"
+msgstr "音乐"
+
+#: chat/smilies.py:93
+msgid "Check box"
+msgstr "复选框"
+
+#: chat/smilies.py:94
+msgid "Spade"
+msgstr "锹"
+
+#: chat/smilies.py:95
+msgid "Telephone"
+msgstr "电话"
+
+#: chat/smilies.py:96
+msgid "X box"
+msgstr "X盒"
+
+#: chat/smilies.py:97
+#, fuzzy
+msgid "Cadusis"
+msgstr "Caduceus  ☤"
+
+#: chat/smilies.py:98
+msgid "Female"
+msgstr "女性"
+
+#: chat/smilies.py:99 chat/smilies.py:104
+msgid "Star"
+msgstr "星"
+
+#: chat/smilies.py:100
+msgid "Letter"
+msgstr "信"
+
+#: chat/smilies.py:101
+msgid "Poison"
+msgstr "毒"
+
+#: chat/smilies.py:102
+msgid "Check mark"
+msgstr "打勾"
+
+#: chat/smilies.py:103
+msgid "Male"
+msgstr "男性"
+
+#: chat/smilies.py:105
+msgid "Shamrock"
+msgstr "三叶草"
+
+#: chat/smilies.py:106
+msgid "Recycle"
+msgstr "回收利用"
+
+#: chat/smilies.py:107
+msgid "X"
+msgstr "X"
+
+#: chat/smilies.py:108
+msgid "Fire"
+msgstr "火"
+
+#: chat/smilies.py:109
+msgid "Leaf"
+msgstr "叶子"
+
+#: chat/smilies.py:110
+msgid "Cloud"
+msgstr "云"
+
+#: chat/smilies.py:111
+msgid "V"
+msgstr "V"
+
+#: chat/smilies.py:112
+msgid "Crown"
+msgstr "王冠"
+
+#: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
+#: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
+#: chat/smilies.py:135
+msgid "Floret"
+msgstr "小花"
+
+#: chat/smilies.py:114
+msgid "Star and crescent"
+msgstr "星和星月"
+
+#: chat/smilies.py:115
+msgid "Umbrella"
+msgstr "伞"
+
+#: chat/smilies.py:116
+msgid "Pencil"
+msgstr "铅笔"
+
+#: chat/smilies.py:118
+msgid "Snowman"
+msgstr "雪人"
+
+#: chat/smilies.py:119
+msgid "Point right"
+msgstr "向右"
+
+#: chat/smilies.py:120
+msgid "Horse"
+msgstr "马"
+
+#: chat/smilies.py:122
+msgid "Peace sign"
+msgstr "和平标志"
+
+#: chat/smilies.py:123
+msgid "Sun"
+msgstr "太阳"
+
+#: chat/smilies.py:124
+msgid "Point left"
+msgstr "向左"
+
+#: chat/smilies.py:126
+msgid "Yin yang"
+msgstr "阴阳"
+
+#: chat/smilies.py:127
+msgid "Moon"
+msgstr "月亮"
+
+#: chat/smilies.py:128
+msgid "Point up"
+msgstr "向上"
+
+#: chat/smilies.py:130
+msgid "Meteor"
+msgstr "流星"
+
+#: chat/smilies.py:131
+msgid "Point down"
+msgstr "向下"
+
+#: chat/smilies.py:133
+msgid "Scissors"
+msgstr "剪刀"
+
+#: chat/smilies.py:134
+msgid "Pen"
+msgstr "笔"
+
+#: chat/smilies.py:136
+msgid "Stars"
+msgstr "星"
+
+#: chat/smilies.py:137
+msgid "Place"
+msgstr "地方"
+
+#: chat/smilies.py:138
+msgid "High voltage"
+msgstr "高压"

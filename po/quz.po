@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: 2016-05-16 05:10+0000\n"
+"PO-Revision-Date: 2016-05-20 01:19+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: quz\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1463375420.000000\n"
+"X-POOTLE-MTIME: 1463707185.000000\n"
 
 #  "Charlar"
 #: activity/activity.info:2
@@ -155,7 +155,7 @@ msgstr "Asikuna"
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:44
 msgid "Neutral"
-msgstr "ñañiq"
+msgstr "Ñañiq"
 
 # TRANS: ASCIIart equivalents are :O, :O, =O and =O = ASUSTADO
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
@@ -473,7 +473,3 @@ msgstr "K'iti"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "Hatun voltajeyuq"
-
-#  "Inserte carita"
-#~ msgid "Insert smiley"
-#~ msgstr "Uyachata churay"
