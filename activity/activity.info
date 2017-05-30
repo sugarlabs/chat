@@ -4,9 +4,8 @@ summary   = Text chat
 license   = GPLv2+
 icon      = activity-icon
 exec      = sugar-activity activity.Chat
-# original activity.info options
-activity_version = 83
+activity_version = 84
 max_participants = 20
 bundle_id = org.laptop.Chat
 category = language
-repository = https://github.com/walterbender/chat
+repository = https://github.com/sugarlabs/chat

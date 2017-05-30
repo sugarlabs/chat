@@ -1,4 +1,11 @@
+84
+
+* New translations (Chris Leonard et al),
+* Updated POT file (James Cameron)
+* Fix version warnings from Python GI API,
+
 83
+
 * Fix issue with close (Quozl)
 * New translations
 * Add max_participants (AbrahamAB)
