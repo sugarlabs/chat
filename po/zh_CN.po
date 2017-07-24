@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
 "PO-Revision-Date: 2017-03-21 04:39+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
@@ -26,73 +26,69 @@ msgstr "聊天"
 msgid "Text chat"
 msgstr "文字聊天"
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr "在开始聊天之前，请等待连接。"
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "离线"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "分享，或者邀请朋友。"
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "上线"
 
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "私人聊天"
 
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "退出聊天室"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "已连线"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
 msgstr "来自 %s 的信息"
 
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
 msgstr "聊天中的网址"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "%s 进入聊天室"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "%s 退出聊天室"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "%s 在聊天室"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
 msgstr "在开始聊天之前，你必须和一个朋友进行连接。"
 
-#: activity.py:785
+#: activity.py:779
 msgid "Insert a smiley"
 msgstr "插入一个笑脸"
 
-#: activity.py:791
+#: activity.py:785
 msgid "Cancel"
 msgstr "取消"
-
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr "复制到剪贴板"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
@@ -390,3 +386,7 @@ msgstr "地方"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "高压"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "复制到剪贴板"

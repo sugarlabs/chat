@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
 "PO-Revision-Date: 2016-05-06 02:57+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,74 +26,70 @@ msgstr "Chat"
 msgid "Text chat"
 msgstr "Text chat"
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr "Please wait for a connection before starting to chat."
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "Off-line"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "Share, or invite someone."
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "On-line"
 
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "Private Chat"
 
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "left the chat"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "Connected"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
 msgstr "Message from %s"
 
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
 msgstr "URL from Chat"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "%s joined the chat"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "%s left the chat"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "%s is here"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
 msgstr ""
 "Ud. debe estar conectado con un amigo antes de empezar una conversación."
 
-#: activity.py:785
+#: activity.py:779
 msgid "Insert a smiley"
 msgstr "Insert a smiley"
 
-#: activity.py:791
+#: activity.py:785
 msgid "Cancel"
 msgstr "Cancel"
-
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
@@ -390,3 +386,7 @@ msgstr "Place"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "High voltage"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "Copy to Clipboard"

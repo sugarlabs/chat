@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chat-activity\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
 "PO-Revision-Date: 2016-05-20 01:26+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -26,73 +26,69 @@ msgstr "गपशप"
 msgid "Text chat"
 msgstr "पाठ गपशप"
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr "गपशप करने से पहले एक कनेक्शन के लिए प्रतीक्षा करें."
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "ऑफ़लाइन"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "साझा करें या किसी को आमंत्रित करें."
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "ऑन-लाइन"
 
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "निजी गपशप"
 
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "ने गपशप छोड दिया"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "कनेक्ट है"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
 msgstr "%s से संदेश"
 
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
 msgstr "गपशप से यू.आर.एल"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "%s गपशप में शामिल हुआ"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "%s गपशप छोड दिया"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "%s अभी हैं"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
 msgstr "आप गपशप शुरू करने से पहले एक दोस्त से जुड़ें होना चाहिए."
 
-#: activity.py:785
+#: activity.py:779
 msgid "Insert a smiley"
 msgstr "स्माइली सम्मिलित करें"
 
-#: activity.py:791
+#: activity.py:785
 msgid "Cancel"
 msgstr "रद्द करें"
-
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr "क्लिपबोर्ड पर नकल बनाएं"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
@@ -389,3 +385,7 @@ msgstr "स्थान"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "ऊँचा वोल्टेज"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "क्लिपबोर्ड पर नकल बनाएं"

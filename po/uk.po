@@ -6,384 +6,389 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
+"PO-Revision-Date: 2017-04-16 16:20+0000\n"
+"Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.11.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1492359601.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "Спілкування"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "Текстове спілкування"
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr ""
+"Будь ласка, зачекайте на встановлення з’єднання, перш ніж починати "
+"спілкування."
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
-msgstr ""
+msgstr "Поза мережею"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "Оприлюдніть стан або запросіть когось."
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
-msgstr ""
+msgstr "У мережі"
+
+#: activity.py:285
+msgid "Private Chat"
+msgstr "Конфіденційне спілкування"
 
 #: activity.py:294
-msgid "Private Chat"
-msgstr ""
-
-#: activity.py:303
 msgid "left the chat"
-msgstr ""
+msgstr "полишив спілкування"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
-msgstr ""
+msgstr "З'єднано"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "Повідомлення від %s"
 
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
-msgstr ""
+msgstr "Адреса зі списку спілкування"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
-msgstr ""
+msgstr "Користувач %s долучився до спілкування"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
-msgstr ""
+msgstr "Користувач %s полишив спілкування"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
-msgstr ""
+msgstr "%s у мережі"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "Вам слід з’єднатися зі співрозмовником, перш ніж починати спілкування."
+
+#: activity.py:779
+msgid "Insert a smiley"
+msgstr "Вставити смайлик"
 
 #: activity.py:785
-msgid "Insert a smiley"
-msgstr ""
-
-#: activity.py:791
 msgid "Cancel"
-msgstr ""
-
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Скасувати"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:29
 msgid "Smile"
-msgstr ""
+msgstr "Посмішка"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:32
 msgid "Winking"
-msgstr ""
+msgstr "Підморгування"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:35
 msgid "Confused"
-msgstr ""
+msgstr "Збентежений"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:38
 msgid "Sad"
-msgstr ""
+msgstr "Сумний"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:41
 msgid "Grin"
-msgstr ""
+msgstr "Широка посмішка"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:44
 msgid "Neutral"
-msgstr ""
+msgstr "Нейтральний"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:47
 msgid "Shock"
-msgstr ""
+msgstr "Шок"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:50
 msgid "Cool"
-msgstr ""
+msgstr "Крутий"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:53
 msgid "Tongue"
-msgstr ""
+msgstr "Показує язика"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:56
 msgid "Blushing"
-msgstr ""
+msgstr "Червоніє"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:59
 msgid "Weeping"
-msgstr ""
+msgstr "Плаче"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:62
 msgid "Angel"
-msgstr ""
+msgstr "Ангел"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:65
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Нікому не кажи"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:68
 msgid "Angry"
-msgstr ""
+msgstr "Злий"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:71
 msgid "Devil"
-msgstr ""
+msgstr "Знавіснілий"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:74
 msgid "Nerd"
-msgstr ""
+msgstr "Ботан"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:77
 msgid "Kiss"
-msgstr ""
+msgstr "Цілунок"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:80
 msgid "Laughing"
-msgstr ""
+msgstr "Регоче"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:83
 msgid "Sleepy"
-msgstr ""
+msgstr "Сонний"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:86
 msgid "Sick"
-msgstr ""
+msgstr "Хворий"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Морщить брови"
 
 #: chat/smilies.py:90
 msgid "Heart"
-msgstr ""
+msgstr "Серце"
 
 #: chat/smilies.py:91
 msgid "Airplane"
-msgstr ""
+msgstr "Літак"
 
 #: chat/smilies.py:92
 msgid "Music"
-msgstr ""
+msgstr "Музика"
 
 #: chat/smilies.py:93
 msgid "Check box"
-msgstr ""
+msgstr "Пункт позначки"
 
 #: chat/smilies.py:94
 msgid "Spade"
-msgstr ""
+msgstr "Піки"
 
 #: chat/smilies.py:95
 msgid "Telephone"
-msgstr ""
+msgstr "Телефон"
 
 #: chat/smilies.py:96
 msgid "X box"
-msgstr ""
+msgstr "X-бокс"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
-msgstr ""
+msgstr "Кадуцей"
 
 #: chat/smilies.py:98
 msgid "Female"
-msgstr ""
+msgstr "Жінка"
 
 #: chat/smilies.py:99 chat/smilies.py:104
 msgid "Star"
-msgstr ""
+msgstr "Зірка"
 
 #: chat/smilies.py:100
 msgid "Letter"
-msgstr ""
+msgstr "Лист"
 
 #: chat/smilies.py:101
 msgid "Poison"
-msgstr ""
+msgstr "Отрута"
 
 #: chat/smilies.py:102
 msgid "Check mark"
-msgstr ""
+msgstr "Позначка"
 
 #: chat/smilies.py:103
 msgid "Male"
-msgstr ""
+msgstr "Чоловік"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "Трилисник"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "Переробка"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: chat/smilies.py:108
 msgid "Fire"
-msgstr ""
+msgstr "Вогонь"
 
 #: chat/smilies.py:109
 msgid "Leaf"
-msgstr ""
+msgstr "Листок"
 
 #: chat/smilies.py:110
 msgid "Cloud"
-msgstr ""
+msgstr "Хмара"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "Корона"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "Квіточка"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
-msgstr ""
+msgstr "Зірка і півмісяць"
 
 #: chat/smilies.py:115
 msgid "Umbrella"
-msgstr ""
+msgstr "Парасолька"
 
 #: chat/smilies.py:116
 msgid "Pencil"
-msgstr ""
+msgstr "Олівець"
 
 #: chat/smilies.py:118
 msgid "Snowman"
-msgstr ""
+msgstr "Сніговик"
 
 #: chat/smilies.py:119
 msgid "Point right"
-msgstr ""
+msgstr "Вказівник праворуч"
 
 #: chat/smilies.py:120
 msgid "Horse"
-msgstr ""
+msgstr "Кінь"
 
 #: chat/smilies.py:122
 msgid "Peace sign"
-msgstr ""
+msgstr "Знак миру"
 
 #: chat/smilies.py:123
 msgid "Sun"
-msgstr ""
+msgstr "Сонце"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "Вказівник ліворуч"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
-msgstr ""
+msgstr "Інь-янь"
 
 #: chat/smilies.py:127
 msgid "Moon"
-msgstr ""
+msgstr "Місяць"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "Вказівник вгору"
 
 #: chat/smilies.py:130
 msgid "Meteor"
-msgstr ""
+msgstr "Метеор"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "Вказівник вниз"
 
 #: chat/smilies.py:133
 msgid "Scissors"
-msgstr ""
+msgstr "Ножиці"
 
 #: chat/smilies.py:134
 msgid "Pen"
-msgstr ""
+msgstr "Перо"
 
 #: chat/smilies.py:136
 msgid "Stars"
-msgstr ""
+msgstr "Зірки"
 
 #: chat/smilies.py:137
 msgid "Place"
-msgstr ""
+msgstr "Місце"
 
 #: chat/smilies.py:138
 msgid "High voltage"
-msgstr ""
+msgstr "Висока напруга"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "Скопіювати до буфера"

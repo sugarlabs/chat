@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
-"PO-Revision-Date: 2017-03-23 04:53+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
+"PO-Revision-Date: 2017-04-16 10:32+0000\n"
+"Last-Translator: jana <jpastyrova@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490244787.000000\n"
+"X-POOTLE-MTIME: 1492338760.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -24,370 +24,370 @@ msgstr "Chat"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "Textový čet. "
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
-msgstr ""
+msgstr "Prosím počkajte na spojenie, kým začnete čet."
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "Odpojený"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "Zdielať, alebo pozvať."
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "Pripojený"
 
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "Súkromný chat"
 
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "opustil chat"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "Pripojený"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "Správa od "
 
-#: activity.py:375
-#, fuzzy
+#: activity.py:366
 msgid "URL from Chat"
-msgstr "URL adresa z chatu"
+msgstr "URL adresa z četu"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "%s pripojil sa na chat"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "%s opustil chat"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "%s je tu"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "Musíte byť v spojení s priateľom predtým než začnete četovať. "
+
+#: activity.py:779
+msgid "Insert a smiley"
+msgstr "Vložte emotikon. "
 
 #: activity.py:785
-msgid "Insert a smiley"
-msgstr ""
-
-#: activity.py:791
 msgid "Cancel"
-msgstr ""
-
-#: chat/box.py:619
-#, fuzzy
-msgid "Copy to Clipboard"
-msgstr "Kopírovať do schránka"
+msgstr "Zrušiť. "
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:29
 msgid "Smile"
-msgstr ""
+msgstr "Emotikon. "
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:32
 msgid "Winking"
-msgstr ""
+msgstr "Žmurknie"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:35
 msgid "Confused"
-msgstr ""
+msgstr "Zmätený. "
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:38
 msgid "Sad"
-msgstr ""
+msgstr "Smutný"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:41
 msgid "Grin"
-msgstr ""
+msgstr "škeriť sa"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:44
 msgid "Neutral"
-msgstr ""
+msgstr "neutrálny"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:47
 msgid "Shock"
-msgstr ""
+msgstr "šokovaný"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:50
 msgid "Cool"
-msgstr ""
+msgstr "cool"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:53
 msgid "Tongue"
-msgstr ""
+msgstr "jazyk"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:56
 msgid "Blushing"
-msgstr ""
+msgstr "červenať sa"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:59
 msgid "Weeping"
-msgstr ""
+msgstr "plakať"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:62
 msgid "Angel"
-msgstr ""
+msgstr "anjel"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:65
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "Nikomu to nepovedz"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:68
 msgid "Angry"
-msgstr ""
+msgstr "nahnevaný"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:71
 msgid "Devil"
-msgstr ""
+msgstr "čert"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:74
 msgid "Nerd"
-msgstr ""
+msgstr "kockáč"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:77
 msgid "Kiss"
-msgstr ""
+msgstr "bozk"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:80
 msgid "Laughing"
-msgstr ""
+msgstr "smiať sa"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:83
 msgid "Sleepy"
-msgstr ""
+msgstr "ospalý"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:86
 msgid "Sick"
-msgstr ""
+msgstr "chorý"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "zdvihnuté obočie"
 
 #: chat/smilies.py:90
 msgid "Heart"
-msgstr ""
+msgstr "srdce"
 
 #: chat/smilies.py:91
 msgid "Airplane"
-msgstr ""
+msgstr "lietadlo"
 
 #: chat/smilies.py:92
 msgid "Music"
-msgstr ""
+msgstr "hudba"
 
 #: chat/smilies.py:93
 msgid "Check box"
-msgstr ""
+msgstr "políčko k zaškrtnutiu"
 
 #: chat/smilies.py:94
 msgid "Spade"
-msgstr ""
+msgstr "lopata"
 
 #: chat/smilies.py:95
 msgid "Telephone"
-msgstr ""
+msgstr "telefón"
 
 #: chat/smilies.py:96
 msgid "X box"
-msgstr ""
+msgstr "X box"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
-msgstr ""
+msgstr "slabosť"
 
 #: chat/smilies.py:98
 msgid "Female"
-msgstr ""
+msgstr "žena"
 
 #: chat/smilies.py:99 chat/smilies.py:104
 msgid "Star"
-msgstr ""
+msgstr "srdce"
 
 #: chat/smilies.py:100
 msgid "Letter"
-msgstr ""
+msgstr "dopis"
 
+# otrava
 #: chat/smilies.py:101
 msgid "Poison"
-msgstr ""
+msgstr "jed"
 
 #: chat/smilies.py:102
 msgid "Check mark"
-msgstr ""
+msgstr "skontroluj značku"
 
 #: chat/smilies.py:103
 msgid "Male"
-msgstr ""
+msgstr "muž"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "štvorlístok"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "recyklovať"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "x"
 
 #: chat/smilies.py:108
 msgid "Fire"
-msgstr ""
+msgstr "oheň"
 
 #: chat/smilies.py:109
 msgid "Leaf"
-msgstr ""
+msgstr "list"
 
+# obláčik
 #: chat/smilies.py:110
 msgid "Cloud"
-msgstr ""
+msgstr "mrak"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "V - víťazstvo "
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "koruna"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "kvietok"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
-msgstr ""
+msgstr "hviezda a polmesiac"
 
 #: chat/smilies.py:115
 msgid "Umbrella"
-msgstr ""
+msgstr "dáždnik"
 
 #: chat/smilies.py:116
 msgid "Pencil"
-msgstr ""
+msgstr "ceruzka"
 
 #: chat/smilies.py:118
 msgid "Snowman"
-msgstr ""
+msgstr "snehuliak"
 
 #: chat/smilies.py:119
 msgid "Point right"
-msgstr ""
+msgstr "správne"
 
 #: chat/smilies.py:120
 msgid "Horse"
-msgstr ""
+msgstr "kôň"
 
 #: chat/smilies.py:122
 msgid "Peace sign"
-msgstr ""
+msgstr "mier"
 
 #: chat/smilies.py:123
 msgid "Sun"
-msgstr ""
+msgstr "slnko"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "doľava"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
-msgstr ""
+msgstr "Ying a Yang"
 
 #: chat/smilies.py:127
 msgid "Moon"
-msgstr ""
+msgstr "mesiac"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "hore"
 
 #: chat/smilies.py:130
 msgid "Meteor"
-msgstr ""
+msgstr "meteorit"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "dole"
 
 #: chat/smilies.py:133
 msgid "Scissors"
-msgstr ""
+msgstr "nožnice"
 
 #: chat/smilies.py:134
 msgid "Pen"
-msgstr ""
+msgstr "pero"
 
 #: chat/smilies.py:136
 msgid "Stars"
-msgstr ""
+msgstr "hviezdy"
 
 #: chat/smilies.py:137
 msgid "Place"
-msgstr ""
+msgstr "miesto"
 
 #: chat/smilies.py:138
 msgid "High voltage"
-msgstr ""
+msgstr "vysoké napätie"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "Kopírovať do schránky"

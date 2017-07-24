@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
 "PO-Revision-Date: 2016-05-20 01:19+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,96 +24,91 @@ msgid "Chat"
 msgstr "Rimanakuy"
 
 # Chat de texto
-# 
+#
 #: activity/activity.info:3
 msgid "Text chat"
 msgstr "Qillqakusqa rimanakuy"
 
 # Por favor espere por una conexión.
-# 
-#: activity.py:141 activity.py:160
+#
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr "Mirá huk t'inichiyta suyariy."
 
 #  "Fuera de línea"
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "Mana t'inkirisqayuq"
 
 #  "Compartir, o invitar a alguien."
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "Qunakuy, mana chayqa pitapas waqyay."
 
 #  "En línea"
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "T'inkirisqam"
 
 #  "Charla Privada"
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "Sapalla rimanapaq"
 
 # CAST.- abandonar charla
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "rimanakuyta saqirpay"
 
 #  "Conectado"
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "T'inkisqam"
 
 # Mensaje de %s
-# 
-#: activity.py:348
+#
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
 msgstr "Kay %s nisqap willakuynin"
 
 #  "URL proveniente de Charla"
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
 msgstr "Rimanakuymanta hamuq URL"
 
 #  "se unió a la charla"
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "%s nisqaqa yaykurinmi rimanakuymanqa"
 
 #  "abandonó la charla"
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "%s nisqaqa kay rimanakuytaqa saqirparinmi"
 
 #  "está aquí"
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "%s nisqaqa kaypim kachkan"
 
 # Por favor espere por una conexión.
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
 msgstr "Huk t'inkiypa hamuyninta suyariy."
 
 # "Inserte carita"
-#: activity.py:785
+#: activity.py:779
 msgid "Insert a smiley"
 msgstr "Rikch'aychata churay"
 
 # Cancelar
-#: activity.py:791
+#: activity.py:785
 msgid "Cancel"
 msgstr "Chinkachiy"
-
-#  "Copiar al Portapapeles"
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr "Raphi waqaychaqman kikinchay"
 
 #  "Sonrisa"
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
@@ -278,7 +273,7 @@ msgid "Music"
 msgstr "Takiy"
 
 # Casilla de selección
-# 
+#
 #: chat/smilies.py:93
 msgid "Check box"
 msgstr "Akllanapaq kahun"
@@ -379,7 +374,7 @@ msgid "Floret"
 msgstr "Florete nisqa t'upsina"
 
 # Estrella y media luna
-# 
+#
 #: chat/smilies.py:114
 msgid "Star and crescent"
 msgstr "Quyllurwan kuska killawan"
@@ -395,7 +390,7 @@ msgid "Pencil"
 msgstr "Lapis"
 
 # Hombre de nieve
-# 
+#
 #: chat/smilies.py:118
 msgid "Snowman"
 msgstr "R'iti runa"
@@ -412,7 +407,7 @@ msgid "Horse"
 msgstr "Kawallu"
 
 # Símbolo de la paz
-# 
+#
 #: chat/smilies.py:122
 msgid "Peace sign"
 msgstr "Thak kaypa unachan"
@@ -437,7 +432,7 @@ msgid "Moon"
 msgstr "Killa"
 
 # Punto arriba
-# 
+#
 #: chat/smilies.py:128
 msgid "Point up"
 msgstr "Wichayman t'upsiy"
@@ -447,7 +442,7 @@ msgid "Meteor"
 msgstr "Meteoro"
 
 # Punto abajo
-# 
+#
 #: chat/smilies.py:131
 msgid "Point down"
 msgstr "Urayman t'upsiy"
@@ -473,3 +468,8 @@ msgstr "K'iti"
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr "Hatun voltajeyuq"
+
+#  "Copiar al Portapapeles"
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "Raphi waqaychaqman kikinchay"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chat.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 17:22-0400\n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
 "PO-Revision-Date: 2017-03-22 02:45+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -20,9 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1490150747.000000\n"
 "Nplurals=6; Plural=N==0 ? 0: n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 "
 ": n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-POOTLE-MTIME: 1490150747.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -32,74 +32,70 @@ msgstr "دردشة"
 msgid "Text chat"
 msgstr ""
 
-#: activity.py:141 activity.py:160
+#: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
 msgstr "يرجى الانتظار لاتصال قبل البدء في الدردشة."
 
-#: activity.py:157 activity.py:303
+#: activity.py:146 activity.py:294
 msgid "Off-line"
 msgstr "غير مٌتّصل"
 
-#: activity.py:157
+#: activity.py:146
 msgid "Share, or invite someone."
 msgstr "شارك أو ادعُ شخصا."
 
-#: activity.py:294 activity.py:310
+#: activity.py:285 activity.py:301
 msgid "On-line"
 msgstr "مُتّصل"
 
-#: activity.py:294
+#: activity.py:285
 msgid "Private Chat"
 msgstr "دردشة خاصة"
 
-#: activity.py:303
+#: activity.py:294
 msgid "left the chat"
 msgstr "غادر الدردشة"
 
-#: activity.py:310
+#: activity.py:301
 msgid "Connected"
 msgstr "اتّصلَ"
 
-#: activity.py:348
+#: activity.py:339
 #, python-format
 msgid "Message from %s"
 msgstr ""
 
-#: activity.py:375
+#: activity.py:366
 msgid "URL from Chat"
 msgstr "مسار من الدردشة"
 
-#: activity.py:397
+#: activity.py:388
 #, python-format
 msgid "%s joined the chat"
 msgstr "انضم للدرشة %s"
 
-#: activity.py:407
+#: activity.py:398
 #, python-format
 msgid "%s left the chat"
 msgstr "غادر الدردشة %s"
 
-#: activity.py:417
+#: activity.py:408
 #, python-format
 msgid "%s is here"
 msgstr "هنا %s"
 
-#: activity.py:476
+#: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
 msgstr "يجب أن تكون متصلا لصديق قبل البدء في الدردشة."
 
-#: activity.py:785
+#: activity.py:779
 #, fuzzy
 msgid "Insert a smiley"
 msgstr "أدرج ابتسامة"
 
-#: activity.py:791
+#: activity.py:785
 msgid "Cancel"
 msgstr ""
-
-#: chat/box.py:619
-msgid "Copy to Clipboard"
-msgstr "انسخ إلى الحافظة"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
@@ -396,3 +392,7 @@ msgstr ""
 #: chat/smilies.py:138
 msgid "High voltage"
 msgstr ""
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "انسخ إلى الحافظة"
