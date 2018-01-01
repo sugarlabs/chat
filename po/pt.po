@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-03-23 04:46+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2017-11-29 11:29+0000\n"
+"Last-Translator: valente <valente.luis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490244376.000000\n"
+"X-POOTLE-MTIME: 1511954994.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -274,41 +274,41 @@ msgstr "Homem"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "Trevo"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "Reciclar"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: chat/smilies.py:108
 msgid "Fire"
-msgstr ""
+msgstr "Chama"
 
 #: chat/smilies.py:109
 msgid "Leaf"
-msgstr ""
+msgstr "Folha"
 
 #: chat/smilies.py:110
 msgid "Cloud"
-msgstr ""
+msgstr "Nuvem"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "Coroa"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "Florzinha"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"

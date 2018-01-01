@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: OLPC Chat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-03-21 04:39+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2017-08-01 11:29+0000\n"
+"Last-Translator: Liang <1656703453@qq.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490071156.000000\n"
+"X-POOTLE-MTIME: 1501586940.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -247,7 +247,7 @@ msgstr "X盒"
 #: chat/smilies.py:97
 #, fuzzy
 msgid "Cadusis"
-msgstr "Caduceus  ☤"
+msgstr "墨丘利的手杖"
 
 #: chat/smilies.py:98
 msgid "Female"

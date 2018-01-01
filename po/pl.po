@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2016-05-16 04:56+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2017-12-18 13:28+0000\n"
+"Last-Translator: Maciej <mmatejczuk@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1463374604.000000\n"
+"X-POOTLE-MTIME: 1513603703.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -29,7 +29,7 @@ msgstr "Tekst czatu"
 
 #: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
-msgstr "Proszę, poczekaj na połączenie przed rozpoczęciem czatu."
+msgstr "Poczekaj na połączenie przed rozpoczęciem czatu."
 
 #: activity.py:146 activity.py:294
 msgid "Off-line"
@@ -231,7 +231,7 @@ msgstr "Muzyka"
 
 #: chat/smilies.py:93
 msgid "Check box"
-msgstr "Pole odhaczane"
+msgstr "Pole wyboru"
 
 #: chat/smilies.py:94
 msgid "Spade"
@@ -248,7 +248,7 @@ msgstr "Pole X"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
-msgstr ""
+msgstr "Cadusis"
 
 #: chat/smilies.py:98
 msgid "Female"
@@ -256,7 +256,7 @@ msgstr "Kobieta"
 
 #: chat/smilies.py:99 chat/smilies.py:104
 msgid "Star"
-msgstr "Gwiazda"
+msgstr "Gwiazdka"
 
 #: chat/smilies.py:100
 msgid "Letter"
@@ -268,7 +268,7 @@ msgstr "Trucizna"
 
 #: chat/smilies.py:102
 msgid "Check mark"
-msgstr "Zaznaczenie"
+msgstr "znak zaznaczenia"
 
 #: chat/smilies.py:103
 msgid "Male"
@@ -330,7 +330,7 @@ msgstr "Bałwan"
 
 #: chat/smilies.py:119
 msgid "Point right"
-msgstr ""
+msgstr "Strzałka w prawo"
 
 #: chat/smilies.py:120
 msgid "Horse"
@@ -346,7 +346,7 @@ msgstr "Słońce"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "Strzałka w lewo"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
@@ -358,7 +358,7 @@ msgstr "Księżyc"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "Strzałka w górę"
 
 #: chat/smilies.py:130
 msgid "Meteor"
@@ -366,7 +366,7 @@ msgstr "Meteor"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "Strzałka w dół"
 
 #: chat/smilies.py:133
 msgid "Scissors"

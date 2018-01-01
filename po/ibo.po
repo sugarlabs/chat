@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-03-22 03:30+0000\n"
+"PO-Revision-Date: 2017-09-05 03:08+0000\n"
 "Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ibo\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490153446.000000\n"
+"X-POOTLE-MTIME: 1504580929.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -80,7 +80,7 @@ msgstr "%s nụ ebe a"
 
 #: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
-msgstr "E ga e-weriri ejikọrọ na otu enyi ewe ibido inkori"
+msgstr "E ga e-weriri ejikọrọ na otu enyi ewe ibido inkori."
 
 #: activity.py:779
 msgid "Insert a smiley"
@@ -88,7 +88,7 @@ msgstr "Tinye smiley"
 
 #: activity.py:785
 msgid "Cancel"
-msgstr "Kagbuo"
+msgstr "Kagwuo"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)

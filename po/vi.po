@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-04-09 07:25+0000\n"
-"Last-Translator: thuyn <thuy.hispvietnam@gmail.com>\n"
+"PO-Revision-Date: 2017-09-05 02:58+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1491722723.000000\n"
+"X-POOTLE-MTIME: 1504580313.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -28,7 +28,7 @@ msgstr "Trò chuyện bằng văn bản"
 
 #: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
-msgstr "Xin vui lòng đợi kết nối trước khi bắt đầu trò chuyện"
+msgstr "Xin vui lòng đợi kết nối trước khi bắt đầu trò chuyện."
 
 #: activity.py:146 activity.py:294
 msgid "Off-line"
@@ -80,7 +80,7 @@ msgstr "%s ở đây"
 
 #: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
-msgstr "Bạn phải kết nối với bạn bè trước khi bắt đầu trò chuyện"
+msgstr "Bạn phải kết nối với bạn bè trước khi bắt đầu trò chuyện."
 
 #: activity.py:779
 msgid "Insert a smiley"
