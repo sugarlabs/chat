@@ -58,8 +58,8 @@ from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity import activity
 from sugar3.activity.activity import get_bundle_path
 from sugar3.presence import presenceservice
-from sugar3.activity.widgets import ActivityToolbarButton
-from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import ActivityButton, TitleEntry, \
+     DescriptionItem, ShareButton, StopButton
 from sugar3.activity.activity import get_activity_root
 from sugar3.activity.activity import show_object_in_journal
 from sugar3.datastore import datastore
@@ -106,11 +106,21 @@ class Chat(activity.Activity):
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
 
-        self._activity_toolbar_button = ActivityToolbarButton(self)
-        self._activity_toolbar_button.connect('clicked', self._fixed_resize_cb)
+        self.activity_button = ActivityButton(self)
+        toolbar_box.toolbar.insert(self.activity_button, 0)
+        self.activity_button.show()
 
-        toolbar_box.toolbar.insert(self._activity_toolbar_button, 0)
-        self._activity_toolbar_button.show()
+        title_entry = TitleEntry(self)
+        toolbar_box.toolbar.insert(title_entry, -1)
+        title_entry.show()
+
+        description_item = DescriptionItem(self)
+        toolbar_box.toolbar.insert(description_item, -1)
+        description_item.show()
+
+        self._share_button = ShareButton(self)
+        toolbar_box.toolbar.insert(self._share_button, -1)
+        self._share_button.show()
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -137,8 +147,7 @@ class Chat(activity.Activity):
                 self._joined_cb(self)
         elif handle.uri:
             # XMPP non-sugar3 incoming chat, not sharable
-            self._activity_toolbar_button.props.page.share.props.visible = \
-                False
+            self._share_button.props.visible = False
             self._one_to_one_connection(handle.uri)
         else:
             # we are creating the activity
@@ -165,17 +174,10 @@ class Chat(activity.Activity):
             else:
                 dy += OSK_HEIGHT[1]
 
-        if self._toolbar_expanded():
-            self.chatbox.set_size_request(
-                self._chat_width,
-                self._chat_height - style.GRID_CELL_SIZE - dy)
-            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
-                             self._chat_height - style.GRID_CELL_SIZE - dy)
-        else:
-            self.chatbox.set_size_request(self._chat_width,
-                                          self._chat_height - dy)
-            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
-                             self._chat_height - dy)
+        self.chatbox.set_size_request(self._chat_width,
+                                      self._chat_height - dy)
+        self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
+                         self._chat_height - dy)
 
         self.chatbox.resize_conversation(dy)
 
@@ -340,11 +342,6 @@ class Chat(activity.Activity):
         '''
         if not self.has_focus:
             self.notify_user(_('Message from %s') % buddy, text)
-
-    def _toolbar_expanded(self):
-        if self._activity_toolbar_button.is_expanded():
-            return True
-        return False
 
     def _alert(self, title, text=None):
         alert = NotifyAlert(timeout=5)
