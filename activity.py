@@ -234,8 +234,8 @@ class Chat(activity.Activity):
 
     def _create_smiley_table(self, width):
         button_size = style.STANDARD_ICON_SIZE + style.DEFAULT_PADDING
-        width = width - 2 * style.DEFAULT_SPACING
-        smilies_columns = int(width / button_size) - 2
+        width = width - 2 * button_size
+        smilies_columns = int(width / button_size)
 
         table = Gtk.Grid()
         table.set_row_spacing(0)
