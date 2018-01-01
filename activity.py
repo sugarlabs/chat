@@ -38,7 +38,6 @@ SLASH = '-x-SLASH-x-'  # slash safe encoding
 import logging
 import json
 import os
-import subprocess
 import time
 from gettext import gettext as _
 
@@ -207,14 +206,14 @@ class Chat(activity.Activity):
         else:
             self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-                      2 * (self._entry_height + style.GRID_CELL_SIZE)
+            2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._entry.set_size_request(entry_width, self._entry_height)
         self._entry_grid.set_size_request(
             Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
             self._entry_height)
 
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
-                                style.GRID_CELL_SIZE
+            style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
         self.chatbox.resize_all()
@@ -371,7 +370,7 @@ class Chat(activity.Activity):
             'title_set_by_user': '1',
             'icon-color': profile.get_color().to_string(),
             'mime_type': 'text/uri-list',
-            }
+        }
         for k, v in metadata.items():
             jobject.metadata[k] = v
         file_path = os.path.join(get_activity_root(), 'instance',
@@ -437,9 +436,9 @@ class Chat(activity.Activity):
         else:
             self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-                      2 * (self._entry_height + style.GRID_CELL_SIZE)
+            2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
-                            style.GRID_CELL_SIZE
+            style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
 
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
@@ -515,11 +514,11 @@ class Chat(activity.Activity):
         elif event.keyval == Gdk.KEY_Page_Up:
             vadj.set_value(vadj.get_value() - vadj.page_size)
         elif event.keyval == Gdk.KEY_Home and \
-             event.get_state() & Gdk.ModifierType.CONTROL_MASK:
-                vadj.set_value(vadj.lower)
+                event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+            vadj.set_value(vadj.lower)
         elif event.keyval == Gdk.KEY_End and \
-             event.get_state() & Gdk.ModifierType.CONTROL_MASK:
-                vadj.set_value(vadj.upper - vadj.page_size)
+                event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+            vadj.set_value(vadj.upper - vadj.page_size)
 
     def _smiley_button_cb(self, widget, event):
         self._show_smiley_window()
@@ -755,8 +754,9 @@ class TextChannelWrapper(object):
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
         elif group.GetGroupFlags() & \
-             CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
-                handle = group.GetHandleOwners([cs_handle])[0]
+                CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+
+            handle = group.GetHandleOwners([cs_handle])[0]
         else:
             handle = cs_handle
 
