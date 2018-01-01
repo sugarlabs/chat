@@ -138,7 +138,7 @@ class Chat(activity.Activity):
             self.element = Gst.ElementFactory.make('playbin', 'Player')
 
         if self.shared_activity:
-            # we are joining the activity
+            # we are joining the activity following an invite
             self._entry.props.placeholder_text = \
                 _('Please wait for a connection before starting to chat.')
             self.connect('joined', self._joined_cb)
@@ -157,6 +157,7 @@ class Chat(activity.Activity):
                 # if we are in private session
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             else:
+                # resume of shared activity from journal object without invite
                 self._entry.props.placeholder_text = \
                     _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
