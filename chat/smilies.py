@@ -156,6 +156,8 @@ def parse(text):
     :returns:
     array of string parts and pixbufs
     '''
+    if not _catalog:
+        init()
 
     result = [text]
 

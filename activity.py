@@ -23,7 +23,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import GObject
+from gi.repository import GLib
 
 try:
     gi.require_version('Gst', '1.0')
@@ -81,8 +81,6 @@ if _HAS_SOUND:
 class Chat(activity.Activity):
 
     def __init__(self, handle):
-        smilies.init()
-
         pservice = presenceservice.get_instance()
         self.owner = pservice.get_owner()
 
@@ -99,7 +97,6 @@ class Chat(activity.Activity):
         self._has_osk = False
 
         self._setup_canvas()
-        GObject.idle_add(self._create_smiley_window)
 
         self._entry.grab_focus()
 
@@ -233,33 +230,52 @@ class Chat(activity.Activity):
         self._fixed_resize_cb()
 
     def _create_smiley_table(self, width):
-        button_size = style.STANDARD_ICON_SIZE + style.DEFAULT_PADDING
-        width = width - 2 * button_size
+        pixel_size = (style.STANDARD_ICON_SIZE + style.LARGE_ICON_SIZE) / 2
+        spacing = style.DEFAULT_SPACING
+        button_size = pixel_size + spacing
         smilies_columns = int(width / button_size)
+        pad = (width - smilies_columns * button_size) / 2
 
         table = Gtk.Grid()
-        table.set_row_spacing(0)
-        table.set_column_spacing(0)
-        table.set_border_width(style.DEFAULT_SPACING)
+        table.set_row_spacing(spacing)
+        table.set_column_spacing(spacing)
+        table.set_border_width(pad)
+
+        queue = []
+        def _create_smiley_icon_idle_cb():
+            try:
+                x, y, path, code = queue.pop()
+            except IndexError:
+                self.unbusy()
+                return False
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(path,
+                                                            pixel_size,
+                                                            pixel_size)
+            image = Gtk.Image.new_from_pixbuf(pixbuf)
+            box = Gtk.EventBox()
+            box.add(image)
+            box.connect('button-press-event', self._add_smiley_to_entry, code)
+            table.attach(box, x, y, 1, 1)
+            box.show_all()
+            return True
 
         x = 0
         y = 0
+        smilies.init()
         for i in range(len(smilies.THEME)):
             path, hint, codes = smilies.THEME[i]
-            image = Gtk.Image()
-            image.set_from_file(path)
-            button = Gtk.ToolButton()
-            button.set_icon_widget(image)
-            button.connect('clicked', self._add_smiley_to_entry, codes[0])
-            table.attach(button, x, y, 1, 1)
-            button.show()
+            queue.append([x, y, path, codes[0]])
+
             x += 1
             if x == smilies_columns:
                 y += 1
                 x = 0
+
+        queue.reverse()
+        GLib.idle_add(_create_smiley_icon_idle_cb)
         return table
 
-    def _add_smiley_to_entry(self, button, text):
+    def _add_smiley_to_entry(self, icon, event, text):
         pos = self._entry.props.cursor_position
         self._entry.insert_text(text, pos)
         self._entry.grab_focus()
@@ -597,14 +613,14 @@ class Chat(activity.Activity):
         self._smiley_toolbar.show()
 
         self._smiley_table = Gtk.ScrolledWindow()
-        self._smiley_table.set_policy(Gtk.PolicyType.AUTOMATIC,
+        self._smiley_table.set_policy(Gtk.PolicyType.NEVER,
                                       Gtk.PolicyType.AUTOMATIC)
         self._smiley_table.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
         if self._ebook_mode_detector.get_ebook_mode():
             height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
         else:
-            height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
+            height = int(Gdk.Screen.height() - 4 * style.GRID_CELL_SIZE)
         self._smiley_table.set_size_request(width, height)
 
         table = self._create_smiley_table(width)
@@ -621,11 +637,22 @@ class Chat(activity.Activity):
         self._smiley_window.set_size_request(width, -1)
 
         self._smiley_window.add_with_viewport(grid)
+
+        def _key_press_event_cb(widget, event):
+            if event.keyval == Gdk.KEY_Escape:
+                self._hide_smiley_window()
+                return True
+            return False
+        self.connect('key-press-event', _key_press_event_cb)
+
         grid.show()
 
         self._fixed.put(self._smiley_window, style.GRID_CELL_SIZE, 0)
 
     def _show_smiley_window(self):
+        if not hasattr(self, '_smiley_window'):
+            self.busy()
+            self._create_smiley_window()
         self._smiley_window.show()
 
     def _hide_smiley_window(self):
