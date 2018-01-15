@@ -656,7 +656,8 @@ class Chat(activity.Activity):
         self._smiley_window.show()
 
     def _hide_smiley_window(self):
-        self._smiley_window.hide()
+        if hasattr(self, '_smiley_window'):
+            self._smiley_window.hide()
 
 
 class TextChannelWrapper(object):
