@@ -187,11 +187,10 @@ class TextBox(Gtk.TextView):
         # Looks at all tags covering the position (x, y) in the text view,
         # and if one of them is a link return True
 
-        hovering = False
         # When check on_slow_mouse event, the position can be out
         # of the widget and return negative values.
         if x < 0 or y < 0:
-            return hovering
+            return False
 
         self.palette = None
         iter_tags = self.get_iter_at_location(x, y)
@@ -204,9 +203,8 @@ class TextBox(Gtk.TextView):
             except:
                 url = None
             if url is not None:
-                hovering = True
-                break
-        return hovering
+                return True
+        return False
 
     def set_cursor_if_appropriate(self, x, y):
         # Looks at all tags covering the position (x, y) in the text view,
