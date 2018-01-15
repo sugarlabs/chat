@@ -164,6 +164,12 @@ class TextBox(Gtk.TextView):
                                             int(event.x), int(event.y))
         iter_tags = self.get_iter_at_location(x, y)
 
+        if Gtk.check_version(3, 19, 8) is None:
+            if not iter_tags[0]:
+                return False
+
+            iter_tags = iter_tags[1]
+
         for tag in iter_tags.get_tags():
             try:
                 url = tag.url
@@ -194,6 +200,12 @@ class TextBox(Gtk.TextView):
 
         self.palette = None
         iter_tags = self.get_iter_at_location(x, y)
+
+        if Gtk.check_version(3, 19, 8) is None:
+            if not iter_tags[0]:
+                return False
+
+            iter_tags = iter_tags[1]
 
         tags = iter_tags.get_tags()
         for tag in tags:
