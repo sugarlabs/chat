@@ -15,7 +15,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import math
+
 from gi.repository import Gtk
+
 from sugar3.graphics import style
 
 _BORDER_DEFAULT = style.LINE_WIDTH
@@ -32,13 +34,13 @@ class RoundBox(Gtk.HBox):
         self.background_color = None
         self.set_resize_mode(Gtk.ResizeMode.PARENT)
         self.set_reallocate_redraws(True)
-        self.connect('draw', self.__expose_cb)
+        self.connect('draw', self.__draw_cb)
         self.connect('add', self.__add_cb)
 
     def __add_cb(self, child, params):
         child.set_border_width(style.zoom(5))
 
-    def __expose_cb(self, widget, cr):
+    def __draw_cb(self, widget, cr):
         rect = self.get_allocation()
         hmargin = style.zoom(15)
         x = hmargin
