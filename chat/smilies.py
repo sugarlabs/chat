@@ -162,7 +162,7 @@ def parse(text):
 
     result = [text]
 
-    for smiley in sorted(_catalog.keys(), lambda x, y: cmp(len(y), len(x))):
+    for smiley in sorted(list(_catalog.keys()), key = lambda x: - len(x)):
         new_result = []
         for word in result:
             if isinstance(word, GdkPixbuf.Pixbuf):
@@ -213,7 +213,7 @@ def init():
 
 def _generate_svg(letter):
     # TODO: Adjust font size and character positioning
-    return '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + \
+    return ('<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + \
         '<svg\n' + \
         ' xmlns:dc="http://purl.org/dc/elements/1.1/"\n' + \
         ' xmlns:cc="http://creativecommons.org/ns#"\n' + \
@@ -235,4 +235,4 @@ def _generate_svg(letter):
         ' y="42">\n' + \
         letter + \
         '</tspan></text>\n' + \
-        '</svg>\n'
+        '</svg>\n').encode('utf-8')
