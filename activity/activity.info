@@ -1,11 +1,12 @@
 [Activity]
 name = Chat
-summary = Text chat
-license = GPLv2+
 icon = activity-icon
 exec = sugar-activity activity.Chat
 activity_version = 84
 max_participants = 20
 bundle_id = org.laptop.Chat
-category = language
+summary = Text chat
+license = GPLv2+
 repository = https://github.com/sugarlabs/chat
+url = https://help.sugarlabs.org/en/chat.html
+tags = Utilities; Internet; language
