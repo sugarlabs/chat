@@ -284,8 +284,10 @@ class Chat(activity.Activity):
             return
         bus_name, connection, channel = json.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection, channel)
-        conn = TelepathyGLib.Connection.new(bus_name, connection)
-        self._one_to_one_connection_ready_cb(TelepathyGLib.DBusDaemon.dup(), bus_name, channel, conn)
+        conn = TelepathyGLib.Connection.new(
+            TelepathyGLib.DBusDaemon.dup(), bus_name, connection)
+        self._one_to_one_connection_ready_cb(
+            TelepathyGLib.DBusDaemon.dup(), bus_name, channel, conn)
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
         '''Callback for Connection for one to one connection'''
