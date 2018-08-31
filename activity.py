@@ -51,8 +51,8 @@ from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity import activity
 from sugar3.activity.activity import get_bundle_path
 from sugar3.presence import presenceservice
-from sugar3.activity.widgets import ActivityButton, TitleEntry, \
-     DescriptionItem, ShareButton, StopButton
+from sugar3.activity.widgets import \
+    ActivityButton, TitleEntry, DescriptionItem, ShareButton, StopButton
 from sugar3.activity.activity import get_activity_root
 from sugar3.activity.activity import show_object_in_journal
 from sugar3.datastore import datastore
@@ -235,6 +235,7 @@ class Chat(activity.Activity):
         table.set_border_width(pad)
 
         queue = []
+
         def _create_smiley_icon_idle_cb():
             try:
                 x, y, path, code = queue.pop()
@@ -708,15 +709,16 @@ class TextChannelWrapper(object):
         if self._text_chan is None:
             return
         self._activity_cb = callback
-        m = self._text_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT].connect_to_signal(
+        ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
+        m = self._text_chan[ct].connect_to_signal(
             'Received', self._received_cb)
         self._signal_matches.append(m)
 
     def handle_pending_messages(self):
         '''Get pending messages and show them as received.'''
-        for identity, timestamp, sender, type_, flags, text in \
-            self._text_chan[
-                TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT].ListPendingMessages(False):
+        ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
+        pm = self._text_chan[ct].ListPendingMessages(False)
+        for identity, timestamp, sender, type_, flags, text in pm:
             self._received_cb(identity, timestamp, sender, type_, flags, text)
 
     def _received_cb(self, identity, timestamp, sender, type_, flags, text):
@@ -737,16 +739,16 @@ class TextChannelWrapper(object):
                 self._text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP]
             except Exception:
                 # One to one XMPP chat
-                nick = self._conn[
-                    TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING].RequestAliases([sender])[0]
+                co = TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING
+                nick = self._conn[co].RequestAliases([sender])[0]
                 buddy = {'nick': nick, 'color': '#000000,#808080'}
             else:
                 # Normal sugar3 MUC chat
                 # XXX: cache these
                 buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
-            self._text_chan[
-                TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT].AcknowledgePendingMessages([identity])
+            ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
+            self._text_chan[ct].AcknowledgePendingMessages([identity])
         else:
             self._logger.debug('Throwing received message on the floor'
                                ' since there is no callback connected. See'
@@ -768,7 +770,8 @@ class TextChannelWrapper(object):
         pservice = presenceservice.get_instance()
         # Get the Telepathy Connection
         tp_name, tp_path = pservice.get_preferred_connection()
-        conn = TelepathyGLib.Connection.new(TelepathyGLib.DBusDaemon.dup(), tp_name, tp_path)
+        conn = TelepathyGLib.Connection.new(
+            TelepathyGLib.DBusDaemon.dup(), tp_name, tp_path)
         group = self._text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
