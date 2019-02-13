@@ -1,7 +1,22 @@
+85
+
+* New translations (Chris Leonard et al),
+* Updated POT file (James Cameron),
+* flake8 fixes (James Cameron),
+* Move activity tool bar into main tool bar (James Cameron),
+* Fix emoji menu horizontal overflow sugarlabs/sugar#759 (James Cameron),
+* Dismiss emoji menu on escape key (James Cameron),
+* Decrease startup time by delaying emoji menu construction (James Cameron),
+* Fix log warning on entry focus (James Cameron),
+* Fix link clicking after GTK 3.19.9 (James Cameron),
+* Port Telepathy static binding to PyGObject binding (Rahul Bothra),
+* Add README source repository documentation (Rudra Sadhu),
+* Update metadata (Vipul Gupta),
+
 84
 
 * New translations (Chris Leonard et al),
-* Updated POT file (James Cameron)
+* Updated POT file (James Cameron),
 * Fix version warnings from Python GI API,
 
 83
