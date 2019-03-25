@@ -99,6 +99,10 @@ class TextBox(Gtk.TextView):
             'subscript', foreground=text_color.get_html(),
             rise=-7 * Pango.SCALE)  # in pixels
 
+        self._pattern_tag_hilite = self._buffer.create_tag(
+            'pattern-hilite', background=style.Color('#D80A0A').get_html()) # Initialise each TextView object with a default set of pattern tags
+        self._pattern_tag_select = self._buffer.create_tag(
+            'pattern-select', background=style.Color('#09C3F7').get_html())
         if nick_name:
             self._add_name(nick_name)
             self.add_text(text, newline=False)
@@ -347,6 +351,9 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
 
+        # Search Text
+        self.search_text = ''
+
         # OSK padding for conversation
         self._dy = 0
 
@@ -366,6 +373,70 @@ class ChatBox(Gtk.ScrolledWindow):
 
         self.connect('foo', self.resize_rb)
 
+    # Search Begins
+    def set_search_text(self, text):
+        self.search_text = text
+        count = 0
+        first_index = -1
+        for textbox_count in range(0, len(self._message_list)):
+            _buffer = self._message_list[textbox_count]._buffer
+            start, end = _buffer.get_bounds()
+            _buffer.remove_tag_by_name('pattern-hilite', start, end)
+            _buffer.remove_tag_by_name('pattern-select', start, end)
+
+            text_iter = _buffer.get_start_iter()
+
+            while True:
+                next_found = text_iter.forward_search(self.search_text, 0, None)
+                if next_found is None:
+                    break
+                count += 1
+                start, end = next_found
+                if count == 1:
+                    first_index = textbox_count
+                    _buffer.apply_tag_by_name('pattern-select', start, end)
+                _buffer.apply_tag_by_name('pattern-hilite', start, end)
+                text_iter = end
+        return first_index
+
+    def get_next_result(self, direction, index):
+        if(direction == 'forward'):
+            for i in range(index, len(self._message_list)):
+                _buffer = self._message_list[i]._buffer
+                text_iter = _buffer.get_iter_at_mark(_buffer.get_insert())
+                text_iter.forward_char()
+                _temp = text_iter.forward_search(self.search_text, 0, None)
+                if(_temp is not None):
+                    return _temp, i
+            return None, index
+        else:
+            for i in range(index, -1, -1):
+                _buffer = self._message_list[i]._buffer
+                text_iter = _buffer.get_iter_at_mark(_buffer.get_insert())
+                _temp = text_iter.backward_search(self.search_text, 0, None)
+                if(_temp is not None):
+                    return _temp, i
+            return None, index
+
+    def search_next(self, direction, index):
+        next_found, next_text_block = self.get_next_result(direction, index)
+        if next_found:
+            _buffer = self._message_list[next_text_block]._buffer
+
+            start, end = _buffer.get_bounds()
+            _buffer.remove_tag_by_name('pattern-select', start, end)
+
+            start, end = next_found
+            _buffer.apply_tag_by_name('pattern-select', start, end)
+
+            _buffer.place_cursor(start)
+
+            self._message_list[next_text_block].scroll_to_iter(start, 0.1, use_align=False,
+                                                               xalign=0.0, yalign=0.0)
+            self._message_list[next_text_block].scroll_to_iter(end, 0.1, use_align=False,
+                                                               xalign=0.0, yalign=0.0)
+        return next_text_block
+    # Search Ends
     def __open_on_journal(self, widget, url):
         self.emit('open-on-journal', url)
 
