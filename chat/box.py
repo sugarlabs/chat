@@ -99,6 +99,11 @@ class TextBox(Gtk.TextView):
             'subscript', foreground=text_color.get_html(),
             rise=-7 * Pango.SCALE)  # in pixels
 
+        # Initialise each TextView object with a default set of pattern tags
+        self._pattern_tag_hilite = self._buffer.create_tag(
+            'pattern-hilite', background=style.Color('#D80A0A').get_html())
+        self._pattern_tag_select = self._buffer.create_tag(
+            'pattern-select', background=style.Color('#09C3F7').get_html())
         if nick_name:
             self._add_name(nick_name)
             self.add_text(text, newline=False)
@@ -313,12 +318,17 @@ class TextBox(Gtk.TextView):
 
         self._empty = False
 
+    def get_buffer(self):
+        return self._buffer
+
 
 class ChatBox(Gtk.ScrolledWindow):
 
     __gsignals__ = {
         'foo': (GObject.SignalFlags.RUN_FIRST, None, ([])),
-        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])), }
+        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])),
+        'new-message': (GObject.SignalFlags.RUN_FIRST, None, ([]))
+    }
 
     def __init__(self, owner, tablet_mode):
         Gtk.ScrolledWindow.__init__(self)
@@ -347,6 +357,11 @@ class ChatBox(Gtk.ScrolledWindow):
         self._conversation.set_size_request(
             Gdk.Screen.width() - style.GRID_CELL_SIZE, -1)
 
+        self.search_text = ''
+
+        # A TextMark start object, a TextMark end object and block index number
+        self.highlight_text = (None, None, None)
+
         # OSK padding for conversation
         self._dy = 0
 
@@ -365,6 +380,183 @@ class ChatBox(Gtk.ScrolledWindow):
         vadj.connect('value-changed', self._scroll_value_changed_cb)
 
         self.connect('foo', self.resize_rb)
+
+    def set_search_text(self, text):
+        self.search_text = text
+        count = 0
+        for textbox_count in range(0, len(self._message_list)):
+            _buffer = self._message_list[textbox_count].get_buffer()
+            start, end = _buffer.get_bounds()
+            _buffer.remove_tag_by_name('pattern-hilite', start, end)
+            _buffer.remove_tag_by_name('pattern-select', start, end)
+
+            text_iter = _buffer.get_start_iter()
+
+            if self.search_text != '':
+                while True:
+                    next_found = \
+                        text_iter.forward_search(self.search_text,
+                                                Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                                Gtk.TextSearchFlags.TEXT_ONLY,
+                                                None)
+                    if next_found is None:
+                        break
+                    count += 1
+                    start, end = next_found
+                    if count == 1 and self.highlight_text[2] is None:
+                        # Create marks
+                        start_mark = \
+                            _buffer.create_mark('start', start,
+                                                left_gravity=True)
+                        end_mark = \
+                            _buffer.create_mark('end', end,
+                                                left_gravity=True)
+                        self.highlight_text = \
+                            (start_mark, end_mark, textbox_count)
+                        _buffer.apply_tag_by_name('pattern-select', start, end)
+                    _buffer.apply_tag_by_name('pattern-hilite', start, end)
+                    text_iter = end
+
+    def check_next(self, direction):
+        current_index = self.highlight_text[2]
+        if current_index is not None:
+            if direction == 'forward':
+                for i in range(current_index, len(self._message_list)):
+                    _buffer = self._message_list[i].get_buffer()
+                    if i == current_index:
+                        # End iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.highlight_text[1])
+                    else:
+                        text_iter = _buffer.get_start_iter()
+                    next_exists = \
+                        text_iter.forward_to_tag_toggle(
+                            self._message_list[i]._pattern_tag_hilite)
+                    if next_exists:
+                        return True
+                return False
+            elif direction == 'backward':
+                for i in range(current_index, -1, -1):
+                    _buffer = self._message_list[i].get_buffer()
+                    if i == current_index:
+                        # Start iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.highlight_text[0])
+                    else:
+                        text_iter = _buffer.get_end_iter()
+                    prev_exists = \
+                        text_iter.backward_to_tag_toggle(
+                            self._message_list[i]._pattern_tag_hilite)
+                    if prev_exists:
+                        return True
+                return False
+            else:
+                return False
+
+    def get_next_result(self, direction):
+        current_index = self.highlight_text[2]
+        if current_index is not None:
+            if direction == 'forward':
+                for i in range(current_index, len(self._message_list)):
+                    _buffer = self._message_list[i].get_buffer()
+                    if i == current_index:
+                        # End iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(self.highlight_text[1])
+                    else:
+                        text_iter = _buffer.get_start_iter()
+
+                    _temp = text_iter \
+                        .forward_search(self.search_text,
+                                        Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                        Gtk.TextSearchFlags.TEXT_ONLY,
+                                        None)
+                    if _temp is not None:
+                        start, end = _temp
+                        if i == current_index:
+                            _buffer.move_mark_by_name('start', start)
+                            _buffer.move_mark_by_name('end', end)
+                        else:
+                            start_mark = _buffer.create_mark('start', start,
+                                                             left_gravity=True)
+                            end_mark = _buffer.create_mark('end', end,
+                                                           left_gravity=True)
+                            self.highlight_text = \
+                                (start_mark, end_mark, i)
+                        return _temp
+                    else:
+                        if i == current_index:
+                            _buffer.delete_mark_by_name('start')
+                            _buffer.delete_mark_by_name('end')
+                return None
+            elif direction == 'backward':
+                for i in range(current_index, -1, -1):
+                    _buffer = self._message_list[i].get_buffer()
+                    if i == current_index:
+                        # Start iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.highlight_text[0])
+                    else:
+                        text_iter = _buffer.get_end_iter()
+
+                    _temp = text_iter \
+                        .backward_search(self.search_text,
+                                         Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                         Gtk.TextSearchFlags.TEXT_ONLY,
+                                         None)
+                    if _temp is not None:
+                        start, end = _temp
+                        if i == current_index:
+                            _buffer.move_mark_by_name('start', start)
+                            _buffer.move_mark_by_name('end', end)
+                        else:
+                            start_mark = _buffer.create_mark('start', start,
+                                                             left_gravity=True)
+                            end_mark = \
+                                _buffer.create_mark('end', end,
+                                                    left_gravity=True)
+                            self.highlight_text = \
+                                (start_mark, end_mark, i)
+                        return _temp
+                    else:
+                        if i == current_index:
+                            _buffer.delete_mark_by_name('start')
+                            _buffer.delete_mark_by_name('end')
+                return None
+        else:
+            return None
+
+    def search(self, direction):
+        next_found = self.get_next_result(direction)
+        if next_found:
+            current_search_index = self.highlight_text[2]
+            _buffer = \
+                self._message_list[current_search_index].get_buffer()
+
+            for count in range(0, len(self._message_list)):
+                temp_buf = self._message_list[count].get_buffer()
+                t_start, t_end = temp_buf.get_bounds()
+                temp_buf.remove_tag_by_name('pattern-select', t_start, t_end)
+
+            start, end = next_found
+            _buffer.apply_tag_by_name('pattern-select', start, end)
+            _buffer.place_cursor(start)
+
+            self._message_list[current_search_index] \
+                .scroll_to_iter(start, 0.1, use_align=False,
+                                xalign=0.0, yalign=0.0)
+            self._message_list[current_search_index] \
+                .scroll_to_iter(end, 0.1, use_align=False,
+                                xalign=0.0, yalign=0.0)
+
+    def get_textbox(self, textbox_count):
+        return self._message_list[textbox_count]
+
+    def number_of_textboxes(self):
+        return len(self._message_list)
 
     def __open_on_journal(self, widget, url):
         self.emit('open-on-journal', url)
@@ -533,6 +725,8 @@ class ChatBox(Gtk.ScrolledWindow):
 
         if status_message:
             self._last_msg_sender = None
+
+        self.emit("new-message")
 
     def add_separator(self, timestamp):
         '''Add whitespace and timestamp between chat sessions.'''
