@@ -17,6 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import dbus
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('TelepathyGLib', '0.12')
@@ -285,15 +286,13 @@ class Chat(activity.Activity):
             return
         bus_name, connection, channel = json.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection, channel)
-        conn = TelepathyGLib.Connection.new(
-            TelepathyGLib.DBusDaemon.dup(), bus_name, connection)
-        self._one_to_one_connection_ready_cb(
-            TelepathyGLib.DBusDaemon.dup(), bus_name, channel, conn)
+        conn = dbus.Bus().get_object(bus_name, connection)
+        self._one_to_one_connection_ready_cb(bus_name, channel, conn)
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
         '''Callback for Connection for one to one connection'''
-        text_channel = TelepathyGLib.Channel(conn, channel)
-        self.text_channel = TextChannelWrapper(text_channel, conn)
+        obj = dbus.Bus().get_object(bus_name, channel)
+        self.text_channel = TextChannelWrapper(obj, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self.text_channel.handle_pending_messages()
         self.text_channel.set_closed_callback(
@@ -312,7 +311,7 @@ class Chat(activity.Activity):
 
     def _setup(self):
         self.text_channel = TextChannelWrapper(
-            self.shared_activity.telepathy_text_chan,
+            self.shared_activity.obj,
             self.shared_activity.telepathy_conn)
         self.text_channel.set_received_callback(self._received_cb)
         self._alert(_('On-line'), _('Connected'))
@@ -658,16 +657,17 @@ class Chat(activity.Activity):
 class TextChannelWrapper(object):
     '''Wrap a telepathy Text Channfel to make usage simpler.'''
 
-    def __init__(self, text_chan, conn):
+    def __init__(self, obj, conn):
         '''Connect to the text channel'''
         self._activity_cb = None
         self._activity_close_cb = None
-        self._text_chan = text_chan
+        self._obj = obj
         self._conn = conn
         self._logger = logging.getLogger(
             'chat-activity.TextChannelWrapper')
         self._signal_matches = []
-        m = self._text_chan[TelepathyGLib.IFACE_CHANNEL].connect_to_signal(
+        chan = dbus.Interface(self._obj, TelepathyGLib.IFACE_CHANNEL)
+        m = chan.connect_to_signal(
             'Closed', self._closed_cb)
         self._signal_matches.append(m)
 
@@ -678,15 +678,15 @@ class TextChannelWrapper(object):
 
         text = text.replace('/', SLASH)
 
-        if self._text_chan is not None:
-            self._text_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT].Send(
+        if self._obj is not None:
+            dbus.Interface(self._obj, TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT).Send(
                 TelepathyGLib.ChannelTextMessageType.NORMAL, text)
 
     def close(self):
         '''Close the text channel.'''
         self._logger.debug('Closing text channel')
         try:
-            self._text_chan[TelepathyGLib.IFACE_CHANNEL].Close()
+            dbus.Interface(self._obj, TelepathyGLib.IFACE_CHANNEL).Close()
         except Exception:
             self._logger.debug('Channel disappeared!')
             self._closed_cb()
@@ -697,7 +697,6 @@ class TextChannelWrapper(object):
         for match in self._signal_matches:
             match.remove()
         self._signal_matches = []
-        self._text_chan = None
         if self._activity_close_cb is not None:
             self._activity_close_cb()
 
@@ -706,18 +705,18 @@ class TextChannelWrapper(object):
 
         callback -- callback function taking buddy and text args
         '''
-        if self._text_chan is None:
+        if self._obj is None:
             return
         self._activity_cb = callback
         ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
-        m = self._text_chan[ct].connect_to_signal(
+        m = dbus.Interface(self._obj, ct).connect_to_signal(
             'Received', self._received_cb)
         self._signal_matches.append(m)
 
     def handle_pending_messages(self):
         '''Get pending messages and show them as received.'''
         ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
-        pm = self._text_chan[ct].ListPendingMessages(False)
+        pm = dbus.Interface(self._obj, ct).ListPendingMessages(False)
         for identity, timestamp, sender, type_, flags, text in pm:
             self._received_cb(identity, timestamp, sender, type_, flags, text)
 
@@ -736,7 +735,7 @@ class TextChannelWrapper(object):
 
         if self._activity_cb:
             try:
-                self._text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP]
+                dbus.Interface(self._obj, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
             except Exception:
                 # One to one XMPP chat
                 co = TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING
@@ -748,7 +747,7 @@ class TextChannelWrapper(object):
                 buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
             ct = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
-            self._text_chan[ct].AcknowledgePendingMessages([identity])
+            dbus.Interface(self._obj, ct).AcknowledgePendingMessages([identity])
         else:
             self._logger.debug('Throwing received message on the floor'
                                ' since there is no callback connected. See'
@@ -770,9 +769,9 @@ class TextChannelWrapper(object):
         pservice = presenceservice.get_instance()
         # Get the Telepathy Connection
         tp_name, tp_path = pservice.get_preferred_connection()
-        conn = TelepathyGLib.Connection.new(
-            TelepathyGLib.DBusDaemon.dup(), tp_name, tp_path)
-        group = self._text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP]
+        obj = dbus.Bus().get_object(tp_name, tp_path)
+        conn = dbus.Interface(obj, TelepathyGLib.IFACE_CONNECTION)
+        group = dbus.Interface(self._obj, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
             handle = conn.GetSelfHandle()
