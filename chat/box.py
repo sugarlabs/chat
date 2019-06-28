@@ -353,6 +353,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
         # Search Text
         self.search_text = ''
+        self.current_hilite_text = (None, None, None) # A TextIter start object, a TextIter end object and block index number
 
         # OSK padding for conversation
         self._dy = 0
@@ -377,7 +378,6 @@ class ChatBox(Gtk.ScrolledWindow):
     def set_search_text(self, text):
         self.search_text = text
         count = 0
-        first_index = -1
         for textbox_count in range(0, len(self._message_list)):
             _buffer = self._message_list[textbox_count]._buffer
             start, end = _buffer.get_bounds()
@@ -393,35 +393,73 @@ class ChatBox(Gtk.ScrolledWindow):
                 count += 1
                 start, end = next_found
                 if count == 1:
-                    first_index = textbox_count
+                    self.current_hilite_text = (start, end, textbox_count)
                     _buffer.apply_tag_by_name('pattern-select', start, end)
                 _buffer.apply_tag_by_name('pattern-hilite', start, end)
                 text_iter = end
-        return first_index
 
-    def get_next_result(self, direction, index):
+    def check_next(self, direction):
+        current_index = self.current_hilite_text[2]
         if(direction == 'forward'):
-            for i in range(index, len(self._message_list)):
+            for i in range(current_index, len(self._message_list)):
                 _buffer = self._message_list[i]._buffer
-                text_iter = _buffer.get_iter_at_mark(_buffer.get_insert())
-                text_iter.forward_char()
+                if i == current_index:
+                    text_iter = self.current_hilite_text[1] # End iter
+                else:
+                    text_iter = _buffer.get_start_iter()
+                next_exists = text_iter.forward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
+                if next_exists:
+                    return True
+            return False
+        else:
+            for i in range(current_index, -1, -1):
+                _buffer = self._message_list[i]._buffer
+                if i == current_index:
+                    text_iter = self.current_hilite_text[0] # Start iter
+                    text_iter.backward_char()
+                else:
+                    text_iter = _buffer.get_end_iter()
+                prev_exists = text_iter.backward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
+                if prev_exists:
+                    return True
+            return False
+
+    def get_next_result(self, direction):
+        current_index = self.current_hilite_text[2]
+        if(direction == 'forward'):
+            for i in range(current_index, len(self._message_list)):
+                _buffer = self._message_list[i]._buffer
+                if i == current_index:
+                    text_iter = self.current_hilite_text[1] # End iter
+                else:
+                    text_iter = _buffer.get_start_iter()
+
                 _temp = text_iter.forward_search(self.search_text, 0, None)
                 if(_temp is not None):
-                    return _temp, i
-            return None, index
-        else:
-            for i in range(index, -1, -1):
+                    start, end = _temp
+                    self.current_hilite_text = (start, end, i)
+                    return _temp
+            return None
+        elif(direction == 'backward'):
+            for i in range(current_index, -1, -1):
                 _buffer = self._message_list[i]._buffer
-                text_iter = _buffer.get_iter_at_mark(_buffer.get_insert())
+                if i == current_index:
+                    text_iter = self.current_hilite_text[0] # End iter
+                else:
+                    text_iter = _buffer.get_end_iter()
+
                 _temp = text_iter.backward_search(self.search_text, 0, None)
                 if(_temp is not None):
-                    return _temp, i
-            return None, index
+                    start, end = _temp
+                    self.current_hilite_text = (start, end, i)
+                    return _temp
+            return None
 
-    def search_next(self, direction, index):
-        next_found, next_text_block = self.get_next_result(direction, index)
+    def search(self, direction):
+        next_found = self.get_next_result(direction)
         if next_found:
-            _buffer = self._message_list[next_text_block]._buffer
+            current_search_index = self.current_hilite_text[2]
+            _buffer = self._message_list[current_search_index]._buffer
 
             start, end = _buffer.get_bounds()
             _buffer.remove_tag_by_name('pattern-select', start, end)
@@ -431,12 +469,12 @@ class ChatBox(Gtk.ScrolledWindow):
 
             _buffer.place_cursor(start)
 
-            self._message_list[next_text_block].scroll_to_iter(start, 0.1, use_align=False,
+            self._message_list[current_search_index].scroll_to_iter(start, 0.1, use_align=False,
                                                                xalign=0.0, yalign=0.0)
-            self._message_list[next_text_block].scroll_to_iter(end, 0.1, use_align=False,
+            self._message_list[current_search_index].scroll_to_iter(end, 0.1, use_align=False,
                                                                xalign=0.0, yalign=0.0)
-        return next_text_block
     # Search Ends
+
     def __open_on_journal(self, widget, url):
         self.emit('open-on-journal', url)
 

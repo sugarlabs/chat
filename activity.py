@@ -81,7 +81,6 @@ class Chat(activity.Activity):
         self.owner = pservice.get_owner()
 
         self._ebook_mode_detector = EbookModeDetector()
-        self._current_text_box_index = 0
         self.chatbox = ChatBox(
             self.owner, self._ebook_mode_detector.get_ebook_mode())
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
@@ -180,11 +179,12 @@ class Chat(activity.Activity):
                 self._entry.props.placeholder_text = \
                     _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
+
     # Search Begin
     def _search_entry_activate_cb(self, entry):
         if self._autosearch_timer:
             GLib.source_remove(self._autosearch_timer)
-        self._current_text_box_index = self.chatbox.set_search_text(entry.props.text)
+        self.chatbox.set_search_text(entry.props.text)
         self._update_search_buttons()
 
     def _search_entry_changed_cb(self, entry):
@@ -193,21 +193,21 @@ class Chat(activity.Activity):
         self._autosearch_timer = GLib.timeout_add(_AUTOSEARCH_TIMEOUT,
                                                   self.__autosearch_cb)
     def _update_search_buttons(self,):
+        # Check this method
         if len(self.chatbox.search_text) == 0:
             self._search_prev.props.sensitive = False
             self._search_next.props.sensitive = False
         else:
-            next_result, next_index = self.chatbox.get_next_result('forward', self._current_text_box_index)
-            prev_result, next_index = self.chatbox.get_next_result('backward', self._current_text_box_index)
-            self._search_prev.props.sensitive = prev_result is not None
-            self._search_next.props.sensitive = next_result is not None
+            # If next or previous result exists
+            self._search_prev.props.sensitive = self.chatbox.check_next('backward')
+            self._search_next.props.sensitive = self.chatbox.check_next('forward')
 
     def _search_prev_cb(self, button):
-        self._current_text_box_index = self.chatbox.search_next('backward', self._current_text_box_index)
+        self.chatbox.search('backward')
         self._update_search_buttons()
 
     def _search_next_cb(self, button):
-        self._current_text_box_index = self.chatbox.search_next('forward', self._current_text_box_index)
+        self.chatbox.search('forward')
         self._update_search_buttons()
 
     def __autosearch_cb(self):
