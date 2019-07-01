@@ -71,8 +71,6 @@ logger = logging.getLogger('chat-activity')
 if _HAS_SOUND:
     Gst.init([])
 
-_AUTOSEARCH_TIMEOUT = 1000
-
 # pylint: disable-msg=W0223
 class Chat(activity.Activity):
 
@@ -114,15 +112,12 @@ class Chat(activity.Activity):
         toolbar_box.toolbar.insert(self._share_button, -1)
         self._share_button.show()
 
-        self._autosearch_timer = None
-
         self.search_entry = iconentry.IconEntry()
         self.search_entry.set_size_request(Gdk.Screen.width() / 3, -1)
         self.search_entry.set_icon_from_name(
             iconentry.ICON_ENTRY_PRIMARY, 'entry-search')
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
-        self.search_entry.connect('changed', self._search_entry_changed_cb)
         self._search_item = Gtk.ToolItem()
         self._search_item.add(self.search_entry)
         self.toolbar_box.toolbar.insert(self._search_item, -1)
@@ -182,16 +177,9 @@ class Chat(activity.Activity):
 
     # Search Begin
     def _search_entry_activate_cb(self, entry):
-        if self._autosearch_timer:
-            GLib.source_remove(self._autosearch_timer)
         self.chatbox.set_search_text(entry.props.text)
         self._update_search_buttons()
 
-    def _search_entry_changed_cb(self, entry):
-        if self._autosearch_timer:
-            GLib.source_remove(self._autosearch_timer)
-        self._autosearch_timer = GLib.timeout_add(_AUTOSEARCH_TIMEOUT,
-                                                  self.__autosearch_cb)
     def _update_search_buttons(self,):
         # Check this method
         if len(self.chatbox.search_text) == 0:
@@ -210,10 +198,6 @@ class Chat(activity.Activity):
         self.chatbox.search('forward')
         self._update_search_buttons()
 
-    def __autosearch_cb(self):
-        self._autosearch_timer = None
-        self.search_entry.activate()
-        return False
     # Search End
 
     def _fixed_resize_cb(self, widget=None, rect=None):

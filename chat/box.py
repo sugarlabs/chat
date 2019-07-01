@@ -353,7 +353,7 @@ class ChatBox(Gtk.ScrolledWindow):
 
         # Search Text
         self.search_text = ''
-        self.current_hilite_text = (None, None, None) # A TextIter start object, a TextIter end object and block index number
+        self.current_hilite_text = (None, None, None) # A TextMark start object, a TextMark end object and block index number
 
         # OSK padding for conversation
         self._dy = 0
@@ -387,13 +387,16 @@ class ChatBox(Gtk.ScrolledWindow):
             text_iter = _buffer.get_start_iter()
 
             while True:
-                next_found = text_iter.forward_search(self.search_text, 0, None)
+                next_found = text_iter.forward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
                 if next_found is None:
                     break
                 count += 1
                 start, end = next_found
                 if count == 1:
-                    self.current_hilite_text = (start, end, textbox_count)
+                    # Create marks
+                    start_mark = _buffer.create_mark('start', start, left_gravity=True)
+                    end_mark = _buffer.create_mark('end', end, left_gravity=True)
+                    self.current_hilite_text = (start_mark, end_mark, textbox_count)
                     _buffer.apply_tag_by_name('pattern-select', start, end)
                 _buffer.apply_tag_by_name('pattern-hilite', start, end)
                 text_iter = end
@@ -404,19 +407,18 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, len(self._message_list)):
                 _buffer = self._message_list[i]._buffer
                 if i == current_index:
-                    text_iter = self.current_hilite_text[1] # End iter
+                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) #End iter
                 else:
                     text_iter = _buffer.get_start_iter()
                 next_exists = text_iter.forward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
                 if next_exists:
                     return True
             return False
-        else:
+        elif(direction == 'backward'):
             for i in range(current_index, -1, -1):
                 _buffer = self._message_list[i]._buffer
                 if i == current_index:
-                    text_iter = self.current_hilite_text[0] # Start iter
-                    text_iter.backward_char()
+                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
                 else:
                     text_iter = _buffer.get_end_iter()
                 prev_exists = text_iter.backward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
@@ -430,29 +432,49 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, len(self._message_list)):
                 _buffer = self._message_list[i]._buffer
                 if i == current_index:
-                    text_iter = self.current_hilite_text[1] # End iter
+                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) # End iter
                 else:
                     text_iter = _buffer.get_start_iter()
 
-                _temp = text_iter.forward_search(self.search_text, 0, None)
+                _temp = text_iter.forward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
                 if(_temp is not None):
                     start, end = _temp
-                    self.current_hilite_text = (start, end, i)
+                    if i == current_index:
+                        _buffer.move_mark_by_name('start', start)
+                        _buffer.move_mark_by_name('end', end)
+                    else:
+                        start_mark = _buffer.create_mark('start', start, left_gravity=True)
+                        end_mark = _buffer.create_mark('end', end, left_gravity=True)
+                        self.current_hilite_text = (start_mark, end_mark, i)
                     return _temp
+                else:
+                    if i == current_index:
+                        _buffer.delete_mark_by_name('start')
+                        _buffer.delete_mark_by_name('end')
             return None
         elif(direction == 'backward'):
             for i in range(current_index, -1, -1):
                 _buffer = self._message_list[i]._buffer
                 if i == current_index:
-                    text_iter = self.current_hilite_text[0] # End iter
+                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
                 else:
                     text_iter = _buffer.get_end_iter()
 
-                _temp = text_iter.backward_search(self.search_text, 0, None)
+                _temp = text_iter.backward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
                 if(_temp is not None):
                     start, end = _temp
-                    self.current_hilite_text = (start, end, i)
+                    if i == current_index:
+                        _buffer.move_mark_by_name('start', start)
+                        _buffer.move_mark_by_name('end', end)
+                    else:
+                        start_mark = _buffer.create_mark('start', start, left_gravity=True)
+                        end_mark = _buffer.create_mark('end', end, left_gravity=True)
+                        self.current_hilite_text = (start_mark, end_mark, i)
                     return _temp
+                else:
+                    if i == current_index:
+                        _buffer.delete_mark_by_name('start')
+                        _buffer.delete_mark_by_name('end')
             return None
 
     def search(self, direction):
@@ -466,7 +488,6 @@ class ChatBox(Gtk.ScrolledWindow):
 
             start, end = next_found
             _buffer.apply_tag_by_name('pattern-select', start, end)
-
             _buffer.place_cursor(start)
 
             self._message_list[current_search_index].scroll_to_iter(start, 0.1, use_align=False,
