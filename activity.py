@@ -118,6 +118,7 @@ class Chat(activity.Activity):
             iconentry.ICON_ENTRY_PRIMARY, 'entry-search')
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
+        self.search_entry.connect('changed', self._search_entry_changed_cb)
         self._search_item = Gtk.ToolItem()
         self._search_item.add(self.search_entry)
         self.toolbar_box.toolbar.insert(self._search_item, -1)
@@ -179,6 +180,16 @@ class Chat(activity.Activity):
     def _search_entry_activate_cb(self, entry):
         self.chatbox.set_search_text(entry.props.text)
         self._update_search_buttons()
+
+    def _search_entry_changed_cb(self, entry):
+        for textbox in self.chatbox._message_list:
+            _buffer = textbox._buffer
+            start_mark = _buffer.get_mark('start')
+            end_mark = _buffer.get_mark('end')
+            if start_mark is None or end_mark is None:
+                continue
+            _buffer.delete_mark(start_mark)
+            _buffer.delete_mark(end_mark)
 
     def _update_search_buttons(self,):
         # Check this method
