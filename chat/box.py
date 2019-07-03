@@ -483,8 +483,8 @@ class ChatBox(Gtk.ScrolledWindow):
             current_search_index = self.current_hilite_text[2]
             _buffer = self._message_list[current_search_index]._buffer
 
-            for textbox in self._message_list:
-                temp_buf = textbox._buffer
+            for count in range(0, len(self._message_list)):
+                temp_buf = self._message_list[count]._buffer
                 t_start, t_end = temp_buf.get_bounds()
                 _buffer.remove_tag_by_name('pattern-select', t_start, t_end)
 
