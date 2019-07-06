@@ -41,6 +41,7 @@ import logging
 import json
 import os
 import time
+import dbus
 from gettext import gettext as _
 
 from sugar3.graphics import style
@@ -285,14 +286,22 @@ class Chat(activity.Activity):
             return
         bus_name, connection, channel = json.loads(tp_channel)
         logger.debug('GOT XMPP: %s %s %s', bus_name, connection, channel)
-        conn = TelepathyGLib.Connection.new(
-            TelepathyGLib.DBusDaemon.dup(), bus_name, connection)
-        self._one_to_one_connection_ready_cb(
-            TelepathyGLib.DBusDaemon.dup(), bus_name, channel, conn)
+        conn = {}
+        conn_proxy = dbus.Bus().get_object(bus_name, connection)
+        conn[TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING] = \
+            dbus.Interface(conn_proxy, TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING)
+        self._one_to_one_connection_ready_cb(bus_name, channel, conn)
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
         '''Callback for Connection for one to one connection'''
-        text_channel = TelepathyGLib.Channel(conn, channel)
+        text_channel = {}
+        text_proxy = dbus.Bus().get_object(bus_name, channel)
+        text_channel[TelepathyGLib.IFACE_CHANNEL] = \
+            dbus.Interface(text_proxy, TelepathyGLib.IFACE_CHANNEL)
+        text_channel[TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT] = \
+            dbus.Interface(text_proxy, TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT)
+        text_channel[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP] = \
+            dbus.Interface(text_proxy, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self.text_channel.handle_pending_messages()
@@ -770,8 +779,8 @@ class TextChannelWrapper(object):
         pservice = presenceservice.get_instance()
         # Get the Telepathy Connection
         tp_name, tp_path = pservice.get_preferred_connection()
-        conn = TelepathyGLib.Connection.new(
-            TelepathyGLib.DBusDaemon.dup(), tp_name, tp_path)
+        conn_proxy = dbus.Bus().get_object(tp_name, tp_path)
+        conn = dbus.Interface(conn_proxy, TelepathyGLib.IFACE_CONNECTION)
         group = self._text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
