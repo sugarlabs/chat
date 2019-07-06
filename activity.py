@@ -289,7 +289,8 @@ class Chat(activity.Activity):
         conn = {}
         conn_proxy = dbus.Bus().get_object(bus_name, connection)
         conn[TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING] = \
-            dbus.Interface(conn_proxy, TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING)
+            dbus.Interface(
+                conn_proxy, TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING)
         self._one_to_one_connection_ready_cb(bus_name, channel, conn)
 
     def _one_to_one_connection_ready_cb(self, bus_name, channel, conn):
@@ -301,7 +302,8 @@ class Chat(activity.Activity):
         text_channel[TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT] = \
             dbus.Interface(text_proxy, TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT)
         text_channel[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP] = \
-            dbus.Interface(text_proxy, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
+            dbus.Interface(
+                text_proxy, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self.text_channel.handle_pending_messages()
