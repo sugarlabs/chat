@@ -130,6 +130,7 @@ class Chat(activity.Activity):
 
         if self.shared_activity:
             # we are joining the activity following an invite
+            self._alert(_('Off-line'), _('Joining the Chat.'))
             self._entry.props.placeholder_text = \
                 _('Please wait for a connection before starting to chat.')
             self.connect('joined', self._joined_cb)
@@ -310,7 +311,7 @@ class Chat(activity.Activity):
         self.text_channel.set_closed_callback(
             self._one_to_one_connection_closed_cb)
         self._chat_is_room = False
-        self._alert(_('On-line'), _('Private Chat'))
+        self._alert(_('On-line'), _('Private chat.'))
 
         # XXX How do we detect the sender going offline?
         self._entry.set_sensitive(True)
@@ -319,14 +320,14 @@ class Chat(activity.Activity):
 
     def _one_to_one_connection_closed_cb(self):
         '''Callback for when the text channel closes.'''
-        self._alert(_('Off-line'), _('left the chat'))
+        self._alert(_('Off-line'), _('Left the chat.'))
 
     def _setup(self):
         self.text_channel = TextChannelWrapper(
             self.shared_activity.telepathy_text_chan,
             self.shared_activity.telepathy_conn)
         self.text_channel.set_received_callback(self._received_cb)
-        self._alert(_('On-line'), _('Connected'))
+        self._alert(_('On-line'), _('Connected.'))
         self.shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
