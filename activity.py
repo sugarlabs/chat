@@ -57,7 +57,6 @@ from sugar3.activity.activity import get_activity_root
 from sugar3.activity.activity import show_object_in_journal
 from sugar3.datastore import datastore
 from sugar3 import profile
-from sugar3.graphics.alert import ErrorAlert
 
 from chat import smilies
 from chat.box import ChatBox
@@ -130,7 +129,7 @@ class Chat(activity.Activity):
 
         if self.shared_activity:
             # we are joining the activity following an invite
-            self._add_alert(_('Joining a Chat session'), _('Connecting....Please wait'))
+            self._alert(_('Off-line'), _('Joining a Chat session'))
             self._entry.props.placeholder_text = \
                 _('Please wait for a connection before starting to chat.')
             self.connect('joined', self._joined_cb)
@@ -270,17 +269,6 @@ class Chat(activity.Activity):
         queue.reverse()
         GLib.idle_add(_create_smiley_icon_idle_cb)
         return table
-
-    def _add_alert(self, title, text=None):
-        self.grab_focus()
-        alert = ErrorAlert()
-        alert.props.title = title
-        alert.props.msg = text
-        self.add_alert(alert)
-        alert.connect('response', self._alert_cancel_cb)
-        alert.show()
-        self._has_alert = True
-        self._fixed_resize_cb()
 
     def _add_smiley_to_entry(self, icon, event, text):
         pos = self._entry.props.cursor_position
