@@ -317,6 +317,9 @@ class TextBox(Gtk.TextView):
 
         self._empty = False
 
+    def retrieve_buffer(self):
+        return self._buffer
+
 
 class ChatBox(Gtk.ScrolledWindow):
 
@@ -379,7 +382,7 @@ class ChatBox(Gtk.ScrolledWindow):
         self.search_text = text
         count = 0
         for textbox_count in range(0, len(self._message_list)):
-            _buffer = self._message_list[textbox_count]._buffer
+            _buffer = self._message_list[textbox_count].retrieve_buffer()
             start, end = _buffer.get_bounds()
             _buffer.remove_tag_by_name('pattern-hilite', start, end)
             _buffer.remove_tag_by_name('pattern-select', start, end)
@@ -405,7 +408,7 @@ class ChatBox(Gtk.ScrolledWindow):
         current_index = self.current_hilite_text[2]
         if(direction == 'forward'):
             for i in range(current_index, len(self._message_list)):
-                _buffer = self._message_list[i]._buffer
+                _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
                     text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) #End iter
                 else:
@@ -416,7 +419,7 @@ class ChatBox(Gtk.ScrolledWindow):
             return False
         elif(direction == 'backward'):
             for i in range(current_index, -1, -1):
-                _buffer = self._message_list[i]._buffer
+                _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
                     text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
                 else:
@@ -430,7 +433,7 @@ class ChatBox(Gtk.ScrolledWindow):
         current_index = self.current_hilite_text[2]
         if(direction == 'forward'):
             for i in range(current_index, len(self._message_list)):
-                _buffer = self._message_list[i]._buffer
+                _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
                     text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) # End iter
                 else:
@@ -454,7 +457,7 @@ class ChatBox(Gtk.ScrolledWindow):
             return None
         elif(direction == 'backward'):
             for i in range(current_index, -1, -1):
-                _buffer = self._message_list[i]._buffer
+                _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
                     text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
                 else:
@@ -481,10 +484,10 @@ class ChatBox(Gtk.ScrolledWindow):
         next_found = self.get_next_result(direction)
         if next_found:
             current_search_index = self.current_hilite_text[2]
-            _buffer = self._message_list[current_search_index]._buffer
+            _buffer = self._message_list[current_search_index].retrieve_buffer()
 
             for count in range(0, len(self._message_list)):
-                temp_buf = self._message_list[count]._buffer
+                temp_buf = self._message_list[count].retrieve_buffer()
                 t_start, t_end = temp_buf.get_bounds()
                 temp_buf.remove_tag_by_name('pattern-select', t_start, t_end)
 
@@ -497,6 +500,12 @@ class ChatBox(Gtk.ScrolledWindow):
             self._message_list[current_search_index].scroll_to_iter(end, 0.1, use_align=False,
                                                                xalign=0.0, yalign=0.0)
     # Search Ends
+
+    def retrieve_textbox(self, textbox_count):
+        return self._message_list[textbox_count]
+
+    def number_of_textboxes(self):
+        return len(self._message_list)
 
     def __open_on_journal(self, widget, url):
         self.emit('open-on-journal', url)

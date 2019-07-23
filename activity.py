@@ -179,8 +179,9 @@ class Chat(activity.Activity):
 
     # Search Begin
     def _search_entry_activate_cb(self, entry):
-        for textbox in self.chatbox._message_list:
-            _buffer = textbox._buffer
+        for i in range(0, self.chatbox.number_of_textboxes()):
+            textbox = self.chatbox.retrieve_textbox(i)
+            _buffer = textbox.retrieve_buffer()
             start_mark = _buffer.get_mark('start')
             end_mark = _buffer.get_mark('end')
             if start_mark is None or end_mark is None:
