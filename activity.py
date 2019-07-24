@@ -71,6 +71,7 @@ logger = logging.getLogger('chat-activity')
 if _HAS_SOUND:
     Gst.init([])
 
+
 # pylint: disable-msg=W0223
 class Chat(activity.Activity):
 
@@ -82,7 +83,8 @@ class Chat(activity.Activity):
         self.chatbox = ChatBox(
             self.owner, self._ebook_mode_detector.get_ebook_mode())
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
-        self.chatbox.connect('new-message', self._search_entry_on_new_message_cb)
+        self.chatbox.connect('new-message',
+                             self._search_entry_on_new_message_cb)
 
         super(Chat, self).__init__(handle)
 
@@ -202,8 +204,10 @@ class Chat(activity.Activity):
             self._search_next.props.sensitive = False
         else:
             # If next or previous result exists
-            self._search_prev.props.sensitive = self.chatbox.check_next('backward')
-            self._search_next.props.sensitive = self.chatbox.check_next('forward')
+            self._search_prev.props.sensitive = \
+                self.chatbox.check_next('backward')
+            self._search_next.props.sensitive = \
+                self.chatbox.check_next('forward')
 
     def _search_prev_cb(self, button):
         self.chatbox.search('backward')

@@ -99,8 +99,9 @@ class TextBox(Gtk.TextView):
             'subscript', foreground=text_color.get_html(),
             rise=-7 * Pango.SCALE)  # in pixels
 
+        # Initialise each TextView object with a default set of pattern tags
         self._pattern_tag_hilite = self._buffer.create_tag(
-            'pattern-hilite', background=style.Color('#D80A0A').get_html()) # Initialise each TextView object with a default set of pattern tags
+            'pattern-hilite', background=style.Color('#D80A0A').get_html())
         self._pattern_tag_select = self._buffer.create_tag(
             'pattern-select', background=style.Color('#09C3F7').get_html())
         if nick_name:
@@ -326,7 +327,7 @@ class ChatBox(Gtk.ScrolledWindow):
     __gsignals__ = {
         'foo': (GObject.SignalFlags.RUN_FIRST, None, ([])),
         'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])),
-        'new-message' : (GObject.SignalFlags.RUN_FIRST, None, ([]))
+        'new-message': (GObject.SignalFlags.RUN_FIRST, None, ([]))
     }
 
     def __init__(self, owner, tablet_mode):
@@ -358,7 +359,9 @@ class ChatBox(Gtk.ScrolledWindow):
 
         # Search Text
         self.search_text = ''
-        self.current_hilite_text = (None, None, None) # A TextMark start object, a TextMark end object and block index number
+
+        # A TextMark start object, a TextMark end object and block index number
+        self.current_hilite_text = (None, None, None)
 
         # OSK padding for conversation
         self._dy = 0
@@ -392,16 +395,25 @@ class ChatBox(Gtk.ScrolledWindow):
             text_iter = _buffer.get_start_iter()
 
             while True:
-                next_found = text_iter.forward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
+                next_found = \
+                    text_iter.forward_search(self.search_text,
+                                             Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                             Gtk.TextSearchFlags.TEXT_ONLY,
+                                             None)
                 if next_found is None:
                     break
                 count += 1
                 start, end = next_found
                 if count == 1:
                     # Create marks
-                    start_mark = _buffer.create_mark('start', start, left_gravity=True)
-                    end_mark = _buffer.create_mark('end', end, left_gravity=True)
-                    self.current_hilite_text = (start_mark, end_mark, textbox_count)
+                    start_mark = \
+                        _buffer.create_mark('start', start,
+                                            left_gravity=True)
+                    end_mark = \
+                        _buffer.create_mark('end', end,
+                                            left_gravity=True)
+                    self.current_hilite_text = \
+                        (start_mark, end_mark, textbox_count)
                     _buffer.apply_tag_by_name('pattern-select', start, end)
                 _buffer.apply_tag_by_name('pattern-hilite', start, end)
                 text_iter = end
@@ -412,10 +424,15 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, len(self._message_list)):
                 _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
-                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) #End iter
+                    # End iter
+                    text_iter = \
+                        _buffer.get_iter_at_mark(
+                            self.current_hilite_text[1])
                 else:
                     text_iter = _buffer.get_start_iter()
-                next_exists = text_iter.forward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
+                next_exists = \
+                    text_iter.forward_to_tag_toggle(
+                        self._message_list[i]._pattern_tag_hilite)
                 if next_exists:
                     return True
             return False
@@ -423,10 +440,15 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, -1, -1):
                 _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
-                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
+                    # Start iter
+                    text_iter = \
+                        _buffer.get_iter_at_mark(
+                            self.current_hilite_text[0])
                 else:
                     text_iter = _buffer.get_end_iter()
-                prev_exists = text_iter.backward_to_tag_toggle(self._message_list[i]._pattern_tag_hilite)
+                prev_exists = \
+                    text_iter.backward_to_tag_toggle(
+                        self._message_list[i]._pattern_tag_hilite)
                 if prev_exists:
                     return True
             return False
@@ -437,19 +459,27 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, len(self._message_list)):
                 _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
-                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[1]) # End iter
+                    # End iter
+                    text_iter = \
+                        _buffer.get_iter_at_mark(self.current_hilite_text[1])
                 else:
                     text_iter = _buffer.get_start_iter()
 
-                _temp = text_iter.forward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
+                _temp = text_iter \
+                    .forward_search(self.search_text,
+                                    Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                    Gtk.TextSearchFlags.TEXT_ONLY,
+                                    None)
                 if(_temp is not None):
                     start, end = _temp
                     if i == current_index:
                         _buffer.move_mark_by_name('start', start)
                         _buffer.move_mark_by_name('end', end)
                     else:
-                        start_mark = _buffer.create_mark('start', start, left_gravity=True)
-                        end_mark = _buffer.create_mark('end', end, left_gravity=True)
+                        start_mark = _buffer.create_mark('start', start,
+                                                         left_gravity=True)
+                        end_mark = _buffer.create_mark('end', end,
+                                                       left_gravity=True)
                         self.current_hilite_text = (start_mark, end_mark, i)
                     return _temp
                 else:
@@ -461,19 +491,28 @@ class ChatBox(Gtk.ScrolledWindow):
             for i in range(current_index, -1, -1):
                 _buffer = self._message_list[i].retrieve_buffer()
                 if i == current_index:
-                    text_iter = _buffer.get_iter_at_mark(self.current_hilite_text[0]) # Start iter
+                    # Start iter
+                    text_iter = \
+                        _buffer.get_iter_at_mark(
+                            self.current_hilite_text[0])
                 else:
                     text_iter = _buffer.get_end_iter()
 
-                _temp = text_iter.backward_search(self.search_text, Gtk.TextSearchFlags.VISIBLE_ONLY | Gtk.TextSearchFlags.TEXT_ONLY, None)
+                _temp = text_iter \
+                    .backward_search(self.search_text,
+                                     Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                     Gtk.TextSearchFlags.TEXT_ONLY,
+                                     None)
                 if(_temp is not None):
                     start, end = _temp
                     if i == current_index:
                         _buffer.move_mark_by_name('start', start)
                         _buffer.move_mark_by_name('end', end)
                     else:
-                        start_mark = _buffer.create_mark('start', start, left_gravity=True)
-                        end_mark = _buffer.create_mark('end', end, left_gravity=True)
+                        start_mark = _buffer.create_mark('start', start,
+                                                         left_gravity=True)
+                        end_mark = \
+                            _buffer.create_mark('end', end, left_gravity=True)
                         self.current_hilite_text = (start_mark, end_mark, i)
                     return _temp
                 else:
@@ -486,7 +525,8 @@ class ChatBox(Gtk.ScrolledWindow):
         next_found = self.get_next_result(direction)
         if next_found:
             current_search_index = self.current_hilite_text[2]
-            _buffer = self._message_list[current_search_index].retrieve_buffer()
+            _buffer = \
+                self._message_list[current_search_index].retrieve_buffer()
 
             for count in range(0, len(self._message_list)):
                 temp_buf = self._message_list[count].retrieve_buffer()
@@ -497,10 +537,12 @@ class ChatBox(Gtk.ScrolledWindow):
             _buffer.apply_tag_by_name('pattern-select', start, end)
             _buffer.place_cursor(start)
 
-            self._message_list[current_search_index].scroll_to_iter(start, 0.1, use_align=False,
-                                                               xalign=0.0, yalign=0.0)
-            self._message_list[current_search_index].scroll_to_iter(end, 0.1, use_align=False,
-                                                               xalign=0.0, yalign=0.0)
+            self._message_list[current_search_index] \
+                .scroll_to_iter(start, 0.1, use_align=False,
+                                xalign=0.0, yalign=0.0)
+            self._message_list[current_search_index] \
+                .scroll_to_iter(end, 0.1, use_align=False,
+                                xalign=0.0, yalign=0.0)
     # Search Ends
 
     def retrieve_textbox(self, textbox_count):
