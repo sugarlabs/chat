@@ -82,6 +82,7 @@ class Chat(activity.Activity):
         self.chatbox = ChatBox(
             self.owner, self._ebook_mode_detector.get_ebook_mode())
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
+        self.chatbox.connect('new-message', self._search_entry_on_new_message_cb)
 
         super(Chat, self).__init__(handle)
 
@@ -178,6 +179,9 @@ class Chat(activity.Activity):
             self.connect('shared', self._shared_cb)
 
     # Search Begin
+    def _search_entry_on_new_message_cb(self, chatbox):
+        self._search_entry_activate_cb(self.search_entry)
+
     def _search_entry_activate_cb(self, entry):
         for i in range(0, self.chatbox.number_of_textboxes()):
             textbox = self.chatbox.retrieve_textbox(i)

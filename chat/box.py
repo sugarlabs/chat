@@ -325,7 +325,9 @@ class ChatBox(Gtk.ScrolledWindow):
 
     __gsignals__ = {
         'foo': (GObject.SignalFlags.RUN_FIRST, None, ([])),
-        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])), }
+        'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])),
+        'new-message' : (GObject.SignalFlags.RUN_FIRST, None, ([]))
+    }
 
     def __init__(self, owner, tablet_mode):
         Gtk.ScrolledWindow.__init__(self)
@@ -674,6 +676,8 @@ class ChatBox(Gtk.ScrolledWindow):
 
         if status_message:
             self._last_msg_sender = None
+
+        self.emit("new-message")
 
     def add_separator(self, timestamp):
         '''Add whitespace and timestamp between chat sessions.'''
