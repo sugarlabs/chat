@@ -173,7 +173,7 @@ class TextBox(Gtk.TextView):
         for tag in iter_tags.get_tags():
             try:
                 url = tag.url
-            except:
+            except AttributeError:
                 url = None
             if url is not None:
                 if event.button == 3:
@@ -212,7 +212,7 @@ class TextBox(Gtk.TextView):
             try:
                 url = tag.url
                 self.palette = tag.palette
-            except:
+            except AttributeError:
                 url = None
             if url is not None:
                 return True

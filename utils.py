@@ -61,5 +61,5 @@ class EbookModeDetector(GObject.GObject):
                                       'EV_SW', 'SW_TABLET_MODE'])
             # 10 is ebook_mode, 0 is normal
             return (output == 10)
-        except:
+        except OSError:
             return False

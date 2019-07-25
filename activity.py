@@ -31,7 +31,7 @@ try:
     gi.require_version('Gst', '1.0')
     from gi.repository import Gst
     _HAS_SOUND = True
-except:
+except ImportError:
     _HAS_SOUND = False
 
 OSK_HEIGHT = [400, 300]
