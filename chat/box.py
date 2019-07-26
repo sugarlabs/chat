@@ -327,7 +327,8 @@ class ChatBox(Gtk.ScrolledWindow):
     __gsignals__ = {
         'foo': (GObject.SignalFlags.RUN_FIRST, None, ([])),
         'open-on-journal': (GObject.SignalFlags.RUN_FIRST, None, ([str])),
-        'new-message': (GObject.SignalFlags.RUN_FIRST, None, ([]))
+        'new-message': (GObject.SignalFlags.RUN_FIRST, None, ([])),
+        'change-tag' : (GObject.SignalFlags.RUN_FIRST, None, ([int]))
     }
 
     def __init__(self, owner, tablet_mode):
@@ -380,6 +381,7 @@ class ChatBox(Gtk.ScrolledWindow):
         vadj.connect('changed', self._scroll_changed_cb)
         vadj.connect('value-changed', self._scroll_value_changed_cb)
 
+        self.connect('change-tag', self._vscroll_on_tag_change_cb)
         self.connect('foo', self.resize_rb)
 
     # Search Begins
@@ -415,6 +417,7 @@ class ChatBox(Gtk.ScrolledWindow):
                     self.current_hilite_text = \
                         (start_mark, end_mark, textbox_count)
                     _buffer.apply_tag_by_name('pattern-select', start, end)
+                    self.emit("change-tag", textbox_count)
                 _buffer.apply_tag_by_name('pattern-hilite', start, end)
                 text_iter = end
 
@@ -537,13 +540,15 @@ class ChatBox(Gtk.ScrolledWindow):
             _buffer.apply_tag_by_name('pattern-select', start, end)
             _buffer.place_cursor(start)
 
-            self._message_list[current_search_index] \
-                .scroll_to_iter(start, 0.1, use_align=False,
-                                xalign=0.0, yalign=0.0)
-            self._message_list[current_search_index] \
-                .scroll_to_iter(end, 0.1, use_align=False,
-                                xalign=0.0, yalign=0.0)
+            self.emit('change-tag', current_search_index)
     # Search Ends
+
+    def _vscroll_on_tag_change_cb(self, chatbox, textbox_count):
+        rb = self._rb_list[textbox_count]
+        v_pos = rb.get_allocation().y
+        vadj = self.get_vadjustment()
+        vadj.set_value(v_pos)
+        self.set_vadjustment(vadj)
 
     def retrieve_textbox(self, textbox_count):
         return self._message_list[textbox_count]

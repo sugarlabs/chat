@@ -112,22 +112,23 @@ class Chat(activity.Activity):
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
         self.search_entry.connect('changed', self._search_entry_activate_cb)
-
         self._search_item = Gtk.ToolItem()
         self._search_item.add(self.search_entry)
-        self.toolbar_box.toolbar.insert(self._search_item, -1)
+        toolbar_box.toolbar.insert(self._search_item, -1)
 
         self._search_prev = ToolButton('go-previous-paired')
         self._search_prev.set_tooltip(_('Previous'))
+        self._search_prev.props.accelerator = "<Shift><Ctrl>g"
         self._search_prev.connect('clicked', self._search_prev_cb)
         self._search_prev.props.sensitive = False
-        self.toolbar_box.toolbar.insert(self._search_prev, -1)
+        toolbar_box.toolbar.insert(self._search_prev, -1)
 
         self._search_next = ToolButton('go-next-paired')
         self._search_next.set_tooltip(_('Next'))
+        self._search_next.props.accelerator = "<Ctrl>g"
         self._search_next.connect('clicked', self._search_next_cb)
         self._search_next.props.sensitive = False
-        self.toolbar_box.toolbar.insert(self._search_next, -1)
+        toolbar_box.toolbar.insert(self._search_next, -1)
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
