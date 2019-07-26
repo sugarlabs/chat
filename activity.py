@@ -112,6 +112,8 @@ class Chat(activity.Activity):
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
         self.search_entry.connect('changed', self._search_entry_activate_cb)
+        self.connect('key-press-event', self._search_entry_key_press_cb)
+
         self._search_item = Gtk.ToolItem()
         self._search_item.add(self.search_entry)
         toolbar_box.toolbar.insert(self._search_item, -1)
@@ -171,6 +173,15 @@ class Chat(activity.Activity):
                 self._entry.props.placeholder_text = \
                     _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
+
+    def _search_entry_key_press_cb(self, activity, event):
+        keyname = Gdk.keyval_name(event.keyval).lower()
+        if Gdk.ModifierType.CONTROL_MASK and keyname == 'f':
+            self.search_entry.grab_focus()
+        elif keyname == 'escape':
+            if self.search_entry.props.text != '':
+                self.search_entry.props.text = ''
+                self._entry.grab_focus()
 
     # Search Begin
     def _search_entry_on_new_message_cb(self, chatbox):
