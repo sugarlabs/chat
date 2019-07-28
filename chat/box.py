@@ -394,131 +394,141 @@ class ChatBox(Gtk.ScrolledWindow):
 
             text_iter = _buffer.get_start_iter()
 
-            while True:
-                next_found = \
-                    text_iter.forward_search(self.search_text,
-                                             Gtk.TextSearchFlags.VISIBLE_ONLY |
-                                             Gtk.TextSearchFlags.TEXT_ONLY,
-                                             None)
-                if next_found is None:
-                    break
-                count += 1
-                start, end = next_found
-                if count == 1:
-                    # Create marks
-                    start_mark = \
-                        _buffer.create_mark('start', start,
-                                            left_gravity=True)
-                    end_mark = \
-                        _buffer.create_mark('end', end,
-                                            left_gravity=True)
-                    self.current_hilite_text = \
-                        (start_mark, end_mark, textbox_count)
-                    _buffer.apply_tag_by_name('pattern-select', start, end)
-                _buffer.apply_tag_by_name('pattern-hilite', start, end)
-                text_iter = end
+            if self.search_text != '':
+                while True:
+                    next_found = \
+                        text_iter.forward_search(self.search_text,
+                                                Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                                Gtk.TextSearchFlags.TEXT_ONLY,
+                                                None)
+                    if next_found is None:
+                        break
+                    count += 1
+                    start, end = next_found
+                    if count == 1 and self.current_hilite_text[2] is None:
+                        # Create marks
+                        start_mark = \
+                            _buffer.create_mark('start', start,
+                                                left_gravity=True)
+                        end_mark = \
+                            _buffer.create_mark('end', end,
+                                                left_gravity=True)
+                        self.current_hilite_text = \
+                            (start_mark, end_mark, textbox_count)
+                        _buffer.apply_tag_by_name('pattern-select', start, end)
+                    _buffer.apply_tag_by_name('pattern-hilite', start, end)
+                    text_iter = end
 
     def check_next(self, direction):
         current_index = self.current_hilite_text[2]
-        if(direction == 'forward'):
-            for i in range(current_index, len(self._message_list)):
-                _buffer = self._message_list[i].retrieve_buffer()
-                if i == current_index:
-                    # End iter
-                    text_iter = \
-                        _buffer.get_iter_at_mark(
-                            self.current_hilite_text[1])
-                else:
-                    text_iter = _buffer.get_start_iter()
-                next_exists = \
-                    text_iter.forward_to_tag_toggle(
-                        self._message_list[i]._pattern_tag_hilite)
-                if next_exists:
-                    return True
-            return False
-        elif(direction == 'backward'):
-            for i in range(current_index, -1, -1):
-                _buffer = self._message_list[i].retrieve_buffer()
-                if i == current_index:
-                    # Start iter
-                    text_iter = \
-                        _buffer.get_iter_at_mark(
-                            self.current_hilite_text[0])
-                else:
-                    text_iter = _buffer.get_end_iter()
-                prev_exists = \
-                    text_iter.backward_to_tag_toggle(
-                        self._message_list[i]._pattern_tag_hilite)
-                if prev_exists:
-                    return True
-            return False
+        if current_index is not None:
+            if(direction == 'forward'):
+                for i in range(current_index, len(self._message_list)):
+                    _buffer = self._message_list[i].retrieve_buffer()
+                    if i == current_index:
+                        # End iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.current_hilite_text[1])
+                    else:
+                        text_iter = _buffer.get_start_iter()
+                    next_exists = \
+                        text_iter.forward_to_tag_toggle(
+                            self._message_list[i]._pattern_tag_hilite)
+                    if next_exists:
+                        return True
+                return False
+            elif(direction == 'backward'):
+                for i in range(current_index, -1, -1):
+                    _buffer = self._message_list[i].retrieve_buffer()
+                    if i == current_index:
+                        # Start iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.current_hilite_text[0])
+                    else:
+                        text_iter = _buffer.get_end_iter()
+                    prev_exists = \
+                        text_iter.backward_to_tag_toggle(
+                            self._message_list[i]._pattern_tag_hilite)
+                    if prev_exists:
+                        return True
+                return False
+            else:
+                return False
 
     def get_next_result(self, direction):
         current_index = self.current_hilite_text[2]
-        if(direction == 'forward'):
-            for i in range(current_index, len(self._message_list)):
-                _buffer = self._message_list[i].retrieve_buffer()
-                if i == current_index:
-                    # End iter
-                    text_iter = \
-                        _buffer.get_iter_at_mark(self.current_hilite_text[1])
-                else:
-                    text_iter = _buffer.get_start_iter()
-
-                _temp = text_iter \
-                    .forward_search(self.search_text,
-                                    Gtk.TextSearchFlags.VISIBLE_ONLY |
-                                    Gtk.TextSearchFlags.TEXT_ONLY,
-                                    None)
-                if(_temp is not None):
-                    start, end = _temp
+        if current_index is not None:
+            if(direction == 'forward'):
+                for i in range(current_index, len(self._message_list)):
+                    _buffer = self._message_list[i].retrieve_buffer()
                     if i == current_index:
-                        _buffer.move_mark_by_name('start', start)
-                        _buffer.move_mark_by_name('end', end)
+                        # End iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(self.current_hilite_text[1])
                     else:
-                        start_mark = _buffer.create_mark('start', start,
-                                                         left_gravity=True)
-                        end_mark = _buffer.create_mark('end', end,
-                                                       left_gravity=True)
-                        self.current_hilite_text = (start_mark, end_mark, i)
-                    return _temp
-                else:
-                    if i == current_index:
-                        _buffer.delete_mark_by_name('start')
-                        _buffer.delete_mark_by_name('end')
-            return None
-        elif(direction == 'backward'):
-            for i in range(current_index, -1, -1):
-                _buffer = self._message_list[i].retrieve_buffer()
-                if i == current_index:
-                    # Start iter
-                    text_iter = \
-                        _buffer.get_iter_at_mark(
-                            self.current_hilite_text[0])
-                else:
-                    text_iter = _buffer.get_end_iter()
+                        text_iter = _buffer.get_start_iter()
 
-                _temp = text_iter \
-                    .backward_search(self.search_text,
-                                     Gtk.TextSearchFlags.VISIBLE_ONLY |
-                                     Gtk.TextSearchFlags.TEXT_ONLY,
-                                     None)
-                if(_temp is not None):
-                    start, end = _temp
-                    if i == current_index:
-                        _buffer.move_mark_by_name('start', start)
-                        _buffer.move_mark_by_name('end', end)
+                    _temp = text_iter \
+                        .forward_search(self.search_text,
+                                        Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                        Gtk.TextSearchFlags.TEXT_ONLY,
+                                        None)
+                    if(_temp is not None):
+                        start, end = _temp
+                        if i == current_index:
+                            _buffer.move_mark_by_name('start', start)
+                            _buffer.move_mark_by_name('end', end)
+                        else:
+                            start_mark = _buffer.create_mark('start', start,
+                                                             left_gravity=True)
+                            end_mark = _buffer.create_mark('end', end,
+                                                           left_gravity=True)
+                            self.current_hilite_text = \
+                                (start_mark, end_mark, i)
+                        return _temp
                     else:
-                        start_mark = _buffer.create_mark('start', start,
-                                                         left_gravity=True)
-                        end_mark = \
-                            _buffer.create_mark('end', end, left_gravity=True)
-                        self.current_hilite_text = (start_mark, end_mark, i)
-                    return _temp
-                else:
+                        if i == current_index:
+                            _buffer.delete_mark_by_name('start')
+                            _buffer.delete_mark_by_name('end')
+                return None
+            elif(direction == 'backward'):
+                for i in range(current_index, -1, -1):
+                    _buffer = self._message_list[i].retrieve_buffer()
                     if i == current_index:
-                        _buffer.delete_mark_by_name('start')
-                        _buffer.delete_mark_by_name('end')
+                        # Start iter
+                        text_iter = \
+                            _buffer.get_iter_at_mark(
+                                self.current_hilite_text[0])
+                    else:
+                        text_iter = _buffer.get_end_iter()
+
+                    _temp = text_iter \
+                        .backward_search(self.search_text,
+                                         Gtk.TextSearchFlags.VISIBLE_ONLY |
+                                         Gtk.TextSearchFlags.TEXT_ONLY,
+                                         None)
+                    if(_temp is not None):
+                        start, end = _temp
+                        if i == current_index:
+                            _buffer.move_mark_by_name('start', start)
+                            _buffer.move_mark_by_name('end', end)
+                        else:
+                            start_mark = _buffer.create_mark('start', start,
+                                                             left_gravity=True)
+                            end_mark = \
+                                _buffer.create_mark('end', end,
+                                                    left_gravity=True)
+                            self.current_hilite_text = \
+                                (start_mark, end_mark, i)
+                        return _temp
+                    else:
+                        if i == current_index:
+                            _buffer.delete_mark_by_name('start')
+                            _buffer.delete_mark_by_name('end')
+                return None
+        else:
             return None
 
     def search(self, direction):

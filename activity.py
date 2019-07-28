@@ -112,22 +112,26 @@ class Chat(activity.Activity):
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
         self.search_entry.connect('changed', self._search_entry_activate_cb)
+        
+        self.connect('key-press-event', self._search_entry_key_press_cb)
 
         self._search_item = Gtk.ToolItem()
         self._search_item.add(self.search_entry)
-        self.toolbar_box.toolbar.insert(self._search_item, -1)
+        toolbar_box.toolbar.insert(self._search_item, -1)
 
         self._search_prev = ToolButton('go-previous-paired')
         self._search_prev.set_tooltip(_('Previous'))
+        self._search_prev.props.accelerator = "<Shift><Ctrl>g"
         self._search_prev.connect('clicked', self._search_prev_cb)
         self._search_prev.props.sensitive = False
-        self.toolbar_box.toolbar.insert(self._search_prev, -1)
+        toolbar_box.toolbar.insert(self._search_prev, -1)
 
         self._search_next = ToolButton('go-next-paired')
         self._search_next.set_tooltip(_('Next'))
+        self._search_next.props.accelerator = "<Ctrl>g"
         self._search_next.connect('clicked', self._search_next_cb)
         self._search_next.props.sensitive = False
-        self.toolbar_box.toolbar.insert(self._search_next, -1)
+        toolbar_box.toolbar.insert(self._search_next, -1)
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -171,6 +175,15 @@ class Chat(activity.Activity):
                     _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
 
+    def _search_entry_key_press_cb(self, activity, event):
+        keyname = Gdk.keyval_name(event.keyval).lower()
+        if keyname == 'f':
+            if Gdk.ModifierType.CONTROL_MASK & event.state:
+                self.search_entry.grab_focus()
+        elif keyname == 'escape':
+            self.search_entry.props.text = ''
+            self._entry.grab_focus()
+
     # Search Begin
     def _search_entry_on_new_message_cb(self, chatbox):
         self._search_entry_activate_cb(self.search_entry)
@@ -185,6 +198,7 @@ class Chat(activity.Activity):
                 continue
             _buffer.delete_mark(start_mark)
             _buffer.delete_mark(end_mark)
+            self.chatbox.current_hilite_text = (None, None, None)
         self.chatbox.set_search_text(entry.props.text)
         self._update_search_buttons()
 
@@ -201,12 +215,14 @@ class Chat(activity.Activity):
                 self.chatbox.check_next('forward')
 
     def _search_prev_cb(self, button):
-        self.chatbox.search('backward')
-        self._update_search_buttons()
+        if button.props.sensitive:
+            self.chatbox.search('backward')
+            self._update_search_buttons()
 
     def _search_next_cb(self, button):
-        self.chatbox.search('forward')
-        self._update_search_buttons()
+        if button.props.sensitive:
+            self.chatbox.search('forward')
+            self._update_search_buttons()
 
     # Search End
 
