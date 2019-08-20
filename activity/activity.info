@@ -1,7 +1,7 @@
 [Activity]
 name = Chat
 icon = activity-icon
-exec = sugar-activity activity.Chat
+exec = sugar-activity3 activity.Chat
 activity_version = 85
 max_participants = 20
 bundle_id = org.laptop.Chat
