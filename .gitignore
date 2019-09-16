@@ -3,6 +3,5 @@
 *.bak
 .*.sw[op]
 locale
-.sweets
 dist
 

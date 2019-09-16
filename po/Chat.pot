@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-13 11:35+1100\n"
+"POT-Creation-Date: 2019-09-16 18:38+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,71 +25,83 @@ msgstr ""
 msgid "Text chat"
 msgstr ""
 
-#: activity.py:133 activity.py:152
-msgid "Please wait for a connection before starting to chat."
+#: activity.py:124
+msgid "Previous"
 msgstr ""
 
-#: activity.py:148 activity.py:311
+#: activity.py:131
+msgid "Next"
+msgstr ""
+
+#: activity.py:154 activity.py:172 activity.py:399
 msgid "Off-line"
 msgstr ""
 
-#: activity.py:148
+#: activity.py:154
+msgid "Joining the Chat."
+msgstr ""
+
+#: activity.py:156 activity.py:176
+msgid "Please wait for a connection before starting to chat."
+msgstr ""
+
+#: activity.py:172
 msgid "Share, or invite someone."
 msgstr ""
 
-#: activity.py:302 activity.py:318
+#: activity.py:390 activity.py:406
 msgid "On-line"
 msgstr ""
 
-#: activity.py:302
-msgid "Private Chat"
+#: activity.py:390
+msgid "Private chat."
 msgstr ""
 
-#: activity.py:311
-msgid "left the chat"
+#: activity.py:399
+msgid "Left the chat."
 msgstr ""
 
-#: activity.py:318
-msgid "Connected"
+#: activity.py:406
+msgid "Connected."
 msgstr ""
 
-#: activity.py:356
+#: activity.py:444
 #, python-format
 msgid "Message from %s"
 msgstr ""
 
-#: activity.py:378
+#: activity.py:471
 msgid "URL from Chat"
 msgstr ""
 
-#: activity.py:400
+#: activity.py:493
 #, python-format
 msgid "%s joined the chat"
 msgstr ""
 
-#: activity.py:410
+#: activity.py:503
 #, python-format
 msgid "%s left the chat"
 msgstr ""
 
-#: activity.py:420
+#: activity.py:513
 #, python-format
 msgid "%s is here"
 msgstr ""
 
-#: activity.py:475
+#: activity.py:568
 msgid "You must be connected to a friend before starting to chat."
 msgstr ""
 
-#: activity.py:806
+#: activity.py:899
 msgid "Insert a smiley"
 msgstr ""
 
-#: activity.py:812
+#: activity.py:905
 msgid "Cancel"
 msgstr ""
 
-#: chat/box.py:665
+#: chat/box.py:859
 msgid "Copy to Clipboard"
 msgstr ""
 

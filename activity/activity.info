@@ -2,7 +2,7 @@
 name = Chat
 icon = activity-icon
 exec = sugar-activity3 activity.Chat
-activity_version = 85
+activity_version = 86
 max_participants = 20
 bundle_id = org.laptop.Chat
 summary = Text chat

@@ -1,3 +1,13 @@
+86
+
+* Replace TelepathyGLib operations with D-Bus (Aniket Mathur),
+* Advise of connection progress (Swarup N),
+* Revert "Promote activity tool bar" (James Cameron),
+* Feature: search chat text (Swarup N),
+* Port to Python 3 (Rahul Bothra),
+* Remove empty locale files (James Cameron),
+* flake8 fixes (James Cameron, Aniket Mathur),
+
 85
 
 * New translations (Chris Leonard et al),
