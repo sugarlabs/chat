@@ -394,11 +394,11 @@ class ChatBox(Gtk.ScrolledWindow):
 
             if self.search_text != '':
                 while True:
-                    next_found = \
-                        text_iter.forward_search(self.search_text,
-                                                Gtk.TextSearchFlags.VISIBLE_ONLY |
-                                                Gtk.TextSearchFlags.TEXT_ONLY,
-                                                None)
+                    next_found = text_iter.forward_search(
+                        self.search_text,
+                        Gtk.TextSearchFlags.VISIBLE_ONLY |
+                        Gtk.TextSearchFlags.TEXT_ONLY,
+                        None)
                     if next_found is None:
                         break
                     count += 1

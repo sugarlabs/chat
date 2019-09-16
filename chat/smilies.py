@@ -162,7 +162,7 @@ def parse(text):
 
     result = [text]
 
-    for smiley in sorted(list(_catalog.keys()), key = lambda x: - len(x)):
+    for smiley in sorted(list(_catalog.keys()), key=lambda x: - len(x)):
         new_result = []
         for word in result:
             if isinstance(word, GdkPixbuf.Pixbuf):
@@ -213,26 +213,26 @@ def init():
 
 def _generate_svg(letter):
     # TODO: Adjust font size and character positioning
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + \
-        '<svg\n' + \
-        ' xmlns:dc="http://purl.org/dc/elements/1.1/"\n' + \
-        ' xmlns:cc="http://creativecommons.org/ns#"\n' + \
-        ' xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n' + \
-        ' xmlns:svg="http://www.w3.org/2000/svg"\n' + \
-        ' xmlns="http://www.w3.org/2000/svg"\n' + \
-        ' version="1.0"\n' + \
-        ' width="55"\n' + \
-        ' height="55"\n' + \
-        '>\n' + \
-        '<text\n' + \
-        ' x="0"\n' + \
-        ' y="42"\n' + \
-        'style="font-size:40px;font-style:normal;font-weight:normal;\n' + \
-        'fill:#ffffff;fill-opacity:1;stroke:none;' + \
-        'font-family:Bitstream Vera Sans">\n' + \
-        '<tspan\n' + \
-        ' x="0"\n' + \
-        ' y="42">\n' + \
-        letter + \
-        '</tspan></text>\n' + \
-        '</svg>\n').encode('utf-8')
+    return ('<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' +
+            '<svg\n' +
+            ' xmlns:dc="http://purl.org/dc/elements/1.1/"\n' +
+            ' xmlns:cc="http://creativecommons.org/ns#"\n' +
+            ' xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n' +
+            ' xmlns:svg="http://www.w3.org/2000/svg"\n' +
+            ' xmlns="http://www.w3.org/2000/svg"\n' +
+            ' version="1.0"\n' +
+            ' width="55"\n' +
+            ' height="55"\n' +
+            '>\n' +
+            '<text\n' +
+            ' x="0"\n' +
+            ' y="42"\n' +
+            'style="font-size:40px;font-style:normal;font-weight:normal;\n' +
+            'fill:#ffffff;fill-opacity:1;stroke:none;' +
+            'font-family:Bitstream Vera Sans">\n' +
+            '<tspan\n' +
+            ' x="0"\n' +
+            ' y="42">\n' +
+            letter +
+            '</tspan></text>\n' +
+            '</svg>\n').encode('utf-8')

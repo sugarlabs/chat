@@ -113,7 +113,7 @@ class Chat(activity.Activity):
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
         self.search_entry.connect('changed', self._search_entry_activate_cb)
-        
+
         self.connect('key-press-event', self._search_entry_key_press_cb)
 
         self._search_item = Gtk.ToolItem()
