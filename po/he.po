@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-03-22 03:09+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2018-06-12 08:06+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490152189.000000\n"
+"X-POOTLE-MTIME: 1528790768.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "צ'ט"
+msgstr "צ׳אט"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "צ׳אט מילולי"
 
 #: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
-msgstr ""
+msgstr "נא להמתין לחיבור לפני התחלת הצ׳אט."
 
 #: activity.py:146 activity.py:294
 msgid "Off-line"
@@ -36,7 +36,7 @@ msgstr "מנותק"
 
 #: activity.py:146
 msgid "Share, or invite someone."
-msgstr "שתף, או הזמן מישהו."
+msgstr "ניתן לשתף או להזמין מישהו."
 
 #: activity.py:285 activity.py:301
 msgid "On-line"
@@ -48,7 +48,7 @@ msgstr "שיחה פרטית"
 
 #: activity.py:294
 msgid "left the chat"
-msgstr "עזב את הצ'ט"
+msgstr "עזב את הצ׳אט"
 
 #: activity.py:301
 msgid "Connected"
@@ -57,21 +57,21 @@ msgstr "מחובר"
 #: activity.py:339
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "הודעה מאת %s"
 
 #: activity.py:366
 msgid "URL from Chat"
-msgstr "קישור מהצ'ט"
+msgstr "קישור מהצ׳אט"
 
 #: activity.py:388
 #, python-format
 msgid "%s joined the chat"
-msgstr "%s הצטרף לצ'ט"
+msgstr "%s הצטרף לצ׳אט"
 
 #: activity.py:398
 #, python-format
 msgid "%s left the chat"
-msgstr "%s עזב את הצ'ט"
+msgstr "%s עזב את הצ׳אט"
 
 #: activity.py:408
 #, python-format
@@ -80,23 +80,21 @@ msgstr "%s נמצא כאן"
 
 #: activity.py:463
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "עליך להתחבר לחבר לפני התחלת צ׳אט."
 
 #: activity.py:779
-#, fuzzy
 msgid "Insert a smiley"
-msgstr "הכנס סמיילי"
+msgstr "הוספת חייכן"
 
 #: activity.py:785
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:29
-#, fuzzy
 msgid "Smile"
-msgstr "מחייך"
+msgstr "חיוך"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
@@ -108,7 +106,7 @@ msgstr "קורץ"
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:35
 msgid "Confused"
-msgstr ""
+msgstr "מבולבל"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
@@ -120,25 +118,25 @@ msgstr "עצוב"
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:41
 msgid "Grin"
-msgstr ""
+msgstr "חיוך רחב"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:44
 msgid "Neutral"
-msgstr ""
+msgstr "ניטרלי"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:47
 msgid "Shock"
-msgstr ""
+msgstr "הלם"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:50
 msgid "Cool"
-msgstr ""
+msgstr "מגניב"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
@@ -150,244 +148,244 @@ msgstr "חורץ־לשון"
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:56
 msgid "Blushing"
-msgstr ""
+msgstr "מסמיק"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:59
 msgid "Weeping"
-msgstr ""
+msgstr "מתייפח"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:62
 msgid "Angel"
-msgstr ""
+msgstr "מלאך"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:65
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "סוד כמוס"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:68
 msgid "Angry"
-msgstr ""
+msgstr "כועס"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:71
 msgid "Devil"
-msgstr ""
+msgstr "שד"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:74
 msgid "Nerd"
-msgstr ""
+msgstr "חנון"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:77
 msgid "Kiss"
-msgstr ""
+msgstr "נשיקה"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:80
 msgid "Laughing"
-msgstr ""
+msgstr "צוחק"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:83
 msgid "Sleepy"
-msgstr ""
+msgstr "ישנוני"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:86
 msgid "Sick"
-msgstr ""
+msgstr "חולה"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "גבות מורמות"
 
 #: chat/smilies.py:90
 msgid "Heart"
-msgstr ""
+msgstr "לב"
 
 #: chat/smilies.py:91
 msgid "Airplane"
-msgstr ""
+msgstr "מטוס"
 
 #: chat/smilies.py:92
 msgid "Music"
-msgstr ""
+msgstr "מוזיקה"
 
 #: chat/smilies.py:93
 msgid "Check box"
-msgstr ""
+msgstr "תיבת סימון"
 
 #: chat/smilies.py:94
 msgid "Spade"
-msgstr ""
+msgstr "עלה"
 
 #: chat/smilies.py:95
 msgid "Telephone"
-msgstr ""
+msgstr "טלפון"
 
 #: chat/smilies.py:96
 msgid "X box"
-msgstr ""
+msgstr "אקסבוקס"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
-msgstr ""
+msgstr "מטה הרמס"
 
 #: chat/smilies.py:98
 msgid "Female"
-msgstr ""
+msgstr "נקבה"
 
 #: chat/smilies.py:99 chat/smilies.py:104
 msgid "Star"
-msgstr ""
+msgstr "כוכב"
 
 #: chat/smilies.py:100
 msgid "Letter"
-msgstr ""
+msgstr "מכתב"
 
 #: chat/smilies.py:101
 msgid "Poison"
-msgstr ""
+msgstr "רעל"
 
 #: chat/smilies.py:102
 msgid "Check mark"
-msgstr ""
+msgstr "סימון בתיבה"
 
 #: chat/smilies.py:103
 msgid "Male"
-msgstr ""
+msgstr "זכר"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "תלתן"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "מיחזור"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "איקס"
 
 #: chat/smilies.py:108
 msgid "Fire"
-msgstr ""
+msgstr "אש"
 
 #: chat/smilies.py:109
 msgid "Leaf"
-msgstr ""
+msgstr "עלה"
 
 #: chat/smilies.py:110
 msgid "Cloud"
-msgstr ""
+msgstr "ענן"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "וי"
 
 #: chat/smilies.py:112
 msgid "Crown"
-msgstr ""
+msgstr "כתר"
 
 #: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
 #: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
 #: chat/smilies.py:135
 msgid "Floret"
-msgstr ""
+msgstr "פרחון"
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
-msgstr ""
+msgstr "כוכב וסהר"
 
 #: chat/smilies.py:115
 msgid "Umbrella"
-msgstr ""
+msgstr "מטריה"
 
 #: chat/smilies.py:116
 msgid "Pencil"
-msgstr ""
+msgstr "עפרון"
 
 #: chat/smilies.py:118
 msgid "Snowman"
-msgstr ""
+msgstr "איש שלג"
 
 #: chat/smilies.py:119
 msgid "Point right"
-msgstr ""
+msgstr "הצבעה ימינה"
 
 #: chat/smilies.py:120
 msgid "Horse"
-msgstr ""
+msgstr "סוס"
 
 #: chat/smilies.py:122
 msgid "Peace sign"
-msgstr ""
+msgstr "סמל שלום"
 
 #: chat/smilies.py:123
 msgid "Sun"
-msgstr ""
+msgstr "שמש"
 
 #: chat/smilies.py:124
 msgid "Point left"
-msgstr ""
+msgstr "הצבעה שמאלה"
 
 #: chat/smilies.py:126
 msgid "Yin yang"
-msgstr ""
+msgstr "יין-יאנג"
 
 #: chat/smilies.py:127
 msgid "Moon"
-msgstr ""
+msgstr "ירח"
 
 #: chat/smilies.py:128
 msgid "Point up"
-msgstr ""
+msgstr "הצבעה למעלה"
 
 #: chat/smilies.py:130
 msgid "Meteor"
-msgstr ""
+msgstr "מטאור"
 
 #: chat/smilies.py:131
 msgid "Point down"
-msgstr ""
+msgstr "הצבעה למטה"
 
 #: chat/smilies.py:133
 msgid "Scissors"
-msgstr ""
+msgstr "מספריים"
 
 #: chat/smilies.py:134
 msgid "Pen"
-msgstr ""
+msgstr "עט"
 
 #: chat/smilies.py:136
 msgid "Stars"
-msgstr ""
+msgstr "כוכבים"
 
 #: chat/smilies.py:137
 msgid "Place"
-msgstr ""
+msgstr "מקום"
 
 #: chat/smilies.py:138
 msgid "High voltage"
-msgstr ""
+msgstr "מתח גבוה"
 
 #: chat/box.py:655
 msgid "Copy to Clipboard"
-msgstr "העתק ללוח"
+msgstr "העתקה ללוח הגזירים"

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 17:39+1100\n"
-"PO-Revision-Date: 2017-03-21 04:24+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2018-02-10 17:54+0000\n"
+"Last-Translator: Besnik_b <besnik@programeshqip.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1490070243.000000\n"
+"X-POOTLE-MTIME: 1518285291.000000\n"
 
 #: activity/activity.info:2
 msgid "Chat"
@@ -28,7 +28,7 @@ msgstr "Fjalosje me tekst"
 
 #: activity.py:130 activity.py:149
 msgid "Please wait for a connection before starting to chat."
-msgstr "Ju lutemi, pritni për një lidhje, përpara se të nisni një fjalosje."
+msgstr "Ju lutemi, përpara se të nisni një fjalosje, pritni për një lidhje."
 
 #: activity.py:146 activity.py:294
 msgid "Off-line"
@@ -66,12 +66,12 @@ msgstr "URL nga Fjalosje"
 #: activity.py:388
 #, python-format
 msgid "%s joined the chat"
-msgstr "%s hyri në bisedë"
+msgstr "%s hyri në fjalosje"
 
 #: activity.py:398
 #, python-format
 msgid "%s left the chat"
-msgstr "%s e la bisedën"
+msgstr "%s e la fjalosjen"
 
 #: activity.py:408
 #, python-format
@@ -100,7 +100,7 @@ msgstr "Buzëqesh"
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:32
 msgid "Winking"
-msgstr "Po shkel syrin"
+msgstr "Shkelje syri"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
@@ -118,7 +118,7 @@ msgstr "I trishtuar"
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:41
 msgid "Grin"
-msgstr ""
+msgstr "Ngërdheshje"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
@@ -130,7 +130,7 @@ msgstr "Asnjanës"
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:47
 msgid "Shock"
-msgstr ""
+msgstr "Tronditje"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
@@ -214,7 +214,7 @@ msgstr "Sëmurë"
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:89
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "Qerpikngritur"
 
 #: chat/smilies.py:90
 msgid "Heart"
@@ -242,7 +242,7 @@ msgstr "Telefon"
 
 #: chat/smilies.py:96
 msgid "X box"
-msgstr ""
+msgstr "X box"
 
 #: chat/smilies.py:97
 msgid "Cadusis"
@@ -274,15 +274,15 @@ msgstr "Mashkull"
 
 #: chat/smilies.py:105
 msgid "Shamrock"
-msgstr ""
+msgstr "Tërfil"
 
 #: chat/smilies.py:106
 msgid "Recycle"
-msgstr ""
+msgstr "Riciklim"
 
 #: chat/smilies.py:107
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: chat/smilies.py:108
 msgid "Fire"
@@ -298,7 +298,7 @@ msgstr "Re"
 
 #: chat/smilies.py:111
 msgid "V"
-msgstr ""
+msgstr "Formatim"
 
 #: chat/smilies.py:112
 msgid "Crown"
@@ -312,7 +312,7 @@ msgstr ""
 
 #: chat/smilies.py:114
 msgid "Star and crescent"
-msgstr ""
+msgstr "Gjysmëhëna"
 
 #: chat/smilies.py:115
 msgid "Umbrella"
