@@ -59,8 +59,6 @@ from sugar3.graphics import iconentry
 from chat import smilies
 from chat.box import ChatBox
 
-from utils import EbookModeDetector
-
 logger = logging.getLogger('chat-activity')
 
 
@@ -74,10 +72,7 @@ class Chat(activity.Activity):
         pservice = presenceservice.get_instance()
         self.owner = pservice.get_owner()
 
-        self._ebook_mode_detector = EbookModeDetector()
-
-        self.chatbox = ChatBox(
-            self.owner, self._ebook_mode_detector.get_ebook_mode())
+        self.chatbox = ChatBox(self.owner)
         self.chatbox.connect('open-on-journal', self.__open_on_journal)
         self.chatbox.connect('new-message',
                              self._search_entry_on_new_message_cb)
@@ -86,7 +81,6 @@ class Chat(activity.Activity):
 
         self._entry = None
         self._has_alert = False
-        self._has_osk = False
 
         self._setup_canvas()
 
@@ -224,11 +218,6 @@ class Chat(activity.Activity):
             dy = style.GRID_CELL_SIZE
         else:
             dy = 0
-        if self._has_osk:
-            if Gdk.Screen.width() > Gdk.Screen.height():
-                dy += OSK_HEIGHT[0]
-            else:
-                dy += OSK_HEIGHT[1]
 
         if self._toolbar_expanded():
             self.chatbox.set_size_request(
@@ -266,10 +255,7 @@ class Chat(activity.Activity):
     def _configure_cb(self, event):
         self._fixed.set_size_request(
             Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
-        if self._ebook_mode_detector.get_ebook_mode():
-            self._entry_height = int(style.GRID_CELL_SIZE * 1.5)
-        else:
-            self._entry_height = style.GRID_CELL_SIZE
+        self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
             2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._entry.set_size_request(entry_width, self._entry_height)
@@ -284,10 +270,7 @@ class Chat(activity.Activity):
         self.chatbox.resize_all()
 
         width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
-        if self._ebook_mode_detector.get_ebook_mode():
-            height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
-        else:
-            height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
+        height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
         self._smiley_table.set_size_request(width, height)
         self._smiley_toolbar.set_size_request(width, -1)
         self._smiley_window.set_size_request(width, -1)
@@ -531,10 +514,7 @@ class Chat(activity.Activity):
         | smiley button | entry | send button |
         ---------------------------------------
         '''
-        if self._ebook_mode_detector.get_ebook_mode():
-            self._entry_height = int(style.GRID_CELL_SIZE * 1.5)
-        else:
-            self._entry_height = style.GRID_CELL_SIZE
+        self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
             2 * (self._entry_height + style.GRID_CELL_SIZE)
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
@@ -594,14 +574,8 @@ class Chat(activity.Activity):
     def _entry_focus_in_cb(self, entry, event):
         self._hide_smiley_window()
 
-        if self._ebook_mode_detector.get_ebook_mode():
-            self._has_osk = True
-            self._fixed_resize_cb()
-
     def _entry_focus_out_cb(self, entry, event):
-        if self._ebook_mode_detector.get_ebook_mode():
-            self._has_osk = False
-            self._fixed_resize_cb()
+        pass
 
     def _entry_key_press_cb(self, widget, event):
         '''Check for scrolling keys.
@@ -706,10 +680,7 @@ class Chat(activity.Activity):
                                       Gtk.PolicyType.AUTOMATIC)
         self._smiley_table.modify_bg(
             Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
-        if self._ebook_mode_detector.get_ebook_mode():
-            height = int(Gdk.Screen.height() - 8 * style.GRID_CELL_SIZE)
-        else:
-            height = int(Gdk.Screen.height() - 4 * style.GRID_CELL_SIZE)
+        height = int(Gdk.Screen.height() - 4 * style.GRID_CELL_SIZE)
         self._smiley_table.set_size_request(width, height)
 
         table = self._create_smiley_table(width)
