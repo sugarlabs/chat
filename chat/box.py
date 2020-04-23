@@ -330,11 +330,10 @@ class ChatBox(Gtk.ScrolledWindow):
         'new-message': (GObject.SignalFlags.RUN_FIRST, None, ([]))
     }
 
-    def __init__(self, owner, tablet_mode):
+    def __init__(self, owner):
         Gtk.ScrolledWindow.__init__(self)
 
         self._owner = owner
-        self._tablet_mode = tablet_mode
 
         # Auto vs manual scrolling:
         self._scroll_auto = True
@@ -823,14 +822,9 @@ class ChatBox(Gtk.ScrolledWindow):
         else:
             self._dy = dy
 
-        if self._tablet_mode:
-            self._conversation.set_size_request(
-                Gdk.Screen.width() - style.GRID_CELL_SIZE,
-                int(Gdk.Screen.height() - 2.5 * style.GRID_CELL_SIZE) - dy)
-        else:
-            self._conversation.set_size_request(
-                Gdk.Screen.width() - style.GRID_CELL_SIZE,
-                Gdk.Screen.height() - 2 * style.GRID_CELL_SIZE - dy)
+        self._conversation.set_size_request(
+            Gdk.Screen.width() - style.GRID_CELL_SIZE,
+            Gdk.Screen.height() - 2 * style.GRID_CELL_SIZE - dy)
 
 
 class ContentInvoker(Invoker):
