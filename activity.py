@@ -27,12 +27,8 @@ from gi.repository import GdkPixbuf
 from gi.repository import TelepathyGLib
 from gi.repository import GLib
 
-try:
-    gi.require_version('Gst', '1.0')
-    from gi.repository import Gst
-    _HAS_SOUND = True
-except ImportError:
-    _HAS_SOUND = False
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
 
 OSK_HEIGHT = [400, 300]
 SLASH = '-x-SLASH-x-'  # slash safe encoding
@@ -68,8 +64,7 @@ from utils import EbookModeDetector
 logger = logging.getLogger('chat-activity')
 
 
-if _HAS_SOUND:
-    Gst.init([])
+Gst.init([])
 
 
 # pylint: disable-msg=W0223
@@ -146,8 +141,7 @@ class Chat(activity.Activity):
         self._chat_is_room = False
         self.text_channel = None
 
-        if _HAS_SOUND:
-            self.element = Gst.ElementFactory.make('playbin', 'Player')
+        self.element = Gst.ElementFactory.make('playbin', 'Player')
 
         if self.shared_activity:
             # we are joining the activity following an invite
@@ -391,6 +385,8 @@ class Chat(activity.Activity):
 
         # XXX How do we detect the sender going offline?
         self._entry.set_sensitive(True)
+        self.smiley_button.set_sensitive(True)
+        self.send_button.set_sensitive(True)
         self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
@@ -408,6 +404,8 @@ class Chat(activity.Activity):
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
         self._entry.set_sensitive(True)
+        self.smiley_button.set_sensitive(True)
+        self.send_button.set_sensitive(True)
         self._entry.props.placeholder_text = None
         self._entry.grab_focus()
 
@@ -550,11 +548,11 @@ class Chat(activity.Activity):
             Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
             self._entry_height)
 
-        smiley_button = EventIcon(icon_name='smilies',
+        self.smiley_button = EventIcon(icon_name='smilies',
                                   pixel_size=self._entry_height)
-        smiley_button.connect('button-press-event', self._smiley_button_cb)
-        self._entry_grid.attach(smiley_button, 0, 0, 1, 1)
-        smiley_button.show()
+        self.smiley_button.connect('button-press-event', self._smiley_button_cb)
+        self._entry_grid.attach(self.smiley_button, 0, 0, 1, 1)
+        self.smiley_button.show()
 
         self._entry = Gtk.Entry()
         self._entry.set_size_request(entry_width, self._entry_height)
@@ -563,7 +561,6 @@ class Chat(activity.Activity):
         self._entry.modify_base(Gtk.StateType.INSENSITIVE,
                                 style.COLOR_WHITE.get_gdk_color())
 
-        self._entry.set_sensitive(False)
         self._entry.props.placeholder_text = \
             _('You must be connected to a friend before starting to chat.')
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
@@ -573,11 +570,16 @@ class Chat(activity.Activity):
         self._entry_grid.attach(self._entry, 1, 0, 1, 1)
         self._entry.show()
 
-        send_button = EventIcon(icon_name='send',
+        self.send_button = EventIcon(icon_name='send',
                                 pixel_size=self._entry_height)
-        send_button.connect('button-press-event', self._send_button_cb)
-        self._entry_grid.attach(send_button, 2, 0, 1, 1)
-        send_button.show()
+        self.send_button.connect('button-press-event', self._send_button_cb)
+        self._entry_grid.attach(self.send_button, 2, 0, 1, 1)
+        self.send_button.show()
+
+        if not self.get_shared():
+            self._entry.set_sensitive(False)
+            self.smiley_button.set_sensitive(False)
+            self.send_button.set_sensitive(False)
 
     def _get_icon_pixbuf(self, name):
         icon_theme = Gtk.IconTheme.get_default()
@@ -680,15 +682,14 @@ class Chat(activity.Activity):
                 last_line_was_timestamp = False
 
     def play_sound(self, event):
-        if _HAS_SOUND:
-            SOUNDS_PATH = os.path.join(get_bundle_path(), 'sounds')
-            SOUNDS = {'said_nick': os.path.join(SOUNDS_PATH, 'alert.wav'),
-                      'login': os.path.join(SOUNDS_PATH, 'login.wav'),
+        SOUNDS_PATH = os.path.join(get_bundle_path(), 'sounds')
+        SOUNDS = {'said_nick': os.path.join(SOUNDS_PATH, 'alert.wav'),
+                  'login': os.path.join(SOUNDS_PATH, 'login.wav'),
                       'logout': os.path.join(SOUNDS_PATH, 'logout.wav')}
 
-            self.element.set_state(Gst.State.NULL)
-            self.element.set_property('uri', 'file://%s' % SOUNDS[event])
-            self.element.set_state(Gst.State.PLAYING)
+        self.element.set_state(Gst.State.NULL)
+        self.element.set_property('uri', 'file://%s' % SOUNDS[event])
+        self.element.set_state(Gst.State.PLAYING)
 
     def _create_smiley_window(self):
         grid = Gtk.Grid()
