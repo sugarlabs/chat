@@ -867,7 +867,7 @@ class _URLMenu(Palette):
 
     def _copy_to_clipboard_cb(self, menuitem):
         logging.debug('Copy %s to clipboard', self.url)
-        clipboard = Gtk.clipboard_get()
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         targets = [('text/uri-list', 0, 0), ('UTF8_STRING', 0, 1)]
 
         if not clipboard.set_with_data(targets, self._clipboard_data_get_cb,
