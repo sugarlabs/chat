@@ -1,0 +1,392 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-24 17:39+1100\n"
+"PO-Revision-Date: 2020-11-11 13:32+0000\n"
+"Last-Translator: Teemu <teemu.leinonen@aalto.fi>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1605101561.000000\n"
+
+#: activity/activity.info:2
+msgid "Chat"
+msgstr "Pikaviestit"
+
+#: activity/activity.info:3
+msgid "Text chat"
+msgstr "Tesktiviesti"
+
+#: activity.py:130 activity.py:149
+msgid "Please wait for a connection before starting to chat."
+msgstr "Ole hyvä ja odota yhteyden avautumista ennen kuin aloitat keskustelun."
+
+#: activity.py:146 activity.py:294
+msgid "Off-line"
+msgstr "Ei linjoilla."
+
+#: activity.py:146
+msgid "Share, or invite someone."
+msgstr "Jaa tai kutsu joku."
+
+#: activity.py:285 activity.py:301
+msgid "On-line"
+msgstr "Linjoilla."
+
+#: activity.py:285
+msgid "Private Chat"
+msgstr "Yksityisviesti."
+
+#: activity.py:294
+msgid "left the chat"
+msgstr "Poistui keskustelusta"
+
+#: activity.py:301
+msgid "Connected"
+msgstr "Yhdistetty"
+
+#: activity.py:339
+#, python-format
+msgid "Message from %s"
+msgstr "Viesti käyttäjältä %s"
+
+#: activity.py:366
+msgid "URL from Chat"
+msgstr "Verkko-osoite pikaviestistä"
+
+#: activity.py:388
+#, python-format
+msgid "%s joined the chat"
+msgstr "%s liittyi keskusteluun"
+
+#: activity.py:398
+#, python-format
+msgid "%s left the chat"
+msgstr "%s poistui keskustelusta"
+
+#: activity.py:408
+#, python-format
+msgid "%s is here"
+msgstr "%s on täällä"
+
+#: activity.py:463
+msgid "You must be connected to a friend before starting to chat."
+msgstr ""
+"Sinun tulee olla yhteydessä ystävään ennen kuin voit aloittaa keskustelun."
+
+#: activity.py:779
+msgid "Insert a smiley"
+msgstr "lisää hymiö"
+
+#: activity.py:785
+msgid "Cancel"
+msgstr "Peru"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-) and :)
+#: chat/smilies.py:29
+msgid "Smile"
+msgstr "Hymyile"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are ;-) and ;)
+#: chat/smilies.py:32
+msgid "Winking"
+msgstr "Iskee silmää"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-/ and :/
+#: chat/smilies.py:35
+msgid "Confused"
+msgstr "Hämillään"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-( and :(
+#: chat/smilies.py:38
+msgid "Sad"
+msgstr "Surullinen"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-D and :D
+#: chat/smilies.py:41
+msgid "Grin"
+msgstr "Virnistää"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-| and :|
+#: chat/smilies.py:44
+msgid "Neutral"
+msgstr "Neutraali"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
+#: chat/smilies.py:47
+msgid "Shock"
+msgstr "Järkyttynyt"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
+#: chat/smilies.py:50
+msgid "Cool"
+msgstr "Viileä"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-P and :P
+#: chat/smilies.py:53
+msgid "Tongue"
+msgstr "Kieli"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :">
+#: chat/smilies.py:56
+msgid "Blushing"
+msgstr "Punastua"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :'-( and :'(
+#: chat/smilies.py:59
+msgid "Weeping"
+msgstr "Itkeä"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
+#: chat/smilies.py:62
+msgid "Angel"
+msgstr "Enkeli"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-$ and :-$
+#: chat/smilies.py:65
+msgid "Don't tell anyone"
+msgstr "Älä kerro kenellekään"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
+#: chat/smilies.py:68
+msgid "Angry"
+msgstr "Vihainen"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are >:> and >:)
+#: chat/smilies.py:71
+msgid "Devil"
+msgstr "Piru"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-B, :B
+#: chat/smilies.py:74
+msgid "Nerd"
+msgstr "Nörtti"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-*, :*
+#: chat/smilies.py:77
+msgid "Kiss"
+msgstr "Pusu"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :))
+#: chat/smilies.py:80
+msgid "Laughing"
+msgstr "Nauraa"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are I-)
+#: chat/smilies.py:83
+msgid "Sleepy"
+msgstr "Unelias"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are :-&
+#: chat/smilies.py:86
+msgid "Sick"
+msgstr "Sairas"
+
+#. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
+#. TRANS: ASCII-art equivalents are /:)
+#: chat/smilies.py:89
+msgid "Raised eyebrows"
+msgstr "Nostaa kulmakarvaa"
+
+#: chat/smilies.py:90
+msgid "Heart"
+msgstr "Sydän"
+
+#: chat/smilies.py:91
+msgid "Airplane"
+msgstr "Lentokone"
+
+#: chat/smilies.py:92
+msgid "Music"
+msgstr "Musiikki"
+
+#: chat/smilies.py:93
+msgid "Check box"
+msgstr "Merkintä"
+
+#: chat/smilies.py:94
+msgid "Spade"
+msgstr "Lapio"
+
+#: chat/smilies.py:95
+msgid "Telephone"
+msgstr "Puhelin"
+
+#: chat/smilies.py:96
+msgid "X box"
+msgstr "X boksi"
+
+#: chat/smilies.py:97
+msgid "Cadusis"
+msgstr "Sauva"
+
+#: chat/smilies.py:98
+msgid "Female"
+msgstr "Nainen"
+
+#: chat/smilies.py:99 chat/smilies.py:104
+msgid "Star"
+msgstr "Tähti"
+
+#: chat/smilies.py:100
+msgid "Letter"
+msgstr "Kirje"
+
+#: chat/smilies.py:101
+msgid "Poison"
+msgstr "Myrkky"
+
+#: chat/smilies.py:102
+msgid "Check mark"
+msgstr "Valintamerkki"
+
+#: chat/smilies.py:103
+msgid "Male"
+msgstr "Mies"
+
+#: chat/smilies.py:105
+msgid "Shamrock"
+msgstr "Apila"
+
+#: chat/smilies.py:106
+msgid "Recycle"
+msgstr "Kierrätys"
+
+#: chat/smilies.py:107
+msgid "X"
+msgstr "X"
+
+#: chat/smilies.py:108
+msgid "Fire"
+msgstr "Tuli"
+
+#: chat/smilies.py:109
+msgid "Leaf"
+msgstr "Lehti"
+
+#: chat/smilies.py:110
+msgid "Cloud"
+msgstr "Pilvi"
+
+#: chat/smilies.py:111
+msgid "V"
+msgstr "V"
+
+#: chat/smilies.py:112
+msgid "Crown"
+msgstr "Kruunu"
+
+#: chat/smilies.py:113 chat/smilies.py:117 chat/smilies.py:121
+#: chat/smilies.py:125 chat/smilies.py:129 chat/smilies.py:132
+#: chat/smilies.py:135
+msgid "Floret"
+msgstr "Kukka"
+
+#: chat/smilies.py:114
+msgid "Star and crescent"
+msgstr "Tähti ja puolikuu"
+
+#: chat/smilies.py:115
+msgid "Umbrella"
+msgstr "Sateenvarjo"
+
+#: chat/smilies.py:116
+msgid "Pencil"
+msgstr "Lyijykynä"
+
+#: chat/smilies.py:118
+msgid "Snowman"
+msgstr "Lumiukko"
+
+#: chat/smilies.py:119
+msgid "Point right"
+msgstr "Osoita oikealle"
+
+#: chat/smilies.py:120
+msgid "Horse"
+msgstr "Hevonen"
+
+#: chat/smilies.py:122
+msgid "Peace sign"
+msgstr "Rauhanmerkki"
+
+#: chat/smilies.py:123
+msgid "Sun"
+msgstr "Aurinko"
+
+#: chat/smilies.py:124
+msgid "Point left"
+msgstr "Osoita vasemmalle"
+
+#: chat/smilies.py:126
+msgid "Yin yang"
+msgstr "Yin yang"
+
+#: chat/smilies.py:127
+msgid "Moon"
+msgstr "Kuu"
+
+#: chat/smilies.py:128
+msgid "Point up"
+msgstr "Osoita ylöspäin"
+
+#: chat/smilies.py:130
+msgid "Meteor"
+msgstr "Meteori"
+
+#: chat/smilies.py:131
+msgid "Point down"
+msgstr "Osoita alaspäin"
+
+#: chat/smilies.py:133
+msgid "Scissors"
+msgstr "Sakset"
+
+#: chat/smilies.py:134
+msgid "Pen"
+msgstr "Kynä"
+
+#: chat/smilies.py:136
+msgid "Stars"
+msgstr "Tähti"
+
+#: chat/smilies.py:137
+msgid "Place"
+msgstr "Paikka"
+
+#: chat/smilies.py:138
+msgid "High voltage"
+msgstr "Korkea jännite"
+
+#: chat/box.py:655
+msgid "Copy to Clipboard"
+msgstr "Kopio leikepöydälle"
