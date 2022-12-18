@@ -81,6 +81,9 @@ class Chat(activity.Activity):
 
         self._entry = None
         self._has_alert = False
+        self._last_key = None
+        self._index = -1
+        self._entry_has_focus = False
 
         self._setup_canvas()
 
@@ -172,6 +175,10 @@ class Chat(activity.Activity):
         elif keyname == 'escape':
             self.search_entry.props.text = ''
             self._entry.grab_focus()
+
+        if keyname == 'up' and self._entry_has_focus:
+            self._entry.set_position(-1)
+            self._entry.grab_focus_without_selecting()
 
     def _search_entry_on_new_message_cb(self, chatbox):
         self._search_entry_activate_cb(self.search_entry)
@@ -514,6 +521,7 @@ class Chat(activity.Activity):
         | smiley button | entry | send button |
         ---------------------------------------
         '''
+        self.chat_text = []
         self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
             2 * (self._entry_height + style.GRID_CELL_SIZE)
@@ -582,21 +590,65 @@ class Chat(activity.Activity):
 
         Check if the user pressed Page Up, Page Down, Home or End and
         scroll the window according the pressed key.
+
+        If the user Presses Up Arrow, show the last sent message and if the user
+        presses Down Arrow, show the message that was sent after that one.
+        Pressing Down Arrow when the last message sent is already in the text box
+        empties the text box.
         '''
         vadj = self.chatbox.get_vadjustment()
         if event.keyval == Gdk.KEY_Page_Down:
+            self._entry_has_focus = False
+            self._index = -1
             value = vadj.get_value() + vadj.page_size
             if value > vadj.upper - vadj.page_size:
                 value = vadj.upper - vadj.page_size
             vadj.set_value(value)
         elif event.keyval == Gdk.KEY_Page_Up:
+            self._entry_has_focus = False
+            self._index = -1
             vadj.set_value(vadj.get_value() - vadj.page_size)
         elif event.keyval == Gdk.KEY_Home and \
                 event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+            self._entry_has_focus = False
+            self._index = -1
             vadj.set_value(vadj.lower)
         elif event.keyval == Gdk.KEY_End and \
                 event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+            self._entry_has_focus = False
+            self._index = -1
             vadj.set_value(vadj.upper - vadj.page_size)
+        elif event.keyval == Gdk.KEY_Up:
+            self._entry_has_focus = True
+            self._last_key = 'Up'
+            self._set_text_on_key_press(widget)
+        elif event.keyval == Gdk.KEY_Down:
+            self._entry_has_focus = True
+            self._last_key = 'Down'
+            self._set_text_on_key_press(widget)
+        else:
+            self._index = -1
+            self._entry_has_focus = False
+
+    def _set_text_on_key_press(self, entry):
+
+        if self._index < -(len(self.chat_text)):
+            self._index = -(len(self.chat_text))
+
+        if self._last_key == 'Up' and len(self.chat_text) > 0:
+            self._entry_has_focus = True
+            entry.set_text(self.chat_text[self._index])
+            self._index -= 1
+
+        if self._last_key == 'Down':
+            if self._index < -1:
+                self._index += 1
+                entry.set_text(self.chat_text[self._index])
+            elif self._index == -1:
+                entry.set_text("")
+
+        self._entry.set_position(-1)
+        self._entry.grab_focus_without_selecting()
 
     def _smiley_button_cb(self, widget, event):
         self._show_smiley_window()
@@ -615,6 +667,7 @@ class Chat(activity.Activity):
             if self.text_channel:
                 logger.debug('sending to text_channel: %s' % (text))
                 self.text_channel.send(text)
+                self.chat_text.append(text)
             else:
                 logger.debug('Tried to send message but text channel '
                              'not connected.')
