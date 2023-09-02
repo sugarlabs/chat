@@ -21,6 +21,7 @@
 import re
 import time
 import logging
+import json
 from datetime import datetime
 from gettext import gettext as _
 
@@ -86,6 +87,7 @@ class TextBox(Gtk.TextView):
                  name_color, text_color, bg_color, highlight_color,
                  lang_rtl, nick_name=None, text=None):
         Gtk.TextView.__init__(self)
+        self.all_draw_paths = []
         self._parent = parent
         self._buffer = Gtk.TextBuffer()
         self._empty_buffer = Gtk.TextBuffer()
@@ -280,7 +282,14 @@ class TextBox(Gtk.TextView):
 
         self._empty = False
 
-    def add_text(self, text, newline=True):
+    def add_text(self, text_with_drawings, newline=True):        
+        if "||DRAWINGS||" in text_with_drawings:
+            text, drawings_str = text_with_drawings.split("||DRAWINGS||")
+            drawings = json.loads(drawings_str)
+            self.all_draw_paths.extend(drawings)
+            self.queue_draw()
+        else:
+            text = text_with_drawings
         buf = self._buffer
         self.iter_text = self._buffer.get_end_iter()
 
@@ -289,34 +298,48 @@ class TextBox(Gtk.TextView):
                 buf.insert(self.iter_text, '\n')
             else:
                 buf.insert(self.iter_text, ' ')
+        first_line = True
+        for line in text.split('\n'):
+            if not first_line:
+                buf.insert(self.iter_text, '\n')
+            first_line = False
 
-        words = text.split()
-        for word in words:
-            if _URL_REGEXP.match(word) is not None:
-                tag = buf.create_tag(None, underline=Pango.Underline.SINGLE)
-                tag.url = word
-                palette = _URLMenu(word)
-                # FIXME: TypeError: _URLMenu: unknown signal name:
-                # enter-notify-event - leave-notify-event
-                # palette.connect('enter-notify-event',
-                #                 self.__palette_mouse_enter_cb)
-                # palette.connect('leave-notify-event',
-                #                 self.__palette_mouse_leave_cb)
-                tag.palette = palette
-                buf.insert_with_tags(self.iter_text, word, tag, self._fg_tag)
-            else:
-                for i in smilies.parse(word):
-                    if isinstance(i, GdkPixbuf.Pixbuf):
-                        start = self.iter_text.get_offset()
-                        buf.insert_pixbuf(self.iter_text, i)
-                        buf.apply_tag(self._subscript_tag,
-                                      buf.get_iter_at_offset(start),
-                                      self.iter_text)
-                    else:
-                        buf.insert_with_tags(self.iter_text, i, self._fg_tag)
-            buf.insert_with_tags(self.iter_text, ' ', self._fg_tag)
-
+            for word in line.split():
+                if _URL_REGEXP.match(word) is not None:
+                    tag = buf.create_tag(None, underline=Pango.Underline.SINGLE)
+                    tag.url = word
+                    palette = _URLMenu(word)
+                    # FIXME: TypeError: _URLMenu: unknown signal name:
+                    # enter-notify-event - leave-notify-event
+                    # palette.connect('enter-notify-event',
+                    #                 self.__palette_mouse_enter_cb)
+                    # palette.connect('leave-notify-event',
+                    #                 self.__palette_mouse_leave_cb)
+                    tag.palette = palette
+                    buf.insert_with_tags(self.iter_text, word, tag, self._fg_tag)
+                else:
+                    for i in smilies.parse(word):
+                        if isinstance(i, GdkPixbuf.Pixbuf):
+                            start = self.iter_text.get_offset()
+                            buf.insert_pixbuf(self.iter_text, i)
+                            buf.apply_tag(self._subscript_tag,
+                                        buf.get_iter_at_offset(start),
+                                        self.iter_text)
+                        else:
+                            buf.insert_with_tags(self.iter_text, i, self._fg_tag)
+                buf.insert_with_tags(self.iter_text, ' ', self._fg_tag)
         self._empty = False
+
+    def do_draw(self, cr):
+        Gtk.TextView.do_draw(self, cr)
+        if self.all_draw_paths:
+            cr.set_source_rgb(0, 0, 0)
+            for draw_path in self.all_draw_paths:
+                if draw_path:
+                    cr.move_to(*draw_path[0])
+                    for x, y in draw_path[1:]:
+                        cr.line_to(x, y)
+                    cr.stroke()
 
     def get_buffer(self):
         return self._buffer
