@@ -18,7 +18,7 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr "©®´³ ƒ²®´³"
+msgstr ""
 
 #: activity/activity.info:3
 msgid "Text chat"
