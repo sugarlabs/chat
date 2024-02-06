@@ -65,6 +65,47 @@ logger = logging.getLogger('chat-activity')
 Gst.init([])
 
 
+class CustomTextView(Gtk.TextView):
+
+    def __init__(self):
+        super(CustomTextView, self).__init__()
+
+        self.connect('button-press-event', self.on_button_press)
+        self.connect('button-release-event', self.on_button_release)
+        self.connect('motion-notify-event', self.on_mouse_motion)
+        self.all_draw_paths = []
+
+        self.is_drawing = False
+        self.is_writing = True
+        self.draw_path = []
+
+    def on_button_press(self, widget, event):
+        if self.is_drawing:
+            self.draw_path = [(event.x, event.y)]
+            self.all_draw_paths.append(self.draw_path)
+            self.queue_draw()
+
+    def on_button_release(self, widget, event):
+        if self.is_drawing:
+            self.draw_path = []
+
+    def on_mouse_motion(self, widget, event):
+        if self.is_drawing:
+            self.draw_path.append((event.x, event.y))
+            self.queue_draw()
+
+    def do_draw(self, cr):
+        Gtk.TextView.do_draw(self, cr)
+        if self.is_drawing or self.all_draw_paths:
+            cr.set_source_rgb(0, 0, 0)
+            for draw_path in self.all_draw_paths:
+                if draw_path:
+                    cr.move_to(*draw_path[0])
+                    for x, y in draw_path[1:]:
+                        cr.line_to(x, y)
+                    cr.stroke()
+
+
 # pylint: disable-msg=W0223
 class Chat(activity.Activity):
 
@@ -79,12 +120,12 @@ class Chat(activity.Activity):
 
         super(Chat, self).__init__(handle)
 
-        self._entry = None
+        self._textview = None
         self._has_alert = False
 
         self._setup_canvas()
 
-        self._entry.grab_focus()
+        self._textview.grab_focus()
 
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
@@ -140,8 +181,8 @@ class Chat(activity.Activity):
         if self.shared_activity:
             # we are joining the activity following an invite
             self._alert(_('Off-line'), _('Joining the Chat.'))
-            self._entry.props.placeholder_text = \
-                _('Please wait for a connection before starting to chat.')
+            self._text_buffer.set_text(
+                _('Please wait for a connection before starting to chat.'))
             self.connect('joined', self._joined_cb)
             if self.get_shared():
                 # we have already joined
@@ -160,8 +201,8 @@ class Chat(activity.Activity):
                 self._alert(_('Off-line'), _('Share, or invite someone.'))
             else:
                 # resume of shared activity from journal object without invite
-                self._entry.props.placeholder_text = \
-                    _('Please wait for a connection before starting to chat.')
+                self._text_buffer.set_text(
+                    _('Please wait for a connection before starting to chat.'))
             self.connect('shared', self._shared_cb)
 
     def _search_entry_key_press_cb(self, activity, event):
@@ -171,12 +212,12 @@ class Chat(activity.Activity):
                 self.search_entry.grab_focus()
         elif keyname == 'escape':
             self.search_entry.props.text = ''
-            self._entry.grab_focus()
+            self._textview.grab_focus()
 
     def _search_entry_on_new_message_cb(self, chatbox):
         self._search_entry_activate_cb(self.search_entry)
 
-    def _search_entry_activate_cb(self, entry):
+    def _search_entry_activate_cb(self, textview):
         for i in range(0, self.chatbox.number_of_textboxes()):
             textbox = self.chatbox.get_textbox(i)
             _buffer = textbox.get_buffer()
@@ -187,7 +228,7 @@ class Chat(activity.Activity):
             _buffer.delete_mark(start_mark)
             _buffer.delete_mark(end_mark)
             self.chatbox.highlight_text = (None, None, None)
-        self.chatbox.set_search_text(entry.props.text)
+        self.chatbox.set_search_text(textview.props.text)
         self._update_search_buttons()
 
     def _update_search_buttons(self,):
@@ -258,7 +299,7 @@ class Chat(activity.Activity):
         self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
             2 * (self._entry_height + style.GRID_CELL_SIZE)
-        self._entry.set_size_request(entry_width, self._entry_height)
+        self._textview.set_size_request(entry_width, self._entry_height)
         self._entry_grid.set_size_request(
             Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
             self._entry_height)
@@ -325,10 +366,13 @@ class Chat(activity.Activity):
         return table
 
     def _add_smiley_to_entry(self, icon, event, text):
-        pos = self._entry.props.cursor_position
-        self._entry.insert_text(text, pos)
-        self._entry.grab_focus()
-        self._entry.set_position(pos + len(text))
+        text_buffer = self._textview.get_buffer()
+        iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+        pos = iter.get_offset()
+        text_buffer.insert(iter, text)
+        iter = text_buffer.get_iter_at_offset(pos + len(text))
+        text_buffer.place_cursor(iter)
+        self._textview.grab_focus()
         self._hide_smiley_window()
 
     def _shared_cb(self, sender):
@@ -367,11 +411,11 @@ class Chat(activity.Activity):
         self._alert(_('On-line'), _('Private chat.'))
 
         # XXX How do we detect the sender going offline?
-        self._entry.set_sensitive(True)
+        self._textview.set_sensitive(True)
         self.smiley_button.set_sensitive(True)
         self.send_button.set_sensitive(True)
-        self._entry.props.placeholder_text = None
-        self._entry.grab_focus()
+        self._text_buffer.set_text("")
+        self._textview.grab_focus()
 
     def _one_to_one_connection_closed_cb(self):
         '''Callback for when the text channel closes.'''
@@ -386,11 +430,11 @@ class Chat(activity.Activity):
         self.shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
-        self._entry.set_sensitive(True)
+        self._textview.set_sensitive(True)
         self.smiley_button.set_sensitive(True)
         self.send_button.set_sensitive(True)
-        self._entry.props.placeholder_text = None
-        self._entry.grab_focus()
+        self._text_buffer.set_text("")
+        self._textview.grab_focus()
 
     def _joined_cb(self, sender):
         '''Joined a shared activity.'''
@@ -517,8 +561,9 @@ class Chat(activity.Activity):
         self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
             2 * (self._entry_height + style.GRID_CELL_SIZE)
-        self._chat_height = Gdk.Screen.height() - self._entry_height - \
-            style.GRID_CELL_SIZE
+
+        self._chat_height = (Gdk.Screen.height() - self._entry_height - \
+            style.GRID_CELL_SIZE) * 0.9
         self._chat_width = Gdk.Screen.width()
 
         self.chatbox.set_size_request(self._chat_width, self._chat_height)
@@ -531,24 +576,33 @@ class Chat(activity.Activity):
         self.smiley_button = EventIcon(icon_name='smilies',
                                   pixel_size=self._entry_height)
         self.smiley_button.connect('button-press-event', self._smiley_button_cb)
-        self._entry_grid.attach(self.smiley_button, 0, 0, 1, 1)
+        self._entry_grid.attach(self.smiley_button, -1, 0, 1, 1)
+        self.smiley_button.set_valign(Gtk.Align.START)
         self.smiley_button.show()
 
-        self._entry = Gtk.Entry()
-        self._entry.set_size_request(entry_width, self._entry_height)
-        self._entry.modify_bg(Gtk.StateType.INSENSITIVE,
-                              style.COLOR_WHITE.get_gdk_color())
-        self._entry.modify_base(Gtk.StateType.INSENSITIVE,
-                                style.COLOR_WHITE.get_gdk_color())
+        self.draw_button = EventIcon(icon_name='draw',
+                                  pixel_size=self._entry_height)
+        self.draw_button.connect('button-press-event', self._draw_button_cb)
+        self._entry_grid.attach(self.draw_button, -1, 0, 1, 1)
+        self.smiley_button.set_valign(Gtk.Align.END)
+        self.draw_button.show()
 
-        self._entry.props.placeholder_text = \
-            _('You must be connected to a friend before starting to chat.')
-        self._entry.connect('focus-in-event', self._entry_focus_in_cb)
-        self._entry.connect('focus-out-event', self._entry_focus_out_cb)
-        self._entry.connect('activate', self._entry_activate_cb)
-        self._entry.connect('key-press-event', self._entry_key_press_cb)
-        self._entry_grid.attach(self._entry, 1, 0, 1, 1)
-        self._entry.show()
+        # Replace Gtk.Entry with Gtk.TextView
+        self._textview = CustomTextView()
+        self._textview.set_margin_top(5)
+        self._textview.set_size_request(entry_width, self._entry_height * 1.8)
+        self._textview.modify_bg(Gtk.StateType.INSENSITIVE,
+                                style.COLOR_WHITE.get_gdk_color())
+        self._textview.set_wrap_mode(Gtk.WrapMode.WORD)
+        self._text_buffer = self._textview.get_buffer()
+        self._text_buffer.set_text(
+            _('You must be connected to a friend before starting to chat.'))
+
+        self._textview.connect('focus-in-event', self._textview_focus_in_cb)
+        self._textview.connect('focus-out-event', self._textview_focus_out_cb)
+        self._textview.connect('key-press-event', self._textview_key_press_cb)
+        self._entry_grid.attach(self._textview, 0, 0, 1, 1)
+        self._textview.show()
 
         self.send_button = EventIcon(icon_name='send',
                                 pixel_size=self._entry_height)
@@ -557,9 +611,9 @@ class Chat(activity.Activity):
         self.send_button.show()
 
         if not self.get_shared():
-            self._entry.set_sensitive(False)
-            self.smiley_button.set_sensitive(False)
-            self.send_button.set_sensitive(False)
+            self._textview.set_sensitive(True)
+            self.smiley_button.set_sensitive(True)
+            self.send_button.set_sensitive(True)
 
     def _get_icon_pixbuf(self, name):
         icon_theme = Gtk.IconTheme.get_default()
@@ -571,17 +625,18 @@ class Chat(activity.Activity):
         del icon_info
         return pixbuf
 
-    def _entry_focus_in_cb(self, entry, event):
+    def _textview_focus_in_cb(self, textview, event):
         self._hide_smiley_window()
 
-    def _entry_focus_out_cb(self, entry, event):
+    def _textview_focus_out_cb(self, textview, event):
         pass
 
-    def _entry_key_press_cb(self, widget, event):
+    def _textview_key_press_cb(self, widget, event):
         '''Check for scrolling keys.
 
         Check if the user pressed Page Up, Page Down, Home or End and
-        scroll the window according the pressed key.
+        scroll the window according the pressed key or check if user
+        pressed the return key.
         '''
         vadj = self.chatbox.get_vadjustment()
         if event.keyval == Gdk.KEY_Page_Down:
@@ -597,24 +652,40 @@ class Chat(activity.Activity):
         elif event.keyval == Gdk.KEY_End and \
                 event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
+        elif event.keyval == Gdk.KEY_Return and not \
+                (event.state & Gdk.ModifierType.SHIFT_MASK):
+            self._entry_activate_cb(self._textview)
+            return True
 
     def _smiley_button_cb(self, widget, event):
         self._show_smiley_window()
 
+    def _draw_button_cb(self, widget, event):
+        self._textview.is_writing = not self._textview.is_writing
+        self._textview.is_drawing = not self._textview.is_drawing
+
     def _send_button_cb(self, widget, event):
-        self._entry_activate_cb(self._entry)
+        self._entry_activate_cb(self._textview)
 
-    def _entry_activate_cb(self, entry):
+    def _entry_activate_cb(self, custom_textview):
         self.chatbox._scroll_auto = True
+        textbuffer = custom_textview.get_buffer()
+        start_iter, end_iter = textbuffer.get_bounds()
+        text = textbuffer.get_text(start_iter, end_iter, True)
+        drawings = custom_textview.all_draw_paths
 
-        text = entry.props.text
-        if text:
-            logger.debug('Adding text to chatbox: %s: %s' % (self.owner, text))
-            self.chatbox.add_text(self.owner, text)
-            entry.props.text = ''
+        if text or drawings:
+            logger.debug('Adding to chatbox: %s: %s, %s' % (self.owner, text, drawings))
+            drawings_str = json.dumps(drawings)
+            text_with_drawings = text + "||DRAWINGS||" + drawings_str
+
+            self.chatbox.add_text(self.owner, text_with_drawings)
+            textbuffer.delete(start_iter, end_iter)
+            custom_textview.all_draw_paths = []
+
             if self.text_channel:
-                logger.debug('sending to text_channel: %s' % (text))
-                self.text_channel.send(text)
+                logger.debug('sending to text_channel: %s, %s' % (text, drawings))
+                self.text_channel.send({"text": text_with_drawings})
             else:
                 logger.debug('Tried to send message but text channel '
                              'not connected.')
