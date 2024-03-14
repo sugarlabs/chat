@@ -556,10 +556,18 @@ class Chat(activity.Activity):
         self._entry_grid.attach(self.send_button, 2, 0, 1, 1)
         self.send_button.show()
 
+        self._entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "clear")
+        self._entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, 'clear input')
+        self._entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, True)
+        self._entry.connect('icon-press', self._clear_icon_cb)
+
         if not self.get_shared():
             self._entry.set_sensitive(False)
             self.smiley_button.set_sensitive(False)
             self.send_button.set_sensitive(False)
+
+    def _clear_icon_cb(self, entry, icon_pos, event):
+        self._entry.set_text("")
 
     def _get_icon_pixbuf(self, name):
         icon_theme = Gtk.IconTheme.get_default()
