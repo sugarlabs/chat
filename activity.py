@@ -391,6 +391,10 @@ class Chat(activity.Activity):
         self.send_button.set_sensitive(True)
         self._entry.props.placeholder_text = None
         self._entry.grab_focus()
+        self._entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-cancel-black")
+        self._entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, 'clear input')
+        self._entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, True)
+        self._entry.connect('icon-press', self._clear_icon_cb)
 
     def _joined_cb(self, sender):
         '''Joined a shared activity.'''
@@ -560,6 +564,9 @@ class Chat(activity.Activity):
             self._entry.set_sensitive(False)
             self.smiley_button.set_sensitive(False)
             self.send_button.set_sensitive(False)
+
+    def _clear_icon_cb(self, entry, icon_pos, event):
+        self._entry.set_text("")
 
     def _get_icon_pixbuf(self, name):
         icon_theme = Gtk.IconTheme.get_default()
