@@ -59,11 +59,21 @@ from sugar3.graphics import iconentry
 from chat import smilies
 from chat.box import ChatBox
 
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
 logger = logging.getLogger('chat-activity')
 
 
 Gst.init([])
 
+class Buddy:
+    def __init__(self, nick, color):
+        self.props = self.Props(nick, color)
+
+    class Props:
+        def __init__(self, nick, color):
+            self.nick = nick
+            self.color = color
 
 # pylint: disable-msg=W0223
 class Chat(activity.Activity):
@@ -647,9 +657,41 @@ class Chat(activity.Activity):
             if self.text_channel:
                 logger.debug('sending to text_channel: %s' % (text))
                 self.text_channel.send(text)
+                if '@bot' in text:
+                    self._check_for_bot_mention(text)
             else:
                 logger.debug('Tried to send message but text channel '
                              'not connected.')
+                
+    def _check_for_bot_mention(self, text):
+        logger.debug('Mention of bot detected: %s' % text)
+        buddy = Buddy(nick='Chatbot', color='#123456,#654321')
+        self.chatbox.add_text(buddy, 'Received')
+
+        # for model inference
+        # response = self._generate_bot_response(text)
+        # print("Response:", response)
+        # self.chatbox.add_text(buddy, response)
+
+
+    def _generate_bot_response(self, question):
+        tokenizer = GPT2Tokenizer.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel.from_pretrained("distilgpt2")
+
+        prompt = '''
+        Your task is to answer children's questions using simple language.
+        Explain any difficult words in a way a 3-year-old can understand.
+        Keep responses under 60 words.
+        \n\nQuestion:
+        '''
+
+        input_text = prompt + question
+
+        inputs = tokenizer.encode(input_text, return_tensors='pt')
+        outputs = model.generate(inputs, max_length=150, num_return_sequences=1)
+        answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+        return answer
 
     def write_file(self, file_path):
         '''Store chat log in Journal.
