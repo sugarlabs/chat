@@ -66,7 +66,7 @@ logger = logging.getLogger('chat-activity')
 
 Gst.init([])
 
-class Buddy:
+class BotBuddy:
     def __init__(self, nick, color):
         self.props = self.Props(nick, color)
 
@@ -665,7 +665,7 @@ class Chat(activity.Activity):
                 
     def _check_for_bot_mention(self, text):
         logger.debug('Mention of bot detected: %s' % text)
-        buddy = Buddy(nick='Chatbot', color='#123456,#654321')
+        buddy = BotBuddy(nick='Chatbot', color='#123456,#654321')
         self.chatbox.add_text(buddy, 'Received')
 
         # for model inference
