@@ -566,7 +566,7 @@ class Chat(activity.Activity):
                                 style.COLOR_WHITE.get_gdk_color())
 
         self._entry.props.placeholder_text = \
-            _('You must be connected to a friend before starting to chat.')
+            _('You must be connected to a friend before starting to chat or click the bot icon to talk with chatbot.')
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)
         self._entry.connect('activate', self._entry_activate_cb)
@@ -579,10 +579,10 @@ class Chat(activity.Activity):
         self.send_button.connect('button-press-event', self._send_button_cb)
         self._entry_grid.attach(self.send_button, 3, 0, 1, 1)
         self.send_button.show()
+        self.bot_button.set_sensitive(True)
 
         if not self.get_shared():
             self._entry.set_sensitive(False)
-            self.bot_button.set_sensitive(False)
             self.smiley_button.set_sensitive(False)
             self.send_button.set_sensitive(False)
 
@@ -628,6 +628,11 @@ class Chat(activity.Activity):
 
     def _bot_button_cb(self, widget, event):
         """Callback function for the chatbot button. Toggle '@bot ' at the start of the entry."""
+        if not self.get_shared():
+            self._entry.set_sensitive(True)
+            self.smiley_button.set_sensitive(True)
+            self.send_button.set_sensitive(True)
+
         current_text = self._entry.get_text()
         bot_prefix = "@bot "
         
@@ -654,11 +659,11 @@ class Chat(activity.Activity):
             logger.debug('Adding text to chatbox: %s: %s' % (self.owner, text))
             self.chatbox.add_text(self.owner, text)
             entry.props.text = ''
+            if '@bot' in text:
+                self._check_for_bot_mention(text)
             if self.text_channel:
                 logger.debug('sending to text_channel: %s' % (text))
                 self.text_channel.send(text)
-                if '@bot' in text:
-                    self._check_for_bot_mention(text)
             else:
                 logger.debug('Tried to send message but text channel '
                              'not connected.')
