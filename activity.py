@@ -628,6 +628,7 @@ class Chat(activity.Activity):
 
     def _bot_button_cb(self, widget, event):
         """Callback function for the chatbot button. Toggle '@bot ' at the start of the entry."""
+        
         if not self.get_shared():
             self._entry.set_sensitive(True)
             self.smiley_button.set_sensitive(True)
