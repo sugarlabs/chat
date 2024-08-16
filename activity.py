@@ -565,8 +565,10 @@ class Chat(activity.Activity):
         self._entry.modify_base(Gtk.StateType.INSENSITIVE,
                                 style.COLOR_WHITE.get_gdk_color())
 
-        self._entry.props.placeholder_text = \
-            _('You must be connected to a friend before starting to chat or click the bot icon to talk with chatbot.')
+        self._entry.props.placeholder_text = _(
+            'You must be connected to a friend before starting to chat '
+            'or click the bot icon to talk with chatbot.'
+        )
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)
         self._entry.connect('activate', self._entry_activate_cb)
