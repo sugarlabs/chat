@@ -8,394 +8,397 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-16 18:38+1000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-03-30 03:53+0000\n"
+"Last-Translator: NF <rkavt@smartprojects.ge>\n"
+"Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
+"sugar-activities/chat/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: activity/activity.info:2
 msgid "Chat"
-msgstr ""
+msgstr "ჩატი"
 
 #: activity/activity.info:3
 msgid "Text chat"
-msgstr ""
+msgstr "ტექსტური ჩატი"
 
 #: activity.py:124
 msgid "Previous"
-msgstr ""
+msgstr "წინა"
 
 #: activity.py:131
 msgid "Next"
-msgstr ""
+msgstr "შემდეგი"
 
 #: activity.py:154 activity.py:172 activity.py:399
 msgid "Off-line"
-msgstr ""
+msgstr "გათიშული"
 
 #: activity.py:154
 msgid "Joining the Chat."
-msgstr ""
+msgstr "ჯგუფურ ჩატში შესვლა."
 
 #: activity.py:156 activity.py:176
 msgid "Please wait for a connection before starting to chat."
-msgstr ""
+msgstr "ჩატის დაწყებამდე დაელოდეთ მიერთებას."
 
 #: activity.py:172
 msgid "Share, or invite someone."
-msgstr ""
+msgstr "გააზიარეთ, ან მოიწვიეთ ვინმე."
 
 #: activity.py:390 activity.py:406
 msgid "On-line"
-msgstr ""
+msgstr "ხაზზე"
 
 #: activity.py:390
 msgid "Private chat."
-msgstr ""
+msgstr "პირადი ჩატი."
 
 #: activity.py:399
 msgid "Left the chat."
-msgstr ""
+msgstr "გავიდა ჩატიდან."
 
 #: activity.py:406
 msgid "Connected."
-msgstr ""
+msgstr "დაკავშირებულია."
 
 #: activity.py:444
 #, python-format
 msgid "Message from %s"
-msgstr ""
+msgstr "შეტყობინება %s -გან"
 
 #: activity.py:471
 msgid "URL from Chat"
-msgstr ""
+msgstr "URL ჩატიდან"
 
 #: activity.py:493
 #, python-format
 msgid "%s joined the chat"
-msgstr ""
+msgstr "%s შეუერთდა ჩატს"
 
 #: activity.py:503
 #, python-format
 msgid "%s left the chat"
-msgstr ""
+msgstr "%s გავიდა ჩატიდან"
 
 #: activity.py:513
 #, python-format
 msgid "%s is here"
-msgstr ""
+msgstr "%s აქაა"
 
 #: activity.py:568
 msgid "You must be connected to a friend before starting to chat."
-msgstr ""
+msgstr "ჩატის დასაწყებად მეგობართან მიერთებული უნდა ბრძანდებოდეთ."
 
 #: activity.py:899
 msgid "Insert a smiley"
-msgstr ""
+msgstr "სმაილის ჩასმა"
 
 #: activity.py:905
 msgid "Cancel"
-msgstr ""
+msgstr "გაუქმება"
 
 #: chat/box.py:859
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "ბუფერში კოპირება"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-) and :)
 #: chat/smilies.py:30
 msgid "Smile"
-msgstr ""
+msgstr "ღიმილი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are ;-) and ;)
 #: chat/smilies.py:33
 msgid "Winking"
-msgstr ""
+msgstr "თვალის პაჭუნი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-/ and :/
 #: chat/smilies.py:36
 msgid "Confused"
-msgstr ""
+msgstr "დაბნეული"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-( and :(
 #: chat/smilies.py:39
 msgid "Sad"
-msgstr ""
+msgstr "მოწყენილი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-D and :D
 #: chat/smilies.py:42
 msgid "Grin"
-msgstr ""
+msgstr "ჩაცინება"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-| and :|
 #: chat/smilies.py:45
 msgid "Neutral"
-msgstr ""
+msgstr "ნეიტრალური"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-O, :O, =-O and =O
 #: chat/smilies.py:48
 msgid "Shock"
-msgstr ""
+msgstr "შოკი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are B-), B), 8-) and 8)
 #: chat/smilies.py:51
 msgid "Cool"
-msgstr ""
+msgstr "გრილი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-P and :P
 #: chat/smilies.py:54
 msgid "Tongue"
-msgstr ""
+msgstr "ენის გამოყოფა"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :">
 #: chat/smilies.py:57
 msgid "Blushing"
-msgstr ""
+msgstr "გაწითლება"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :'-( and :'(
 #: chat/smilies.py:60
 msgid "Weeping"
-msgstr ""
+msgstr "ტირილი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are O-), O), O:-) and O:)
 #: chat/smilies.py:63
 msgid "Angel"
-msgstr ""
+msgstr "ანგელოზი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-$ and :-$
 #: chat/smilies.py:66
 msgid "Don't tell anyone"
-msgstr ""
+msgstr "არავის უთხრა"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are x-(, x(, X-( and x-(
 #: chat/smilies.py:69
 msgid "Angry"
-msgstr ""
+msgstr "გაბრაზებული"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are >:> and >:)
 #: chat/smilies.py:72
 msgid "Devil"
-msgstr ""
+msgstr "ეშმაკი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-B, :B
 #: chat/smilies.py:75
 msgid "Nerd"
-msgstr ""
+msgstr "უგერგილო"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-*, :*
 #: chat/smilies.py:78
 msgid "Kiss"
-msgstr ""
+msgstr "კოცნა"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :))
 #: chat/smilies.py:81
 msgid "Laughing"
-msgstr ""
+msgstr "სიცილი"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are I-)
 #: chat/smilies.py:84
 msgid "Sleepy"
-msgstr ""
+msgstr "მძინარა"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are :-&
 #: chat/smilies.py:87
 msgid "Sick"
-msgstr ""
+msgstr "ავადაა"
 
 #. TRANS: A smiley (http://en.wikipedia.org/wiki/Smiley) explanation
 #. TRANS: ASCII-art equivalents are /:)
 #: chat/smilies.py:90
 msgid "Raised eyebrows"
-msgstr ""
+msgstr "წარბებაწეული"
 
 #: chat/smilies.py:91
 msgid "Heart"
-msgstr ""
+msgstr "გული"
 
 #: chat/smilies.py:92
 msgid "Airplane"
-msgstr ""
+msgstr "თვითმფრინავი"
 
 #: chat/smilies.py:93
 msgid "Music"
-msgstr ""
+msgstr "მუსიკა"
 
 #: chat/smilies.py:94
 msgid "Check box"
-msgstr ""
+msgstr "ჩასართავი"
 
 #: chat/smilies.py:95
 msgid "Spade"
-msgstr ""
+msgstr "პიკები"
 
 #: chat/smilies.py:96
 msgid "Telephone"
-msgstr ""
+msgstr "ტელეფონი"
 
 #: chat/smilies.py:97
 msgid "X box"
-msgstr ""
+msgstr "X box"
 
 #: chat/smilies.py:98
 msgid "Cadusis"
-msgstr ""
+msgstr "კადუსი"
 
 #: chat/smilies.py:99
 msgid "Female"
-msgstr ""
+msgstr "მდედრობითი"
 
 #: chat/smilies.py:100 chat/smilies.py:105
 msgid "Star"
-msgstr ""
+msgstr "ვარსკვლავი"
 
 #: chat/smilies.py:101
 msgid "Letter"
-msgstr ""
+msgstr "წერილი"
 
 #: chat/smilies.py:102
 msgid "Poison"
-msgstr ""
+msgstr "საწამლავი"
 
 #: chat/smilies.py:103
 msgid "Check mark"
-msgstr ""
+msgstr "თოლია"
 
 #: chat/smilies.py:104
 msgid "Male"
-msgstr ""
+msgstr "მამრობითი"
 
 #: chat/smilies.py:106
 msgid "Shamrock"
-msgstr ""
+msgstr "სამყურა"
 
 #: chat/smilies.py:107
 msgid "Recycle"
-msgstr ""
+msgstr "გადადება"
 
 #: chat/smilies.py:108
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: chat/smilies.py:109
 msgid "Fire"
-msgstr ""
+msgstr "ცეცხლი"
 
 #: chat/smilies.py:110
 msgid "Leaf"
-msgstr ""
+msgstr "ფოთოლი"
 
 #: chat/smilies.py:111
 msgid "Cloud"
-msgstr ""
+msgstr "ღრუბელი"
 
 #: chat/smilies.py:112
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: chat/smilies.py:113
 msgid "Crown"
-msgstr ""
+msgstr "გვირგვინი"
 
 #: chat/smilies.py:114 chat/smilies.py:118 chat/smilies.py:122
 #: chat/smilies.py:126 chat/smilies.py:130 chat/smilies.py:133
 #: chat/smilies.py:136
 msgid "Floret"
-msgstr ""
+msgstr "პატარა ყვავილი"
 
 #: chat/smilies.py:115
 msgid "Star and crescent"
-msgstr ""
+msgstr "ვარსკვლავი და ნახევარმთვარე"
 
 #: chat/smilies.py:116
 msgid "Umbrella"
-msgstr ""
+msgstr "ქოლგა"
 
 #: chat/smilies.py:117
 msgid "Pencil"
-msgstr ""
+msgstr "ფანქარი"
 
 #: chat/smilies.py:119
 msgid "Snowman"
-msgstr ""
+msgstr "თოვლის კაცი"
 
 #: chat/smilies.py:120
 msgid "Point right"
-msgstr ""
+msgstr "წერტილი მარჯვნივ"
 
 #: chat/smilies.py:121
 msgid "Horse"
-msgstr ""
+msgstr "ცხენი"
 
 #: chat/smilies.py:123
 msgid "Peace sign"
-msgstr ""
+msgstr "მშვიდობის ნიშანი"
 
 #: chat/smilies.py:124
 msgid "Sun"
-msgstr ""
+msgstr "მზე"
 
 #: chat/smilies.py:125
 msgid "Point left"
-msgstr ""
+msgstr "წერტილი მარცხნივ"
 
 #: chat/smilies.py:127
 msgid "Yin yang"
-msgstr ""
+msgstr "იინ იანი"
 
 #: chat/smilies.py:128
 msgid "Moon"
-msgstr ""
+msgstr "მთვარის"
 
 #: chat/smilies.py:129
 msgid "Point up"
-msgstr ""
+msgstr "მაღლა ჩვენება"
 
 #: chat/smilies.py:131
 msgid "Meteor"
-msgstr ""
+msgstr "მეტეორი"
 
 #: chat/smilies.py:132
 msgid "Point down"
-msgstr ""
+msgstr "დაბლა ჩვენება"
 
 #: chat/smilies.py:134
 msgid "Scissors"
-msgstr ""
+msgstr "მაკრატლები"
 
 #: chat/smilies.py:135
 msgid "Pen"
-msgstr ""
+msgstr "კალამი"
 
 #: chat/smilies.py:137
 msgid "Stars"
-msgstr ""
+msgstr "ვარსკვლავები"
 
 #: chat/smilies.py:138
 msgid "Place"
-msgstr ""
+msgstr "ადგილი"
 
 #: chat/smilies.py:139
 msgid "High voltage"
-msgstr ""
+msgstr "მაღალი ძაბვა"
