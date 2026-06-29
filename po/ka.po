@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-16 18:38+1000\n"
-"PO-Revision-Date: 2025-03-30 03:53+0000\n"
+"PO-Revision-Date: 2026-06-29 08:07+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/chat/ka/>\n"
@@ -369,7 +369,7 @@ msgstr "იინ იანი"
 
 #: chat/smilies.py:128
 msgid "Moon"
-msgstr "მთვარის"
+msgstr "მთვარე"
 
 #: chat/smilies.py:129
 msgid "Point up"
