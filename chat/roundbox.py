@@ -17,39 +17,94 @@
 import math
 
 from gi.repository import Gtk
+from gi.repository import Graphene
+from gi.repository import Gsk
 
-from sugar3.graphics import style
+from sugar4.graphics import style
 
 _BORDER_DEFAULT = style.LINE_WIDTH
 
+_SHARED_PROVIDER = None
 
-class RoundBox(Gtk.HBox):
+
+class RoundBox(Gtk.Box):
     __gtype_name__ = 'RoundBox'
 
     def __init__(self, **kwargs):
-        Gtk.HBox.__init__(self, **kwargs)
+        kwargs.setdefault('orientation', Gtk.Orientation.HORIZONTAL)
+        Gtk.Box.__init__(self, **kwargs)
+        
+        self.add_css_class('roundbox')
+        self.connect('realize', self._on_realize)
+        
         self._radius = style.zoom(15)
-        self.border_color = style.COLOR_BLACK
-        self.tail = None
-        self.background_color = None
-        self.set_resize_mode(Gtk.ResizeMode.PARENT)
-        self.set_reallocate_redraws(True)
-        self.connect('draw', self.__draw_cb)
-        self.connect('add', self.__add_cb)
+        self._border_color = style.COLOR_BLACK
+        self._tail = None
+        self._background_color = None
 
-    def __add_cb(self, child, params):
-        child.set_border_width(style.zoom(5))
+    def _on_realize(self, widget):
+        widget.disconnect_by_func(self._on_realize)
+        
+        global _SHARED_PROVIDER
+        if _SHARED_PROVIDER is None:
+            _SHARED_PROVIDER = Gtk.CssProvider()
+            _SHARED_PROVIDER.load_from_string('.roundbox { background: none; border: none; }')
+            Gtk.StyleContext.add_provider_for_display(
+                self.get_display(),
+                _SHARED_PROVIDER,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
 
-    def __draw_cb(self, widget, cr):
-        rect = self.get_allocation()
+    @property
+    def border_color(self): return self._border_color
+    @border_color.setter
+    def border_color(self, v): self._border_color = v; self.queue_draw()
+
+    @property
+    def background_color(self): return self._background_color
+    @background_color.setter
+    def background_color(self, v): self._background_color = v; self.queue_draw()
+
+    @property
+    def tail(self): return self._tail
+    @tail.setter
+    def tail(self, v): self._tail = v; self.queue_draw()
+
+    def append(self, child):
+        # Replicate GTK3 __add_cb border padding
+        padding = style.zoom(5)
+        child.set_margin_start(child.get_margin_start() + padding)
+        child.set_margin_end(child.get_margin_end() + padding)
+        child.set_margin_top(child.get_margin_top() + padding)
+        child.set_margin_bottom(child.get_margin_bottom() + padding)
+        super().append(child)
+
+    def pack_start(self, child, expand, fill, padding):
+        '''GTK3 compat wrapper — just delegates to append.'''
+        self.append(child)
+
+    def add(self, child):
+        '''GTK3 compat wrapper — just delegates to append.'''
+        self.append(child)
+
+    def do_snapshot(self, snapshot):
+        w = self.get_width()
+        h = self.get_height()
+        if w <= 0 or h <= 0:
+            return
+            
+        rect = Graphene.Rect()
+        rect.init(0, 0, w, h)
+        cr = snapshot.append_cairo(rect)
+
         hmargin = style.zoom(15)
         x = hmargin
         y = 0
-        width = rect.width - _BORDER_DEFAULT * 2. - hmargin * 2
+        width = w - _BORDER_DEFAULT * 2. - hmargin * 2
         if self.tail is None:
-            height = rect.height - _BORDER_DEFAULT * 2.
+            height = h - _BORDER_DEFAULT * 2.
         else:
-            height = rect.height - _BORDER_DEFAULT * 2. - self._radius
+            height = h - _BORDER_DEFAULT * 2. - self._radius
 
         cr.move_to(x + self._radius, y)
         cr.arc(x + width - self._radius, y + self._radius,
@@ -81,44 +136,16 @@ class RoundBox(Gtk.HBox):
                math.pi, math.pi * 1.5)
         cr.close_path()
 
-        if self.background_color is not None:
-            r, g, b, __ = self.background_color.get_rgba()
-            cr.set_source_rgb(r, g, b)
+        if self._background_color is not None:
+            r, g, b, a = self._background_color.get_rgba()
+            cr.set_source_rgba(r, g, b, a)
             cr.fill_preserve()
 
-        if self.border_color is not None:
-            r, g, b, __ = self.border_color.get_rgba()
-            cr.set_source_rgb(r, g, b)
+        if self._border_color is not None:
+            r, g, b, a = self._border_color.get_rgba()
+            cr.set_source_rgba(r, g, b, a)
             cr.set_line_width(_BORDER_DEFAULT)
             cr.stroke()
-        return False
 
-
-if __name__ == '__main__':
-
-    win = Gtk.Window()
-    win.connect('destroy', Gtk.main_quit)
-    win.set_default_size(450, 450)
-    vbox = Gtk.VBox()
-
-    box1 = RoundBox()
-    box1.tail = 'right'
-    vbox.add(box1)
-    label1 = Gtk.Label("Test 1")
-    box1.add(label1)
-
-    rbox = RoundBox()
-    rbox.tail = 'left'
-    rbox.background_color = style.Color('#FF0000')
-    vbox.add(rbox)
-    label2 = Gtk.Label("Test 2")
-    rbox.add(label2)
-
-    bbox = RoundBox()
-    bbox.background_color = style.Color('#aaff33')
-    bbox.border_color = style.Color('#ff3300')
-    vbox.add(bbox)
-
-    win.add(vbox)
-    win.show_all()
-    Gtk.main()
+        # Render children on top of the background
+        Gtk.Box.do_snapshot(self, snapshot)

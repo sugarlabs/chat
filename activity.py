@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import gi
-gi.require_version('Gtk', '3.0')
+gi.require_version('Gtk', '4.0')
 gi.require_version('TelepathyGLib', '0.12')
 
 from gi.repository import Gtk
@@ -32,29 +32,45 @@ from gi.repository import Gst
 
 OSK_HEIGHT = [400, 300]
 SLASH = '-x-SLASH-x-'  # slash safe encoding
-
 import logging
 import json
 import os
 import time
 import dbus
+import re
 from gettext import gettext as _
 
-from sugar3.graphics import style
-from sugar3.graphics.icon import EventIcon, Icon
-from sugar3.graphics.alert import NotifyAlert
-from sugar3.graphics.toolbarbox import ToolbarBox
-from sugar3.graphics.toolbutton import ToolButton
-from sugar3.activity import activity
-from sugar3.activity.activity import get_bundle_path
-from sugar3.presence import presenceservice
-from sugar3.activity.widgets import ActivityToolbarButton
-from sugar3.activity.widgets import StopButton
-from sugar3.activity.activity import get_activity_root
-from sugar3.activity.activity import show_object_in_journal
-from sugar3.datastore import datastore
-from sugar3 import profile
-from sugar3.graphics import iconentry
+def _get_screen_width():
+    display = Gdk.Display.get_default()
+    if display:
+        monitors = display.get_monitors()
+        if monitors and monitors.get_n_items() > 0:
+            return monitors.get_item(0).get_geometry().width
+    return 1200
+
+def _get_screen_height():
+    display = Gdk.Display.get_default()
+    if display:
+        monitors = display.get_monitors()
+        if monitors and monitors.get_n_items() > 0:
+            return monitors.get_item(0).get_geometry().height
+    return 900
+
+from sugar4.graphics import style
+from sugar4.graphics.icon import EventIcon, Icon
+from sugar4.graphics.alert import NotifyAlert
+from sugar4.graphics.toolbarbox import ToolbarBox
+from sugar4.graphics.toolbutton import ToolButton
+from sugar4.activity import activity
+from sugar4.activity.activity import get_bundle_path
+from sugar4.presence import presenceservice
+from sugar4.activity.widgets import ActivityToolbarButton
+from sugar4.activity.widgets import StopButton
+from sugar4.activity.activity import get_activity_root
+from sugar4.activity.activity import show_object_in_journal
+from sugar4.datastore import datastore
+from sugar4 import profile
+from sugar4.graphics import iconentry
 
 from chat import smilies
 from chat.box import ChatBox
@@ -92,44 +108,45 @@ class Chat(activity.Activity):
         self._activity_toolbar_button = ActivityToolbarButton(self)
         self._activity_toolbar_button.connect('clicked', self._fixed_resize_cb)
 
-        toolbar_box.toolbar.insert(self._activity_toolbar_button, 0)
+        toolbar_box.toolbar.prepend(self._activity_toolbar_button)
         self._activity_toolbar_button.show()
 
         self.search_entry = iconentry.IconEntry()
-        self.search_entry.set_size_request(Gdk.Screen.width() / 3, -1)
+        self.search_entry.set_size_request(int(_get_screen_width() / 3), -1)
         self.search_entry.set_icon_from_name(
             iconentry.ICON_ENTRY_PRIMARY, 'entry-search')
         self.search_entry.add_clear_button()
         self.search_entry.connect('activate', self._search_entry_activate_cb)
         self.search_entry.connect('changed', self._search_entry_activate_cb)
 
-        self.connect('key-press-event', self._search_entry_key_press_cb)
+        self.key_ctrl = Gtk.EventControllerKey.new()
+        self.key_ctrl.connect("key-pressed", self._window_key_press_cb)
+        self.add_controller(self.key_ctrl)
 
-        self._search_item = Gtk.ToolItem()
-        self._search_item.add(self.search_entry)
-        toolbar_box.toolbar.insert(self._search_item, -1)
+        self._search_item = Gtk.Box()
+        self._search_item.append(self.search_entry)
+        toolbar_box.toolbar.append(self._search_item)
 
         self._search_prev = ToolButton('go-previous-paired')
         self._search_prev.set_tooltip(_('Previous'))
         self._search_prev.props.accelerator = "<Shift><Ctrl>g"
         self._search_prev.connect('clicked', self._search_prev_cb)
         self._search_prev.props.sensitive = False
-        toolbar_box.toolbar.insert(self._search_prev, -1)
+        toolbar_box.toolbar.append(self._search_prev)
 
         self._search_next = ToolButton('go-next-paired')
         self._search_next.set_tooltip(_('Next'))
         self._search_next.props.accelerator = "<Ctrl>g"
         self._search_next.connect('clicked', self._search_next_cb)
         self._search_next.props.sensitive = False
-        toolbar_box.toolbar.insert(self._search_next, -1)
+        toolbar_box.toolbar.append(self._search_next)
 
-        separator = Gtk.SeparatorToolItem()
-        separator.props.draw = False
-        separator.set_expand(True)
-        toolbar_box.toolbar.insert(separator, -1)
+        separator = Gtk.Box()
+        separator.set_hexpand(True)
+        toolbar_box.toolbar.append(separator)
 
-        toolbar_box.toolbar.insert(StopButton(self), -1)
-        toolbar_box.show_all()
+        toolbar_box.toolbar.append(StopButton(self))
+        toolbar_box.show()
 
         # Chat is room or one to one:
         self._chat_is_room = False
@@ -147,7 +164,7 @@ class Chat(activity.Activity):
                 # we have already joined
                 self._joined_cb(self)
         elif handle.uri:
-            # XMPP non-sugar3 incoming chat, not sharable
+            # XMPP non-sugar4 incoming chat, not sharable
             self._activity_toolbar_button.props.page.share.props.visible = \
                 False
             self._one_to_one_connection(handle.uri)
@@ -164,14 +181,21 @@ class Chat(activity.Activity):
                     _('Please wait for a connection before starting to chat.')
             self.connect('shared', self._shared_cb)
 
-    def _search_entry_key_press_cb(self, activity, event):
-        keyname = Gdk.keyval_name(event.keyval).lower()
+    def _window_key_press_cb(self, controller, keyval, keycode, state):
+        keyname = Gdk.keyval_name(keyval).lower()
         if keyname == 'f':
-            if Gdk.ModifierType.CONTROL_MASK & event.state:
+            if Gdk.ModifierType.CONTROL_MASK & state:
                 self.search_entry.grab_focus()
+                return True
         elif keyname == 'escape':
+            if hasattr(self, '_main_stack') and \
+                    self._main_stack.get_visible_child_name() == "smiley_window":
+                self._hide_smiley_window()
+                return True
             self.search_entry.props.text = ''
             self._entry.grab_focus()
+            return True
+        return False
 
     def _search_entry_on_new_message_cb(self, chatbox):
         self._search_entry_activate_cb(self.search_entry)
@@ -190,7 +214,7 @@ class Chat(activity.Activity):
         self.chatbox.set_search_text(entry.props.text)
         self._update_search_buttons()
 
-    def _update_search_buttons(self,):
+    def _update_search_buttons(self):
         if len(self.chatbox.search_text) == 0:
             self._search_prev.props.sensitive = False
             self._search_next.props.sensitive = False
@@ -211,83 +235,102 @@ class Chat(activity.Activity):
             self.chatbox.search('forward')
             self._update_search_buttons()
 
+    def _setup_canvas(self):
+        ''' Create a canvas '''
+        
+        # Setup application CSS once
+        css_provider = Gtk.CssProvider()
+        bg_black = style.COLOR_BLACK.get_html()
+        bg_grey = style.COLOR_TOOLBAR_GREY.get_html()
+        fg_white = style.COLOR_WHITE.get_html()
+        css = (f".smiley-table-black {{ background-color: {bg_black}; }}\n"
+               f".smiley-toolbar-grey {{ background-color: {bg_grey}; color: {fg_white}; }}")
+        css_provider.load_from_data(css.encode('utf-8'))
+        display = Gdk.Display.get_default()
+        if hasattr(Gtk, 'display_add_provider'):
+            Gtk.display_add_provider(display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        else:
+            Gtk.StyleContext.add_provider_for_display(
+                display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        self._vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.set_canvas(self._vbox)
+        self._vbox.show()
+
+        self._make_entry_widgets()
+
+        self.chatbox.set_vexpand(True)
+        self.chatbox.set_hexpand(True)
+
+        # Create a Gtk.Stack to swap between chatbox and smiley window
+        self._main_stack = Gtk.Stack()
+        self._main_stack.set_vexpand(True)
+        self._main_stack.set_hexpand(True)
+        self._main_stack.add_named(self.chatbox, "chatbox")
+        
+        self._vbox.append(self._main_stack)
+        self.chatbox.show()
+        self._main_stack.show()
+
+        self._vbox.append(self._entry_grid)
+        self._entry_grid.show()
+
+        display = Gdk.Display.get_default()
+        if display:
+            display.get_monitors().connect('items-changed', self._configure_cb)
+        self.connect('notify::default-width', self._configure_cb)
+
+    def _configure_cb(self, *args):
+        # *args silently absorbs the (model, position, removed, added) from items-changed
+        self._entry_height = style.GRID_CELL_SIZE
+        entry_width = int(_get_screen_width() - 2 * (self._entry_height + style.GRID_CELL_SIZE))
+        self._entry.set_size_request(entry_width, self._entry_height)
+        self._entry_grid.set_size_request(int(_get_screen_width() - 2 * style.GRID_CELL_SIZE), self._entry_height)
+
+        self._chat_width = int(_get_screen_width())
+        self._chat_height = int(_get_screen_height() - (self._entry_height + 2 * style.GRID_CELL_SIZE))
+
+        self.chatbox.resize_all()
+
+        self._fixed_resize_cb()
+
     def _fixed_resize_cb(self, widget=None, rect=None):
         ''' If a toolbar opens or closes, we need to resize the vbox
-        holding out scrolling window. '''
+        holding our scrolling window. '''
         if self._has_alert:
             dy = style.GRID_CELL_SIZE
         else:
             dy = 0
 
         if self._toolbar_expanded():
-            self.chatbox.set_size_request(
-                self._chat_width,
-                self._chat_height - style.GRID_CELL_SIZE - dy)
-            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
-                             self._chat_height - style.GRID_CELL_SIZE - dy)
-        else:
-            self.chatbox.set_size_request(self._chat_width,
-                                          self._chat_height - dy)
-            self._fixed.move(self._entry_grid, style.GRID_CELL_SIZE,
-                             self._chat_height - dy)
+            dy += style.GRID_CELL_SIZE
+
+        if hasattr(self, '_chat_width') and hasattr(self, '_chat_height'):
+            self.chatbox.set_size_request(self._chat_width, self._chat_height - dy)
 
         self.chatbox.resize_conversation(dy)
 
-    def _setup_canvas(self):
-        ''' Create a canvas '''
-        self._fixed = Gtk.Fixed()
-        self._fixed.set_size_request(
-            Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
-        self._fixed.connect('size-allocate', self._fixed_resize_cb)
-        self.set_canvas(self._fixed)
-        self._fixed.show()
-
-        self._entry_widgets = self._make_entry_widgets()
-        self._fixed.put(self.chatbox, 0, 0)
-        self.chatbox.show()
-
-        self._fixed.put(self._entry_grid, style.GRID_CELL_SIZE,
-                        self._chat_height)
-        self._entry_grid.show()
-
-        Gdk.Screen.get_default().connect('size-changed', self._configure_cb)
-
-    def _configure_cb(self, event):
-        self._fixed.set_size_request(
-            Gdk.Screen.width(), Gdk.Screen.height() - style.GRID_CELL_SIZE)
-        self._entry_height = style.GRID_CELL_SIZE
-        entry_width = Gdk.Screen.width() - \
-            2 * (self._entry_height + style.GRID_CELL_SIZE)
-        self._entry.set_size_request(entry_width, self._entry_height)
-        self._entry_grid.set_size_request(
-            Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
-            self._entry_height)
-
-        self._chat_height = Gdk.Screen.height() - self._entry_height - \
-            style.GRID_CELL_SIZE
-        self._chat_width = Gdk.Screen.width()
-        self.chatbox.set_size_request(self._chat_width, self._chat_height)
-        self.chatbox.resize_all()
-
-        width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
-        height = int(Gdk.Screen.height() - 5 * style.GRID_CELL_SIZE)
-        self._smiley_table.set_size_request(width, height)
-        self._smiley_toolbar.set_size_request(width, -1)
-        self._smiley_window.set_size_request(width, -1)
-
-        self._fixed_resize_cb()
+    def _toolbar_expanded(self):
+        if hasattr(self, '_activity_toolbar_button') and self._activity_toolbar_button.is_expanded():
+            return True
+        return False
 
     def _create_smiley_table(self, width):
-        pixel_size = (style.STANDARD_ICON_SIZE + style.LARGE_ICON_SIZE) / 2
+        # Calculate the exact size so the emojis scale correctly with the Sugar theme
+        pixel_size = int((style.STANDARD_ICON_SIZE + style.LARGE_ICON_SIZE) / 2)
         spacing = style.DEFAULT_SPACING
         button_size = pixel_size + spacing
-        smilies_columns = int(width / button_size)
-        pad = (width - smilies_columns * button_size) / 2
+        smilies_columns = max(1, int(width / button_size))
 
         table = Gtk.Grid()
         table.set_row_spacing(spacing)
         table.set_column_spacing(spacing)
-        table.set_border_width(pad)
+        
+        # Center the grid block so columns don't stretch and create huge gaps!
+        table.set_halign(Gtk.Align.CENTER)
+        
+        table.set_margin_top(spacing)
+        table.set_margin_bottom(spacing)
 
         queue = []
 
@@ -297,15 +340,55 @@ class Chat(activity.Activity):
             except IndexError:
                 self.unbusy()
                 return False
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(path,
-                                                            pixel_size,
-                                                            pixel_size)
-            image = Gtk.Image.new_from_pixbuf(pixbuf)
-            box = Gtk.EventBox()
-            box.add(image)
-            box.connect('button-press-event', self._add_smiley_to_entry, code)
+
+            # Load at double resolution (128x128) to ensure sharpness on high-DPI screens.
+            # CRITICAL: Older SVGs lack a viewBox, causing modern librsvg to refuse to scale them.
+            # We must dynamically inject a viewBox based on the width/height to force scaling!
+            with open(path, 'rb') as f:
+                svg_data = f.read().decode('utf-8', errors='ignore')
+                
+            if 'viewBox' not in svg_data:
+                w_match = re.search(r'(?i)width="([0-9.]+)[a-z]*"', svg_data)
+                h_match = re.search(r'(?i)height="([0-9.]+)[a-z]*"', svg_data)
+                if w_match and h_match:
+                    w = w_match.group(1)
+                    h = h_match.group(1)
+                    svg_data = svg_data.replace('<svg', f'<svg viewBox="0 0 {w} {h}"', 1)
+            
+            loader = GdkPixbuf.PixbufLoader.new_with_type('svg')
+            loader.set_size(pixel_size * 2, pixel_size * 2)
+            loader.write(svg_data.encode('utf-8'))
+            loader.close()
+            pixbuf = loader.get_pixbuf()
+            
+            if hasattr(Gdk, 'MemoryTexture') and hasattr(GLib, 'Bytes'):
+                has_alpha = pixbuf.get_has_alpha()
+                format = Gdk.MemoryFormat.R8G8B8A8 if has_alpha else Gdk.MemoryFormat.R8G8B8
+                bytes_data = GLib.Bytes.new(pixbuf.get_pixels())
+                texture = Gdk.MemoryTexture.new(
+                    pixbuf.get_width(),
+                    pixbuf.get_height(),
+                    format,
+                    bytes_data,
+                    pixbuf.get_rowstride()
+                )
+            else:
+                texture = Gdk.Texture.new_for_pixbuf(pixbuf)
+            del pixbuf # Free pixbuf memory early
+            
+            # Gtk.Picture allows us to display the large texture safely scaled down into logical pixels
+            picture = Gtk.Picture.new_for_paintable(texture)
+            picture.set_size_request(pixel_size, pixel_size)
+            picture.set_can_shrink(True)
+            
+            box = Gtk.Box()
+            box.append(picture)
+            gesture = Gtk.GestureClick.new()
+            # Properly bind box and code to the lambda to avoid closure scope leaks
+            gesture.connect('pressed', lambda g, n, dx, dy, b=box, c=code: self._add_smiley_to_entry(b, c))
+            box.add_controller(gesture)
             table.attach(box, x, y, 1, 1)
-            box.show_all()
+            box.show()
             return True
 
         x = 0
@@ -324,7 +407,44 @@ class Chat(activity.Activity):
         GLib.idle_add(_create_smiley_icon_idle_cb)
         return table
 
-    def _add_smiley_to_entry(self, icon, event, text):
+    def _create_smiley_window(self):
+        self._smiley_window = Gtk.Grid()
+
+        # Indent the entire window to create white margins on the sides
+        margin = style.GRID_CELL_SIZE
+        width = int((_get_screen_width()) - 2 * margin)
+        self._smiley_window.set_margin_start(margin)
+        self._smiley_window.set_margin_end(margin)
+
+        self._smiley_toolbar = SmileyToolbar(self)
+        self._smiley_toolbar.set_hexpand(True)
+        self._smiley_window.attach(self._smiley_toolbar, 0, 0, 1, 1)
+        self._smiley_toolbar.show()
+
+        self._smiley_table = Gtk.ScrolledWindow()
+        self._smiley_table.add_css_class("smiley-table-black")
+        
+        # Force the vertical scrollbar to be permanently visible
+        self._smiley_table.set_policy(Gtk.PolicyType.NEVER,
+                                      Gtk.PolicyType.ALWAYS)
+        
+        # Disable overlay scrolling so the scrollbar is permanently visible
+        self._smiley_table.set_overlay_scrolling(False)
+        
+        self._smiley_table.set_vexpand(True)
+        self._smiley_table.set_hexpand(True)
+
+        table = self._create_smiley_table(width)
+        self._smiley_table.set_child(table)
+        self._smiley_window.attach(self._smiley_table, 0, 1, 1, 1)
+        self._smiley_table.show()
+        table.show()
+
+        self._smiley_window.show()
+        
+        self._main_stack.add_named(self._smiley_window, "smiley_window")
+
+    def _add_smiley_to_entry(self, icon, text):
         pos = self._entry.props.cursor_position
         self._entry.insert_text(text, pos)
         self._entry.grab_focus()
@@ -335,7 +455,7 @@ class Chat(activity.Activity):
         self._setup()
 
     def _one_to_one_connection(self, tp_channel):
-        '''Handle a private invite from a non-sugar3 XMPP client.'''
+        '''Handle a private invite from a non-sugar4 XMPP client.'''
         if self.shared_activity or self.text_channel:
             return
         bus_name, connection, channel = json.loads(tp_channel)
@@ -358,6 +478,7 @@ class Chat(activity.Activity):
         text_channel[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP] = \
             dbus.Interface(
                 text_proxy, TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP)
+
         self.text_channel = TextChannelWrapper(text_channel, conn)
         self.text_channel.set_received_callback(self._received_cb)
         self.text_channel.handle_pending_messages()
@@ -428,10 +549,6 @@ class Chat(activity.Activity):
         if not self.has_focus:
             self.notify_user(_('Message from %s') % buddy, text)
 
-    def _toolbar_expanded(self):
-        if self._activity_toolbar_button.is_expanded():
-            return True
-        return False
 
     def _alert(self, title, text=None):
         alert = NotifyAlert(timeout=5)
@@ -519,44 +636,45 @@ class Chat(activity.Activity):
         ---------------------------------------
         '''
         self._entry_height = style.GRID_CELL_SIZE
-        entry_width = Gdk.Screen.width() - \
-            2 * (self._entry_height + style.GRID_CELL_SIZE)
-        self._chat_height = Gdk.Screen.height() - self._entry_height - \
-            style.GRID_CELL_SIZE
-        self._chat_width = Gdk.Screen.width()
-
-        self.chatbox.set_size_request(self._chat_width, self._chat_height)
+        entry_width = int((_get_screen_width()) - \
+            2 * (self._entry_height + style.GRID_CELL_SIZE))
 
         self._entry_grid = Gtk.Grid()
         self._entry_grid.set_size_request(
-            Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
+            int((_get_screen_width()) - 2 * style.GRID_CELL_SIZE),
             self._entry_height)
 
         self.smiley_button = EventIcon(icon_name='smilies',
                                   pixel_size=self._entry_height)
-        self.smiley_button.connect('button-press-event', self._smiley_button_cb)
+        self.smiley_gesture = Gtk.GestureClick.new()
+        self.smiley_gesture.connect('pressed', lambda g, n, x, y: self._smiley_button_cb(self.smiley_button))
+        self.smiley_button.add_controller(self.smiley_gesture)
         self._entry_grid.attach(self.smiley_button, 0, 0, 1, 1)
         self.smiley_button.show()
 
         self._entry = Gtk.Entry()
         self._entry.set_size_request(entry_width, self._entry_height)
-        self._entry.modify_bg(Gtk.StateType.INSENSITIVE,
-                              style.COLOR_WHITE.get_gdk_color())
-        self._entry.modify_base(Gtk.StateType.INSENSITIVE,
-                                style.COLOR_WHITE.get_gdk_color())
 
         self._entry.props.placeholder_text = \
             _('You must be connected to a friend before starting to chat.')
-        self._entry.connect('focus-in-event', self._entry_focus_in_cb)
-        self._entry.connect('focus-out-event', self._entry_focus_out_cb)
+        self.focus_ctrl = Gtk.EventControllerFocus.new()
+        self.focus_ctrl.connect("enter", lambda c: self._entry_focus_in_cb(self._entry))
+        self.focus_ctrl.connect("leave", lambda c: self._entry_focus_out_cb(self._entry))
+        self._entry.add_controller(self.focus_ctrl)
         self._entry.connect('activate', self._entry_activate_cb)
-        self._entry.connect('key-press-event', self._entry_key_press_cb)
+        
+        self.key_ctrl2 = Gtk.EventControllerKey.new()
+        self.key_ctrl2.connect("key-pressed", self._entry_key_press_cb)
+        self._entry.add_controller(self.key_ctrl2)
+        
         self._entry_grid.attach(self._entry, 1, 0, 1, 1)
         self._entry.show()
 
         self.send_button = EventIcon(icon_name='send',
                                 pixel_size=self._entry_height)
-        self.send_button.connect('button-press-event', self._send_button_cb)
+        self.send_gesture = Gtk.GestureClick.new()
+        self.send_gesture.connect('pressed', lambda g, n, x, y: self._send_button_cb(self.send_button))
+        self.send_button.add_controller(self.send_gesture)
         self._entry_grid.attach(self.send_button, 2, 0, 1, 1)
         self.send_button.show()
 
@@ -565,50 +683,45 @@ class Chat(activity.Activity):
             self.smiley_button.set_sensitive(False)
             self.send_button.set_sensitive(False)
 
-    def _clear_icon_cb(self, entry, icon_pos, event):
+        self._chat_width = int(_get_screen_width())
+        self._chat_height = int(_get_screen_height() - \
+            (self._entry_height + 2 * style.GRID_CELL_SIZE))
+        self.chatbox.set_size_request(self._chat_width, self._chat_height)
+
+    def _clear_icon_cb(self, entry, icon_pos):
         self._entry.set_text("")
 
-    def _get_icon_pixbuf(self, name):
-        icon_theme = Gtk.IconTheme.get_default()
-        icon_info = icon_theme.lookup_icon(
-            name, style.LARGE_ICON_SIZE, 0)
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            icon_info.get_filename(), style.LARGE_ICON_SIZE,
-            style.LARGE_ICON_SIZE)
-        del icon_info
-        return pixbuf
-
-    def _entry_focus_in_cb(self, entry, event):
+    def _entry_focus_in_cb(self, entry):
         self._hide_smiley_window()
 
-    def _entry_focus_out_cb(self, entry, event):
+    def _entry_focus_out_cb(self, entry):
         pass
 
-    def _entry_key_press_cb(self, widget, event):
+    def _entry_key_press_cb(self, controller, keyval, keycode, state):
         '''Check for scrolling keys.
 
         Check if the user pressed Page Up, Page Down, Home or End and
         scroll the window according the pressed key.
         '''
         vadj = self.chatbox.get_vadjustment()
-        if event.keyval == Gdk.KEY_Page_Down:
+        if keyval == Gdk.KEY_Page_Down:
             value = vadj.get_value() + vadj.page_size
             if value > vadj.upper - vadj.page_size:
                 value = vadj.upper - vadj.page_size
             vadj.set_value(value)
-        elif event.keyval == Gdk.KEY_Page_Up:
+        elif keyval == Gdk.KEY_Page_Up:
             vadj.set_value(vadj.get_value() - vadj.page_size)
-        elif event.keyval == Gdk.KEY_Home and \
-                event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+        elif keyval == Gdk.KEY_Home and \
+                state & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.lower)
-        elif event.keyval == Gdk.KEY_End and \
-                event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+        elif keyval == Gdk.KEY_End and \
+                state & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
-    def _smiley_button_cb(self, widget, event):
+    def _smiley_button_cb(self, widget):
         self._show_smiley_window()
 
-    def _send_button_cb(self, widget, event):
+    def _send_button_cb(self, widget):
         self._entry_activate_cb(self._entry)
 
     def _entry_activate_cb(self, entry):
@@ -672,59 +785,16 @@ class Chat(activity.Activity):
         self.element.set_property('uri', 'file://%s' % SOUNDS[event])
         self.element.set_state(Gst.State.PLAYING)
 
-    def _create_smiley_window(self):
-        grid = Gtk.Grid()
-        width = int(Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE)
-
-        self._smiley_toolbar = SmileyToolbar(self)
-        height = style.GRID_CELL_SIZE
-        self._smiley_toolbar.set_size_request(width, height)
-        grid.attach(self._smiley_toolbar, 0, 0, 1, 1)
-        self._smiley_toolbar.show()
-
-        self._smiley_table = Gtk.ScrolledWindow()
-        self._smiley_table.set_policy(Gtk.PolicyType.NEVER,
-                                      Gtk.PolicyType.AUTOMATIC)
-        self._smiley_table.modify_bg(
-            Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
-        height = int(Gdk.Screen.height() - 4 * style.GRID_CELL_SIZE)
-        self._smiley_table.set_size_request(width, height)
-
-        table = self._create_smiley_table(width)
-        self._smiley_table.add_with_viewport(table)
-        table.show_all()
-
-        grid.attach(self._smiley_table, 0, 1, 1, 1)
-        self._smiley_table.show()
-
-        self._smiley_window = Gtk.ScrolledWindow()
-        self._smiley_window.set_policy(Gtk.PolicyType.NEVER,
-                                       Gtk.PolicyType.NEVER)
-        self._smiley_window.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        self._smiley_window.set_size_request(width, -1)
-
-        self._smiley_window.add_with_viewport(grid)
-
-        def _key_press_event_cb(widget, event):
-            if event.keyval == Gdk.KEY_Escape:
-                self._hide_smiley_window()
-                return True
-            return False
-        self.connect('key-press-event', _key_press_event_cb)
-
-        grid.show()
-
-        self._fixed.put(self._smiley_window, style.GRID_CELL_SIZE, 0)
 
     def _show_smiley_window(self):
         if not hasattr(self, '_smiley_window'):
             self.busy()
             self._create_smiley_window()
-        self._smiley_window.show()
+        self._main_stack.set_visible_child_name("smiley_window")
 
     def _hide_smiley_window(self):
         if hasattr(self, '_smiley_window'):
-            self._smiley_window.hide()
+            self._main_stack.set_visible_child_name("chatbox")
 
 
 class TextChannelWrapper(object):
@@ -815,7 +885,7 @@ class TextChannelWrapper(object):
                 nick = self._conn[co].RequestAliases([sender])[0]
                 buddy = {'nick': nick, 'color': '#000000,#808080'}
             else:
-                # Normal sugar3 MUC chat
+                # Normal sugar4 MUC chat
                 # XXX: cache these
                 buddy = self._get_buddy(sender)
             self._activity_cb(buddy, text)
@@ -862,10 +932,11 @@ class TextChannelWrapper(object):
             tp_name, tp_path, handle)
 
 
-class SmileyToolbar(Gtk.Toolbar):
+class SmileyToolbar(Gtk.Box):
 
     def __init__(self, activity):
-        Gtk.Toolbar.__init__(self)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
+        self.add_css_class("smiley-toolbar-grey")
 
         self._activity = activity
         self._add_separator()
@@ -875,7 +946,7 @@ class SmileyToolbar(Gtk.Toolbar):
 
         self._add_separator()
 
-        self._title = Gtk.Label(_('Insert a smiley'))
+        self._title = Gtk.Label(label=_('Insert a smiley'))
         self._add_widget(self._title)
 
         self._add_separator(True)
@@ -883,28 +954,20 @@ class SmileyToolbar(Gtk.Toolbar):
         self.cancel_button = ToolButton('dialog-cancel')
         self.cancel_button.set_tooltip(_('Cancel'))
         self.cancel_button.connect('clicked', self.__cancel_button_clicked_cb)
-        self.insert(self.cancel_button, -1)
-        self.cancel_button.show()
+        self.append(self.cancel_button)
 
     def _add_separator(self, expand=False):
-        separator = Gtk.SeparatorToolItem()
-        separator.props.draw = False
+        separator = Gtk.Box()
         if expand:
-            separator.set_expand(True)
+            separator.set_hexpand(True)
         else:
             separator.set_size_request(style.DEFAULT_SPACING, -1)
-        self.insert(separator, -1)
-        separator.show()
+        self.append(separator)
 
     def _add_widget(self, widget, expand=False):
-        tool_item = Gtk.ToolItem()
-        tool_item.set_expand(expand)
-
-        tool_item.add(widget)
-        widget.show()
-
-        self.insert(tool_item, -1)
-        tool_item.show()
+        if expand:
+            widget.set_hexpand(True)
+        self.append(widget)
 
     def __cancel_button_clicked_cb(self, widget, data=None):
         self._activity._hide_smiley_window()

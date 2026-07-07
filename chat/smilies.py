@@ -20,8 +20,8 @@
 import os
 from gettext import gettext as _
 from gi.repository import GdkPixbuf
-from sugar3.graphics import style
-from sugar3.activity.activity import get_bundle_path
+from sugar4.graphics import style
+from sugar4.activity.activity import get_bundle_path
 
 THEME = \
     [
