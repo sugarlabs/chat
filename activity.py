@@ -59,11 +59,21 @@ from sugar3.graphics import iconentry
 from chat import smilies
 from chat.box import ChatBox
 
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
 logger = logging.getLogger('chat-activity')
 
 
 Gst.init([])
 
+class BotBuddy:
+    def __init__(self, nick, color):
+        self.props = self.Props(nick, color)
+
+    class Props:
+        def __init__(self, nick, color):
+            self.nick = nick
+            self.color = color
 
 # pylint: disable-msg=W0223
 class Chat(activity.Activity):
@@ -368,6 +378,7 @@ class Chat(activity.Activity):
 
         # XXX How do we detect the sender going offline?
         self._entry.set_sensitive(True)
+        self.bot_button.set_sensitive(True)
         self.smiley_button.set_sensitive(True)
         self.send_button.set_sensitive(True)
         self._entry.props.placeholder_text = None
@@ -387,6 +398,7 @@ class Chat(activity.Activity):
         self.shared_activity.connect('buddy-left', self._buddy_left_cb)
         self._chat_is_room = True
         self._entry.set_sensitive(True)
+        self.bot_button.set_sensitive(True)
         self.smiley_button.set_sensitive(True)
         self.send_button.set_sensitive(True)
         self._entry.props.placeholder_text = None
@@ -508,19 +520,21 @@ class Chat(activity.Activity):
         return True
 
     def _make_entry_widgets(self):
-        '''We need to create a button for the smiley, a text entry, and a
+        '''We need to create a button for the chatbot, smiley, a text entry, and a
         send button.
 
         All of this, along with the chatbox, goes into a grid.
 
-        ---------------------------------------
-        | chat box                            |
-        | smiley button | entry | send button |
-        ---------------------------------------
+        --------------------------------------------------------
+        |                      chat box                        |
+        | chatbot button | smiley button | entry | send button |
+        --------------------------------------------------------
         '''
+
         self._entry_height = style.GRID_CELL_SIZE
         entry_width = Gdk.Screen.width() - \
-            2 * (self._entry_height + style.GRID_CELL_SIZE)
+            2 * self._entry_height - 3 * style.GRID_CELL_SIZE
+        
         self._chat_height = Gdk.Screen.height() - self._entry_height - \
             style.GRID_CELL_SIZE
         self._chat_width = Gdk.Screen.width()
@@ -529,13 +543,19 @@ class Chat(activity.Activity):
 
         self._entry_grid = Gtk.Grid()
         self._entry_grid.set_size_request(
-            Gdk.Screen.width() - 2 * style.GRID_CELL_SIZE,
+            Gdk.Screen.width() - 3 * style.GRID_CELL_SIZE,
             self._entry_height)
+        
+        self.bot_button = EventIcon(icon_name='bot',
+                                  pixel_size=self._entry_height)
+        self.bot_button.connect('button-press-event', self._bot_button_cb)
+        self._entry_grid.attach(self.bot_button, 0, 0, 1, 1)
+        self.bot_button.show()
 
         self.smiley_button = EventIcon(icon_name='smilies',
                                   pixel_size=self._entry_height)
         self.smiley_button.connect('button-press-event', self._smiley_button_cb)
-        self._entry_grid.attach(self.smiley_button, 0, 0, 1, 1)
+        self._entry_grid.attach(self.smiley_button, 1, 0, 1, 1)
         self.smiley_button.show()
 
         self._entry = Gtk.Entry()
@@ -545,20 +565,23 @@ class Chat(activity.Activity):
         self._entry.modify_base(Gtk.StateType.INSENSITIVE,
                                 style.COLOR_WHITE.get_gdk_color())
 
-        self._entry.props.placeholder_text = \
-            _('You must be connected to a friend before starting to chat.')
+        self._entry.props.placeholder_text = _(
+            'You must be connected to a friend before starting to chat '
+            'or click the bot icon to talk with chatbot.'
+        )
         self._entry.connect('focus-in-event', self._entry_focus_in_cb)
         self._entry.connect('focus-out-event', self._entry_focus_out_cb)
         self._entry.connect('activate', self._entry_activate_cb)
         self._entry.connect('key-press-event', self._entry_key_press_cb)
-        self._entry_grid.attach(self._entry, 1, 0, 1, 1)
+        self._entry_grid.attach(self._entry, 2, 0, 1, 1)
         self._entry.show()
 
         self.send_button = EventIcon(icon_name='send',
                                 pixel_size=self._entry_height)
         self.send_button.connect('button-press-event', self._send_button_cb)
-        self._entry_grid.attach(self.send_button, 2, 0, 1, 1)
+        self._entry_grid.attach(self.send_button, 3, 0, 1, 1)
         self.send_button.show()
+        self.bot_button.set_sensitive(True)
 
         if not self.get_shared():
             self._entry.set_sensitive(False)
@@ -605,6 +628,26 @@ class Chat(activity.Activity):
                 event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             vadj.set_value(vadj.upper - vadj.page_size)
 
+    def _bot_button_cb(self, widget, event):
+        """Callback function for the chatbot button. Toggle '@bot ' at the start of the entry."""
+        
+        if not self.get_shared():
+            self._entry.set_sensitive(True)
+            self.smiley_button.set_sensitive(True)
+            self.send_button.set_sensitive(True)
+
+        current_text = self._entry.get_text()
+        bot_prefix = "@bot "
+        
+        if current_text.startswith(bot_prefix):
+            # Remove the '@bot ' prefix
+            new_text = current_text[len(bot_prefix):]
+        else:
+            # Add the '@bot ' prefix
+            new_text = f"{bot_prefix}{current_text}"
+        
+        self._entry.set_text(new_text)
+
     def _smiley_button_cb(self, widget, event):
         self._show_smiley_window()
 
@@ -619,12 +662,44 @@ class Chat(activity.Activity):
             logger.debug('Adding text to chatbox: %s: %s' % (self.owner, text))
             self.chatbox.add_text(self.owner, text)
             entry.props.text = ''
+            if '@bot' in text:
+                self._check_for_bot_mention(text)
             if self.text_channel:
                 logger.debug('sending to text_channel: %s' % (text))
                 self.text_channel.send(text)
             else:
                 logger.debug('Tried to send message but text channel '
                              'not connected.')
+                
+    def _check_for_bot_mention(self, text):
+        logger.debug('Mention of bot detected: %s' % text)
+        buddy = BotBuddy(nick='Chatbot', color='#123456,#654321')
+        self.chatbox.add_text(buddy, 'Received')
+
+        # for model inference
+        # response = self._generate_bot_response(text)
+        # print("Response:", response)
+        # self.chatbox.add_text(buddy, response)
+
+
+    def _generate_bot_response(self, question):
+        tokenizer = GPT2Tokenizer.from_pretrained("distilgpt2")
+        model = GPT2LMHeadModel.from_pretrained("distilgpt2")
+
+        prompt = '''
+        Your task is to answer children's questions using simple language.
+        Explain any difficult words in a way a 3-year-old can understand.
+        Keep responses under 60 words.
+        \n\nQuestion:
+        '''
+
+        input_text = prompt + question
+
+        inputs = tokenizer.encode(input_text, return_tensors='pt')
+        outputs = model.generate(inputs, max_length=150, num_return_sequences=1)
+        answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+        return answer
 
     def write_file(self, file_path):
         '''Store chat log in Journal.
