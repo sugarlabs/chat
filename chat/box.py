@@ -84,7 +84,7 @@ class TextBox(Gtk.TextView):
 
     def __init__(self, parent,
                  name_color, text_color, bg_color, highlight_color,
-                 lang_rtl, nick_name=None, text=None):
+                 lang_rtl, text=None):
         Gtk.TextView.__init__(self)
         self._parent = parent
         self._buffer = Gtk.TextBuffer()
@@ -104,10 +104,7 @@ class TextBox(Gtk.TextView):
             'pattern-hilite', background=style.Color('#D80A0A').get_html())
         self._pattern_tag_select = self._buffer.create_tag(
             'pattern-select', background=style.Color('#09C3F7').get_html())
-        if nick_name:
-            self._add_name(nick_name)
-            self.add_text(text, newline=False)
-        elif text:
+        if text:
             self.add_text(text)
 
         self.resize_box()
@@ -671,6 +668,15 @@ class ChatBox(Gtk.ScrolledWindow):
             message = self._last_msg
             message.add_text(text)
         else:
+            if not (status_message or me_message):
+                sender_label = Gtk.Label(label=nick)
+                sender_label.set_halign(Gtk.Align.START)
+                sender_label.get_style_context().add_class('chat-sender-name')
+                sender_label.set_margin_left(20)
+                self._conversation.attach(sender_label, 0, self._row_counter, 1, 1)
+                self._row_counter += 1
+                sender_label.show()
+
             rb = RoundBox()
             rb.background_color = color_fill
             rb.border_color = color_stroke
@@ -692,7 +698,7 @@ class ChatBox(Gtk.ScrolledWindow):
                 text = text[4:]
 
             message = TextBox(self, nick_color, text_color, color_fill,
-                              highlight_fill, lang_rtl, nick, text)
+                              highlight_fill, lang_rtl, text)
             self._message_list.append(message)
             message.connect('open-on-journal', self.__open_on_journal)
 
@@ -743,7 +749,7 @@ class ChatBox(Gtk.ScrolledWindow):
         message = TextBox(self,
                           style.COLOR_BUTTON_GREY, style.COLOR_BUTTON_GREY,
                           style.COLOR_WHITE, style.COLOR_BUTTON_GREY, False,
-                          None, timestamp_to_elapsed_string(timestamp_seconds))
+                          timestamp_to_elapsed_string(timestamp_seconds))
         self._message_list.append(message)
         box = Gtk.HBox()
         align = Gtk.Alignment.new(
